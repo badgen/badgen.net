@@ -1,4 +1,6 @@
-# Fast badge generating service
+# Badgen
+
+Fast badge generating service.
 
 ## Usage
 
