@@ -77,7 +77,19 @@ router.get('/list/:subject/:status/:color', serveListBadge)
 router.get('/', serveMarkdown('README.md'))
 router.get('/clean-cache', cleanCache)
 router.get('/list-cache', listCache)
+router.all('/*', (req, res) => {
+  res.statusCode = 404
+  res.end()
+})
 
-const handler = cors((req, res) => router.lookup(req, res))
+const handler = cors((req, res) => {
+  try {
+    router.lookup(req, res)
+  } catch (ex) {
+    console.error(ex)
+    res.statusCode = 500
+    res.end()
+  }
+})
 const server = http.createServer(handler)
 server.listen(3000)
