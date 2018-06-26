@@ -9,7 +9,10 @@ const LRU = require('lru-cache')
 const cache = new LRU({ max: 1000 })
 
 function serveBadge (req, res, params) {
-  res.writeHead(200, { 'Content-Type': 'image/svg+xml;charset=utf-8' })
+  res.writeHead(200, {
+    'Content-Type': 'image/svg+xml;charset=utf-8',
+    'Cache-Control': 'public, max-age=60'
+  })
 
   const cached = cache.get(req.url)
   if (cached) {
