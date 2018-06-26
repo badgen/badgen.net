@@ -1,4 +1,4 @@
-# Fast badge generating service.
+# Fast badge generating service
 
 ## Usage
 

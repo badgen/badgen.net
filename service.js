@@ -25,7 +25,7 @@ function serveListBadge (req, res, params) {
 }
 
 function redirect (req, res) {
-  res.writeHead(302, { 'Location': 'https://amio.github.io/badgen' })
+  res.writeHead(302, { 'Location': 'https://badgen.github.io/service' })
   res.end()
 }
 
