@@ -26,11 +26,6 @@ function serveListBadge (req, res, params) {
   serveBadge(req, res, { subject, status: status.replace(/,/g, ' | '), color })
 }
 
-function redirect (req, res) {
-  res.writeHead(302, { 'Location': 'https://badgen.github.io/service' })
-  res.end()
-}
-
 function cleanCache (req, res) {
   const count = cache.length
   const keys = cache.keys().join('\n')
@@ -48,7 +43,7 @@ function serveMarkdown (file) {
       title: 'Badgen - fast badge generator',
       linkCSS: 'https://unpkg.com/github-markdown-css',
       inlineCSS: `
-        body { width: 800px; margin: 0 auto; font: 16px/1.8em Merriweather, sans-serif }
+        body { width: 760px; margin: 0 auto; font: 16px/1.8em Merriweather, sans-serif }
         h1, h2, h3, h4, h5 { margin: 1.5em 0 }
         h1 { font-size: 3rem }
         thead { display: none }
