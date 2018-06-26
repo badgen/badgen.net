@@ -1,0 +1,8 @@
+{
+  "alias": "badgen",
+  "public": true,
+  "files": [
+    "README.md",
+    "service.js"
+  ]
+}

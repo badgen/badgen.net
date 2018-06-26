@@ -1,0 +1,22 @@
+{
+  "name": "badgen-service",
+  "private": true,
+  "description": "Badge generating service",
+  "author": "Amio <amio.cn@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "lint": "standard",
+    "start": "node service.js",
+    "predeploy": "now rm badgen --safe -y -T badgen",
+    "deploy": "now -T badgen --public && now -T badgen alias"
+  },
+  "dependencies": {
+    "@amio/micro-cors": "^0.2.0",
+    "badgen": "^0.2.0",
+    "find-my-way": "^1.14.0",
+    "lru-cache": "^4.1.3"
+  },
+  "devDependencies": {
+    "standard": "^11.0.1"
+  }
+}
