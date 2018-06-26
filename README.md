@@ -29,7 +29,7 @@ Available color names:
 
 | Preview | URL |
 | --- | --- |
-|![](https://badgen.now.sh/badge/chat/on%20gitter/blue) | https://badgen.now.sh/badge/chat/on%20gitter/blue |
+|![](https://badgen.now.sh/badge/chat/gitter/purple) | https://badgen.now.sh/badge/chat/gitter/purple |
 |![](https://badgen.now.sh/badge/style/standard/f2a) | https://badgen.now.sh/badge/style/standard/f2a |
 |![](https://badgen.now.sh/badge/stars/★★★★☆) | https://badgen.now.sh/badge/stars/★★★★☆ |
 |![](https://badgen.now.sh/badge/license/Apache-2.0/blue) | https://badgen.now.sh/badge/license/Apache-2.0/blue |
