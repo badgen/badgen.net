@@ -2,13 +2,17 @@
 
 ## Usage
 
-`https://badgen.now.sh/badge/:subject/:status/:color`
+```
+https://badgen.now.sh/badge/:subject/:status/:color
+                      ──┬──  ───┬───  ───┬──  ──┬──
+                        │       │        │      └ RGB / Color Name
+                        │      TEXT     TEXT
+                        │
+                      badge - Default badge generator
+                       list - Auto replace ',' with ' | ' in {status}
+```
 
-- `subject` Text
-- `status` Text
-- `color` Color RGB (default '3C1') or Color Preset (`green`, `yellow`, ...see below)
-
-Color Presets:
+Available color names:
 
 ![](https://badgen.now.sh/badge/color/green/green)
 ![](https://badgen.now.sh/badge/color/yellow/yellow)
@@ -34,6 +38,7 @@ Color Presets:
 
 ISC @ Amio
 
+[github-link]: https://github.com/badgen/service
 [npm-badge]: https://img.shields.io/npm/v/badgen.svg
 [npm-link]: https://www.npmjs.com/package/badgen
 [pp-badge]: https://packagephobia.now.sh/badge?p=badgen
