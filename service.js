@@ -9,19 +9,15 @@ const LRU = require('lru-cache')
 const cache = new LRU({ max: 1000 })
 
 function serveBadge (req, res, params) {
+  const result = cache.get(req.url) || badgen(params)
   res.writeHead(200, {
     'Content-Type': 'image/svg+xml;charset=utf-8',
-    'Cache-Control': 'public, max-age=60'
+    'Cache-Control': 'public, max-age=360'
   })
+  res.end(result)
 
-  const cached = cache.get(req.url)
-  if (cached) {
-    res.end(cached)
-  } else {
-    const created = badgen(params)
-    cache.set(req.url, created)
-    res.end(created)
-  }
+  // Cache if not
+  cache.has(req.url) || cache.set(req.url, result)
 }
 
 function serveListBadge (req, res, params) {
