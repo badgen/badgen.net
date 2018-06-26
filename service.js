@@ -47,8 +47,9 @@ function serveMarkdown (file) {
       linkCSS: 'https://unpkg.com/github-markdown-css',
       inlineCSS: `
         body { width: 760px; margin: 0 auto; font: 16px/1.8em Merriweather, sans-serif }
-        h1, h2, h3, h4, h5 { margin: 1.5em 0 }
-        h1 { font-size: 3rem }
+        h1, h2, h3, h4, h5 { margin: 1.8em 0 }
+        h1 { font-size: 3rem; text-align: center; margin-bottom: 1em }
+        h1 + p { text-align: center; color: #AAA }
         thead { display: none }
         td { line-height: 18px }
         td a { position: relative; top: -2px; left: 12px }
