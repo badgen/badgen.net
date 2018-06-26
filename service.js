@@ -47,7 +47,7 @@ function serveMarkdown (file) {
       title: 'Badgen - fast badge generator',
       linkCSS: 'https://unpkg.com/github-markdown-css',
       inlineCSS: `
-        body { width: 760px; margin: 0 auto; font: 16px/1.8em Merriweather, sans-serif }
+        body { max-width: 760px; padding: 0 1rem; margin: 0 auto; font: 16px Merriweather, sans-serif }
         h1, h2, h3, h4, h5 { margin: 1.5em 0 }
         h1 { font-size: 3rem }
         thead { display: none }
