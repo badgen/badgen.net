@@ -29,11 +29,21 @@ function redirect (req, res) {
   res.end()
 }
 
+function cleanCache (req, res) {
+  const count = cache.length
+  const keys = cache.keys().join('\n')
+  cache.reset()
+
+  res.writeHead(200)
+  res.end(`Cleaned ${count}\n${keys}`)
+}
+
 router.get('/badge/:subject/:status', serveBadge)
 router.get('/badge/:subject/:status/:color', serveBadge)
 router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
 router.get('/', redirect)
+router.get('/clean-cache', cleanCache)
 
 const handler = cors((req, res) => router.lookup(req, res))
 const server = http.createServer(handler)
