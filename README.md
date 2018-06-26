@@ -38,4 +38,4 @@ Available color names:
 
 ## License
 
-ISC @ Amio https://github.com/badgen/service
+ISC @ Amio https://github.com/amio/badgen-service
