@@ -1,3 +1,5 @@
+const fs = require('fs')
+const r2 = require('r2')
 const http = require('http')
 const cors = require('@amio/micro-cors')()
 const router = require('find-my-way')()
@@ -38,11 +40,27 @@ function cleanCache (req, res) {
   res.end(`Cleaned ${count}\n${keys}`)
 }
 
+function serveMarkdown (file) {
+  let content = fs.readFileSync(file, 'utf-8')
+  r2.post('https://md.now.sh', {
+    json: {
+      text: content,
+      title: 'Badgen - fast badge generator',
+      linkCSS: 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css'
+    }
+  }).text.then(html => (content = html))
+
+  return (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+    res.end(content)
+  }
+}
+
 router.get('/badge/:subject/:status', serveBadge)
 router.get('/badge/:subject/:status/:color', serveBadge)
 router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
-router.get('/', redirect)
+router.get('/', serveMarkdown('README.md'))
 router.get('/clean-cache', cleanCache)
 
 const handler = cors((req, res) => router.lookup(req, res))
