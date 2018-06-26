@@ -34,6 +34,11 @@ function cleanCache (req, res) {
   res.end(`Cleaned ${count}\n${keys}`)
 }
 
+function listCache (req, res) {
+  res.writeHead(200)
+  res.end(`Total ${cache.length}\n${cache.keys().join('\n')}`)
+}
+
 function serveMarkdown (file) {
   let content = fs.readFileSync(file, 'utf-8')
   r2.post('https://md.now.sh', {
@@ -71,6 +76,7 @@ router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
 router.get('/', serveMarkdown('README.md'))
 router.get('/clean-cache', cleanCache)
+router.get('/list-cache', listCache)
 
 const handler = cors((req, res) => router.lookup(req, res))
 const server = http.createServer(handler)
