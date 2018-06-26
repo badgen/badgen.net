@@ -1,5 +1,5 @@
-// const fs = require('fs')
-// const r2 = require('r2')
+const fs = require('fs')
+const r2 = require('r2')
 const http = require('http')
 const cors = require('@amio/micro-cors')()
 const router = require('find-my-way')()
@@ -40,26 +40,42 @@ function cleanCache (req, res) {
   res.end(`Cleaned ${count}\n${keys}`)
 }
 
-// function serveMarkdown (file) {
-//   let content = fs.readFileSync(file, 'utf-8')
-//   r2.post('https://md.now.sh', {
-//     json: {
-//       text: content,
-//       title: 'Badgen - fast badge generator'
-//     }
-//   }).text.then(html => (content = html))
+function serveMarkdown (file) {
+  let content = fs.readFileSync(file, 'utf-8')
+  r2.post('https://md.now.sh', {
+    json: {
+      text: content,
+      title: 'Badgen - fast badge generator',
+      linkCSS: 'https://unpkg.com/github-markdown-css',
+      inlineCSS: `
+        body { width: 800px; margin: 0 auto; font: 16px/1.8em Merriweather, sans-serif }
+        h1, h2, h3, h4, h5 { margin: 1.5em 0 }
+        h1 { font-size: 3rem }
+        thead { display: none }
+        td { line-height: 18px }
+        td a { position: relative; top: -2px; left: 12px }
+        pre {
+          padding: 16px;
+          overflow: auto;
+          font-size: 85%;
+          line-height: 1.45;
+          background-color: #f6f8fa;
+          border-radius: 3px; }
+      `
+    }
+  }).text.then(html => (content = html))
 
-//   return (req, res) => {
-//     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
-//     res.end(content)
-//   }
-// }
+  return (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+    res.end(content)
+  }
+}
 
 router.get('/badge/:subject/:status', serveBadge)
 router.get('/badge/:subject/:status/:color', serveBadge)
 router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
-router.get('/', redirect)
+router.get('/', serveMarkdown('README.md'))
 router.get('/clean-cache', cleanCache)
 
 const handler = cors((req, res) => router.lookup(req, res))

@@ -38,10 +38,4 @@ Available color names:
 
 ## License
 
-ISC @ Amio
-
-[github-link]: https://github.com/badgen/service
-[npm-badge]: https://img.shields.io/npm/v/badgen.svg
-[npm-link]: https://www.npmjs.com/package/badgen
-[pp-badge]: https://packagephobia.now.sh/badge?p=badgen
-[pp-link]: https://packagephobia.now.sh/result?p=badgen
+ISC @ Amio https://github.com/badgen/service
