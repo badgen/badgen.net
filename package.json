@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "standard",
     "start": "node service.js",
-    "predeploy": "now rm badgen --safe -y -T badgen",
+    "predeploy": "now rm badgen-service --safe -y -T badgen",
     "deploy": "now -T badgen --public && now -T badgen alias"
   },
   "dependencies": {
