@@ -9,19 +9,15 @@ const LRU = require('lru-cache')
 const cache = new LRU({ max: 1000 })
 
 function serveBadge (req, res, params) {
+  const result = cache.get(req.url) || badgen(params)
   res.writeHead(200, {
     'Content-Type': 'image/svg+xml;charset=utf-8',
-    'Cache-Control': 'public, max-age=60'
+    'Cache-Control': 'public, max-age=360'
   })
+  res.end(result)
 
-  const cached = cache.get(req.url)
-  if (cached) {
-    res.end(cached)
-  } else {
-    const created = badgen(params)
-    cache.set(req.url, created)
-    res.end(created)
-  }
+  // Cache if not
+  cache.has(req.url) || cache.set(req.url, result)
 }
 
 function serveListBadge (req, res, params) {
@@ -38,6 +34,11 @@ function cleanCache (req, res) {
   res.end(`Cleaned ${count}\n${keys}`)
 }
 
+function listCache (req, res) {
+  res.writeHead(200)
+  res.end(`Total ${cache.length}\n${cache.keys().join('\n')}`)
+}
+
 function serveMarkdown (file) {
   let content = fs.readFileSync(file, 'utf-8')
   r2.post('https://md.now.sh', {
@@ -46,9 +47,9 @@ function serveMarkdown (file) {
       title: 'Badgen - fast badge generator',
       linkCSS: 'https://unpkg.com/github-markdown-css',
       inlineCSS: `
-        body { width: 760px; margin: 0 auto; font: 16px/1.8em Merriweather, sans-serif }
-        h1, h2, h3, h4, h5 { margin: 1.8em 0 }
-        h1 { font-size: 3rem; text-align: center; margin-bottom: 1em }
+        body { max-width: 760px; padding: 0 1rem; margin: 0 auto; font: 16px Merriweather, sans-serif }
+        h1, h2, h3, h4, h5 { margin: 1.6em 0 }
+        h1 { font-size: 3rem; text-align: center; margin-bottom: 0.6em }
         h1 + p { text-align: center; color: #AAA }
         thead { display: none }
         td { line-height: 18px }
@@ -76,7 +77,20 @@ router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
 router.get('/', serveMarkdown('README.md'))
 router.get('/clean-cache', cleanCache)
+router.get('/list-cache', listCache)
+router.all('/*', (req, res) => {
+  res.statusCode = 404
+  res.end()
+})
 
-const handler = cors((req, res) => router.lookup(req, res))
+const handler = cors((req, res) => {
+  try {
+    router.lookup(req, res)
+  } catch (ex) {
+    console.error(ex)
+    res.statusCode = 500
+    res.end()
+  }
+})
 const server = http.createServer(handler)
 server.listen(3000)

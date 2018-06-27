@@ -6,9 +6,9 @@ Fast badge generating service.
 
 ```
 https://badgen.now.sh/badge/:subject/:status/:color
-                      ──┬──  ───┬───  ───┬──  ──┬──
-                        │       │        │      └ RGB / Color Name
-                        │      TEXT     TEXT
+                      ──┬──  ───┬───  ──┬───  ──┬──
+                        │       │       │       └ RGB / Color Name
+                        │      TEXT    TEXT       ( optional )
                         │
                       badge - Default badge generator
                        list - Auto replace ',' with ' | ' in {status}
