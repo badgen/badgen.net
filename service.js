@@ -1,10 +1,9 @@
-const fs = require('fs')
-const r2 = require('r2')
 const http = require('http')
 const cors = require('@amio/micro-cors')()
 const router = require('find-my-way')()
 const badgen = require('badgen')
 const LRU = require('lru-cache')
+const serveMarked = require('serve-marked')
 
 const cache = new LRU({ max: 1000 })
 
@@ -39,43 +38,20 @@ function listCache (req, res) {
   res.end(`Total ${cache.length}\n${cache.keys().join('\n')}`)
 }
 
-function serveMarkdown (file) {
-  let content = fs.readFileSync(file, 'utf-8')
-  r2.post('https://md.now.sh', {
-    json: {
-      text: content,
-      title: 'Badgen - fast badge generator',
-      linkCSS: 'https://unpkg.com/github-markdown-css',
-      inlineCSS: `
-        body { max-width: 760px; padding: 0 1rem; margin: 0 auto; font: 16px Merriweather, sans-serif }
-        h1, h2, h3, h4, h5 { margin: 1.5em 0 }
-        h1 { font-size: 3rem; text-align: center; margin-bottom: 0.4em }
-        h1 + p { text-align: center; color: #AAA }
-        thead { display: none }
-        td { line-height: 18px }
-        td a { font: 14px monospace; vertical-align: top; margin-left: 1em }
-        pre {
-          padding: 16px;
-          overflow: auto;
-          font-size: 85%;
-          line-height: 1.45;
-          background-color: #f6f8fa;
-          border-radius: 3px; }
-      `
-    }
-  }).text.then(html => (content = html))
-
-  return (req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
-    res.end(content)
-  }
-}
+const serveIndex = serveMarked('README.md', {
+  title: 'Badgen - Fast badge generating service',
+  preset: 'merri',
+  inlineCSS: `
+    td a { font: 14px monospace; vertical-align: top; margin-left: 1em }
+  `,
+  googleAnalyticsID: 'UA-4646421-14'
+})
 
 router.get('/badge/:subject/:status', serveBadge)
 router.get('/badge/:subject/:status/:color', serveBadge)
 router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
-router.get('/', serveMarkdown('README.md'))
+router.get('/', serveIndex)
 router.get('/clean-cache', cleanCache)
 router.get('/list-cache', listCache)
 router.all('/*', (req, res) => {
