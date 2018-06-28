@@ -37,4 +37,8 @@ Available color names:
 
 ## License
 
-ISC @ Amio https://github.com/amio/badgen-service
+ISC @ Amio
+<span style="float:right; color: #AAA">
+  <a href="https://github.com/amio/badgen-service">badgen-service</a> |
+  <a href="https://github.com/amio/badgen">badgen</a>
+</span>
