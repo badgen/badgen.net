@@ -23,6 +23,7 @@ Available color names:
 ![](https://badgen.now.sh/badge/color/pink/pink)
 ![](https://badgen.now.sh/badge/color/purple/purple)
 ![](https://badgen.now.sh/badge/color/blue/blue)
+![](https://badgen.now.sh/badge/color/cyan/cyan)
 ![](https://badgen.now.sh/badge/color/grey/grey)
 
 ## Examples

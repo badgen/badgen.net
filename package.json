@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@amio/micro-cors": "^0.2.0",
-    "badgen": "^0.2.2",
+    "badgen": "^0.3.0",
     "find-my-way": "^1.14.1",
     "lru-cache": "^4.1.3",
     "r2": "^2.0.1",
