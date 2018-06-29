@@ -3,6 +3,7 @@
   "public": true,
   "files": [
     "README.md",
-    "service.js"
+    "service.js",
+    "libs"
   ]
 }
