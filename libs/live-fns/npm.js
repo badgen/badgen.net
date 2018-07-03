@@ -1,6 +1,6 @@
 const r2 = require('r2')
 
-module.exports = async function (args) {
+module.exports = async function (...args) {
   const version = await fetchVersion(args.join('%2F'), args[0][0] === '@')
 
   return {
@@ -18,6 +18,7 @@ async function fetchVersion (pkg, scoped) {
     const fullMeta = (await r2(endpoint).json)
     return fullMeta.versions[fullMeta['dist-tags']['latest']].version
   } else {
+    // a smaller response for just latest version
     const endpointLatest = `https://registry.npmjs.org/${pkg}/latest`
     return (await r2(endpointLatest).json).version
   }
