@@ -11,7 +11,7 @@ module.exports = function (router) {
       } = await fetchLiveParams(key, params['*'], fn)
 
       res.writeHead(302, {
-        Location: `https://badgen.now.sh/badge/${subject}/${status}/${color}`
+        Location: `/badge/${subject}/${status}/${color}`
       })
       res.end()
     })
