@@ -1,5 +1,5 @@
 const badgen = require('badgen')
-const { cache } = require('./lru-cache.js')
+const { cache } = require('./lru-cache-static.js')
 
 function serveBadge (req, res, params) {
   const result = cache.get(req.url) || badgen(params)

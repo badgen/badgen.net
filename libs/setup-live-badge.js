@@ -1,11 +1,5 @@
-const LRU = require('lru-cache')
 const liveFns = require('./live-fns/index.js')
-
-const cache = LRU({
-  max: 5000,
-  maxAge: 3e4,
-  stale: true
-})
+const { cache, listCache, clearCache } = require('./lru-cache-live.js')
 
 module.exports = function (router) {
   Object.entries(liveFns).forEach(([key, fn]) => {
@@ -23,19 +17,8 @@ module.exports = function (router) {
     })
   })
 
-  router.get('/list-cache-live', (req, res) => {
-    res.writeHead(200)
-    res.end(`Total ${cache.length}\n${cache.keys().join('\n')}`)
-  })
-
-  router.get('/clear-cache-live', (req, res) => {
-    const count = cache.length
-    const keys = cache.keys().join('\n')
-    cache.reset()
-
-    res.writeHead(200)
-    res.end(`Cleaned ${count}\n${keys}`)
-  })
+  router.get('/list-cache-live', listCache)
+  router.get('/clear-cache-live', clearCache)
 }
 
 async function fetchLiveParams (key, paramsPath, fn) {
