@@ -5,5 +5,8 @@
     "README.md",
     "service.js",
     "libs"
-  ]
+  ],
+  "engines": {
+    "node": "^10.0.0"
+  }
 }
