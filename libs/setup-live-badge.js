@@ -2,13 +2,13 @@ const liveFns = require('./live-fns/index.js')
 const { cache, listCache, clearCache } = require('./lru-cache-live.js')
 
 module.exports = function (router) {
-  Object.entries(liveFns).forEach(([key, fn]) => {
-    router.get(`/${key}/*`, async (req, res, params) => {
+  Object.entries(liveFns).forEach(([name, fn]) => {
+    router.get(`/${name}/*`, async (req, res, params) => {
       const {
-        subject = key,
+        subject = name,
         status = 'unknown',
         color = 'grey'
-      } = await fetchLiveParams(key, params['*'], fn)
+      } = await fetchLiveParams(name, fn, params['*'])
 
       res.writeHead(302, {
         Location: `/badge/${subject}/${status}/${color}`
@@ -21,23 +21,23 @@ module.exports = function (router) {
   router.get('/clear-cache-live', clearCache)
 }
 
-async function fetchLiveParams (key, paramsPath, fn) {
+async function fetchLiveParams (scope, fn, paramsPath) {
   const cached = cache.get(paramsPath)
   if (cached) {
     return cached
   } else {
-    const logStamp = `$${key} ${paramsPath}`
-    console.time(logStamp)
+    const cacheKey = `#${scope} ${paramsPath}`
+    console.time(cacheKey)
     return timeout(fn(...paramsPath.split('/')), 30000)
       .then(fetched => {
         // Update cache if deleted (after got stale)
-        cache.has(paramsPath) || cache.set(paramsPath, fetched)
+        cache.has(paramsPath) || cache.set(cacheKey, fetched)
         return fetched
       }, e => {
         console.error(e)
         return {}
       }).then(result => {
-        console.timeEnd(logStamp)
+        console.timeEnd(cacheKey)
         return result
       })
   }
