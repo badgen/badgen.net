@@ -5,9 +5,11 @@ module.exports = serveMarked('README.md', {
   preset: 'merri',
   inlineCSS: `
     body { color: #333 }
-    a { text-decoration: none }
+    a { text-decoration: none; color: #06D }
     a:hover { text-decoration: underline }
-    td a { font: 14px monospace; vertical-align: top; margin-left: 1em }
+    table { border-spacing: 0 }
+    td { padding: 2px 1em 0 0; font: 14px/14px sans-serif }
+    td a { font: 14px/14px monospace; vertical-align: top }
   `,
   googleAnalyticsID: 'UA-4646421-14'
 })

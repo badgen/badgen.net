@@ -28,6 +28,8 @@ Available color names:
 
 ## Examples
 
+**Static Badge**
+
 | Preview | URL |
 | --- | --- |
 |![](https://badgen.now.sh/badge/chat/gitter/purple) | https://badgen.now.sh/badge/chat/gitter/purple |
