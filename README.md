@@ -48,10 +48,11 @@ Available color names:
 | npm downloads | ![](https://badgen.now.sh/npm/dm/express) | https://badgen.now.sh/npm/dm/express |
 | travis | ![](https://badgen.now.sh/travis/amio/micro-cors) | https://badgen.now.sh/travis/amio/micro-cors |
 | circleci | ![](https://badgen.now.sh/circleci/github/amio/now-go) | https://badgen.now.sh/circleci/github/amio/now-go |
+| appveyor | ![](https://badgen.now.sh/appveyor/github/gruntjs/grunt) | https://badgen.now.sh/circleci/github/gruntjs/grunt |
 
-## License
+## About
 
-ISC @ Amio
+Made with ❤️ by [Amio](https://github.com/amio)
 <span style="float:right; color: #AAA">
   <a href="https://github.com/amio/badgen-service">badgen-service</a> |
   <a href="https://github.com/amio/badgen">badgen</a>
