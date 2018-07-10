@@ -1,4 +1,4 @@
-const liveFns = require('./live-fns/index.js')
+const liveFns = require('./live-fns/_index.js')
 const { cache, listCache, clearCache } = require('./lru-cache-live.js')
 
 module.exports = function (router) {
