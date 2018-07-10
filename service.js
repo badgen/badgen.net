@@ -4,17 +4,18 @@ const setupStaticBadge = require('./libs/setup-static-badge.js')
 const setupLiveBadge = require('./libs/setup-live-badge.js')
 const setupRedirectBadge = require('./libs/setup-redirect-badge.js')
 const serveIndex = require('./libs/serve-index.js')
+const { serveBadge } = require('./libs/serve-badge.js')
 
 setupStaticBadge(router)
 setupLiveBadge(router)
 setupRedirectBadge(router)
 
 router.get('/', serveIndex)
-
-router.all('/*', (req, res) => {
-  res.statusCode = 404
-  res.end()
-})
+router.all('/*', (req, res) => serveBadge(req, res, {
+  subject: 'badgen',
+  status: '404',
+  color: 'red'
+}))
 
 const rootHandler = (req, res) => {
   try {
