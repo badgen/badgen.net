@@ -20,31 +20,6 @@ module.exports = async function (method, ...args) {
   }
 }
 
-// npm version
-async function v (args) {
-  const version = await fetchVersion(args.join('%2F'), args[0][0] === '@')
-
-  return {
-    subject: 'npm',
-    status: `v${version}`,
-    color: version.split('.')[0] === '0' ? 'orange' : 'blue'
-  }
-}
-
-async function fetchVersion (pkg, scoped) {
-  // Due to an bug of npm registry api, scoped package need to be handled
-  // separately: https://github.com/npm/registry/issues/34
-  if (scoped) {
-    const endpoint = `https://registry.npmjs.org/${pkg}`
-    const fullMeta = (await r2(endpoint).json)
-    return fullMeta.versions[fullMeta['dist-tags']['latest']].version
-  } else {
-    // a smaller response for just latest version
-    const endpointLatest = `https://registry.npmjs.org/${pkg}/latest`
-    return (await r2(endpointLatest).json).version
-  }
-}
-
 // npm download
 async function d (period, args) {
   const endpoint = `https://api.npmjs.org/downloads/point/${period}/${args.join('/')}`
@@ -54,4 +29,30 @@ async function d (period, args) {
     status: millify(counts.downloads) + period.replace('last-', '%2F'),
     color: 'green'
   }
+}
+
+// npm version
+async function v (args) {
+  const version = await fetchLatestVersion(args)
+
+  return {
+    subject: 'npm',
+    status: `v${version}`,
+    color: version.split('.')[0] === '0' ? 'orange' : 'blue'
+  }
+}
+
+async function fetchLatestVersion (args) {
+  const scoped = args.length === 2 && args[0][0] === '@'
+  let endpoint
+  // Due to an bug of npm registry api, scoped package need to be handled
+  // separately: https://github.com/npm/registry/issues/34
+  // A workaround is using version range("*" for "latest") by Andrew Goode:
+  // https://github.com/npm/registry/issues/34#issuecomment-228349870
+  if (scoped) {
+    endpoint = `https://registry.npmjs.org/${args.join('%2F')}/*`
+  } else {
+    endpoint = `https://registry.npmjs.org/${args}/latest`
+  }
+  return (await r2(endpoint).json).version
 }
