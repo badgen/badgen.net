@@ -28,7 +28,7 @@ Available color names:
 
 ## Examples
 
-**Static Badge**
+#### Static Badge
 
 | Preview | URL |
 | --- | --- |
@@ -38,7 +38,7 @@ Available color names:
 |![](https://badgen.now.sh/badge/license/Apache-2.0/blue) | https://badgen.now.sh/badge/license/Apache-2.0/blue |
 |![](https://badgen.now.sh/list/platform/ios,macos,tvos/grey) | https://badgen.now.sh/list/platform/ios,macos,tvos/grey |
 
-**Live Badge**
+#### Live Badge
 
 | Keyword | Preview | URL |
 | --- | --- | --- |
