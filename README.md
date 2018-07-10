@@ -36,6 +36,15 @@ Available color names:
 |![](https://badgen.now.sh/badge/license/Apache-2.0/blue) | https://badgen.now.sh/badge/license/Apache-2.0/blue |
 |![](https://badgen.now.sh/list/platform/ios,macos,tvos/grey) | https://badgen.now.sh/list/platform/ios,macos,tvos/grey |
 
+**Live Badge**
+
+| Keyword | Preview | URL |
+| --- | --- | --- |
+| npm version | ![](https://badgen.now.sh/npm/v/express) | https://badgen.now.sh/npm/v/express |
+| npm downloads | ![](https://badgen.now.sh/npm/dd/express) | https://badgen.now.sh/npm/dd/express |
+| npm downloads | ![](https://badgen.now.sh/npm/dw/express) | https://badgen.now.sh/npm/dw/express |
+| npm downloads | ![](https://badgen.now.sh/npm/dm/express) | https://badgen.now.sh/npm/dm/express |
+
 ## License
 
 ISC @ Amio
