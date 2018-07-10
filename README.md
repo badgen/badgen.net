@@ -46,6 +46,8 @@ Available color names:
 | npm downloads | ![](https://badgen.now.sh/npm/dd/express) | https://badgen.now.sh/npm/dd/express |
 | npm downloads | ![](https://badgen.now.sh/npm/dw/express) | https://badgen.now.sh/npm/dw/express |
 | npm downloads | ![](https://badgen.now.sh/npm/dm/express) | https://badgen.now.sh/npm/dm/express |
+| travis | ![](https://badgen.now.sh/travis/amio/micro-cors) | https://badgen.now.sh/travis/amio/micro-cors |
+| circleci | ![](https://badgen.now.sh/circleci/github/amio/now-go) | https://badgen.now.sh/circleci/github/amio/now-go |
 
 ## License
 
