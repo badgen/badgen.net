@@ -1,6 +1,19 @@
 const r2 = require('r2')
 
-module.exports = async function (...args) {
+module.exports = async function (method, ...args) {
+  switch (method) {
+    case 'v':
+      return v(args)
+    default:
+      return {
+        subject: 'npm',
+        status: 'unknown',
+        color: 'grey'
+      }
+  }
+}
+
+async function v (args) {
   const version = await fetchVersion(args.join('%2F'), args[0][0] === '@')
 
   return {
