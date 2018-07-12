@@ -1,16 +1,11 @@
 const badgen = require('badgen')
-const { cache } = require('./lru-cache-static.js')
 
 function serveBadge (req, res, params) {
-  const result = cache.get(req.url) || badgen(params)
   res.writeHead(200, {
     'Content-Type': 'image/svg+xml;charset=utf-8',
-    'Cache-Control': 'public, max-age=360'
+    'Cache-Control': 'public, max-age=360, s-maxage=86400'
   })
-  res.end(result)
-
-  // Cache if not
-  cache.has(req.url) || cache.set(req.url, result)
+  res.end(badgen(params))
 }
 
 function serveListBadge (req, res, params) {
