@@ -9,15 +9,14 @@ const { serveBadge, serveListBadge } = require('./libs/serve-badge.js')
 
 const router = fmw({ defaultRoute: serve404 })
 
-// Setup routes for serving statics
 router.get('/', serveIndex)
 router.get('/favicon.ico', serveFavicon)
+router.get('/favicon.svg', serveFavicon)
 router.get('/badge/:subject/:status', serveBadge)
 router.get('/badge/:subject/:status/:color', serveBadge)
 router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
 
-// Setup routes for serving redirects
 setupLiveBadge(router)
 setupRedirectBadge(router)
 
