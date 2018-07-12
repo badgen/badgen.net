@@ -48,6 +48,12 @@ Available color names:
 | travis | ![](https://badgen.now.sh/travis/amio/micro-cors) | https://badgen.now.sh/travis/amio/micro-cors |
 | circleci | ![](https://badgen.now.sh/circleci/github/amio/now-go) | https://badgen.now.sh/circleci/github/amio/now-go |
 | appveyor | ![](https://badgen.now.sh/appveyor/github/gruntjs/grunt) | https://badgen.now.sh/appveyor/github/gruntjs/grunt |
+| chrome extension version | ![](http://badgen.now.sh/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
+| chrome extension users | ![](http://badgen.now.sh/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
+| chrome extension price | ![](http://badgen.now.sh/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
+| chrome extension rating | ![](http://badgen.now.sh/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
+| chrome extension stars | ![](http://badgen.now.sh/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
+| chrome extension rating count | ![](http://badgen.now.sh/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
 
 ## About
 
