@@ -2,7 +2,7 @@ const LRU = require('lru-cache')
 
 const cache = LRU({
   max: 5000,
-  maxAge: 3e4,
+  maxAge: 12e4, // 2 minutes
   stale: true
 })
 
@@ -17,7 +17,7 @@ function clearCache (req, res) {
   cache.reset()
 
   res.writeHead(200)
-  res.end(`Cleaned ${count}\n${keys}`)
+  res.end(`Cleared ${count}\n${keys}`)
 }
 
 module.exports = {
