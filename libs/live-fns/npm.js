@@ -26,7 +26,7 @@ async function d (period, args) {
   const stats = await r2(endpoint).json
   return {
     subject: 'downloads',
-    status: millify(stats.downloads) + period.replace('last-', '%2F'),
+    status: millify(stats.downloads) + period.replace('last-', '/'),
     color: 'green'
   }
 }

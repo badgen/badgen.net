@@ -1,5 +1,5 @@
+const badgen = require('badgen')
 const liveFns = require('./live-fns/_index.js')
-const { cache, listCache, clearCache } = require('./lru-cache-live.js')
 
 module.exports = function (router) {
   Object.entries(liveFns).forEach(([name, fn]) => {
@@ -10,42 +10,29 @@ module.exports = function (router) {
         color = 'grey'
       } = await fetchLiveParams(name, fn, params['*'])
 
-      res.writeHead(302, {
-        Location: `/badge/${subject}/${status}/${color}`
+      res.writeHead(200, {
+        'Content-Type': 'image/svg+xml;charset=utf-8',
+        'Cache-Control': 'public, max-age=60, s-maxage=60'
       })
-      res.end()
+      res.end(badgen({subject, status, color}))
     })
   })
-
-  router.get('/list-cache-live', listCache)
-  router.get('/clear-cache-live', clearCache)
 }
 
 async function fetchLiveParams (scope, fn, paramsPath) {
-  const cached = cache.get(paramsPath)
-  if (cached) {
-    return cached
-  } else {
-    const cacheKey = `#${scope} ${paramsPath}`
-    console.time(cacheKey)
-    return timeout(fn(...paramsPath.split('/')), 30000)
-      .then(fetched => {
-        // Update cache if deleted (after got stale)
-        cache.has(paramsPath) || cache.set(cacheKey, fetched)
-        return fetched
-      }, e => {
-        console.error(e)
-        return {}
-      }).then(result => {
-        console.timeEnd(cacheKey)
-        return result
-      })
-  }
+  const params = paramsPath.split('/')
+  const logKey = `#${scope} ${paramsPath}`
+  return timeout(fn(...params), 30000, logKey)
 }
 
-function timeout (promise, period) {
-  return Promise.race([
-    new Promise((resolve, reject) => setTimeout(reject, period)),
-    promise
-  ])
+function timeout (task, period, logKey) {
+  console.time(logKey)
+  const timer = new Promise((resolve, reject) => setTimeout(reject, period))
+  return Promise.race([task, timer]).catch(e => {
+    console.error(e)
+    return {}
+  }).then(result => {
+    console.timeEnd(logKey)
+    return result
+  })
 }
