@@ -7,7 +7,7 @@ Fast badge generating service. Built with [badgen](https://github.com/amio/badge
 ```
 https://badgen.now.sh/badge/:subject/:status/:color
                       ──┬──  ───┬───  ──┬───  ──┬──
-                        │       │       │       └ RGB / Color Name
+                        │       │       │       └─ RGB / Color Name
                         │      TEXT    TEXT       ( optional )
                         │
                      "badge" - default(static) badge generator
@@ -42,9 +42,9 @@ Available color names:
 | Keyword | Preview | URL |
 | --- | --- | --- |
 | npm version | ![](https://badgen.now.sh/npm/v/express) | https://badgen.now.sh/npm/v/express |
-| npm downloads | ![](https://badgen.now.sh/npm/dd/express) | https://badgen.now.sh/npm/dd/express |
-| npm downloads | ![](https://badgen.now.sh/npm/dw/express) | https://badgen.now.sh/npm/dw/express |
-| npm downloads | ![](https://badgen.now.sh/npm/dm/express) | https://badgen.now.sh/npm/dm/express |
+| npm dl/day | ![](https://badgen.now.sh/npm/dd/express) | https://badgen.now.sh/npm/dd/express |
+| npm dl/week | ![](https://badgen.now.sh/npm/dw/express) | https://badgen.now.sh/npm/dw/express |
+| npm dl/month | ![](https://badgen.now.sh/npm/dm/express) | https://badgen.now.sh/npm/dm/express |
 | travis | ![](https://badgen.now.sh/travis/amio/micro-cors) | https://badgen.now.sh/travis/amio/micro-cors |
 | circleci | ![](https://badgen.now.sh/circleci/github/amio/now-go) | https://badgen.now.sh/circleci/github/amio/now-go |
 | appveyor | ![](https://badgen.now.sh/appveyor/github/gruntjs/grunt) | https://badgen.now.sh/appveyor/github/gruntjs/grunt |
