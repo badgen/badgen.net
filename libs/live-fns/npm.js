@@ -23,10 +23,10 @@ module.exports = async function (method, ...args) {
 // npm download
 async function d (period, args) {
   const endpoint = `https://api.npmjs.org/downloads/point/${period}/${args.join('/')}`
-  const counts = await r2(endpoint).json
+  const stats = await r2(endpoint).json
   return {
     subject: 'downloads',
-    status: millify(counts.downloads) + period.replace('last-', '%2F'),
+    status: millify(stats.downloads) + period.replace('last-', '%2F'),
     color: 'green'
   }
 }
