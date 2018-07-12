@@ -20,14 +20,11 @@ module.exports = function (router) {
 }
 
 async function fetchLiveParams (scope, fn, paramsPath) {
-  const params = paramsPath.split('/')
   const logKey = `#${scope} ${paramsPath}`
-  return timeout(fn(...params), 30000, logKey)
-}
-
-function timeout (task, period, logKey) {
   console.time(logKey)
-  const timer = new Promise((resolve, reject) => setTimeout(reject, period))
+
+  const task = fn(...paramsPath.split('/'))
+  const timer = new Promise((resolve, reject) => setTimeout(reject, 30000))
   return Promise.race([task, timer]).catch(e => {
     console.error(e)
     return {}
