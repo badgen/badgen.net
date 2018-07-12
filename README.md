@@ -10,8 +10,7 @@ https://badgen.now.sh/badge/:subject/:status/:color
                         │       │       │       └ RGB / Color Name
                         │      TEXT    TEXT       ( optional )
                         │
-                      badge - Default badge generator
-                       list - Auto replace ',' with ' | ' in {status}
+                     "badge" - default(static) badge generator
 ```
 
 Available color names:
