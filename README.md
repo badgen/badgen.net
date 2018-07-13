@@ -46,6 +46,7 @@ Available color names:
 | npm dl/week | ![](https://badgen.now.sh/npm/dw/express) | https://badgen.now.sh/npm/dw/express |
 | npm dl/month | ![](https://badgen.now.sh/npm/dm/express) | https://badgen.now.sh/npm/dm/express |
 | travis | ![](https://badgen.now.sh/travis/amio/micro-cors) | https://badgen.now.sh/travis/amio/micro-cors |
+| travis (org) | ![](https://badgen.now.sh/travis-org/styfle/packagephobia) | https://badgen.now.sh/travis/styfle/packagephobia |
 | circleci | ![](https://badgen.now.sh/circleci/github/amio/now-go) | https://badgen.now.sh/circleci/github/amio/now-go |
 | appveyor | ![](https://badgen.now.sh/appveyor/github/gruntjs/grunt) | https://badgen.now.sh/appveyor/github/gruntjs/grunt |
 
