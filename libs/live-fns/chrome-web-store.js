@@ -28,7 +28,7 @@ module.exports = async function (method, ...args) {
     case 'users':
       return {
         subject: 'users',
-        status: millify(parseInt(meta.users.replace(',', ''))),
+        status: millify(parseInt(meta.users.replace(/,/g, ''))),
         color: 'green'
       }
     case 'price':
