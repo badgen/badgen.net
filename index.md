@@ -43,12 +43,13 @@ Available color names:
 | Keyword | Preview | URL |
 | --- | --- | --- |
 | npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
+| npm version (scoped) | ![](/npm/v/@nestjs/core) | [/npm/v/@nestjs/core](/npm/v/@nestjs/core)
 | npm downloads/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express)
 | npm downloads/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
 | npm downloads/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
-| crates version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
-| crates downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex)
-| crates downloads/latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
+| crates.io version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
+| crates.io downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex)
+| crates.io downloads/latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
 | chrome extension version | ![](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension users | ![](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension price | ![](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
