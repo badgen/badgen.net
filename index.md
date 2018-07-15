@@ -31,38 +31,38 @@ Available color names:
 
 | Preview | URL |
 | --- | --- |
-|![](/badge/chat/gitter/purple) | [/badge/chat/gitter/purple](/badge/chat/gitter/purple) |
-|![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a) |
-|![](/badge/stars/★★★★☆) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆) |
-|![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue) |
-|![](/list/platform/ios,macos,tvos/grey) | [/list/platform/ios,macos,tvos/grey](/list/platform/ios,macos,tvos/grey) |
+|![](/badge/chat/gitter/purple) | [/badge/chat/gitter/purple](/badge/chat/gitter/purple)
+|![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
+|![](/badge/stars/★★★★☆) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆)
+|![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue)
+|![](/list/platform/ios,macos,tvos/grey) | [/list/platform/ios,macos,tvos/grey](/list/platform/ios,macos,tvos/grey)
 
 #### Live Badge
 
 | Keyword | Preview | URL |
 | --- | --- | --- |
-| npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express) |
-| npm dl/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express) |
-| npm dl/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express) |
-| npm dl/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express) |
-| crates version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex) |
-| crates downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex) |
-| crates downloads latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex) |
+| npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
+| npm dl/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express)
+| npm dl/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
+| npm dl/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
+| crates version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
+| crates downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex)
+| crates downloads latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
 | chrome extension version | ![](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension users | ![](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension price | ![](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension rating | ![](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension stars | ![](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension rating count | ![](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
-| travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors) |
-| travis (org) | ![](/travis-org/styfle/packagephobia) | [/travis-org/styfle/packagephobia](/travis-org/styfle/packagephobia) |
-| circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go) |
-| appveyor | ![](/appveyor/github/gruntjs/grunt) | [/appveyor/github/gruntjs/grunt](/appveyor/github/gruntjs/grunt) |
+| travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors)
+| travis (org) | ![](/travis-org/styfle/packagephobia) | [/travis-org/styfle/packagephobia](/travis-org/styfle/packagephobia)
+| circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go)
+| appveyor | ![](/appveyor/github/gruntjs/grunt) | [/appveyor/github/gruntjs/grunt](/appveyor/github/gruntjs/grunt)
 
 ## About
 
 Made with ❤️ by [Amio](https://github.com/amio)
 <span style="float:right; color: #AAA">
-  <a href="https://github.com/amio/badgen-service">badgen-service</a> |
   <a href="https://github.com/amio/badgen">badgen</a>
+  <a href="https://github.com/amio/badgen-service">badgen-service</a> |
 </span>

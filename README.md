@@ -1,6 +1,6 @@
-# Badgen
+# Badgen Service
 
-Fast badge generating service. Built with [badgen](https://github.com/amio/badgen).
+The repo for https://badgen.now.sh, a fast badge generating service.
 
 ## Usage
 
@@ -31,35 +31,21 @@ Available color names:
 
 | Preview | URL |
 | --- | --- |
-|![](https://badgen.now.sh/badge/chat/gitter/purple) | https://badgen.now.sh/badge/chat/gitter/purple |
-|![](https://badgen.now.sh/badge/style/standard/f2a) | https://badgen.now.sh/badge/style/standard/f2a |
-|![](https://badgen.now.sh/badge/stars/★★★★☆) | https://badgen.now.sh/badge/stars/★★★★☆ |
-|![](https://badgen.now.sh/badge/license/Apache-2.0/blue) | https://badgen.now.sh/badge/license/Apache-2.0/blue |
-|![](https://badgen.now.sh/list/platform/ios,macos,tvos/grey) | https://badgen.now.sh/list/platform/ios,macos,tvos/grey |
+|![](https://badgen.now.sh/badge/chat/gitter/purple) | [https://badgen.now.sh/badge/chat/gitter/purple](https://badgen.now.sh/badge/chat/gitter/purple)
+|![](https://badgen.now.sh/badge/style/standard/f2a) | [https://badgen.now.sh/badge/style/standard/f2a](https://badgen.now.sh/badge/style/standard/f2a)
+|![](https://badgen.now.sh/badge/stars/★★★★☆) | [https://badgen.now.sh/badge/stars/★★★★☆](/badge/stars/★★★★☆)
+|![](https://badgen.now.sh/badge/license/Apache-2.0/blue) | [https://badgen.now.sh/badge/license/Apache-2.0/blue](https://badgen.now.sh/badge/license/Apache-2.0/blue)
+|![](https://badgen.now.sh/list/platform/ios,macos,tvos/369) | [https://badgen.now.sh/list/platform/ios,macos,tvos/369](https://badgen.now.sh/list/platform/ios,macos,tvos/369)
 
 #### Live Badge
 
-| Keyword | Preview | URL |
-| --- | --- | --- |
-| npm version | ![](https://badgen.now.sh/npm/v/express) | https://badgen.now.sh/npm/v/express |
-| npm dl/day | ![](https://badgen.now.sh/npm/dd/express) | https://badgen.now.sh/npm/dd/express |
-| npm dl/week | ![](https://badgen.now.sh/npm/dw/express) | https://badgen.now.sh/npm/dw/express |
-| npm dl/month | ![](https://badgen.now.sh/npm/dm/express) | https://badgen.now.sh/npm/dm/express |
-| travis | ![](https://badgen.now.sh/travis/amio/micro-cors) | https://badgen.now.sh/travis/amio/micro-cors |
-| travis (org) | ![](https://badgen.now.sh/travis-org/styfle/packagephobia) | https://badgen.now.sh/travis/styfle/packagephobia |
-| circleci | ![](https://badgen.now.sh/circleci/github/amio/now-go) | https://badgen.now.sh/circleci/github/amio/now-go |
-| appveyor | ![](https://badgen.now.sh/appveyor/github/gruntjs/grunt) | https://badgen.now.sh/appveyor/github/gruntjs/grunt |
-| chrome extension version | ![](http://badgen.now.sh/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
-| chrome extension users | ![](http://badgen.now.sh/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
-| chrome extension price | ![](http://badgen.now.sh/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
-| chrome extension rating | ![](http://badgen.now.sh/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
-| chrome extension stars | ![](http://badgen.now.sh/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
-| chrome extension rating count | ![](http://badgen.now.sh/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | https://badgen.now.sh/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
+For full list of live badges, see https://badgen.now.sh
+
+## Developing
+
+- `npm run start` or better if you have nodemon: `nodemon service.js`
 
 ## About
 
-Made with ❤️ by [Amio](https://github.com/amio)
-<span style="float:right; color: #AAA">
-  <a href="https://github.com/amio/badgen-service">badgen-service</a> |
-  <a href="https://github.com/amio/badgen">badgen</a>
-</span>
+Made with ❤️ by [Amio](https://github.com/amio),
+built with ⚡️ from [badgen](https://github.com/amio/badgen)
