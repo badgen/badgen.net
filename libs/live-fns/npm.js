@@ -1,4 +1,4 @@
-const r2 = require('r2')
+const axios = require('../axios.js')
 const millify = require('millify')
 
 module.exports = async function (method, ...args) {
@@ -23,7 +23,7 @@ module.exports = async function (method, ...args) {
 // npm download
 async function d (period, args) {
   const endpoint = `https://api.npmjs.org/downloads/point/${period}/${args.join('/')}`
-  const stats = await r2(endpoint).json
+  const stats = await axios.get(endpoint).then(res => res.data)
   return {
     subject: 'downloads',
     status: millify(stats.downloads) + period.replace('last-', '/'),
@@ -54,5 +54,5 @@ async function fetchLatestVersion (args) {
   } else {
     endpoint = `https://registry.npmjs.org/${args}/latest`
   }
-  return (await r2(endpoint).json).version
+  return (await axios.get(endpoint).then(res => res.data)).version
 }

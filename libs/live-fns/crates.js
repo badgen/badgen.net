@@ -3,7 +3,7 @@ const millify = require('millify')
 
 module.exports = async function (method, ...args) {
   const endpoint = `https://crates.io/api/v1/crates/${args[0]}`
-  const meta = await axios.get(endpoint).then(r => r.data)
+  const meta = await axios.get(endpoint).then(res => res.data)
 
   switch (method) {
     case 'v':
