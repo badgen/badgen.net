@@ -48,6 +48,12 @@ Available color names:
 | crates version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex) |
 | crates downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex) |
 | crates downloads latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex) |
+| chrome extension version | ![](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
+| chrome extension users | ![](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
+| chrome extension price | ![](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
+| chrome extension rating | ![](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
+| chrome extension stars | ![](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
+| chrome extension rating count | ![](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors) |
 | travis (org) | ![](/travis-org/styfle/packagephobia) | [/travis-org/styfle/packagephobia](/travis-org/styfle/packagephobia) |
 | circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go) |
