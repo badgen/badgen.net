@@ -3,25 +3,25 @@ const millify = require('millify')
 
 module.exports = async function (method, ...args) {
   const endpoint = `https://crates.io/api/v1/crates/${args[0]}`
-  const meta = await axios.get(endpoint).then(res => res.data)
+  const { crate } = await axios.get(endpoint).then(res => res.data)
 
   switch (method) {
     case 'v':
       return {
-        subject: 'crates',
-        status: 'v' + meta.crate.max_version,
-        color: ''
+        subject: 'crates.io',
+        status: 'v' + crate.max_version,
+        color: crate.max_version[0] === '0' ? 'orange' : 'blue'
       }
     case 'd':
       return {
         subject: 'downloads',
-        status: millify(meta.crate.downloads),
+        status: millify(crate.downloads),
         color: 'green'
       }
     case 'dl':
       return {
         subject: 'downloads',
-        status: millify(meta.crate.recent_downloads) + ' latest version',
+        status: millify(crate.recent_downloads) + ' latest version',
         color: 'green'
       }
     default:
