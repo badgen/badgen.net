@@ -1,11 +1,9 @@
-const r2 = require('r2')
+const axios = require('../axios.js')
 const millify = require('millify')
 
 module.exports = async function (method, ...args) {
   const endpoint = `https://crates.io/api/v1/crates/${args[0]}`
-  const meta = await r2(endpoint, {
-    headers: { 'Accept': 'application/json' }
-  }).json
+  const meta = await axios.get(endpoint).then(r => r.data)
 
   switch (method) {
     case 'v':
