@@ -11,7 +11,7 @@
     "deploy": "now -T badgen --public && now -T badgen alias"
   },
   "dependencies": {
-    "badgen": "^1.1.3",
+    "badgen": "^1.1.4",
     "find-my-way": "^1.15.1",
     "lru-cache": "^4.1.3",
     "millify": "^2.0.1",
