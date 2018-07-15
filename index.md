@@ -64,6 +64,6 @@ Available color names:
 
 Made with ❤️ by [Amio](https://github.com/amio)
 <span style="float:right; color: #AAA">
-  <a href="https://github.com/amio/badgen">badgen</a>
-  <a href="https://github.com/amio/badgen-service">badgen-service</a> |
+  <a href="https://github.com/amio/badgen">badgen</a> |
+  <a href="https://github.com/amio/badgen-service">badgen-service</a>
 </span>
