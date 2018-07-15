@@ -5,9 +5,9 @@ module.exports = serveMarked('index.md', {
   preset: 'merri',
   inlineCSS: `
     table { border-spacing: 0 }
-    td { padding: 0 1em 0 0; white-space: nowrap }
-    td img { height: 20px }
-    td a { font: 14px/14px monospace; vertical-align: top }
+    td { padding: 0 1em 0 0; white-space: nowrap; vertical-align: middle }
+    td img { height: 20px; position: relative; top: 2px }
+    td a { font: 14px/14px monospace }
   `,
   trackingGA: 'UA-4646421-14'
 })

@@ -1,5 +1,4 @@
-const npm = require('./npm.js')
-
 module.exports = {
-  npm
+  'crates': require('./crates.js'),
+  'npm': require('./npm.js')
 }

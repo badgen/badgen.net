@@ -45,6 +45,9 @@ Available color names:
 | npm dl/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express) |
 | npm dl/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express) |
 | npm dl/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express) |
+| crates version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex) |
+| crates downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex) |
+| crates downloads latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex) |
 | travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors) |
 | travis (org) | ![](/travis-org/styfle/packagephobia) | [/travis-org/styfle/packagephobia](/travis-org/styfle/packagephobia) |
 | circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go) |
