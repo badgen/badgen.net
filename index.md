@@ -35,19 +35,20 @@ Available color names:
 |![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
 |![](/badge/stars/★★★★☆) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆)
 |![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue)
-|![](/list/platform/ios,macos,tvos/grey) | [/list/platform/ios,macos,tvos/grey](/list/platform/ios,macos,tvos/grey)
+|![](/badge/Language/Swift%203.0.1/orange) | [/badge/Language/Swift%203.0.1/orange](/badge/Language/Swift%203.0.1/orange)
+|![](/list/platform/ios,macos,tvos/37E) | [/list/platform/ios,macos,tvos/37E](/list/platform/ios,macos,tvos/37E)
 
 #### Live Badge
 
 | Keyword | Preview | URL |
 | --- | --- | --- |
 | npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
-| npm dl/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express)
-| npm dl/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
-| npm dl/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
+| npm downloads/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express)
+| npm downloads/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
+| npm downloads/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
 | crates version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
 | crates downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex)
-| crates downloads latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
+| crates downloads/latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
 | chrome extension version | ![](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension users | ![](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension price | ![](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
