@@ -1,5 +1,6 @@
 const badgen = require('badgen')
 const liveFns = require('./live-fns/_index.js')
+const waitings = {} // Cache ongoing fetching, prevent redundant request
 
 module.exports = function (router) {
   Object.entries(liveFns).forEach(([name, fn]) => {
@@ -20,16 +21,20 @@ module.exports = function (router) {
 }
 
 async function fetchLiveParams (scope, fn, paramsPath) {
-  const logKey = `#${scope} ${paramsPath}`
-  console.time(logKey)
+  const fetchKey = `#${scope} ${paramsPath}`
+  if (waitings[fetchKey]) return waitings[fetchKey]
 
+  console.time(fetchKey)
   const task = fn(...paramsPath.split('/'))
   const timer = new Promise((resolve, reject) => setTimeout(reject, 30000))
-  return Promise.race([task, timer]).catch(e => {
+  waitings[fetchKey] = Promise.race([task, timer]).catch(e => {
     console.error(e)
     return {}
   }).then(result => {
-    console.timeEnd(logKey)
+    console.timeEnd(fetchKey)
+    waitings[fetchKey] = undefined
     return result
   })
+
+  return waitings[fetchKey]
 }
