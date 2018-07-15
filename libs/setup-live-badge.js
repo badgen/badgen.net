@@ -11,9 +11,10 @@ module.exports = function (router) {
         color = 'grey'
       } = await fetchLiveParams(name, fn, params['*'])
 
+      const sharedMaxAge = (Math.random() * 60 + 60).toFixed()
       res.writeHead(200, {
         'Content-Type': 'image/svg+xml;charset=utf-8',
-        'Cache-Control': 'public, max-age=60, s-maxage=60'
+        'Cache-Control': 'public, max-age=60, s-maxage=' + sharedMaxAge
       })
       res.end(badgen({subject, status, color}))
     })
