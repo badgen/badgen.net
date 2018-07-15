@@ -1,18 +1,19 @@
 const webstore = require('chrome-webstore')
 const millify = require('millify')
 
-const round = (value, decimals) =>
-  Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+const round = (value, decimals) => {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+}
 
 const stars = (average) => {
   const base = Math.floor(average)
   const fraction = average - base
-  return ((full = ''.padEnd(base, '★')) =>
-    // TODO: update when Unicode 11 goes mainstream
-    // between 0.33 and 0.66 should be `half star` symbol
-    fraction >= 0.33 && fraction <= 0.66 ? full.padEnd(base + 1, '★') :
-    fraction > 0.66 ? full.padEnd(base + 1, '★') : full
-  )().padEnd(5, '☆')
+
+  const full = '★'.repeat(fraction < 0.66 ? base : base + 1)
+  // TODO: update when Unicode 11 goes mainstream
+  // between 0.33 and 0.66 should be `half star` symbol
+  const half = fraction >= 0.33 && fraction <= 0.66 ? '★' : ''
+  return (full + half).padEnd(5, '☆')
 }
 
 module.exports = async function (method, ...args) {
