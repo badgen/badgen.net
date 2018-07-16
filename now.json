@@ -2,7 +2,6 @@
   "alias": "badgen",
   "public": true,
   "files": [
-    "index.md",
     "service.js",
     "libs"
   ],
