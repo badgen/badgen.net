@@ -8,13 +8,14 @@ module.exports = function (router) {
       const {
         subject = name,
         status = 'unknown',
-        color = 'grey'
+        color = 'grey',
+        fail = false
       } = await fetchLiveParams(name, fn, params['*'])
 
-      const sharedMaxAge = (Math.random() * 60 + 60).toFixed()
+      const sharedMaxAge = fail ? '0' : (Math.random() * 60 + 60).toFixed()
       res.writeHead(200, {
         'Content-Type': 'image/svg+xml;charset=utf-8',
-        'Cache-Control': 'public, max-age=60, s-maxage=' + sharedMaxAge
+        'Cache-Control': 'public, max-age=20, s-maxage=' + sharedMaxAge
       })
       res.end(badgen({subject, status, color}))
     })
@@ -26,11 +27,9 @@ async function fetchLiveParams (scope, fn, paramsPath) {
   if (waitings[fetchKey]) return waitings[fetchKey]
 
   console.time(fetchKey)
-  const task = fn(...paramsPath.split('/'))
-  const timer = new Promise((resolve, reject) => setTimeout(reject, 30000))
-  waitings[fetchKey] = Promise.race([task, timer]).catch(e => {
-    console.error(e)
-    return {}
+  waitings[fetchKey] = fn(...paramsPath.split('/')).catch(e => {
+    console.error(fetchKey, e)
+    return { fail: true }
   }).then(result => {
     console.timeEnd(fetchKey)
     waitings[fetchKey] = undefined
