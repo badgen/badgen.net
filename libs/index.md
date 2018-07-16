@@ -62,7 +62,8 @@ Available color names:
 | travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors)
 | travis | ![](/travis/styfle/packagephobia) | [/travis/styfle/packagephobia](/travis/styfle/packagephobia)
 | circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go)
-| appveyor | ![](/appveyor/github/gruntjs/grunt) | [/appveyor/github/gruntjs/grunt](/appveyor/github/gruntjs/grunt)
+| circleci (branch) | ![](/circleci/github/amio/now-go/master) | [/circleci/github/amio/now-go/master](/circleci/github/amio/now-go/master)
+| appveyor ci | ![](/appveyor/ci/gruntjs/grunt) | [/appveyor/ci/gruntjs/grunt](/appveyor/ci/gruntjs/grunt)
 
 ## About
 
