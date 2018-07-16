@@ -1,4 +1,5 @@
 module.exports = {
+  'appveyor': require('./appveyor.js'),
   'chrome-web-store': require('./chrome-web-store.js'),
   'crates': require('./crates.js'),
   'homebrew': require('./homebrew.js'),
