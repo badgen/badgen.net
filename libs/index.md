@@ -43,6 +43,7 @@ Available color names:
 | Keyword | Preview | URL |
 | --- | --- | --- |
 | npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
+| npm version | ![](/npm/v/marked) | [/npm/v/marked](/npm/v/marked)
 | npm version (scoped) | ![](/npm/v/@nestjs/core) | [/npm/v/@nestjs/core](/npm/v/@nestjs/core)
 | npm downloads/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express)
 | npm downloads/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
@@ -56,6 +57,8 @@ Available color names:
 | chrome extension rating | ![](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension stars | ![](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension rating count | ![](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
+| homebrew version | ![](/homebrew/v/fish) | [/homebrew/v/fish](/homebrew/v/fish)
+| homebrew version | ![](/homebrew/v/cake) | [/homebrew/v/cake](/homebrew/v/cake)
 | travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors)
 | travis (org) | ![](/travis-org/styfle/packagephobia) | [/travis-org/styfle/packagephobia](/travis-org/styfle/packagephobia)
 | circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go)

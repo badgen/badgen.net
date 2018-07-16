@@ -1,6 +1,6 @@
 const serveMarked = require('serve-marked')
 
-module.exports = serveMarked('index.md', {
+module.exports = serveMarked('libs/index.md', {
   title: 'Badgen - Fast badge generating service',
   preset: 'merri',
   inlineCSS: `
