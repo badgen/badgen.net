@@ -1,6 +1,6 @@
 # Badgen
 
-Fast badge generating service. Built with [badgen](https://github.com/amio/badgen).
+Fast badge generating service.
 
 ## Usage
 

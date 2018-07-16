@@ -1,6 +1,6 @@
 # Badgen Service
 
-A fast badge generating service.
+Fast badge generating service.
 
 ## Usage
 
