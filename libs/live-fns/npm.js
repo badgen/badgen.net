@@ -1,16 +1,25 @@
 const axios = require('../axios.js')
 const millify = require('millify')
 
+// https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
+// https://unpkg.com/
+
 module.exports = async function (method, ...args) {
   switch (method) {
     case 'v':
-      return v(args)
+      return version(args)
     case 'dd':
-      return d('last-day', args)
+      return download('last-day', args)
     case 'dw':
-      return d('last-week', args)
+      return download('last-week', args)
     case 'dm':
-      return d('last-month', args)
+      return download('last-month', args)
+    case 'dy':
+      return download('last-year', args)
+    case 'license':
+      return pkg('license', args)
+    case 'node':
+      return pkg('node', args)
     default:
       return {
         subject: 'npm',
@@ -20,8 +29,27 @@ module.exports = async function (method, ...args) {
   }
 }
 
-// npm download
-async function d (period, args) {
+async function pkg (topic, args) {
+  const endpoint = `https://unpkg.com/${args.join('/')}/package.json`
+  const meta = await axios.get(endpoint).then(res => res.data)
+
+  switch (topic) {
+    case 'license':
+      return {
+        subject: 'license',
+        status: meta.license || 'unknown',
+        color: 'blue'
+      }
+    case 'node':
+      return {
+        subject: 'node',
+        status: (meta.engines && meta.engines.node) || '*',
+        color: 'green'
+      }
+  }
+}
+
+async function download (period, args) {
   const endpoint = `https://api.npmjs.org/downloads/point/${period}/${args.join('/')}`
   const stats = await axios.get(endpoint).then(res => res.data)
   return {
@@ -31,28 +59,20 @@ async function d (period, args) {
   }
 }
 
-// npm version
-async function v (args) {
-  const version = await fetchLatestVersion(args)
+async function version (args) {
+  // Due to an bug of npm registry api, scoped package need to be handled
+  // separately: https://github.com/npm/registry/issues/34
+  // A workaround is using version range("*" for "latest") by Andrew Goode:
+  // https://github.com/npm/registry/issues/34#issuecomment-228349870
+  const scoped = args.length === 2 && args[0][0] === '@'
+  const endpoint = scoped
+    ? `https://registry.npmjs.org/${args.join('%2F')}/*`
+    : `https://registry.npmjs.org/${args}/latest`
+  const { version } = await axios.get(endpoint).then(res => res.data)
 
   return {
     subject: 'npm',
     status: `v${version}`,
     color: version.split('.')[0] === '0' ? 'orange' : 'blue'
   }
-}
-
-async function fetchLatestVersion (args) {
-  const scoped = args.length === 2 && args[0][0] === '@'
-  let endpoint
-  // Due to an bug of npm registry api, scoped package need to be handled
-  // separately: https://github.com/npm/registry/issues/34
-  // A workaround is using version range("*" for "latest") by Andrew Goode:
-  // https://github.com/npm/registry/issues/34#issuecomment-228349870
-  if (scoped) {
-    endpoint = `https://registry.npmjs.org/${args.join('%2F')}/*`
-  } else {
-    endpoint = `https://registry.npmjs.org/${args}/latest`
-  }
-  return (await axios.get(endpoint).then(res => res.data)).version
 }
