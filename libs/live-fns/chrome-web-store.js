@@ -22,8 +22,8 @@ module.exports = async function (method, ...args) {
     case 'v':
       return {
         subject: 'chrome web store',
-        status: meta.version,
-        color: 'blue'
+        status: 'v' + meta.version,
+        color: meta.version[0] === '0' ? 'orange' : 'blue'
       }
     case 'users':
       return {
@@ -57,7 +57,7 @@ module.exports = async function (method, ...args) {
       }
     default:
       return {
-        subject: 'chrome',
+        subject: 'chrome web store',
         status: 'unknown',
         color: 'grey'
       }
