@@ -1,6 +1,5 @@
 const http = require('http')
 const fmw = require('find-my-way')
-const setupRedirectBadge = require('./libs/setup-redirect-badge.js')
 const setupLiveBadge = require('./libs/setup-live-badge.js')
 const serveFavicon = require('./libs/serve-favicon.js')
 const serveIndex = require('./libs/serve-index.js')
@@ -18,7 +17,6 @@ router.get('/list/:subject/:status', serveListBadge)
 router.get('/list/:subject/:status/:color', serveListBadge)
 
 setupLiveBadge(router)
-setupRedirectBadge(router)
 
 http.createServer((req, res) => {
   try {
