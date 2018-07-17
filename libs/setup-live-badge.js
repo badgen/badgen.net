@@ -5,6 +5,7 @@ const waitings = {} // Cache ongoing fetching, prevent redundant request
 module.exports = function (router) {
   Object.entries(liveFns).forEach(([name, fn]) => {
     router.get(`/${name}/*`, async (req, res, params) => {
+      const style = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
       const {
         subject = name,
         status = 'unknown',
@@ -17,7 +18,7 @@ module.exports = function (router) {
         'Content-Type': 'image/svg+xml;charset=utf-8',
         'Cache-Control': 'public, max-age=20, s-maxage=' + sharedMaxAge
       })
-      res.end(badgen({subject, status, color}))
+      res.end(badgen({subject, status, color, style}))
     })
   })
 }
