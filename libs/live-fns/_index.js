@@ -5,5 +5,6 @@ module.exports = {
   'crates': require('./crates.js'),
   'david': require('./david.js'),
   'homebrew': require('./homebrew.js'),
-  'npm': require('./npm.js')
+  'npm': require('./npm.js'),
+  'travis': require('./travis.js')
 }
