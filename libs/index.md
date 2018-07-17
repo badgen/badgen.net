@@ -70,6 +70,7 @@ Available color names:
 | david-dm | ![](/david/dep/zeit/pkg) | [/david/dep/zeit/pkg](/david/dep/zeit/pkg)
 | david-dm dev dependencies | ![](/david/dev/zeit/pkg) | [/david/dev/zeit/pkg](/david/dev/zeit/pkg)
 | david-dm peer dependencies | ![](/david/peer/epoberezkin/ajv-keywords) | [/david/peer/epoberezkin/ajv-keywords](/david/peer/epoberezkin/ajv-keywords)
+| david-dm optional dependencies | ![](/david/optional/epoberezkin/ajv-keywords) | [/david/optional/epoberezkin/ajv-keywords](/david/optional/epoberezkin/ajv-keywords)
 
 ## About
 
