@@ -67,6 +67,9 @@ Available color names:
 | circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go)
 | circleci (branch) | ![](/circleci/github/amio/now-go/master) | [/circleci/github/amio/now-go/master](/circleci/github/amio/now-go/master)
 | appveyor ci | ![](/appveyor/ci/gruntjs/grunt) | [/appveyor/ci/gruntjs/grunt](/appveyor/ci/gruntjs/grunt)
+| david-dm | ![](/david/dep/zeit/pkg) | [/david/dep/zeit/pkg](/david/dep/zeit/pkg)
+| david-dm dev dependencies | ![](/david/dev/zeit/pkg) | [/david/dev/zeit/pkg](/david/dev/zeit/pkg)
+| david-dm peer dependencies | ![](/david/peer/epoberezkin/ajv-keywords) | [/david/peer/epoberezkin/ajv-keywords](/david/peer/epoberezkin/ajv-keywords)
 
 ## About
 
