@@ -4,10 +4,12 @@ const millify = require('millify')
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://unpkg.com/
 
-module.exports = async function (method, ...args) {
+module.exports = async function npm (method, ...args) {
   switch (method) {
     case 'v':
       return version(args)
+    case 'dt':
+      return download('total', args)
     case 'dd':
       return download('last-day', args)
     case 'dw':
@@ -50,11 +52,30 @@ async function pkg (topic, args) {
 }
 
 async function download (period, args) {
-  const endpoint = `https://api.npmjs.org/downloads/point/${period}/${args.join('/')}`
-  const stats = await axios.get(endpoint).then(res => res.data)
+  const endpoint = ['https://api.npmjs.org/downloads']
+  const isTotal = period === 'total'
+
+  if (isTotal) {
+    const today = new Date()
+
+    endpoint.push(`/range/2005-01-01:${today.getFullYear() + 1}-01-01`)
+  } else {
+    endpoint.push(`/point/${period}`)
+  }
+  endpoint.push(`/${args.join('/')}`)
+
+  const per = isTotal ? '' : period.replace('last-', '/')
+  const stats = await axios.get(endpoint.join('')).then(res => res.data)
+
+  if (isTotal) {
+    stats.downloads = stats.downloads.reduce((prev, { downloads }) => {
+      return prev + downloads
+    }, 0)
+  }
+
   return {
     subject: 'downloads',
-    status: millify(stats.downloads) + period.replace('last-', '/'),
+    status: millify(stats.downloads) + per,
     color: 'green'
   }
 }
