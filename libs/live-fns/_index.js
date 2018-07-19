@@ -1,4 +1,5 @@
 module.exports = {
+  'codecov': require('./codecov.js'),
   'appveyor': require('./appveyor.js'),
   'chrome-web-store': require('./chrome-web-store.js'),
   'circleci': require('./circleci.js'),
