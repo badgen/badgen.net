@@ -43,7 +43,7 @@ async function coverage (vscType, user, repo, branch) {
   const args = [vscType, user, repo, 'branch', branch]
   const endpoint = `https://codecov.io/${args.join('/')}/graph/badge.txt`
 
-  const status = (await axios.get(endpoint).then(res => res.data)).trim()
+  const status = String(await axios.get(endpoint).then(res => res.data)).trim()
 
   if (status === 'unknown') {
     return {
