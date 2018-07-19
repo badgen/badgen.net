@@ -6,5 +6,6 @@ module.exports = {
   'david': require('./david.js'),
   'homebrew': require('./homebrew.js'),
   'npm': require('./npm.js'),
+  'github': require('./github.js'),
   'travis': require('./travis.js')
 }
