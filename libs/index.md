@@ -42,6 +42,8 @@ Available color names:
 
 | Keyword | Preview | URL |
 | --- | --- | --- |
+| github release | ![](/github/release/babel/babel) | [/github/release/babel/babel](/github/release/babel/babel)
+| github tag | ![](/github/tag/express/express) | [/github/tag/express/express](/github/tag/express/express)
 | npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
 | npm version | ![](/npm/v/marked) | [/npm/v/marked](/npm/v/marked)
 | npm version (scoped) | ![](/npm/v/@nestjs/core) | [/npm/v/@nestjs/core](/npm/v/@nestjs/core)
