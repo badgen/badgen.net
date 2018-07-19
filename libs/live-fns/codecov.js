@@ -37,21 +37,18 @@ function getColor (value, orange = 70, yellow = 85, green = 100) {
   return 'green'
 }
 
-async function coverage (vcsType, username, project, branch) {
-  const endpoint = [`https://codecov.io/${vcsType}/${username}/${project}`]
+async function coverage (vscType, user, repo, branch) {
+  branch = typeof branch === 'string' && branch.length > 0 ? branch : 'master'
 
-  if (typeof branch === 'string' && branch.length > 0) {
-    endpoint.push(`/branch/${branch}`)
-  }
+  const args = [vscType, user, repo, 'branch', branch]
+  const endpoint = `https://codecov.io/${args.join('/')}/graph/badge.txt`
 
-  endpoint.push('/graph/badge.txt')
-
-  const status = await axios.get(endpoint.join('')).then(res => res.data)
+  const status = await axios.get(endpoint).then(res => res.data)
   const color = getColor(+status)
 
   return {
     subject: 'codecov',
-    stats: `${status}%`,
+    status: `${status}%`,
     color
   }
 }
