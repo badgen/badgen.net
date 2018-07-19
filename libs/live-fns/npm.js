@@ -59,6 +59,8 @@ async function download (period, args) {
     const today = new Date()
 
     endpoint.push(`/range/2005-01-01:${today.getFullYear() + 1}-01-01`)
+  } else {
+    endpoint.push(`/point/${period}`)
   }
   endpoint.push(`/${args.join('/')}`)
 
