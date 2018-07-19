@@ -21,5 +21,8 @@
   },
   "devDependencies": {
     "standard": "^11.0.1"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }
