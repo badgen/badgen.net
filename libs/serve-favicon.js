@@ -1,4 +1,4 @@
-const { serveBadge } = require('./serve-badge.js')
+const serveBadge = require('./serve-badge.js')
 
 module.exports = (req, res) => {
   serveBadge(req, res, {
