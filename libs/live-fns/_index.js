@@ -1,3 +1,4 @@
+/* eslint sort-keys: "error" */
 module.exports = {
   'appveyor': require('./appveyor.js'),
   'chrome-web-store': require('./chrome-web-store.js'),
