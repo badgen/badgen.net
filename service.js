@@ -30,4 +30,4 @@ http.createServer((req, res) => {
     res.statusCode = 500
     res.end()
   }
-}).listen(3000)
+}).listen(3000, () => console.log('Listening on 3000 >'))
