@@ -42,13 +42,16 @@ Available color names:
 
 | Keyword | Preview | URL |
 | --- | --- | --- |
+| github release | ![](/github/release/babel/babel) | [/github/release/babel/babel](/github/release/babel/babel)
+| github tag | ![](/github/tag/micromatch/micromatch) | [/github/tag/micromatch/micromatch](/github/tag/micromatch/micromatch)
 | npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
 | npm version | ![](/npm/v/marked) | [/npm/v/marked](/npm/v/marked)
 | npm version (scoped) | ![](/npm/v/@nestjs/core) | [/npm/v/@nestjs/core](/npm/v/@nestjs/core)
-| npm downloads/day | ![](/npm/dd/express) | [/npm/dd/express](/npm/dd/express)
+| npm downloads/day | ![](/npm/dd/micromatch) | [/npm/dd/micromatch](/npm/dd/micromatch)
 | npm downloads/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
 | npm downloads/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
 | npm downloads/year | ![](/npm/dy/express) | [/npm/dy/express](/npm/dy/express)
+| npm downloads/total | ![](/npm/dt/micromatch) | [/npm/dt/express](/npm/dt/micromatch)
 | npm license | ![](/npm/license/lodash) | [/npm/license/lodash](/npm/license/lodash)
 | npm node  | ![](/npm/node/express) | [/npm/node/express](/npm/node/express)
 | crates.io version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
@@ -63,7 +66,9 @@ Available color names:
 | homebrew version | ![](/homebrew/v/fish) | [/homebrew/v/fish](/homebrew/v/fish)
 | homebrew version | ![](/homebrew/v/cake) | [/homebrew/v/cake](/homebrew/v/cake)
 | travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors)
-| travis | ![](/travis/styfle/packagephobia) | [/travis/styfle/packagephobia](/travis/styfle/packagephobia)
+| travis (branch) | ![](/travis/babel/babel/update-types-docs) | [/travis/babel/babel/update-types-docs](/travis/babel/babel/update-types-docs)
+| codecov | ![](/codecov/c/gh/tunnckoCore/gitcommit) | [/codecov/c/gh/tunnckoCore/gitcommit](/codecov/c/gh/tunnckoCore/gitcommit)
+| codecov (branch) | ![](/codecov/c/github/babel/babel/update-types-docs) | [/codecov/c/github/babel/babel/update-types-docs](/codecov/c/github/babel/babel/update-types-docs)
 | circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go)
 | circleci (branch) | ![](/circleci/github/amio/now-go/master) | [/circleci/github/amio/now-go/master](/circleci/github/amio/now-go/master)
 | appveyor ci | ![](/appveyor/ci/gruntjs/grunt) | [/appveyor/ci/gruntjs/grunt](/appveyor/ci/gruntjs/grunt)
