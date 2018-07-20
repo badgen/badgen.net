@@ -25,7 +25,7 @@ async function release (topic, args) {
 
   return {
     subject: topic,
-    status: first.name || 'unknown',
-    color: 'blue'
+    status: first.name || first.tag_name || 'unknown',
+    color: first.prerelease === true ? 'orange' : 'blue'
   }
 }
