@@ -31,7 +31,7 @@ Available color names:
 
 | Preview | URL |
 | --- | --- |
-|![](https://badgen.now.sh/badge/chat/gitter/cyan) | [https://badgen.now.sh/badge/chat/gitter/purple](https://badgen.now.sh/badge/chat/gitter/purple)
+|![](https://badgen.now.sh/badge/chat/gitter/purple) | [https://badgen.now.sh/badge/chat/gitter/purple](https://badgen.now.sh/badge/chat/gitter/purple)
 |![](https://badgen.now.sh/badge/style/standard/f2a) | [https://badgen.now.sh/badge/style/standard/f2a](https://badgen.now.sh/badge/style/standard/f2a)
 |![](https://badgen.now.sh/badge/license/Apache-2.0/blue) | [https://badgen.now.sh/badge/license/Apache-2.0/blue](https://badgen.now.sh/badge/license/Apache-2.0/blue)
 |![](https://badgen.now.sh/badge/Language/Swift%203.0.1/orange) | [https://badgen.now.sh/badge/Language/Swift%203.0.1/orange](https://badgen.now.sh/badge/Language/Swift%203.0.1/orange)
