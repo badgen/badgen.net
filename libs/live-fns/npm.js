@@ -56,9 +56,14 @@ async function download (period, args) {
   const isTotal = period === 'total'
 
   if (isTotal) {
-    const today = new Date()
+    const now = new Date()
+    endpoint.push(`/range/2005-01-01:${now.getFullYear() + 1}-01-01`)
+  } else if (period === 'last-day') {
+    const beforeTwoDays = Date.now() - 172800000
+    const dateBefore = new Date(beforeTwoDays)
+    const [date] = dateBefore.toISOString().split('T')
 
-    endpoint.push(`/range/2005-01-01:${today.getFullYear() + 1}-01-01`)
+    endpoint.push(`/range/${date}`)
   } else {
     endpoint.push(`/point/${period}`)
   }
@@ -71,6 +76,8 @@ async function download (period, args) {
     stats.downloads = stats.downloads.reduce((prev, { downloads }) => {
       return prev + downloads
     }, 0)
+  } else if (period === 'last-day') {
+    stats.downloads = stats.downloads[0].downloads
   }
 
   return {
