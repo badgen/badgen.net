@@ -1,5 +1,8 @@
 {
-  "alias": "badgen",
+  "alias": [
+    "badgen",
+    "flat.badgen.net"
+  ],
   "public": true,
   "files": [
     "service.js",
