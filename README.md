@@ -5,11 +5,7 @@
 ![uptime last week](https://badgen.now.sh/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af)
 ![response time](https://badgen.now.sh/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af)
 
-Fast badge generating service.
-
-## Usage
-
-Please head over to https://badgen.now.sh
+Home of [Badgen](https://badgen.now.sh), fast badge generating service.
 
 ## The Badgen Story
 
@@ -19,7 +15,7 @@ TLDR: Badgen Service is using [badgen](https://github.com/amio/badgen) to genera
 
 The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge svg markup directly with JavaScript(without using pdfkit/canvas/puppeteer to measure text length)?". Result is better than I expected, Verdana(the de-facto font for badges) text width can be calculated precisely with a prebuilt [char-width-table](https://github.com/amio/badgen/blob/master/lib/widths-verdana-11.json), even no need to worry about kerning 🤯
 
-And so, Badge Service was born. I had a good time with [shields.io](https://shields.io)(and earlier [badge.fury.io](https://badge.fury.io)), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative, offering extensibility with simplicity and flexibility. Its codebase is well structured and fun to develop - it is pretty easy to add badge(s) for new service(s). 
+And so, Badge Service was born. I had a good time with [shields.io](https://shields.io)(and earlier [badge.fury.io](https://badge.fury.io)), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative with simplicity and flexibility. Its codebase is well structured and fun to develop - it is pretty easy to add badge(s) for new service(s). 
 
 At the beginning I was considering between [now.sh](https://zeit.co/now) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Zeit released [Now CDN](https://zeit.co/blog/now-cdn) on the same day as [badgen.now.sh](https://badgen.now.sh)'s reveal, what a fate! Born to fall in love 😘. Choosing to base such service on Zeit's Now CDN is the perfect choice, because we can stop thinking about caching and scalability issues. Badgen is the fastest possible badge generating service out there. It's fast, because Now is fast. It's amazing, because Now is amazing. It's globally distributed and cached, because of Now.
 
