@@ -23,9 +23,9 @@ Thanks to awesome people's help, Badgen are getting better and better. Welcome t
 
 ## Developing
 
-We are using StandardJS style, so don't worry. If you have ESLint plugin on your editor and have autofix enabled, then great - you write code and it's valid. Otherwise, installing ESLint plugin for your favorite editor is highly recommended it will help you not only here, but with contributions to other projects too.
+We are using StandardJS style, so don't worry. If you have ESLint plugin on your editor and have autofix enabled, then great - you write code and it's valid. Otherwise, installing ESLint plugin for your favorite editor is highly recommended, because it will help you not only here, but with contributions to other projects too.
 
-If your service is still missing here, we welcome new contirbutions. Check out the PRs that was made and how easy it was:
+If a service you are using is still missing here, we welcome new contirbutions. Check out the PRs that was made and how easy it was:
 
 - [#3 - Support for Chrome Web Store badges](https://github.com/amio/badgen-service/pull/3)
 - [#15 - Support for GitHub badges](https://github.com/amio/badgen-service/pull/15)
