@@ -5,7 +5,8 @@ const axios = require('../axios.js')
  *    https://uptimerobot.com/api
  *
  * USAGE
- *    /uptime-robot/_topic_/_api_key_/_monitor_id_/
+ *    /uptime-robot/:topic/:api_key
+ *      :api_key are generated from uptimerobot settings page
  */
 
 module.exports = async function (topic, apiKey) {
