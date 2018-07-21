@@ -6,6 +6,7 @@
   "license": "ISC",
   "scripts": {
     "lint": "standard",
+    "dev": "nodemon node service.js",
     "start": "node service.js",
     "predeploy": "now rm badgen-service --safe -y -T badgen || true",
     "deploy": "now -T badgen --public && now -T badgen alias"
@@ -20,6 +21,7 @@
     "serve-marked": "0.2.0"
   },
   "devDependencies": {
+    "nodemon": "^1.18.3",
     "standard": "^11.0.1"
   },
   "eslintConfig": {

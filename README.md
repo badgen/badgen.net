@@ -37,7 +37,7 @@ If your service is still missing here, we welcome new contirbutions. Check out t
 
 Basically, you need to add a file in `lib/live-fns/[name-of-service].js` and that's it. 
 
-To ensure that your addition is working correctly start the development server with `npm start`.
+To ensure that your addition is working correctly start the development server with `npm run dev`.
 
 ## About
 
