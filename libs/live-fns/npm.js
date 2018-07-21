@@ -2,6 +2,7 @@ const axios = require('../axios.js')
 const millify = require('millify')
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
+// https://github.com/npm/registry/blob/master/docs/download-counts.md
 // https://unpkg.com/
 
 module.exports = async function npm (method, ...args) {
