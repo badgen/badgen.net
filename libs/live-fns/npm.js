@@ -64,7 +64,7 @@ async function download (period, args) {
     const dateBefore = new Date(beforeTwoDays)
     const [date] = dateBefore.toISOString().split('T')
 
-    endpoint.push(`/range/${date}`)
+    endpoint.push(`/point/${date}`)
   } else {
     endpoint.push(`/point/${period}`)
   }
@@ -77,8 +77,6 @@ async function download (period, args) {
     stats.downloads = stats.downloads.reduce((prev, { downloads }) => {
       return prev + downloads
     }, 0)
-  } else if (period === 'last-day') {
-    stats.downloads = stats.downloads[0].downloads
   }
 
   return {
