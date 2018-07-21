@@ -4,9 +4,9 @@ module.exports = serveMarked('libs/index.md', {
   title: 'Badgen - Fast badge generating service',
   preset: 'merri',
   inlineCSS: `
-    body { max-width: 860px }
+    body { max-width: 890px; padding-bottom: 1em }
     table { border-spacing: 0 }
-    td { padding: 0 1em 0 0; font-size: 12px; white-space: nowrap; height: 26px }
+    td { padding: 0 1em 0 0; font-size: 14px; white-space: nowrap; height: 26px }
     td img { height: 20px; position: relative; top: 2px }
     td a { font: 12px/14px monospace }
   `,
