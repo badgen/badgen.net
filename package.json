@@ -7,6 +7,7 @@
   "scripts": {
     "lint": "standard",
     "dev": "micro-dev service.js",
+    "test": "echo just lint for now && npm run lint",
     "start": "micro service.js",
     "predeploy": "now rm badgen-service --safe -y -T badgen || true",
     "deploy": "now -T badgen --public && now -T badgen alias badgen"
