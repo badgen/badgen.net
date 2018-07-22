@@ -1,11 +1,23 @@
 const badgen = require('badgen')
 
-module.exports = function serveBadge (req, res, params) {
-  params.style = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
+module.exports = function serveBadge (req, res, options = {}) {
+  const { code = 200, maxAge = '86400' } = options
 
-  res.writeHead(200, {
+  const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
+  const { subject, status, color } = req.params
+  const { style, label, emoji, list } = req.query
+
+  const badgenParams = {
+    subject: label || subject,
+    status: list ? status.replace(/,/g, ' | ') : status,
+    color: color,
+    style: style || hostStyle,
+    emoji: !!emoji
+  }
+
+  res.writeHead(code, {
     'Content-Type': 'image/svg+xml;charset=utf-8',
-    'Cache-Control': 'public, max-age=360, s-maxage=86400'
+    'Cache-Control': `public, max-age=60, s-maxage=${maxAge}`
   })
-  res.end(badgen(params))
+  res.end(badgen(badgenParams))
 }

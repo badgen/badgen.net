@@ -6,8 +6,8 @@
   "license": "ISC",
   "scripts": {
     "lint": "standard",
-    "dev": "nodemon service.js",
-    "start": "node service.js",
+    "dev": "micro-dev service.js",
+    "start": "micro service.js",
     "predeploy": "now rm badgen-service --safe -y -T badgen || true",
     "deploy": "now -T badgen --public && now -T badgen alias"
   },
@@ -15,12 +15,13 @@
     "axios": "^0.18.0",
     "badgen": "^2.1.1",
     "chrome-webstore": "^1.0.0",
-    "find-my-way": "^1.15.1",
+    "micro": "^9.3.2",
+    "micro-fork": "^0.1.0",
     "millify": "^2.0.1",
     "serve-marked": "0.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3",
+    "micro-dev": "^3.0.0",
     "standard": "^11.0.1"
   },
   "eslintConfig": {

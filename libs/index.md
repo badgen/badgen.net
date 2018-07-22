@@ -36,7 +36,7 @@ Available color names:
 |![](/badge/stars/★★★★☆) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆)
 |![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue)
 |![](/badge/Language/Swift%203.0.1/orange) | [/badge/Language/Swift%203.0.1/orange](/badge/Language/Swift%203.0.1/orange)
-|![](/list/platform/ios,macos,tvos/37E) | [/list/platform/ios,macos,tvos/37E](/list/platform/ios,macos,tvos/37E)
+|![](/badge/platform/ios,macos,tvos?list=1) | [/badge/platform/ios,macos,tvos?list=1](/badge/platform/ios,macos,tvos?list=1)
 
 #### Live Badge
 
