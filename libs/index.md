@@ -82,6 +82,12 @@ Available color names:
 | uptime robot uptime (month) | ![](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/lasy-month/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af)
 | uptime robot response (last hour) | ![](/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af)
 
+## Query params
+
+- `label`: Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters)
+- `emoji`: If subject/status text contains emoji, `emoji=1` will make it happy 👻
+- `list`: `list=1` will replace `,` to ` | ` in status text
+
 ## About
 
 Made with ❤️ by [Amio](https://github.com/amio)
@@ -89,3 +95,5 @@ Made with ❤️ by [Amio](https://github.com/amio)
   <a href="https://github.com/amio/badgen">badgen</a> |
   <a href="https://github.com/amio/badgen-service">badgen-service</a>
 </span>
+
+[url-enc-href]: https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding
