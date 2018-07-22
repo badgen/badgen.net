@@ -1,13 +1,10 @@
-const badgen = require('badgen')
+const serveBadge = require('./serve-badge.js')
 
 module.exports = function serve404 (req, res) {
-  res.writeHead(404, {
-    'Content-Type': 'image/svg+xml;charset=utf-8',
-    'Cache-Control': 'public, max-age=360, s-maxage=86400'
-  })
-  res.end(badgen({
+  req.params = {
     subject: 'Badgen',
     status: '404',
     color: 'red'
-  }))
+  }
+  serveBadge(req, res, { code: 404 })
 }

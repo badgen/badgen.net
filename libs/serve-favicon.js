@@ -1,8 +1,9 @@
 const serveBadge = require('./serve-badge.js')
 
-module.exports = (req, res) => {
-  serveBadge(req, res, {
+module.exports = function serve404 (req, res) {
+  req.params = {
     subject: '',
     status: ''
-  })
+  }
+  serveBadge(req, res)
 }
