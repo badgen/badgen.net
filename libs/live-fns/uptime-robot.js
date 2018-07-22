@@ -31,16 +31,16 @@ module.exports = async function (topic, apiKey) {
         color: _stat ? _stat[1] : 'grey'
       }
     case 'day':
-      return uptime('last-day', custom_uptime_ratio)
+      return uptime('past-day', custom_uptime_ratio)
     case 'week':
-      return uptime('last-week', custom_uptime_ratio)
+      return uptime('past-week', custom_uptime_ratio)
     case 'month':
-      return uptime('last-month', custom_uptime_ratio)
+      return uptime('past-month', custom_uptime_ratio)
     case 'response':
       return {
         subject: 'response',
         status: average_response_time + 'ms',
-        color: 'green'
+        color: 'blue'
       }
     default:
       return {
@@ -62,19 +62,19 @@ const statuses = {
 function uptime (period, ratios) {
   const [day, week, month] = ratios.split('-').map(r => parseFloat(r))
   switch (period) {
-    case 'last-day':
+    case 'past-day':
       return {
         subject: 'uptime',
         status: day + '%',
         color: ratioColor(day)
       }
-    case 'last-week':
+    case 'past-week':
       return {
         subject: 'uptime',
         status: week + '%',
         color: ratioColor(week)
       }
-    case 'last-month':
+    case 'past-month':
       return {
         subject: 'uptime',
         status: month + '%',
