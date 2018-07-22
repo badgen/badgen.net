@@ -1,8 +1,8 @@
 # Badgen
 
 Fast badge generating service.  
-[![classic](/badge/style/classic)](https://badgen.net)
-[![flat](/badge/style/flat)](https://flat.badgen.net)
+[![classic](/badge/style/classic/pink)](https://badgen.net)
+[![flat](/badge/style/flat/pink)](https://flat.badgen.net)
 
 ## Usage
 
