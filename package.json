@@ -9,7 +9,7 @@
     "dev": "micro-dev service.js",
     "start": "micro service.js",
     "predeploy": "now rm badgen-service --safe -y -T badgen || true",
-    "deploy": "now -T badgen --public && now -T badgen alias"
+    "deploy": "now -T badgen --public && now -T badgen alias badgen"
   },
   "dependencies": {
     "axios": "^0.18.0",
