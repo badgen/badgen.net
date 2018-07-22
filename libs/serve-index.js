@@ -11,6 +11,8 @@ module.exports = serveMarked('libs/index.md', {
     td a { font: 12px/14px monospace }
     pre, code { background-color: #f4f6f9 }
     li { padding: 0.4em 0 }
+    h1 + p { letter-spacing: 0.1px }
+    h1 + p img { margin-top: 1em }
   `,
   trackingGA: 'UA-4646421-14'
 })
