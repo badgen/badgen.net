@@ -2,8 +2,8 @@
 
 [![StandardJS][standard-src]][standard-href]
 [![dependencies][dep-src]][dep-href]
-[![service status][status-src]][uptime-href]
 [![uptime past week][uptime-src]][uptime-href]
+[![service status][status-src]][uptime-href]
 [![response time][response-src]][uptime-href]
 
 Home of [Badgen](https://badgen.now.sh), fast badge generating service.
@@ -42,11 +42,11 @@ To ensure that your addition is working correctly start the development server w
 Made with ❤️ by [Amio](https://github.com/amio),
 built with ⚡️ from [badgen](https://github.com/amio/badgen).
 
-[standard-src]: https://badgen.now.sh/badge/style/standard/F2A
+[standard-src]: https://badgen.net/badge/code%20style/standard/F2A
 [standard-href]: https://standardjs.com/
-[dep-src]: https://badgen.now.sh/david/dep/amio/badgen-service
+[dep-src]: https://badgen.net/david/dep/amio/badgen-service
 [dep-href]: https://david-dm.org/amio/badgen-service
-[status-src]: https://badgen.now.sh/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af
-[uptime-src]: https://badgen.now.sh/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=uptime%20past%20week
-[response-src]: https://badgen.now.sh/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
+[status-src]: https://badgen.net/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af
+[uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=uptime%20past%20week
+[response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
