@@ -27,13 +27,7 @@ Thanks to awesome people's help, Badgen are getting better and better. Welcome t
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
-If a service you wish to have is still missing here, we welcome new contirbutions. Check out the PRs that was made and how easy it was:
-
-- [#3 - Support for Chrome Web Store badges](https://github.com/amio/badgen-service/pull/3)
-- [#15 - Support for GitHub badges](https://github.com/amio/badgen-service/pull/15)
-- [#16 - Support for CodeCov coverage badge](https://github.com/amio/badgen-service/pull/16)
-
-Basically, you need to add a file in `lib/live-fns/[name-of-service].js` and that's it.
+If a service you wish to have is still missing here, we welcome new contirbutions. Check out [live-fns/crates.js](libs/live-fns/crates.js) and [live-fns/_index.js](libs/live-fns/_index.js) to get a quick impression. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it.
 
 To ensure that your addition is working correctly start the development server with `npm run dev`.
 
