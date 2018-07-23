@@ -88,7 +88,7 @@ Available color names:
 
 - `label`: Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters)
 - `emoji`: If subject/status text contains emoji, `emoji=1` will make it happy 👻
-- `style`: Force use flat style with `style=flat`. [e.g.][style-eg-href]
+- `style`: Force flat style with `style=flat`. [e.g.][style-eg-href]
 - `list`: `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
 
 ## About

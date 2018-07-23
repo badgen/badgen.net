@@ -15,7 +15,7 @@ module.exports = serveMarked('libs/index.md', {
     h1 + p { letter-spacing: 0.1px }
     h1 + p img { margin-top: 1em; height: 20px }
   `,
-  beforeHeadEnd: `<link rel="icon" href="/favicon.svg">`,
+  beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
   beforeBodyEnd: `
     <script>
       if (window.location.hostname === 'flat.badgen.net') {
