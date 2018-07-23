@@ -19,7 +19,7 @@
     "micro": "^9.3.2",
     "micro-fork": "^0.1.0",
     "millify": "^2.0.1",
-    "serve-marked": "0.2.3"
+    "serve-marked": "0.3.0"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0",

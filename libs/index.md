@@ -7,12 +7,12 @@ Fast badge generating service.
 ## Usage
 
 ```
-https://badgen.now.sh/badge/:subject/:status/:color
-                      ──┬──  ───┬───  ──┬───  ──┬──
-                        │       │       │       └─ RGB / Color Name
-                        │      TEXT    TEXT       ( optional )
-                        │
-                     "badge" - default(static) badge generator
+https://badgen.net/badge/:subject/:status/:color
+                   ──┬──  ───┬───  ──┬───  ──┬──
+                     │       │       │       └─ RGB / Color Name
+                     │      TEXT    TEXT       ( optional )
+                     │
+                  "badge" - default(static) badge generator
 ```
 
 Available color names:
@@ -88,7 +88,8 @@ Available color names:
 
 - `label`: Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters)
 - `emoji`: If subject/status text contains emoji, `emoji=1` will make it happy 👻
-- `list`: `list=1` will replace `,` to ` | ` in status text
+- `style`: Force use flat style with `style=flat`. [e.g.][style-eg-href]
+- `list`: `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
 
 ## About
 
@@ -99,3 +100,5 @@ Made with ❤️ by [Amio](https://github.com/amio)
 </span>
 
 [url-enc-href]: https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding
+[list-eg-href]: /badge/platform/ios,macos,tvos?list=1
+[style-eg-href]: /badge/color/blue/blue?style=flat
