@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "lint": "standard",
-    "dev": "micro-dev service.js",
+    "dev": "micro-dev service.js -s",
     "test": "echo just lint for now && npm run lint",
     "start": "micro service.js",
     "predeploy": "now rm badgen-service --safe -y -T badgen || true",
