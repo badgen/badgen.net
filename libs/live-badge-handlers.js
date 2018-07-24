@@ -15,7 +15,7 @@ module.exports = Object.entries(liveFns).map(([name, fn]) => {
 
     req.params = { subject, status, color, style }
     serveBadge(req, res, {
-      maxAge: failed ? '0' : (Math.random() * 240 + 120).toFixed()
+      maxAge: failed ? '0' : (Math.random() * 120 + 240).toFixed()
     })
   })
 })
