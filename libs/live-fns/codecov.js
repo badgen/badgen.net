@@ -4,8 +4,8 @@ const axios = require('../axios.js')
 
 /**
  * `gh` is alias for `github` set by CodeCov
- * badgen.now.sh/codecov/c/gh/amio/badgen
- * badgen.now.sh/codecov/c/gh/amio/badgen/master
+ * /codecov/c/github/amio/badgen
+ * /codecov/c/github/amio/badgen/master
  */
 module.exports = async function codecov (method, ...args) {
   switch (method) {
