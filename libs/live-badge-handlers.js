@@ -10,12 +10,12 @@ module.exports = Object.entries(liveFns).map(([name, fn]) => {
       subject = name,
       status = 'unknown',
       color = 'grey',
-      fail = false
+      failed = false
     } = await fetchLiveParams(name, fn, req.params['*'])
 
     req.params = { subject, status, color, style }
     serveBadge(req, res, {
-      maxAge: fail ? '0' : (Math.random() * 240 + 120).toFixed()
+      maxAge: failed ? '0' : (Math.random() * 240 + 120).toFixed()
     })
   })
 })
@@ -27,11 +27,11 @@ async function fetchLiveParams (scope, fn, paramsPath) {
   console.time(fetchKey)
   waitings[fetchKey] = fn(...paramsPath.split('/')).catch(e => {
     console.error(fetchKey, 'LIVE_ERROR', e.message)
-    return { fail: true }
+    return { failed: true }
   }).then(result => {
     console.timeEnd(fetchKey)
     waitings[fetchKey] = undefined
-    return result
+    return result || { failed: true }
   })
 
   return waitings[fetchKey]
