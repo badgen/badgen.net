@@ -3,7 +3,6 @@
 [![StandardJS][standard-src]][standard-href]
 [![dependencies][dep-src]][dep-href]
 [![uptime past week][uptime-src]][uptime-href]
-[![service status][status-src]][uptime-href]
 [![response time][response-src]][uptime-href]
 
 Home of [Badgen](https://badgen.net), fast badge generating service.
@@ -40,7 +39,6 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [standard-href]: https://standardjs.com/
 [dep-src]: https://badgen.net/david/dep/amio/badgen-service
 [dep-href]: https://david-dm.org/amio/badgen-service
-[status-src]: https://badgen.net/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af
 [uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=uptime%20past%20week
 [response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
