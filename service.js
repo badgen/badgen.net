@@ -5,7 +5,8 @@ const serve404 = require('./libs/serve-404.js')
 const serveBadge = require('./libs/serve-badge.js')
 const liveBadgeHandlers = require('./libs/live-badge-handlers.js')
 
-module.exports = router({ defaultRoute: serve404 })(
+module.exports = router()(
+  get('/*', serve404),
   get('/', serveIndex),
   get('/favicon.ico', serveFavicon),
   get('/favicon.svg', serveFavicon),
