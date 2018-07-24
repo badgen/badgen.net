@@ -6,7 +6,7 @@
 [![service status][status-src]][uptime-href]
 [![response time][response-src]][uptime-href]
 
-Home of [Badgen](https://badgen.now.sh), fast badge generating service.
+Home of [Badgen](https://badgen.net), fast badge generating service.
 
 ## The Badgen Story
 
