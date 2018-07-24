@@ -9,6 +9,7 @@ module.exports = {
   'github': require('./github.js'),
   'homebrew': require('./homebrew.js'),
   'npm': require('./npm.js'),
+  'packagephobia': require('./packagephobia.js'),
   'travis': require('./travis.js'),
   'uptime-robot': require('./uptime-robot.js')
 }
