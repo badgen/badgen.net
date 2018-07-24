@@ -1,3 +1,4 @@
+const micro = require('micro')
 const { router, get } = require('micro-fork')
 const serveFavicon = require('./libs/serve-favicon.js')
 const serveIndex = require('./libs/serve-index.js')
@@ -14,3 +15,7 @@ module.exports = router()(
   get('/badge/:subject/:status/:color', (req, res) => serveBadge(req, res)),
   ...liveBadgeHandlers
 )
+
+if (require.main === module) {
+  micro(module.exports).listen(3000)
+}
