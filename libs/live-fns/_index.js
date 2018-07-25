@@ -6,6 +6,7 @@ module.exports = {
   'codecov': require('./codecov.js'),
   'crates': require('./crates.js'),
   'david': require('./david.js'),
+  'docker': require('./docker.js'),
   'github': require('./github.js'),
   'homebrew': require('./homebrew.js'),
   'npm': require('./npm.js'),
