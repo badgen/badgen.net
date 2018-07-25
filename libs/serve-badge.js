@@ -1,3 +1,4 @@
+const { send } = require('micro')
 const badgen = require('badgen')
 
 module.exports = function serveBadge (req, res, options = {}) {
@@ -8,16 +9,14 @@ module.exports = function serveBadge (req, res, options = {}) {
   const { style, label, emoji, list } = req.query
 
   const badgenParams = {
-    subject: label || subject,
-    status: list ? status.replace(/,/g, ' | ') : status,
+    subject: String(label || subject),
+    status: String(list ? status.replace(/,/g, ' | ') : status),
     color: color,
     style: style || hostStyle,
     emoji: !!emoji
   }
 
-  res.writeHead(code, {
-    'Content-Type': 'image/svg+xml;charset=utf-8',
-    'Cache-Control': `public, max-age=60, s-maxage=${maxAge}`
-  })
-  res.end(badgen(badgenParams))
+  res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
+  res.setHeader('Cache-Control', `public, max-age=60, s-maxage=${maxAge}`)
+  send(res, code, badgen(badgenParams))
 }
