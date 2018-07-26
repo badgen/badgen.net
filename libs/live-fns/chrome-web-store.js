@@ -1,7 +1,7 @@
 const webstore = require('chrome-webstore')
 const millify = require('millify')
-const round = require('../utils/round')
-const stars = require('../utils/stars')
+const round = require('../utils/round.js')
+const stars = require('../utils/stars.js')
 
 module.exports = async function (method, ...args) {
   const meta = await webstore.detail({id: args[0]})

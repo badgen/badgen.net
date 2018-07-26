@@ -1,8 +1,8 @@
 const axios = require('../axios.js')
 const xml2js = require('xml2js')
 const millify = require('millify')
-const round = require('../utils/round')
-const stars = require('../utils/stars')
+const round = require('../utils/round.js')
+const stars = require('../utils/stars.js')
 
 module.exports = async function (method, ...args) {
   const endpoint = `https://services.addons.mozilla.org/en-US/firefox/api/1.5/addon/${args[0]}`
