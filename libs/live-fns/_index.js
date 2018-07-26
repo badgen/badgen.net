@@ -1,5 +1,6 @@
 /* eslint sort-keys: "error" */
 module.exports = {
+  'amo': require('./amo.js'),
   'appveyor': require('./appveyor.js'),
   'chrome-web-store': require('./chrome-web-store.js'),
   'circleci': require('./circleci.js'),
