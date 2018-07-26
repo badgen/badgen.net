@@ -55,7 +55,7 @@ Available color names:
 | npm downloads/year | ![](/npm/dy/express) | [/npm/dy/express](/npm/dy/express)
 | npm downloads/total | ![](/npm/dt/micromatch) | [/npm/dt/express](/npm/dt/micromatch)
 | npm license | ![](/npm/license/lodash) | [/npm/license/lodash](/npm/license/lodash)
-| npm node  | ![](/npm/node/express) | [/npm/node/express](/npm/node/express)
+| npm engines (node)  | ![](/npm/node/express) | [/npm/node/express](/npm/node/express)
 | crates.io version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
 | crates.io downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex)
 | crates.io downloads/latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
@@ -106,8 +106,8 @@ Available color names:
 
 Made with ❤️ by [Amio](https://github.com/amio)
 <span style="float:right; color: #AAA">
-  <a href="https://github.com/amio/badgen">badgen</a> |
-  <a href="https://github.com/amio/badgen-service">badgen-service</a>
+  <a href="https://twitter.com/badgen_net">twitter</a> |
+  <a href="https://github.com/amio/badgen-service">github</a>
 </span>
 
 [url-enc-href]: https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding
