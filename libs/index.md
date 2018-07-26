@@ -49,7 +49,6 @@ Available color names:
 | npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
 | npm version | ![](/npm/v/marked) | [/npm/v/marked](/npm/v/marked)
 | npm version (scoped) | ![](/npm/v/@nestjs/core) | [/npm/v/@nestjs/core](/npm/v/@nestjs/core)
-| npm downloads/day | ![](/npm/dd/micromatch) | [/npm/dd/micromatch](/npm/dd/micromatch)
 | npm downloads/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
 | npm downloads/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
 | npm downloads/year | ![](/npm/dy/express) | [/npm/dy/express](/npm/dy/express)
