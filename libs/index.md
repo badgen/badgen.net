@@ -106,8 +106,8 @@ Available color names:
 
 Made with ❤️ by [Amio](https://github.com/amio)
 <span style="float:right; color: #AAA">
-  <a href="https://twitter.com/badgen_net">twitter</a> |
-  <a href="https://github.com/amio/badgen-service">github</a>
+  <a href="https://github.com/amio/badgen-service">GitHub</a> |
+  <a href="https://twitter.com/badgen_net">Twitter</a>
 </span>
 
 [url-enc-href]: https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding
