@@ -9,7 +9,7 @@ Home of [Badgen](https://badgen.net), fast badge generating service.
 
 ## The Badgen Story
 
-TLDR: Badgen Service is using [badgen](https://github.com/amio/badgen) to generate svg badges on the fly, running on Zeit's [Now Cloud](https://zeit.co/now), serving behind Now CDN.
+TLDR: Badgen Service is using [badgen](https://github.com/amio/badgen) to generate svg badges, running on Zeit's [Now Cloud](https://zeit.co/now), serving behind Now CDN.
 
 > That's a service, that's a library, hooorey!  
 > [@tunnckoCore](https://twitter.com/tunnckoCore)
