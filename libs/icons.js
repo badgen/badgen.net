@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { join, parse } = require('path')
 
-function genIcons (iconFolder) {
+function genIcons (iconFolder, whiten) {
   const icons = {}
 
   fs.readdirSync(join(__dirname, iconFolder)).forEach(filename => {
@@ -14,10 +14,8 @@ function genIcons (iconFolder) {
 
     const key = parse(filename).name
     const iconFile = join(__dirname, iconFolder, filename)
-    const svg = fs.readFileSync(iconFile, 'utf8')
-      .replace(/fill="#\w{3,6}"/g, 'fill="white"')
-      .replace(/stroke="#\w{3,6}"/g, 'stroke="white"')
-      // .replace(/<path /g, '<path fill="white" ')
+    const svgSource = fs.readFileSync(iconFile, 'utf8')
+    const svg = whiten ? whitenSVG(svgSource) : svgSource
     const b64 = Buffer.from(svg).toString('base64')
 
     icons[key] = `data:image/${imageType};base64,${b64}`
@@ -26,7 +24,14 @@ function genIcons (iconFolder) {
   return icons
 }
 
+function whitenSVG (svg, whiten) {
+  return svg
+    .replace(/fill="#\w{3,6}"/g, 'fill="white"')
+    .replace(/stroke="#\w{3,6}"/g, 'stroke="white"')
+    .replace(/<path /g, '<path fill="white" ')
+}
+
 module.exports = {
   builtin: genIcons('icons'),
-  simple: genIcons('../node_modules/simple-icons/icons')
+  simple: genIcons('../node_modules/simple-icons/icons', true)
 }
