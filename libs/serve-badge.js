@@ -1,6 +1,6 @@
-const { send } = require('micro')
 const badgen = require('badgen')
-const icons = require('./icons.js')
+const { send } = require('micro')
+const { builtin, simple } = require('./icons.js')
 
 module.exports = function serveBadge (req, res, options = {}) {
   const { code = 200, maxAge = '86400' } = options
@@ -15,7 +15,7 @@ module.exports = function serveBadge (req, res, options = {}) {
     color: color,
     style: style || hostStyle,
     emoji: Boolean(emoji),
-    icon: icons[icon] || icon
+    icon: builtin[icon] || simple[icon]
   }
 
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
