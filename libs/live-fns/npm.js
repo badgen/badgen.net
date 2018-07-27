@@ -8,17 +8,17 @@ const millify = require('millify')
 module.exports = async function npm (method, ...args) {
   switch (method) {
     case 'v':
-      return version(args)
+      return npmVersion(args)
     case 'dt':
-      return download('total', args)
+      return npmDownloads('total', args)
     case 'dd':
-      return download('last-day', args)
+      return npmDownloads('last-day', args)
     case 'dw':
-      return download('last-week', args)
+      return npmDownloads('last-week', args)
     case 'dm':
-      return download('last-month', args)
+      return npmDownloads('last-month', args)
     case 'dy':
-      return download('last-year', args)
+      return npmDownloads('last-year', args)
     case 'license':
       return pkg('license', args)
     case 'node':
@@ -52,7 +52,7 @@ async function pkg (topic, args) {
   }
 }
 
-async function download (period, args) {
+async function npmDownloads (period, args) {
   const endpoint = ['https://api.npmjs.org/downloads']
   const isTotal = period === 'total'
 
@@ -86,16 +86,34 @@ async function download (period, args) {
   }
 }
 
-async function version (args) {
-  // Due to an bug of npm registry api, scoped package need to be handled
-  // separately: https://github.com/npm/registry/issues/34
-  // A workaround is using version range("*" for "latest") by Andrew Goode:
-  // https://github.com/npm/registry/issues/34#issuecomment-228349870
-  const scoped = args.length === 2 && args[0][0] === '@'
-  const endpoint = scoped
-    ? `https://registry.npmjs.org/${args.join('%2F')}/*`
-    : `https://registry.npmjs.org/${args}/latest`
-  const { version } = await axios.get(endpoint).then(res => res.data)
+async function npmVersion (args) {
+  const isScoped = args[0].charAt(0) === '@'
+  const name = isScoped ? [args[0], args[1]].join('%2F') : args[0]
+  let parts = null
+  let tag = args[1]
+
+  if (isScoped) {
+    parts = args[2] && args[2] !== 'latest' ? [name, args[2]] : [name]
+    tag = parts[1]
+  } else {
+    parts = args[1] ? [name] : [name, 'latest']
+  }
+
+  const endpoint = `https://registry.npmjs.org/${parts.join('/')}`
+  const data = await axios.get(endpoint).then(res => res.data)
+
+  let version = null
+
+  // pretty weird stuff
+  if (isScoped && tag) {
+    version = data.version
+  } else if (isScoped && !tag) {
+    version = data['dist-tags'].latest
+  } else if (tag) {
+    version = data['dist-tags'][tag]
+  } else {
+    version = data.version
+  }
 
   return {
     subject: 'npm',
