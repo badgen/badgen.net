@@ -13,7 +13,8 @@ module.exports = serveMarked('libs/index.md', {
     li code { padding: 0.2em 0.4em; display: pre }
     li { padding: 0.4em 0 }
     h1 + p { letter-spacing: 0.1px }
-    h1 + p img { margin-top: 1em; height: 20px }
+    h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
+    h1 + p img { height: 20px }
   `,
   beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
   beforeBodyEnd: `
