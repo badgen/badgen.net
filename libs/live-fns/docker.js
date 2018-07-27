@@ -17,13 +17,13 @@ module.exports = async function (topic, namespace, name) {
   switch (topic) {
     case 'stars':
       return {
-        subject: 'docker stars',
+        subject: 'stars',
         status: millify(star_count),
         color: 'blue'
       }
     case 'pulls':
       return {
-        subject: 'docker pulls',
+        subject: 'pulls',
         status: millify(pull_count),
         color: 'blue'
       }
