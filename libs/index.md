@@ -66,13 +66,90 @@ Available icons:
 
 <script>
   window.liveBadges = {
+    /* source control */
     github: [
+      // [ <desc>, <badge-image-src> ]
       ['release', '/github/release/babel/babel'],
       ['tag', '/github/tag/micromatch/micromatch'],
     ],
+    /* release registries */
+    npm: [
+      ['version', '/npm/v/express'],
+      ['version', '/npm/v/marked'],
+      ['version (scoped)', '/npm/v/@nestjs/core'],
+      ['weekly downloads', '/npm/dw/express'],
+      ['monthly downloads', '/npm/dm/express'],
+      ['yearly downloads', '/npm/dy/express'],
+      ['total downloads', '/npm/dt/express'],
+      ['license', '/npm/license/lodash'],
+      ['engines (node)', '/npm/node/express']
+    ],
+    crates: [
+      ['version', '/crates/v/regex'],
+      ['downloads', '/crates/d/regex'],
+      ['downloads (latest)', '/crates/dl/regex']
+    ],
+    docker: [
+      ['pulls (library)', '/docker/pulls/library/ubuntu'],
+      ['stars (library)', '/docker/stars/library/ubuntu'],
+      ['pulls (scoped)', '/docker/pulls/amio/node-chrome'],
+      ['stars (icon & label)', '/docker/stars/library/mongo?icon=docker&label=stars']
+    ],
+    homebrew: [
+      ['version', '/homebrew/v/fish'],
+      ['version', '/homebrew/v/cake']
+    ],
+    'chrome extension': [
+      ['version', '/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk'],
+      ['users', '/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk'],
+      ['price', '/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk'],
+      ['rating', '/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk'],
+      ['stars', '/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk'],
+      ['rating count', '/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk']
+    ],
+    'mozilla add-on': [
+      ['version', '/amo/v/markdown-viewer-chrome'],
+      ['users', '/amo/users/markdown-viewer-chrome'],
+      ['rating', '/amo/rating/markdown-viewer-chrome'],
+      ['stars', '/amo/stars/markdown-viewer-chrome'],
+      ['reviews', '/amo/reviews/markdown-viewer-chrome']
+    ],
+    /* CIs */
+    travis: [
+      ['build', '/travis/amio/micro-cors'],
+      ['build (branch)', '/travis/babel/babel/6.x'],
+      // ['build (icon)', '/travis/babel/babel?icon=travis'],
+    ],
+    circleci: [
+      ['build', '/circleci/github/amio/now-go'],
+      ['build (branch)', '/circleci/github/amio/now-go/master'],
+      // ['build (icon)', '/circleci/github/amio/now-go?icon=circleci'],
+    ],
+    appveyor: [
+      ['build', '/appveyor/ci/gruntjs/grunt'],
+      // ['build (icon)', '/appveyor/ci/gruntjs/grunt?icon=appveyor']
+    ],
+    codecov: [
+      ['coverage', '/codecov/c/github/tunnckoCore/gitcommit'],
+      ['coverage (branch)', '/codecov/c/github/babel/babel/6.x']
+    ],
+    'david-dm': [
+      ['dependencies', '/david/dep/zeit/pkg'],
+      ['dev dependencies', '/david/dev/zeit/pkg'],
+      ['peer dependencies', '/david/peer/epoberezkin/ajv-keywords'],
+      ['optional dependencies', '/david/optional/epoberezkin/ajv-keywords'],
+    ],
+    /* quality & metrics */
     packagephobia: [
       ['publish size', '/packagephobia/publish/webpack'],
       ['install size', '/packagephobia/install/webpack']
+    ],
+    'uptime robot': [
+      ['status', '/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af'],
+      ['(24 hours) uptime', '/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af'],
+      ['(past week) uptime', '/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af'],
+      ['(past month) uptime', '/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af'],
+      ['(last hours) response', '/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af']
     ]
   }
 </script>
