@@ -10,7 +10,7 @@ module.exports = async function (user, repo, branch = 'master') {
 
   if (res[0].match(/passed|passing/) || res[1].match(/passed|passing/)) {
     return {
-      subject: 'build',
+      subject: 'travis',
       status: 'passing',
       color: 'green'
     }
@@ -18,7 +18,7 @@ module.exports = async function (user, repo, branch = 'master') {
 
   if (res[0].match(/failed|failing/) || res[1].match(/failed|failing/)) {
     return {
-      subject: 'build',
+      subject: 'travis',
       status: 'failed',
       color: 'red'
     }

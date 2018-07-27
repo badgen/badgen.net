@@ -18,7 +18,7 @@ async function ci (account, project, branch) {
   const endpoint = `https://ci.appveyor.com/api/projects/${account}/${project}${branch}`
   const { build } = await axios.get(endpoint).then(res => res.data)
   return {
-    subject: 'build',
+    subject: 'appveyor',
     status: build.status,
     color: build.status === 'success' ? 'green' : 'red'
   }
