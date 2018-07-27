@@ -55,13 +55,12 @@ Available color names:
 | npm version (scoped) | ![](/npm/v/@babel/core/latest) | [/npm/v/@babel/core/latest](/npm/v/@babel/core/latest)
 | npm version (scoped) | ![](/npm/v/@nestjs/core) | [/npm/v/@nestjs/core](/npm/v/@nestjs/core)
 | npm version (scoped tag) | ![](/npm/v/@nestjs/core/next) | [/npm/v/@nestjs/core/next](/npm/v/@nestjs/core/next)
-| npm downloads/day | ![](/npm/dd/micromatch) | [/npm/dd/micromatch](/npm/dd/micromatch)
 | npm downloads/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
 | npm downloads/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
 | npm downloads/year | ![](/npm/dy/express) | [/npm/dy/express](/npm/dy/express)
 | npm downloads/total | ![](/npm/dt/micromatch) | [/npm/dt/express](/npm/dt/micromatch)
 | npm license | ![](/npm/license/lodash) | [/npm/license/lodash](/npm/license/lodash)
-| npm node  | ![](/npm/node/express) | [/npm/node/express](/npm/node/express)
+| npm engines (node)  | ![](/npm/node/express) | [/npm/node/express](/npm/node/express)
 | crates.io version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
 | crates.io downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex)
 | crates.io downloads/latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
@@ -71,6 +70,11 @@ Available color names:
 | chrome extension rating | ![](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension stars | ![](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 | chrome extension rating count | ![](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
+| mozilla add-on version | ![](/amo/v/markdown-viewer-chrome) | [/amo/v/markdown-viewer-chrome](/amo/v/markdown-viewer-chrome)
+| mozilla add-on users | ![](/amo/users/markdown-viewer-chrome) | [/amo/users/markdown-viewer-chrome](/amo/users/markdown-viewer-chrome)
+| mozilla add-on rating | ![](/amo/rating/markdown-viewer-chrome) | [/amo/rating/markdown-viewer-chrome](/amo/rating/markdown-viewer-chrome)
+| mozilla add-on stars | ![](/amo/stars/markdown-viewer-chrome) | [/amo/stars/markdown-viewer-chrome](/amo/stars/markdown-viewer-chrome)
+| mozilla add-on reviews | ![](/amo/reviews/markdown-viewer-chrome) | [/amo/reviews/markdown-viewer-chrome](/amo/reviews/markdown-viewer-chrome)
 | homebrew version | ![](/homebrew/v/fish) | [/homebrew/v/fish](/homebrew/v/fish)
 | homebrew version | ![](/homebrew/v/cake) | [/homebrew/v/cake](/homebrew/v/cake)
 | travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors)
@@ -107,8 +111,8 @@ Available color names:
 
 Made with ❤️ by [Amio](https://github.com/amio)
 <span style="float:right; color: #AAA">
-  <a href="https://github.com/amio/badgen">badgen</a> |
-  <a href="https://github.com/amio/badgen-service">badgen-service</a>
+  <a href="https://github.com/amio/badgen-service">GitHub</a> |
+  <a href="https://twitter.com/badgen_net">Twitter</a>
 </span>
 
 [url-enc-href]: https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding

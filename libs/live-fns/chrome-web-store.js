@@ -1,20 +1,7 @@
 const webstore = require('chrome-webstore')
 const millify = require('millify')
-
-const round = (value, decimals) => {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
-}
-
-const stars = (average) => {
-  const base = Math.floor(average)
-  const fraction = average - base
-
-  const full = '★'.repeat(fraction < 0.66 ? base : base + 1)
-  // TODO: update when Unicode 11 goes mainstream
-  // between 0.33 and 0.66 should be `half star` symbol
-  const half = fraction >= 0.33 && fraction <= 0.66 ? '★' : ''
-  return (full + half).padEnd(5, '☆')
-}
+const round = require('../utils/round.js')
+const stars = require('../utils/stars.js')
 
 module.exports = async function (method, ...args) {
   const meta = await webstore.detail({id: args[0]})

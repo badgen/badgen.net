@@ -9,7 +9,7 @@ Home of [Badgen](https://badgen.net), fast badge generating service.
 
 ## The Badgen Story
 
-TLDR: Badgen Service is using [badgen](https://github.com/amio/badgen) to generate svg badges on the fly, running on Zeit's [now.sh](https://zeit.co/now), serving behind Now CDN.
+TLDR: Badgen Service is using [badgen](https://github.com/amio/badgen) to generate svg badges, running on Zeit's [Now Cloud](https://zeit.co/now), serving behind Now CDN.
 
 > That's a service, that's a library, hooorey!  
 > [@tunnckoCore](https://twitter.com/tunnckoCore)
@@ -26,15 +26,25 @@ Thanks to awesome people's help, Badgen are getting better and better. Welcome t
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
+### Add live badge
+
 If a service you wish to have is still missing here, we welcome new contirbutions. Check out [live-fns/crates.js](libs/live-fns/crates.js) and [live-fns/_index.js](libs/live-fns/_index.js) to get a quick impression. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it.
 
 To ensure that your addition is working correctly start the development server with `npm run dev`.
+
+### Deploy your own Badgen
+
+Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen instance to [Now Cloud](https://zeit.co/now) with one single command:
+```
+now amio/badgen-service
+```
 
 ## About
 
 Made with ❤️ by [Amio](https://github.com/amio),
 built with ⚡️ from [badgen](https://github.com/amio/badgen).
 
+[now-href]: https://zeit.co/now
 [standard-src]: https://badgen.net/badge/code%20style/standard/F2A
 [standard-href]: https://standardjs.com/
 [dep-src]: https://badgen.net/david/dep/amio/badgen-service
