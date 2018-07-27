@@ -27,12 +27,32 @@ Available color names:
 ![](/badge/color/purple/purple)
 ![](/badge/color/grey/grey)
 
+Available query params:
+
+| param | desc |
+| ----- | ---- |
+|`label`| Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
+|`style`| Force flat style with `style=flat`. [e.g.][style-eg-href]
+|`emoji`| Set `emoji=1` if subject/status text contains emoji.
+| `list`| Set `list=1` will replace `,` with ` \| ` in status text. [e.g.][list-eg-href]
+| `icon`| Use builtin icon in front of label. [e.g.][icon-eg-href]
+
+Available icons:
+
+![](/badge/icon/travis?icon=travis)
+![](/badge/icon/appveyor?icon=appveyor)
+![](/badge/icon/circleci?icon=circleci)
+![](/badge/icon/github?icon=github)
+![](/badge/icon/docker?icon=docker)
+![](/badge/icon/mozillafirefox?icon=mozillafirefox)
+![](/badge/icon/googlechrome?icon=googlechrome)
+
 ## Examples
 
 #### Static Badge
 
 | Preview | URL |
-| --- | --- |
+| ------- | --- |
 |![](/badge/chat/gitter/purple) | [/badge/chat/gitter/purple](/badge/chat/gitter/purple)
 |![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
 |![](/badge/stars/★★★★☆) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆)
@@ -42,64 +62,20 @@ Available color names:
 
 #### Live Badge
 
-| Keyword | Preview | URL |
-| --- | --- | --- |
-| github release | ![](/github/release/babel/babel) | [/github/release/babel/babel](/github/release/babel/babel)
-| github tag | ![](/github/tag/micromatch/micromatch) | [/github/tag/micromatch/micromatch](/github/tag/micromatch/micromatch)
-| npm version | ![](/npm/v/express) | [/npm/v/express](/npm/v/express)
-| npm version | ![](/npm/v/marked) | [/npm/v/marked](/npm/v/marked)
-| npm version (scoped) | ![](/npm/v/@nestjs/core) | [/npm/v/@nestjs/core](/npm/v/@nestjs/core)
-| npm downloads/week | ![](/npm/dw/express) | [/npm/dw/express](/npm/dw/express)
-| npm downloads/month | ![](/npm/dm/express) | [/npm/dm/express](/npm/dm/express)
-| npm downloads/year | ![](/npm/dy/express) | [/npm/dy/express](/npm/dy/express)
-| npm downloads/total | ![](/npm/dt/micromatch) | [/npm/dt/express](/npm/dt/micromatch)
-| npm license | ![](/npm/license/lodash) | [/npm/license/lodash](/npm/license/lodash)
-| npm engines (node)  | ![](/npm/node/express) | [/npm/node/express](/npm/node/express)
-| crates.io version | ![](/crates/v/regex) | [/crates/v/regex](/crates/v/regex)
-| crates.io downloads | ![](/crates/d/regex) | [/crates/d/regex](/crates/d/regex)
-| crates.io downloads/latest | ![](/crates/dl/regex) | [/crates/dl/regex](/crates/dl/regex)
-| chrome extension version | ![](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
-| chrome extension users | ![](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
-| chrome extension price | ![](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
-| chrome extension rating | ![](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
-| chrome extension stars | ![](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
-| chrome extension rating count | ![](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk) | [/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk](/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
-| mozilla add-on version | ![](/amo/v/markdown-viewer-chrome) | [/amo/v/markdown-viewer-chrome](/amo/v/markdown-viewer-chrome)
-| mozilla add-on users | ![](/amo/users/markdown-viewer-chrome) | [/amo/users/markdown-viewer-chrome](/amo/users/markdown-viewer-chrome)
-| mozilla add-on rating | ![](/amo/rating/markdown-viewer-chrome) | [/amo/rating/markdown-viewer-chrome](/amo/rating/markdown-viewer-chrome)
-| mozilla add-on stars | ![](/amo/stars/markdown-viewer-chrome) | [/amo/stars/markdown-viewer-chrome](/amo/stars/markdown-viewer-chrome)
-| mozilla add-on reviews | ![](/amo/reviews/markdown-viewer-chrome) | [/amo/reviews/markdown-viewer-chrome](/amo/reviews/markdown-viewer-chrome)
-| homebrew version | ![](/homebrew/v/fish) | [/homebrew/v/fish](/homebrew/v/fish)
-| homebrew version | ![](/homebrew/v/cake) | [/homebrew/v/cake](/homebrew/v/cake)
-| travis | ![](/travis/amio/micro-cors) | [/travis/amio/micro-cors](/travis/amio/micro-cors)
-| travis (branch) | ![](/travis/babel/babel/6.x) | [/travis/babel/babel/6.x](/travis/babel/babel/6.x)
-| codecov | ![](/codecov/c/github/tunnckoCore/gitcommit) | [/codecov/c/github/tunnckoCore/gitcommit](/codecov/c/github/tunnckoCore/gitcommit)
-| codecov (branch) | ![](/codecov/c/github/babel/babel/6.x) | [/codecov/c/github/babel/babel/6.x](/codecov/c/github/babel/babel/6.x)
-| circleci | ![](/circleci/github/amio/now-go) | [/circleci/github/amio/now-go](/circleci/github/amio/now-go)
-| circleci (branch) | ![](/circleci/github/amio/now-go/master) | [/circleci/github/amio/now-go/master](/circleci/github/amio/now-go/master)
-| appveyor ci | ![](/appveyor/ci/gruntjs/grunt) | [/appveyor/ci/gruntjs/grunt](/appveyor/ci/gruntjs/grunt)
-| david-dm | ![](/david/dep/zeit/pkg) | [/david/dep/zeit/pkg](/david/dep/zeit/pkg)
-| david-dm dev dependencies | ![](/david/dev/zeit/pkg) | [/david/dev/zeit/pkg](/david/dev/zeit/pkg)
-| david-dm peer dependencies | ![](/david/peer/epoberezkin/ajv-keywords) | [/david/peer/epoberezkin/ajv-keywords](/david/peer/epoberezkin/ajv-keywords)
-| david-dm optional dependencies | ![](/david/optional/epoberezkin/ajv-keywords) | [/david/optional/epoberezkin/ajv-keywords](/david/optional/epoberezkin/ajv-keywords)
-| docker pulls (library) | ![](/docker/pulls/library/ubuntu) | [/docker/pulls/library/ubuntu](/docker/pulls/library/ubuntu)
-| docker stars (library) | ![](/docker/stars/library/ubuntu) | [/docker/stars/library/ubuntu](/docker/stars/library/ubuntu)
-| docker pulls (scoped) | ![](/docker/pulls/amio/node-chrome) | [/docker/pulls/amio/node-chrome](/docker/pulls/amio/node-chrome)
-| docker stars (icon & label) | ![](/docker/stars/library/mongo?icon=docker&label=stars) | [/docker/stars/library/mongo?icon=docker&label=stars](/docker/stars/library/mongo?icon=docker&label=stars)
-| packagephobia publish size | ![](/packagephobia/publish/webpack) | [/packagephobia/publish/webpack](/packagephobia/publish/webpack)
-| packagephobia install size | ![](/packagephobia/install/webpack) | [/packagephobia/install/webpack](/packagephobia/install/webpack)
-| uptime robot status | ![](/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af)
-| uptime robot uptime (day) | ![](/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/lasy-day/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af)
-| uptime robot uptime (week) | ![](/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/lasy-week/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af)
-| uptime robot uptime (month) | ![](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/lasy-month/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af)
-| uptime robot response (last hour) | ![](/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af)
+<div id="live-badge-examples"></div>
 
-## Query params
-
-- `label`: Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
-- `emoji`: Use `emoji=1` if subject/status text contains emoji.
-- `style`: Force flat style with `style=flat`. [e.g.][style-eg-href]
-- `list`: `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
+<script>
+  window.liveBadges = {
+    github: [
+      ['release', '/github/release/babel/babel'],
+      ['tag', '/github/tag/micromatch/micromatch'],
+    ],
+    packagephobia: [
+      ['publish size', '/packagephobia/publish/webpack'],
+      ['install size', '/packagephobia/install/webpack']
+    ]
+  }
+</script>
 
 ## About
 
@@ -109,6 +85,41 @@ Made with ❤️ by [Amio](https://github.com/amio)
   <a href="https://twitter.com/badgen_net">Twitter</a>
 </span>
 
+<script>
+  if (window.location.hostname === 'flat.badgen.net') {
+    const code = document.querySelector('pre code')
+    code.innerText = code.innerText.replace(
+      'badgen.net',
+      'flat.badgen.net'
+    ).replace(/\\n/g, '\\n     ')
+  }
+</script>
+
+<script type="module">
+  import { html, render } from 'https://cdn.jsdelivr.net/npm/lit-html@0.10.2/lit-html.js'
+
+  const genExamples = (badges) => html`
+    <div>${Object.entries(badges).map(([service, examples]) => html`
+      <dl>
+        <dt>${service}</dt>
+        ${examples.map(([desc, src]) => html`
+          <dd>
+            <b>${desc}</b>
+            <i><img src=${src} /></i>
+            <span><a href=${src}>${src}</a></span>
+          </dd>
+        `)}
+      </dl>
+    `)}</div>
+  `
+
+  render(
+    genExamples(window.liveBadges),
+    document.querySelector('#live-badge-examples')
+  )
+</script>
+
 [url-enc-href]: https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding
-[list-eg-href]: /badge/platform/ios,macos,tvos?list=1
 [style-eg-href]: /badge/color/blue/blue?style=flat
+[list-eg-href]: /badge/platform/ios,macos,tvos?list=1
+[icon-eg-href]: /badge/docker/v1.2.3/blue?icon=docker
