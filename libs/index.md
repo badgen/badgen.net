@@ -44,8 +44,8 @@ Available icons:
 ![](/badge/icon/circleci?icon=circleci)
 ![](/badge/icon/github?icon=github)
 ![](/badge/icon/docker?icon=docker)
-![](/badge/icon/mozillafirefox?icon=mozillafirefox)
-![](/badge/icon/googlechrome?icon=googlechrome)
+![](/badge/icon/firefox?icon=firefox)
+![](/badge/icon/chrome?icon=chrome)
 
 ## Examples
 

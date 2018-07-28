@@ -32,6 +32,6 @@ function whitenSVG (svg, whiten) {
 }
 
 module.exports = {
-  builtin: genIcons('icons'),
-  simple: genIcons('../node_modules/simple-icons/icons', true)
+  builtin: genIcons('icons')
+  // simple: genIcons('../node_modules/simple-icons/icons', true)
 }
