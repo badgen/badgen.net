@@ -10,7 +10,7 @@ module.exports = function serveBadge (req, res, options = {}) {
   const { style, label, emoji, list, icon } = req.query
 
   const badgenParams = {
-    subject: String(label || subject),
+    subject: typeof label !== 'undefined' ? label : subject,
     status: String(list ? status.replace(/,/g, ' | ') : status),
     color: color,
     style: style || hostStyle,
