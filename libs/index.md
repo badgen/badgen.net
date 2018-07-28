@@ -45,6 +45,8 @@ Available icons:
 ![](/badge//docker?icon=docker)
 ![](/badge//github?icon=github)
 ![](/badge//gitlab?icon=gitlab)
+![](/badge//slack?icon=slack)
+![](/badge//gitter?icon=gitter)
 ![](/badge//firefox?icon=firefox)
 ![](/badge//chrome?icon=chrome)
 ![](/badge//terminal?icon=terminal)
