@@ -89,9 +89,9 @@ Available color names:
 | packagephobia publish size | ![](/packagephobia/publish/webpack) | [/packagephobia/publish/webpack](/packagephobia/publish/webpack)
 | packagephobia install size | ![](/packagephobia/install/webpack) | [/packagephobia/install/webpack](/packagephobia/install/webpack)
 | uptime robot status | ![](/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af)
-| uptime robot uptime (day) | ![](/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/lasy-day/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af)
-| uptime robot uptime (week) | ![](/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/lasy-week/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af)
-| uptime robot uptime (month) | ![](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/lasy-month/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af)
+| uptime robot uptime (day) | ![](/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af)
+| uptime robot uptime (week) | ![](/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af)
+| uptime robot uptime (month) | ![](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af)
 | uptime robot response (last hour) | ![](/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af) | [/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af](/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af)
 
 ## Query params
