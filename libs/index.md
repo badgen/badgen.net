@@ -40,10 +40,11 @@ Available query params:
 Available icons:
 
 ![](/badge/icon/travis?icon=travis)
-![](/badge/icon/appveyor?icon=appveyor)
 ![](/badge/icon/circleci?icon=circleci)
-![](/badge/icon/github?icon=github)
+![](/badge/icon/appveyor?icon=appveyor)
 ![](/badge/icon/docker?icon=docker)
+![](/badge/icon/github?icon=github)
+![](/badge/icon/gitlab?icon=gitlab)
 ![](/badge/icon/firefox?icon=firefox)
 ![](/badge/icon/chrome?icon=chrome)
 
