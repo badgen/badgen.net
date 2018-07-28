@@ -163,6 +163,7 @@ Made with ❤️ by [Amio](https://github.com/amio)
 </span>
 
 <script>
+  // Update usage url for 'flat.badgen.net'
   if (window.location.hostname === 'flat.badgen.net') {
     const code = document.querySelector('pre code')
     code.innerText = code.innerText.replace(
@@ -173,12 +174,13 @@ Made with ❤️ by [Amio](https://github.com/amio)
 </script>
 
 <script type="module">
+  // Render live badge examples
   import { html, render } from 'https://cdn.jsdelivr.net/npm/lit-html@0.10.2/lit-html.js'
 
   const genExamples = (badges) => html`
     <div>${Object.entries(badges).map(([service, examples]) => html`
       <dl>
-        <dt>${service}</dt>
+        <dt id="${service}"><a href="#${service}">${service}</a></dt>
         ${examples.map(([desc, src]) => html`
           <dd>
             <b>${desc}</b>
