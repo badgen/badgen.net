@@ -4,6 +4,7 @@
 [![dependencies][dep-src]][dep-href]
 [![uptime past week][uptime-src]][uptime-href]
 [![response time][response-src]][uptime-href]
+![deploy to now][deploy-to-now]
 
 Home of [Badgen](https://badgen.net), fast badge generating service.
 
@@ -47,8 +48,9 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [now-href]: https://zeit.co/now
 [standard-src]: https://badgen.net/badge/code%20style/standard/F2A
 [standard-href]: https://standardjs.com/
-[dep-src]: https://badgen.net/david/dep/amio/badgen-service
+[dep-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
 [dep-href]: https://david-dm.org/amio/badgen-service
-[uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=uptime%20past%20week
+[uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af
 [response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
+[deploy-to-now]: https://badgen.net/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111
