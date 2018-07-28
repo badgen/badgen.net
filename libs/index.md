@@ -60,8 +60,6 @@ Available icons:
 |![](/badge/Language/Swift%203.0.1/orange) | [/badge/Language/Swift%203.0.1/orange](/badge/Language/Swift%203.0.1/orange)
 |![](/badge/platform/ios,macos,tvos?list=1) | [/badge/platform/ios,macos,tvos?list=1](/badge/platform/ios,macos,tvos?list=1)
 
-#### Live Badge
-
 <div id="live-badge-examples"></div>
 
 <script>
@@ -178,6 +176,7 @@ Made with ❤️ by [Amio](https://github.com/amio)
   import { html, render } from 'https://cdn.jsdelivr.net/npm/lit-html@0.10.2/lit-html.js'
 
   const genExamples = (badges) => html`
+    <h4 id="live-badge">Live Badge</h4>
     <div>${Object.entries(badges).map(([service, examples]) => html`
       <dl>
         <dt id="${service}"><a href="#${service}">${service}</a></dt>
