@@ -39,14 +39,15 @@ Available query params:
 
 Available icons:
 
-![](/badge/icon/travis?icon=travis)
-![](/badge/icon/circleci?icon=circleci)
-![](/badge/icon/appveyor?icon=appveyor)
-![](/badge/icon/docker?icon=docker)
-![](/badge/icon/github?icon=github)
-![](/badge/icon/gitlab?icon=gitlab)
-![](/badge/icon/firefox?icon=firefox)
-![](/badge/icon/chrome?icon=chrome)
+![](/badge//travis?icon=travis)
+![](/badge//circleci?icon=circleci)
+![](/badge//appveyor?icon=appveyor)
+![](/badge//docker?icon=docker)
+![](/badge//github?icon=github)
+![](/badge//gitlab?icon=gitlab)
+![](/badge//firefox?icon=firefox)
+![](/badge//chrome?icon=chrome)
+![](/badge//terminal?icon=terminal)
 
 ## Examples
 
@@ -54,12 +55,12 @@ Available icons:
 
 | Preview | URL |
 | ------- | --- |
-|![](/badge/chat/gitter/purple) | [/badge/chat/gitter/purple](/badge/chat/gitter/purple)
 |![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
-|![](/badge/stars/★★★★☆) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆)
+|![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
 |![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue)
 |![](/badge/Language/Swift%203.0.1/orange) | [/badge/Language/Swift%203.0.1/orange](/badge/Language/Swift%203.0.1/orange)
 |![](/badge/platform/ios,macos,tvos?list=1) | [/badge/platform/ios,macos,tvos?list=1](/badge/platform/ios,macos,tvos?list=1)
+|![](/badge/shell/$%20now%20amio%2Fbadgen-service/222) | [/badge/shell/$%20now%20amio%2Fbadgen-service/222](/badge/shell/$%20now%20amio%2Fbadgen-service/222)
 
 <div id="live-badge-examples"></div>
 
