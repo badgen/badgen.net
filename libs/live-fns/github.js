@@ -2,12 +2,12 @@ const axios = require('../axios.js')
 
 // https://developer.github.com/v3/repos/
 
-module.exports = async function (method, ...args) {
-  switch (method) {
+module.exports = async function (topic, ...args) {
+  switch (topic) {
     case 'release':
-      return release('release', args)
+      return release(...args)
     case 'tag':
-      return release('tag', args)
+      return tag(...args)
     default:
       return {
         subject: 'github',
@@ -17,15 +17,36 @@ module.exports = async function (method, ...args) {
   }
 }
 
-async function release (topic, args) {
-  const endpoint = `https://api.github.com/repos/${args.join('/')}/${topic}s`
-  const meta = await axios.get(endpoint).then(res => res.data)
+async function release (user, repo, channel) {
+  const endpoint = `https://api.github.com/repos/${user}/${repo}/releases`
+  const logs = await axios.get(endpoint).then(res => res.data)
 
-  const [first] = meta
+  const [latest] = logs
+  const stable = logs.find(log => !log.prerelease)
+
+  switch (channel) {
+    case 'stable':
+      return {
+        subject: 'release',
+        status: stable.name || stable.tag_name || 'stable',
+        color: 'blue'
+      }
+    default:
+      return {
+        subject: 'release',
+        status: latest.name || latest.tag_name || 'unknown',
+        color: latest.prerelease === true ? 'orange' : 'blue'
+      }
+  }
+}
+
+async function tag (user, repo) {
+  const endpoint = `https://api.github.com/repos/${user}/${repo}/tags`
+  const [latest] = await axios.get(endpoint).then(res => res.data)
 
   return {
-    subject: topic,
-    status: first.name || first.tag_name || 'unknown',
-    color: first.prerelease === true ? 'orange' : 'blue'
+    subject: 'latest tag',
+    status: latest.name || 'unknown',
+    color: 'blue'
   }
 }

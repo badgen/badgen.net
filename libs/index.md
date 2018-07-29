@@ -72,8 +72,9 @@ Available icons:
     /* source control */
     github: [
       // [ <desc>, <badge-image-src> ]
-      ['release', '/github/release/babel/babel'],
-      ['tag', '/github/tag/micromatch/micromatch'],
+      ['latest release', '/github/release/babel/babel'],
+      ['latest stable release', '/github/release/babel/babel/stable'],
+      ['latest tag', '/github/tag/micromatch/micromatch'],
     ],
     /* release registries */
     npm: [
