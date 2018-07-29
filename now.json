@@ -6,6 +6,7 @@
   ],
   "public": true,
   "files": [
+    "package-lock.json",
     "service.js",
     "libs"
   ],
