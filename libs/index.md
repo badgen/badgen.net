@@ -42,6 +42,7 @@ Available icons:
 ![](/badge//travis?icon=travis)
 ![](/badge//circleci?icon=circleci)
 ![](/badge//appveyor?icon=appveyor)
+![](/badge//dependabot?icon=dependabot)
 ![](/badge//docker?icon=docker)
 ![](/badge//github?icon=github)
 ![](/badge//gitlab?icon=gitlab)
