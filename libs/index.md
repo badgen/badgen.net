@@ -118,6 +118,10 @@ Available icons:
       ['stars', '/amo/stars/markdown-viewer-chrome'],
       ['reviews', '/amo/reviews/markdown-viewer-chrome']
     ],
+    pypi: [
+      ['version', '/pypi/v/pip'],
+      ['version', '/pypi/v/docutils'],
+    ],
     /* CIs */
     travis: [
       ['build', '/travis/amio/micro-cors'],

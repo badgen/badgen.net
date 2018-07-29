@@ -12,6 +12,7 @@ module.exports = {
   'homebrew': require('./homebrew.js'),
   'npm': require('./npm.js'),
   'packagephobia': require('./packagephobia.js'),
+  'pypi': require('./pypi.js'),
   'runkit': require('./runkit.js'),
   'travis': require('./travis.js'),
   'uptime-robot': require('./uptime-robot.js')
