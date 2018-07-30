@@ -3,6 +3,7 @@ const xml2js = require('xml2js')
 const millify = require('millify')
 const round = require('../utils/round.js')
 const stars = require('../utils/stars.js')
+const semColor = require('../utils/sem-color.js')
 
 module.exports = async function (method, ...args) {
   const endpoint = `https://services.addons.mozilla.org/en-US/firefox/api/1.5/addon/${args[0]}`
@@ -19,7 +20,7 @@ module.exports = async function (method, ...args) {
         return {
           subject: 'mozilla add-on',
           status: 'v' + addon.version,
-          color: addon.version[0] === '0' ? 'orange' : 'blue'
+          color: semColor(addon.version)
         }
       case 'users':
         return {

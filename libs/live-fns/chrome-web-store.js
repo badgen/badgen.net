@@ -2,6 +2,7 @@ const webstore = require('chrome-webstore')
 const millify = require('millify')
 const round = require('../utils/round.js')
 const stars = require('../utils/stars.js')
+const semColor = require('../utils/sem-color.js')
 
 module.exports = async function (method, ...args) {
   const meta = await webstore.detail({id: args[0]})
@@ -10,7 +11,7 @@ module.exports = async function (method, ...args) {
       return {
         subject: 'chrome web store',
         status: 'v' + meta.version,
-        color: meta.version[0] === '0' ? 'orange' : 'blue'
+        color: semColor(meta.version)
       }
     case 'users':
       return {

@@ -1,5 +1,6 @@
 const axios = require('../axios.js')
 const millify = require('millify')
+const semColor = require('../utils/sem-color.js')
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
@@ -50,14 +51,10 @@ async function pkg (topic, args) {
 
   switch (topic) {
     case 'version': {
-      const color = tag !== 'latest'
-        ? 'cyan'
-        : (meta.version.split('.')[0] === '0' ? 'orange' : 'blue')
-
       return {
         subject: `npm${tag === 'latest' ? '' : '@' + tag}`,
         status: `v${meta.version}`,
-        color
+        color: tag === 'latest' ? semColor(meta.version) : 'cyan'
       }
     }
     case 'license': {

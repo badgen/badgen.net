@@ -1,4 +1,5 @@
 const axios = require('../axios.js')
+const semColor = require('../utils/sem-color.js')
 
 module.exports = async function (method, ...args) {
   const endpoint = `https://formulae.brew.sh/api/formula/${args[0]}.json`
@@ -9,7 +10,7 @@ module.exports = async function (method, ...args) {
       return {
         subject: 'homebrew',
         status: 'v' + versions.stable,
-        color: versions.stable[0] === '0' ? 'orange' : 'blue'
+        color: semColor(versions.stable)
       }
     default:
       return {
