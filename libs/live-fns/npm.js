@@ -34,30 +34,28 @@ module.exports = async function npm (method, ...args) {
 
 async function pkg (topic, args) {
   let pkg = args[0]
-  let tag = '@latest'
-  let isTag = false
+  let tag = 'latest'
+  let isScoped = args[0].charAt(0) === '@'
 
-  if (args.length === 2) {
-    pkg = args[0]
-    tag = `@${args[1]}`
-    isTag = true
-  } else if (args.length === 3) {
+  if (isScoped) {
     pkg = `${args[0]}/${args[1]}`
-    tag = `@${args[2]}`
-    isTag = true
+    tag = args[2] || tag
+  } else {
+    pkg = `${args[0]}`
+    tag = args[1] || tag
   }
 
-  const endpoint = `https://unpkg.com/${pkg}${tag}/package.json`
+  const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
   const meta = await axios.get(endpoint).then(res => res.data)
 
   switch (topic) {
     case 'version': {
-      const color = isTag
+      const color = tag !== 'latest'
         ? 'cyan'
         : (meta.version.split('.')[0] === '0' ? 'orange' : 'blue')
 
       return {
-        subject: `npm${tag === '@latest' ? '' : tag}`,
+        subject: `npm${tag === 'latest' ? '' : '@' + tag}`,
         status: `v${meta.version}`,
         color
       }
@@ -85,6 +83,13 @@ async function pkg (topic, args) {
     }
   }
 }
+
+pkg('version', ['ava'])
+pkg('version', ['ava', 'next'])
+pkg('version', ['next', 'canary'])
+pkg('version', ['babel-core'])
+pkg('version', ['@babel', 'core'])
+pkg('version', ['@nestjs', 'core', 'beta'])
 
 async function download (period, args) {
   const endpoint = ['https://api.npmjs.org/downloads']
