@@ -84,6 +84,7 @@ Available icons:
       ['version (tag)', '/npm/v/ava/next'],
       ['version (tag)', '/npm/v/next/canary'],
       ['version (scoped)', '/npm/v/@babel/core'],
+      ['version (scoped)', '/npm/v/@babel/core/latest'],
       ['version (scoped & tag)', '/npm/v/@nestjs/core/beta'],
       ['weekly downloads', '/npm/dw/express'],
       ['monthly downloads', '/npm/dm/express'],
