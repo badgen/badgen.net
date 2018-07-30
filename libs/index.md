@@ -213,8 +213,12 @@ Made with ❤️ by [Amio](https://github.com/amio)
     `)}</div>
   `
 
+  // use "?only=npm" to show only "npm" badge examples
+  const only = window.liveBadges[new URL(window.location).searchParams.get('only')]
+  const badges = only ? { [only]: window.liveBadges[only] } : window.liveBadges
+
   render(
-    genExamples(window.liveBadges),
+    genExamples(badges),
     document.querySelector('#live-badge-examples')
   )
 </script>
