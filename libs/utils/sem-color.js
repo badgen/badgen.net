@@ -10,11 +10,10 @@
  *    '0.1.2-canary.0' => 'cyan'
  */
 
-module.exports = function vc (version) {
-  if (version.match(/\b(alpha|beta|canary)\b/)) {
+module.exports = function vc (version, tag) {
+  if (tag !== 'latest') {
     return 'cyan'
   }
-
   if (version.startsWith('0.')) {
     return 'orange'
   }

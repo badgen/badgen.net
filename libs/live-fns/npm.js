@@ -54,7 +54,7 @@ async function pkg (topic, args) {
       return {
         subject: `npm${tag === 'latest' ? '' : '@' + tag}`,
         status: `v${meta.version}`,
-        color: tag === 'latest' ? semColor(meta.version) : 'cyan'
+        color: semColor(meta.version, tag)
       }
     }
     case 'license': {
@@ -80,6 +80,9 @@ async function pkg (topic, args) {
     }
   }
 }
+
+pkg('version', ['@babel', 'core'])
+pkg('version', ['@nestjs', 'core', 'beta'])
 
 async function download (period, args) {
   const endpoint = ['https://api.npmjs.org/downloads']
