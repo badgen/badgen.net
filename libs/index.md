@@ -58,6 +58,7 @@ Available icons:
 
 | Preview | URL |
 | ------- | --- |
+|![](/badge/become/a%20patron/F96854?icon=patreon) | [/badge/become/a%20patron/F96854?icon=patreon](/badge/become/a%20patron/F96854?icon=patreon)
 |![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
 |![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue)
