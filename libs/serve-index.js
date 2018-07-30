@@ -25,7 +25,7 @@ module.exports = serveMarked('libs/index.md', {
     dt a:hover:before { left: -1.2em; font: 20px/20px Arial; vertical-align: middle; color: #CCC }
     dd { font: 14px/20px monospace; vertical-align: top; height: 28px; white-space: nowrap; margin: 0 }
     dd img { vertical-align: top }
-    dd b { display: inline-block; min-width: 14em; text-align: right; font-weight: 300 }
+    dd b { display: inline-block; min-width: 17em; text-align: right; font-weight: 300 }
     dd i { display: inline-block; min-width: 13em }
   `,
   beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,

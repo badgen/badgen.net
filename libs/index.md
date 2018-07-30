@@ -141,6 +141,12 @@ Available icons:
       ['coverage', '/codecov/c/github/tunnckoCore/gitcommit'],
       ['coverage (branch)', '/codecov/c/github/babel/babel/6.x']
     ],
+    coveralls: [
+      ['coverage (github)', '/coveralls/c/github/jekyll/jekyll'],
+      ['coverage (github, branch)', '/coveralls/c/github/jekyll/jekyll/master'],
+      ['coverage (bitbucket)', '/coveralls/c/bitbucket/pyKLIP/pyklip'],
+      ['coverage (bitbucket, branch)', '/coveralls/c/bitbucket/pyKLIP/pyklip/master'],
+    ],
     'david-dm': [
       ['dependencies', '/david/dep/zeit/pkg'],
       ['dev dependencies', '/david/dev/zeit/pkg'],

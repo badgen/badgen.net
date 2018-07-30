@@ -1,4 +1,5 @@
 const axios = require('../axios.js')
+const covColor = require('../utils/cov-color.js')
 
 // https://codecov.io/gh/user/repo/settings/badge
 
@@ -21,22 +22,6 @@ module.exports = async function codecov (topic, ...args) {
   }
 }
 
-function getColor (value, orange = 70, yellow = 85, green = 100) {
-  if (value <= 0) {
-    return 'red'
-  }
-  if (value < orange) {
-    return 'ef6c00'
-  }
-  if (value < yellow) {
-    return 'c0ca33'
-  }
-  if (value < green) {
-    return 'a4a61d'
-  }
-  return 'green'
-}
-
 async function coverage (vscType, user, repo, branch) {
   branch = typeof branch === 'string' && branch.length > 0 ? branch : 'master'
 
@@ -53,11 +38,9 @@ async function coverage (vscType, user, repo, branch) {
     }
   }
 
-  const color = getColor(+status)
-
   return {
     subject: 'codecov',
     status: `${status}%`,
-    color
+    color: covColor(status)
   }
 }

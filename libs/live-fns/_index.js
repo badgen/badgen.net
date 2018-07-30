@@ -5,6 +5,7 @@ module.exports = {
   'chrome-web-store': require('./chrome-web-store.js'),
   'circleci': require('./circleci.js'),
   'codecov': require('./codecov.js'),
+  'coveralls': require('./coveralls.js'),
   'crates': require('./crates.js'),
   'david': require('./david.js'),
   'docker': require('./docker.js'),
