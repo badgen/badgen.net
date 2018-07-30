@@ -8,7 +8,7 @@ const millify = require('millify')
 module.exports = async function npm (method, ...args) {
   switch (method) {
     case 'v':
-      return version(args)
+      return pkg('version', args)
     case 'dt':
       return download('total', args)
     case 'dd':
@@ -37,18 +37,34 @@ async function pkg (topic, args) {
   const meta = await axios.get(endpoint).then(res => res.data)
 
   switch (topic) {
-    case 'license':
+    case 'version': {
+      return {
+        subject: 'npm',
+        status: `v${meta.version}`,
+        color: meta.version.split('.')[0] === '0' ? 'orange' : 'blue'
+      }
+    }
+    case 'license': {
       return {
         subject: 'license',
         status: meta.license || 'unknown',
         color: 'blue'
       }
-    case 'node':
+    }
+    case 'node': {
       return {
         subject: 'node',
         status: (meta.engines && meta.engines.node) || '*',
         color: 'green'
       }
+    }
+    default: {
+      return {
+        subject: 'npm',
+        status: 'unknown',
+        color: 'grey'
+      }
+    }
   }
 }
 
@@ -83,23 +99,5 @@ async function download (period, args) {
     subject: 'downloads',
     status: millify(stats.downloads) + per,
     color: 'green'
-  }
-}
-
-async function version (args) {
-  // Due to an bug of npm registry api, scoped package need to be handled
-  // separately: https://github.com/npm/registry/issues/34
-  // A workaround is using version range("*" for "latest") by Andrew Goode:
-  // https://github.com/npm/registry/issues/34#issuecomment-228349870
-  const scoped = args.length === 2 && args[0][0] === '@'
-  const endpoint = scoped
-    ? `https://registry.npmjs.org/${args.join('%2F')}/*`
-    : `https://registry.npmjs.org/${args}/latest`
-  const { version } = await axios.get(endpoint).then(res => res.data)
-
-  return {
-    subject: 'npm',
-    status: `v${version}`,
-    color: version.split('.')[0] === '0' ? 'orange' : 'blue'
   }
 }
