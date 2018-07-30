@@ -32,14 +32,14 @@ async function coverage (vscType, user, repo, branch) {
 
   if (status === 'unknown') {
     return {
-      subject: 'codecov',
+      subject: 'coverage',
       status: 'unknown',
       color: 'grey'
     }
   }
 
   return {
-    subject: 'codecov',
+    subject: 'coverage',
     status: `${status}%`,
     color: covColor(status)
   }
