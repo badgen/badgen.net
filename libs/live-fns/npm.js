@@ -81,9 +81,6 @@ async function pkg (topic, args) {
   }
 }
 
-pkg('version', ['@babel', 'core'])
-pkg('version', ['@nestjs', 'core', 'beta'])
-
 async function download (period, args) {
   const endpoint = ['https://api.npmjs.org/downloads']
   const isTotal = period === 'total'
