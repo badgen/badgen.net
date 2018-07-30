@@ -33,15 +33,33 @@ module.exports = async function npm (method, ...args) {
 }
 
 async function pkg (topic, args) {
-  const endpoint = `https://unpkg.com/${args.join('/')}/package.json`
+  let pkg = args[0]
+  let tag = '@latest'
+  let isTag = false
+
+  if (args.length === 2) {
+    pkg = args[0]
+    tag = `@${args[1]}`
+    isTag = true
+  } else if (args.length === 3) {
+    pkg = `${args[0]}/${args[1]}`
+    tag = `@${args[2]}`
+    isTag = true
+  }
+
+  const endpoint = `https://unpkg.com/${pkg}${tag}/package.json`
   const meta = await axios.get(endpoint).then(res => res.data)
 
   switch (topic) {
     case 'version': {
+      const color = isTag
+        ? 'cyan'
+        : (meta.version.split('.')[0] === '0' ? 'orange' : 'blue')
+
       return {
-        subject: 'npm',
+        subject: `npm${tag === '@latest' ? '' : tag}`,
         status: `v${meta.version}`,
-        color: meta.version.split('.')[0] === '0' ? 'orange' : 'blue'
+        color
       }
     }
     case 'license': {

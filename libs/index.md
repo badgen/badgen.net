@@ -79,8 +79,12 @@ Available icons:
     /* release registries */
     npm: [
       ['version', '/npm/v/express'],
-      ['version', '/npm/v/marked'],
-      ['version (scoped)', '/npm/v/@nestjs/core'],
+      ['version', '/npm/v/babel-core'],
+      ['version', '/npm/v/ava'],
+      ['version (tag)', '/npm/v/ava/next'],
+      ['version (tag)', '/npm/v/next/canary'],
+      ['version (scoped)', '/npm/v/@babel/core'],
+      ['version (scoped & tag)', '/npm/v/@nestjs/core/beta'],
       ['weekly downloads', '/npm/dw/express'],
       ['monthly downloads', '/npm/dm/express'],
       ['yearly downloads', '/npm/dy/express'],
