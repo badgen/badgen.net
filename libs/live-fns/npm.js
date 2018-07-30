@@ -6,8 +6,8 @@ const semColor = require('../utils/sem-color.js')
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
 // https://unpkg.com/
 
-module.exports = async function npm (method, ...args) {
-  switch (method) {
+module.exports = async function npm (topic, ...args) {
+  switch (topic) {
     case 'v':
       return pkg('version', args)
     case 'dt':

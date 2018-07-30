@@ -1,11 +1,11 @@
 const axios = require('../axios.js')
 const millify = require('millify')
 
-module.exports = async function (method, ...args) {
+module.exports = async function (topic, ...args) {
   const endpoint = `https://crates.io/api/v1/crates/${args[0]}`
   const { crate } = await axios.get(endpoint).then(res => res.data)
 
-  switch (method) {
+  switch (topic) {
     case 'v':
       return {
         subject: 'crates.io',

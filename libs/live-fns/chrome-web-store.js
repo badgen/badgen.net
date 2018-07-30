@@ -4,9 +4,9 @@ const round = require('../utils/round.js')
 const stars = require('../utils/stars.js')
 const semColor = require('../utils/sem-color.js')
 
-module.exports = async function (method, ...args) {
+module.exports = async function (topic, ...args) {
   const meta = await webstore.detail({id: args[0]})
-  switch (method) {
+  switch (topic) {
     case 'v':
       return {
         subject: 'chrome web store',

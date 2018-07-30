@@ -7,8 +7,8 @@ const axios = require('../axios.js')
  * /codecov/c/github/amio/badgen
  * /codecov/c/github/amio/badgen/master
  */
-module.exports = async function codecov (method, ...args) {
-  switch (method) {
+module.exports = async function codecov (topic, ...args) {
+  switch (topic) {
     case 'c': {
       return coverage(...args)
     }
