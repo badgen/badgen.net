@@ -58,13 +58,12 @@ Available icons:
 
 | Preview | URL |
 | ------- | --- |
-|![](/badge/become/a%20patron/F96854?icon=patreon) | [/badge/become/a%20patron/F96854?icon=patreon](/badge/become/a%20patron/F96854?icon=patreon)
+|![](/badge/license/MIT/blue) | [/badge/license/MIT/blue](/badge/license/MIT/blue)
 |![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
-|![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue)
-|![](/badge/Language/Swift%203.0.1/orange) | [/badge/Language/Swift%203.0.1/orange](/badge/Language/Swift%203.0.1/orange)
-|![](/badge/platform/ios,macos,tvos,watchos?list=1) | [/badge/platform/ios,macos,tvos,watchos?list=1](/badge/platform/ios,macos,tvos,watchos?list=1)
-|![](/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111) | [/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111](/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111)
+|![](/badge/become/a%20patron/F96854?icon=patreon) | [/badge/become/a%20patron/F96854?icon=patreon](/badge/become/a%20patron/F96854?icon=patreon)
+|![](/badge/platform/iOS,macOS,watchOS?list=1) | [/badge/platform/iOS,macOS,watchOS?list=1](/badge/platform/iOS,macOS,watchOS?list=1)
+|![](/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111) | [/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111](/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111)
 
 <div id="live-badge-examples"></div>
 
