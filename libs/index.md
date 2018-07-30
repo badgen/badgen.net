@@ -138,8 +138,10 @@ Available icons:
       // ['build (icon)', '/appveyor/ci/gruntjs/grunt?icon=appveyor']
     ],
     codecov: [
-      ['coverage', '/codecov/c/github/tunnckoCore/gitcommit'],
-      ['coverage (branch)', '/codecov/c/github/babel/babel/6.x']
+      ['coverage (github)', '/codecov/c/github/tunnckoCore/gitcommit'],
+      ['coverage (github, branch)', '/codecov/c/github/babel/babel/6.x'],
+      ['coverage (bitbucket)', '/codecov/c/bitbucket/ignitionrobotics/ign-math'],
+      ['coverage (bitbucket, branch)', '/codecov/c/bitbucket/ignitionrobotics/ign-math/master']
     ],
     coveralls: [
       ['coverage (github)', '/coveralls/c/github/jekyll/jekyll'],
