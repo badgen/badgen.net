@@ -62,8 +62,8 @@ Available icons:
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
 |![](/badge/license/Apache-2.0/blue) | [/badge/license/Apache-2.0/blue](/badge/license/Apache-2.0/blue)
 |![](/badge/Language/Swift%203.0.1/orange) | [/badge/Language/Swift%203.0.1/orange](/badge/Language/Swift%203.0.1/orange)
-|![](/badge/platform/ios,macos,tvos?list=1) | [/badge/platform/ios,macos,tvos?list=1](/badge/platform/ios,macos,tvos?list=1)
-|![](/badge/bash/$%20now%20amio%2Fbadgen-service/111?icon=terminal) | [/badge/bash/$%20now%20amio%2Fbadgen-service/111?icon=terminal](/badge/bash/$%20now%20amio%2Fbadgen-service/111?icon=terminal)
+|![](/badge/platform/ios,macos,tvos,watchos?list=1) | [/badge/platform/ios,macos,tvos,watchos?list=1](/badge/platform/ios,macos,tvos,watchos?list=1)
+|![](/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111) | [/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111](/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111)
 
 <div id="live-badge-examples"></div>
 
