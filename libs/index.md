@@ -165,6 +165,11 @@ Available icons:
       ['publish size', '/packagephobia/publish/webpack'],
       ['publish size (scoped)', '/packagephobia/publish/@tusbar/cache-control']
     ],
+    bundlephobia: [
+      ['minified', '/bundlephobia/min/react'],
+      ['minified + gzip', '/bundlephobia/minzip/react'],
+      ['(scoped) minified + gzip', '/bundlephobia/minzip/@nestjs/core']
+    ],
     'uptime robot': [
       ['status', '/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af'],
       ['(24 hours) uptime', '/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af'],
