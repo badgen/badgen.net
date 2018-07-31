@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "standard",
     "dev": "micro-dev service.js -s",
-    "test": "echo just lint for now && npm run lint",
+    "test": "tap test/*.js --reporter spec -j12",
     "start": "micro service.js",
     "precanary": "now alias rm badgen-canary -y -T amio",
     "canary": "now -T amio && now alias badgen-canary -T amio",
@@ -27,7 +27,9 @@
   },
   "devDependencies": {
     "micro-dev": "^3.0.0",
-    "standard": "^11.0.1"
+    "standard": "^11.0.1",
+    "supertest": "^3.1.0",
+    "tap": "^12.0.1"
   },
   "eslintConfig": {
     "extends": "standard"
