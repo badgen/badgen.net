@@ -9,7 +9,7 @@ module.exports = async function (vcsType, username, project, branch) {
 
   return {
     subject: 'circleci',
-    status: latest.status,
+    status: latest.status.replace(/_/g, ' '),
     color: latest.status === 'success' ? 'green' : 'red'
   }
 }

@@ -128,18 +128,16 @@ Available icons:
     ],
     /* CIs */
     travis: [
-      ['build', '/travis/amio/micro-cors'],
-      ['build (branch)', '/travis/babel/babel/6.x'],
-      // ['build (icon)', '/travis/babel/babel?icon=travis'],
+      ['build', '/travis/babel/babel'],
+      ['build (branch)', '/travis/babel/babel/6.x']
     ],
     circleci: [
-      ['build', '/circleci/github/amio/now-go'],
-      ['build (branch)', '/circleci/github/amio/now-go/master'],
-      // ['build (icon)', '/circleci/github/amio/now-go?icon=circleci'],
+      ['build', '/circleci/github/nuxt/nuxt.js'],
+      ['build (branch)', '/circleci/github/nuxt/nuxt.js/master']
     ],
     appveyor: [
       ['build', '/appveyor/ci/gruntjs/grunt'],
-      // ['build (icon)', '/appveyor/ci/gruntjs/grunt?icon=appveyor']
+      ['build (branch)', '/appveyor/ci/gruntjs/grunt/deprecate']
     ],
     codecov: [
       ['coverage (github)', '/codecov/c/github/tunnckoCore/gitcommit'],
