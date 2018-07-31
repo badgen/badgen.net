@@ -2,6 +2,8 @@ const badgen = require('badgen')
 const { send } = require('micro')
 const { builtin } = require('./icons.js')
 
+const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
+
 module.exports = function serveBadge (req, res, options = {}) {
   const { code = 200, maxAge = '86400' } = options
 
@@ -19,6 +21,6 @@ module.exports = function serveBadge (req, res, options = {}) {
   }
 
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
-  res.setHeader('Cache-Control', `public, max-age=60, s-maxage=${maxAge}`)
+  res.setHeader('Cache-Control', `${CACHE_CONTROL}, s-maxage=${maxAge}`)
   send(res, code, badgen(badgenParams))
 }
