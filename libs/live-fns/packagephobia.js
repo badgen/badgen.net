@@ -1,5 +1,5 @@
 const axios = require('../axios.js')
-const prettyBytes = require('pretty-bytes')
+const byteSize = require('byte-size')
 
 module.exports = async function (topic, ...args) {
   const endpoint = `https://packagephobia.now.sh/api.json?p=${args.join('/')}`
@@ -10,13 +10,13 @@ module.exports = async function (topic, ...args) {
     case 'publish':
       return {
         subject: 'publish size',
-        status: prettyBytes(publishSize),
+        status: byteSize(publishSize, { units: 'iec' }).toString(),
         color: getHexColor(publishSize)
       }
     case 'install':
       return {
         subject: 'install size',
-        status: prettyBytes(installSize),
+        status: byteSize(installSize, { units: 'iec' }).toString(),
         color: getHexColor(installSize)
       }
     default:

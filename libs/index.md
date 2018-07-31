@@ -161,8 +161,8 @@ Available icons:
     ],
     /* quality & metrics */
     packagephobia: [
-      ['publish size', '/packagephobia/publish/webpack'],
       ['install size', '/packagephobia/install/webpack'],
+      ['publish size', '/packagephobia/publish/webpack'],
       ['publish size (scoped)', '/packagephobia/publish/@tusbar/cache-control']
     ],
     'uptime robot': [
