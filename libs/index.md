@@ -215,7 +215,7 @@ Made with ❤️ by [Amio](https://github.com/amio)
   `
 
   // use "?only=npm" to show only "npm" badge examples
-  const only = window.liveBadges[new URL(window.location).searchParams.get('only')]
+  const only = new URL(window.location).searchParams.get('only')
   const badges = only ? { [only]: window.liveBadges[only] } : window.liveBadges
 
   render(
