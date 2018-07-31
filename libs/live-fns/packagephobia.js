@@ -10,13 +10,13 @@ module.exports = async function (topic, ...args) {
     case 'publish':
       return {
         subject: 'publish size',
-        status: byteSize(publishSize, { units: 'iec' }).toString(),
+        status: byteSize(publishSize, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
         color: getHexColor(publishSize)
       }
     case 'install':
       return {
         subject: 'install size',
-        status: byteSize(installSize, { units: 'iec' }).toString(),
+        status: byteSize(installSize, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
         color: getHexColor(installSize)
       }
     default:

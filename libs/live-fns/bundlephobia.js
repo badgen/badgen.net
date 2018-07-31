@@ -11,13 +11,13 @@ module.exports = async function (topic, ...args) {
     case 'min':
       return {
         subject: 'minified size',
-        status: byteSize(size, { units: 'iec' }).toString(),
+        status: byteSize(size, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
         color: 'blue'
       }
     case 'minzip':
       return {
         subject: 'minzipped size',
-        status: byteSize(gzip, { units: 'iec' }).toString(),
+        status: byteSize(gzip, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
         color: 'blue'
       }
   }
