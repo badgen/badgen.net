@@ -1,8 +1,8 @@
 const axios = require('../axios.js')
 const prettyBytes = require('pretty-bytes')
 
-module.exports = async function (topic, pkg) {
-  const endpoint = `https://packagephobia.now.sh/api.json?p=${pkg}`
+module.exports = async function (topic, ...args) {
+  const endpoint = `https://packagephobia.now.sh/api.json?p=${args.join('/')}`
   const { data } = await axios(endpoint)
   const { installSize, publishSize } = data
 
