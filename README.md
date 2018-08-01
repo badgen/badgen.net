@@ -4,7 +4,7 @@
 [![dependencies][dep-src]][dep-href]
 [![uptime past week][uptime-src]][uptime-href]
 [![response time][response-src]][uptime-href]
-![deploy to now][deploy-to-now]
+[![deploy to now][deploy-to-now]](#deploy-to-now-cloud)
 
 Home of [Badgen](https://badgen.net), fast badge generating service.
 
@@ -32,7 +32,7 @@ We are using [StandardJS][standard-href] style, make sure you have ESLint/Standa
 If a service you wish to have is still missing here, we welcome new contirbutions. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it. Take [crates](https://badgen.net/#crates) as an example:
 
 - [libs/live-fns/crates.js](libs/live-fns/crates.js) - the main function for [crates.io](https://crates.io)
-- [libs/live-fns/_index.js](libs/live-fns/_index.js) - the list of all live-badges
+- [libs/live-fns/_index.js](libs/live-fns/_index.js) - the index of live-badges
 - [libs/index.md](libs/index.md) - the `index.md` holds examples
 
 To ensure that your addition is working correctly start the development server with `npm run dev`.
