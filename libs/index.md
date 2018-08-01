@@ -27,16 +27,6 @@ Available color names:
 ![](/badge/color/purple/purple)
 ![](/badge/color/grey/grey)
 
-Available query params:
-
-| param | desc |
-| ----- | ---- |
-|`label`| Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
-|`style`| Force flat style with `style=flat`. [e.g.][style-eg-href]
-|`emoji`| Set `emoji=1` if subject/status text contains emoji.
-| `list`| Set `list=1` will replace `,` with ` \| ` in status text. [e.g.][list-eg-href]
-| `icon`| Use builtin icon in front of label. [e.g.][icon-eg-href]
-
 Available icons:
 
 ![](/badge//travis?icon=travis)
@@ -51,6 +41,15 @@ Available icons:
 ![](/badge//firefox?icon=firefox)
 ![](/badge//chrome?icon=chrome)
 ![](/badge//terminal?icon=terminal)
+
+Available query params:
+
+| param | desc |
+| ----- | ---- |
+|`label`| Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
+|`emoji`| Set `emoji=1` if subject/status text contains emoji.
+| `list`| Set `list=1` will replace `,` with ` \| ` in status text. [e.g.][list-eg-href]
+| `icon`| Use builtin icon in front of subject text. [e.g.][icon-eg-href]
 
 ## Examples
 
