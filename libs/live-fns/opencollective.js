@@ -27,13 +27,13 @@ module.exports = async function (topic, slug) {
     case 'balance':
       return {
         subject: 'balance',
-        status: Number(details.balance).toLocaleString('en-US', localeOptions),
+        status: (details.balance / 100).toLocaleString('en-US', localeOptions),
         color: 'green'
       }
     case 'yearly':
       return {
         subject: 'yearly income',
-        status: Number(details.yearlyIncome).toLocaleString('en-US', localeOptions),
+        status: (details.yearlyIncome / 100).toLocaleString('en-US', localeOptions),
         color: 'green'
       }
   }
