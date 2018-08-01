@@ -10,7 +10,7 @@ module.exports = serveMarked('libs/index.md', {
     h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
     h1 + p img { height: 20px }
 
-    table { border-spacing: 0; vertical-align: top }
+    table { border-spacing: 0; vertical-align: top; font-family: Roboto, sans-serif }
     td { padding-right: 0.6em; height: 28px; font-size: 14px; white-space: nowrap }
     td img { position: relative; top: 2px }
     td a { font: 14px/20px monospace }
@@ -26,12 +26,12 @@ module.exports = serveMarked('libs/index.md', {
     dt a:hover:before { left: -1.2em; font: 20px/20px Arial; vertical-align: middle; color: #CCC }
     dd { font: 14px/20px monospace; vertical-align: top; height: 28px; white-space: nowrap; margin: 0 }
     dd img { vertical-align: top }
-    dd b { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif }
+    dd b { font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif }
     dd b { display: inline-block; min-width: 15em; text-align: right; font-weight: 300; color: #999 }
     dd i { display: inline-block; min-width: 13.5em }
 
     #footer { width: 100vw; margin: 5rem -1rem 0; background-color: #333; color: #CCC }
-    #foo-content { width: 950px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }
+    #foo-content { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }
     #foo-content { display: grid; grid-template-columns: 1fr 1fr }
     #foo-content h3 { font-weight: 300 }
     #foo-content p { line-height: 2em; font-weight: 300 }
