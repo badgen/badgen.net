@@ -180,14 +180,6 @@ Available icons:
   }
 </script>
 
-## About
-
-Made with ❤️ by [Amio](https://github.com/amio)
-<span style="float:right; color: #AAA">
-  <a href="https://github.com/amio/badgen-service">GitHub</a> |
-  <a href="https://twitter.com/badgen_net">Twitter</a>
-</span>
-
 <script>
   // Update usage url for 'flat.badgen.net'
   if (window.location.hostname === 'flat.badgen.net') {
