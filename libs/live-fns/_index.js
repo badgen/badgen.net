@@ -13,6 +13,7 @@ module.exports = {
   'github': require('./github.js'),
   'homebrew': require('./homebrew.js'),
   'npm': require('./npm.js'),
+  'opencollective': require('./opencollective.js'),
   'packagephobia': require('./packagephobia.js'),
   'pypi': require('./pypi.js'),
   'runkit': require('./runkit.js'),

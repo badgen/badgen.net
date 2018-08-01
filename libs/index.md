@@ -174,6 +174,12 @@ Available icons:
       ['(past week) uptime', '/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af'],
       ['(past month) uptime', '/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af'],
       ['(last hours) response', '/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af']
+    ],
+    'opencollective': [
+      ['backers', '/opencollective/backers/webpack'],
+      ['contributors', '/opencollective/contributors/webpack'],
+      ['balance', '/opencollective/balance/webpack'],
+      ['yearly income', '/opencollective/yearly/webpack'],
     ]
   }
 </script>
