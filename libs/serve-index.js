@@ -4,7 +4,8 @@ module.exports = serveMarked('libs/index.md', {
   title: 'Badgen - Fast badge generating service',
   preset: 'merri',
   inlineCSS: `
-    body { max-width: 950px; padding: 0 1.6em 1em }
+    body { max-width: inherit }
+    body > * { width: 950px; margin-left: auto; margin-right: auto }
     h1 + p { letter-spacing: 0.1px }
     h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
     h1 + p img { height: 20px }
@@ -28,7 +29,35 @@ module.exports = serveMarked('libs/index.md', {
     dd b { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif }
     dd b { display: inline-block; min-width: 15em; text-align: right; font-weight: 300; color: #999 }
     dd i { display: inline-block; min-width: 13.5em }
+
+    #footer { width: 100vw; margin: 5rem -1rem 0; background-color: #333; color: #CCC }
+    #foo-content { width: 950px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }
+    #foo-content { display: grid; grid-template-columns: 1fr 1fr }
+    #foo-content h3 { font-weight: 300 }
+    #foo-content p { line-height: 2em; font-weight: 300 }
+    #foo-content a { color: #FFF }
+    #foo-content aside { padding: 1rem 1rem; display: flex; justify-content: flex-end; align-items: flex-end }
+    #foo-content aside a { line-height: 2em; margin-left: 1rem }
   `,
   beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
+  beforeBodyEnd: `
+    <div id="footer">
+      <div id="foo-content">
+        <segment>
+          <h3>Badgen Service</h3>
+          <p>
+            built with ♥<br/>
+            by <a href="https://github.com/amio">Amio</a>
+            and awesome <a href="https://github.com/amio/badgen-service/graphs/contributors">contributors</a><br/>
+            hosted on <a href="#">Now Cloud</a>
+          </p>
+        </segment>
+        <aside>
+          <a href="https://github.com/amio/badgen-service">GitHub</a>
+          <a href="https://twitter.com/badgen_net">Twitter</a>
+        </aside>
+      </div>
+    </div>
+  `,
   trackingGA: 'UA-4646421-14'
 })

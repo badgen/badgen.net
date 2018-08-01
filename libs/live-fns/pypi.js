@@ -1,4 +1,5 @@
 const axios = require('../axios.js')
+const semColor = require('../utils/sem-color.js')
 
 module.exports = async function (method, project) {
   const endpoint = `https://pypi.org/pypi/${project}/json`
@@ -9,7 +10,7 @@ module.exports = async function (method, project) {
       return {
         subject: 'pypi',
         status: 'v' + info.version,
-        color: info.version[0] === '0' ? 'orange' : 'blue'
+        color: semColor(info.version)
       }
     default:
       return {

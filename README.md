@@ -29,13 +29,17 @@ We are using [StandardJS][standard-href] style, make sure you have ESLint/Standa
 
 ### Add live badge
 
-If a service you wish to have is still missing here, we welcome new contirbutions. Check out [live-fns/crates.js](libs/live-fns/crates.js) and [live-fns/_index.js](libs/live-fns/_index.js) to get a quick impression. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it.
+If a service you wish to have is still missing here, we welcome new contirbutions. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it. Take [crates](https://badgen.net/#crates) as an example:
+
+- [libs/live-fns/crates.js](libs/live-fns/crates.js) - the main function for [crates.io](https://crates.io)
+- [libs/live-fns/_index.js](libs/live-fns/_index.js) - the list of all live-badges
+- [libs/index.md](libs/index.md) - the `index.md` holds examples
 
 To ensure that your addition is working correctly start the development server with `npm run dev`.
 
-### Deploy your own Badgen
+### Deploy to Now Cloud
 
-Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen instance to [Now Cloud](https://zeit.co/now) with one single command:
+Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen Service to [Now Cloud](https://zeit.co/now) with one single command:
 ```
 now amio/badgen-service
 ```
