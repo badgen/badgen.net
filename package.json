@@ -19,7 +19,6 @@
     "badgen": "^2.2.1",
     "byte-size": "^4.0.3",
     "chrome-webstore": "^1.0.0",
-    "currency-symbol-map": "^4.0.4",
     "micro": "^9.3.2",
     "micro-fork": "^0.1.0",
     "millify": "^2.0.1",
