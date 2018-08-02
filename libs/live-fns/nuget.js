@@ -8,9 +8,13 @@ module.exports = async function (method, project, channel) {
   switch (method) {
     case 'v':
       var version = ''
+      var unknownBadgeData = {
+        subject: 'nuget',
+        status: 'unknown',
+        color: 'grey'
+      }
 
-      switch (channel)
-      {
+      switch (channel) {
         case 'latest':
           if (versions.length > 0) {
             version = versions.slice(-1)[0]
@@ -28,25 +32,22 @@ module.exports = async function (method, project, channel) {
             version = stableVersions.slice(-1)[0]
           }
       }
-      
+
       // if in case version is still empty, try to get the latest
       if (!version && versions.length > 0) {
-        version = versions.slice(-1)[0] 
+        version = versions.slice(-1)[0]
       }
 
-      if (version) 
-      {
+      if (version) {
         return {
           subject: 'nuget',
           status: 'v' + version,
           color: semColor(version)
         }
+      } else {
+        return unknownBadgeData
       }
     default:
-      return {
-        subject: 'nuget',
-        status: 'unknown',
-        color: 'grey'
-      }
+      return unknownBadgeData
   }
 }
