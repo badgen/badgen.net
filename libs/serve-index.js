@@ -5,7 +5,7 @@ module.exports = serveMarked('libs/index.md', {
   preset: 'merri',
   inlineCSS: `
     body { max-width: inherit }
-    body > * { width: 950px; margin-left: auto; margin-right: auto }
+    body > * { width: 950px; margin-left: auto; margin-right: auto; box-sizing: border-box }
     h1 + p { letter-spacing: 0.1px }
     h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
     h1 + p img { height: 20px }
@@ -30,7 +30,7 @@ module.exports = serveMarked('libs/index.md', {
     dd b { display: inline-block; min-width: 15em; text-align: right; font-weight: 300; color: #999 }
     dd i { display: inline-block; min-width: 13.5em }
 
-    #the-end { margin: 4rem auto; text-align: center; text-shadow: 0 0 4px rgba(0,0,0,0.1) }
+    #the-end { margin: 5rem auto; text-align: center; text-shadow: 0 0 4px rgba(0,0,0,0.1) }
 
     #footer { width: 100vw; margin: 0 -1rem; background-color: #333; color: #CCC }
     #foo-content { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }

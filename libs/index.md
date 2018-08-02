@@ -41,6 +41,10 @@ Available icons:
 ![](/badge//firefox?icon=firefox)
 ![](/badge//chrome?icon=chrome)
 ![](/badge//terminal?icon=terminal)
+![](/badge//airbnb?icon=airbnb)
+![](/badge//patreon?icon=patreon)
+![](/badge//apple?icon=apple)
+![](/badge//windows?icon=windows)
 
 Available query params:
 
@@ -57,10 +61,12 @@ Available query params:
 
 | Preview | URL |
 | ------- | --- |
+|![](/badge/Swift/4.0/orange) | [/badge/Swift/4.0/orange](/badge/Swift/4.0/orange)
 |![](/badge/license/MIT/blue) | [/badge/license/MIT/blue](/badge/license/MIT/blue)
-|![](/badge/style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
+|![](/badge/chat/on%20gitter/cyan) | [/badge/chat/on%20gitter/cyan](/badge/chat/on%20gitter/cyan)
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
-|![](/badge/become/a%20patron/F96854?icon=patreon) | [/badge/become/a%20patron/F96854?icon=patreon](/badge/become/a%20patron/F96854?icon=patreon)
+|![](/badge/become/a%20patron/F96854) | [/badge/become/a%20patron/F96854](/badge/become/a%20patron/F96854)
+|![](/badge/code%20style/standard/f2a) | [/badge/style/standard/f2a](/badge/style/standard/f2a)
 |![](/badge/platform/iOS,macOS,watchOS?list=1) | [/badge/platform/iOS,macOS,watchOS?list=1](/badge/platform/iOS,macOS,watchOS?list=1)
 |![](/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111) | [/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111](/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111)
 
