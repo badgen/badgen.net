@@ -70,7 +70,6 @@ Available query params:
   window.liveBadges = {
     /* source control */
     github: [
-      // [ <desc>, <badge-image-src> ]
       ['latest release', '/github/release/babel/babel'],
       ['latest stable release', '/github/release/babel/babel/stable'],
       ['latest tag', '/github/tag/micromatch/micromatch'],
@@ -155,13 +154,13 @@ Available query params:
       ['coverage (bitbucket)', '/coveralls/c/bitbucket/pyKLIP/pyklip'],
       ['coverage (bitbucket, branch)', '/coveralls/c/bitbucket/pyKLIP/pyklip/master'],
     ],
+    /* quality & metrics */
     'david-dm': [
       ['dependencies', '/david/dep/zeit/pkg'],
       ['dev dependencies', '/david/dev/zeit/pkg'],
       ['peer dependencies', '/david/peer/epoberezkin/ajv-keywords'],
       ['optional dependencies', '/david/optional/epoberezkin/ajv-keywords'],
     ],
-    /* quality & metrics */
     packagephobia: [
       ['install size', '/packagephobia/install/webpack'],
       ['publish size', '/packagephobia/publish/webpack'],
@@ -179,6 +178,7 @@ Available query params:
       ['(past month) uptime', '/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af'],
       ['(last hours) response', '/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af']
     ],
+    /* utilities */
     'opencollective': [
       ['backers', '/opencollective/backers/webpack'],
       ['contributors', '/opencollective/contributors/webpack'],
