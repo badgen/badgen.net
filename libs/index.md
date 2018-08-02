@@ -179,6 +179,11 @@ Available query params:
       ['contributors', '/opencollective/contributors/webpack'],
       ['balance', '/opencollective/balance/webpack'],
       ['yearly income', '/opencollective/yearly/webpack'],
+    ],
+    nuget: [
+      ['version', '/nuget/v/newtonsoft.json'],
+      ['version', '/nuget/v/newtonsoft.json/pre'],
+      ['version', '/nuget/v/newtonsoft.json/latest']
     ]
   }
 </script>
