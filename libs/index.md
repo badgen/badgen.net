@@ -190,7 +190,7 @@ Available query params:
     code.innerText = code.innerText.replace(
       'badgen.net',
       'flat.badgen.net'
-    ).replace(/\\n/g, '\\n     ')
+    ).replace(/\n/g, '\n     ')
   }
 </script>
 
