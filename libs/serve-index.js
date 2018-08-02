@@ -30,7 +30,9 @@ module.exports = serveMarked('libs/index.md', {
     dd b { display: inline-block; min-width: 15em; text-align: right; font-weight: 300; color: #999 }
     dd i { display: inline-block; min-width: 13.5em }
 
-    #footer { width: 100vw; margin: 5rem -1rem 0; background-color: #333; color: #CCC }
+    #the-end { margin: 4rem auto; text-align: center; text-shadow: 0 0 4px rgba(0,0,0,0.1) }
+
+    #footer { width: 100vw; margin: 0 -1rem; background-color: #333; color: #CCC }
     #foo-content { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }
     #foo-content { display: grid; grid-template-columns: 1fr 1fr }
     #foo-content h3 { font-weight: 300 }
@@ -41,6 +43,7 @@ module.exports = serveMarked('libs/index.md', {
   `,
   beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
   beforeBodyEnd: `
+    <div id="the-end">⚡️</div>
     <div id="footer">
       <div id="foo-content">
         <segment>
