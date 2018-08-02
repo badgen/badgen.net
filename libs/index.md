@@ -125,6 +125,11 @@ Available query params:
       ['version', '/pypi/v/pip'],
       ['version', '/pypi/v/docutils'],
     ],
+    nuget: [
+      ['version (stable)', '/nuget/v/newtonsoft.json'],
+      ['version (pre)', '/nuget/v/newtonsoft.json/pre'],
+      ['version (latest)', '/nuget/v/newtonsoft.json/latest']
+    ],
     /* CIs */
     travis: [
       ['build', '/travis/babel/babel'],
@@ -179,11 +184,6 @@ Available query params:
       ['contributors', '/opencollective/contributors/webpack'],
       ['balance', '/opencollective/balance/webpack'],
       ['yearly income', '/opencollective/yearly/webpack'],
-    ],
-    nuget: [
-      ['version', '/nuget/v/newtonsoft.json'],
-      ['version', '/nuget/v/newtonsoft.json/pre'],
-      ['version', '/nuget/v/newtonsoft.json/latest']
     ]
   }
 </script>
