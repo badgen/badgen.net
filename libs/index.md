@@ -169,7 +169,7 @@ Available query params:
     bundlephobia: [
       ['minified', '/bundlephobia/min/react'],
       ['minified + gzip', '/bundlephobia/minzip/react'],
-      ['(scoped) minified + gzip', '/bundlephobia/minzip/@nestjs/core']
+      ['(scoped) minified + gzip', '/bundlephobia/minzip/@nuxtjs/axios']
     ],
     'uptime robot': [
       ['status', '/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af'],
