@@ -1,46 +1,42 @@
 const axios = require('../axios.js')
 const covColor = require('../utils/cov-color.js')
+const round = require('../utils/round.js')
 
-// https://codecov.io/gh/user/repo/settings/badge
+const unknownBadge = {
+  subject: 'codecov',
+  status: 'unknown',
+  color: 'grey'
+}
 
-/**
- * `gh` is alias for `github` set by CodeCov
- * /codecov/c/github/amio/badgen
- * /codecov/c/github/amio/badgen/master
- */
-module.exports = async function codecov (topic, ...args) {
+module.exports = async function codecov (topic, vscType, ...args) {
   switch (topic) {
     case 'c': {
-      return coverage(...args)
+      switch (vscType) {
+        case 'github':
+          return coverage('gh', ...args)
+        case 'bitbucket':
+          return coverage('bb', ...args)
+        default:
+          return unknownBadge
+      }
     }
     default:
-      return {
-        subject: 'codecov',
-        status: 'unknown',
-        color: 'grey'
-      }
+      return unknownBadge
   }
 }
 
 async function coverage (vscType, user, repo, branch) {
-  branch = typeof branch === 'string' && branch.length > 0 ? branch : 'master'
-
-  const args = [vscType, user, repo, 'branch', branch]
-  const endpoint = `https://codecov.io/${args.join('/')}/graph/badge.txt`
-
-  const status = String(await axios.get(endpoint).then(res => res.data)).trim()
-
-  if (status === 'unknown') {
-    return {
-      subject: 'coverage',
-      status: 'unknown',
-      color: 'grey'
-    }
+  const args = [vscType, user, repo]
+  if (typeof branch === 'string') {
+    args.push('branch', branch)
   }
+
+  const endpoint = `https://codecov.io/api/${args.join('/')}`
+  const {data} = await axios.get(endpoint)
 
   return {
     subject: 'coverage',
-    status: `${status}%`,
-    color: covColor(status)
+    status: round(data.commit.totals.c, 1) + '%',
+    color: covColor(data.commit.totals.c)
   }
 }
