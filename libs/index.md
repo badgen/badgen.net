@@ -131,6 +131,7 @@ Available query params:
     pypi: [
       ['version', '/pypi/v/pip'],
       ['version', '/pypi/v/docutils'],
+      ['license', '/pypi/license/pip']
     ],
     nuget: [
       ['version (stable)', '/nuget/v/newtonsoft.json'],
