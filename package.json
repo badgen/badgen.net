@@ -7,6 +7,7 @@
   "scripts": {
     "lint": "standard",
     "dev": "micro-dev service.js -s",
+    "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
     "start": "micro service.js",
     "precanary": "now alias rm badgen-canary -y -T amio",
