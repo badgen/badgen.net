@@ -26,11 +26,16 @@ async function fetchLiveParams (scope, fn, paramsPath) {
 
   console.time(fetchKey)
   waitings[fetchKey] = fn(...paramsPath.split('/')).catch(e => {
-    console.error(fetchKey, 'LIVE_ERROR', e.message)
-    return {
-      failed: true,
-      status: e.code === 'ECONNABORTED' ? 'timeout' : 'unknown'
+    let status = 'unknown'
+
+    if (e.response && e.response.status === 404) {
+      status = 'not found'
+    } else if (e.code === 'ECONNABORTED') {
+      status = 'timeout'
     }
+
+    console.error(fetchKey, `LIVEFN_ERR<${status}>`, e.message)
+    return { status, failed: true }
   }).then(result => {
     console.timeEnd(fetchKey)
     waitings[fetchKey] = undefined
