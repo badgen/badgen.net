@@ -27,7 +27,10 @@ async function fetchLiveParams (scope, fn, paramsPath) {
   console.time(fetchKey)
   waitings[fetchKey] = fn(...paramsPath.split('/')).catch(e => {
     console.error(fetchKey, 'LIVE_ERROR', e.message)
-    return { failed: true }
+    return {
+      failed: true,
+      status: e.code === 'ECONNABORTED' ? 'timeout' : 'unknown'
+    }
   }).then(result => {
     console.timeEnd(fetchKey)
     waitings[fetchKey] = undefined
