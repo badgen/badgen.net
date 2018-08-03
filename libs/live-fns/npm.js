@@ -36,13 +36,12 @@ module.exports = async function npm (topic, ...args) {
 async function pkg (topic, args) {
   let pkg = args[0]
   let tag = 'latest'
-  let isScoped = args[0].charAt(0) === '@'
+  const isScoped = args[0].charAt(0) === '@'
 
   if (isScoped) {
     pkg = `${args[0]}/${args[1]}`
     tag = args[2] || tag
   } else {
-    pkg = `${args[0]}`
     tag = args[1] || tag
   }
 
