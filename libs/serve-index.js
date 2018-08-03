@@ -5,10 +5,10 @@ module.exports = serveMarked('libs/index.md', {
   preset: 'merri',
   inlineCSS: `
     body { max-width: inherit }
-    body > * { width: 950px; margin-left: auto; margin-right: auto; box-sizing: border-box }
+    body > * { width: 960px; margin-left: auto; margin-right: auto; box-sizing: border-box }
     h1 + p { letter-spacing: 0.1px }
     h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
-    h1 + p img { height: 20px }
+    img { height: 20px }
 
     table { border-spacing: 0; vertical-align: top; font-family: Roboto, sans-serif }
     td { padding-right: 0.6em; height: 28px; font-size: 14px; white-space: nowrap }
@@ -33,7 +33,7 @@ module.exports = serveMarked('libs/index.md', {
     #the-end { margin: 5rem auto; text-align: center; text-shadow: 0 0 4px rgba(0,0,0,0.1) }
 
     #footer { width: 100vw; margin: 0 -1rem; background-color: #333; color: #CCC }
-    #foo-content { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }
+    #foo-content { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }
     #foo-content { display: grid; grid-template-columns: 1fr 1fr }
     #foo-content h3 { font-weight: 300 }
     #foo-content p { line-height: 2em; font-weight: 300 }
