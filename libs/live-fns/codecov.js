@@ -16,6 +16,8 @@ module.exports = async function codecov (topic, vscType, ...args) {
           return coverage('gh', ...args)
         case 'bitbucket':
           return coverage('bb', ...args)
+        case 'gitlab':
+          return coverage('gl', ...args)
         default:
           return unknownBadge
       }
