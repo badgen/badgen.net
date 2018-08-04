@@ -52,7 +52,7 @@ module.exports = serveMarked('libs/index.md', {
             built with ♥<br/>
             by <a href="https://github.com/amio">Amio</a>
             and awesome <a href="https://github.com/amio/badgen-service/graphs/contributors">contributors</a><br/>
-            hosted on <a href="#">Now Cloud</a>
+            hosted on <a href="https://zeit.co/now">Now Cloud</a>
           </p>
         </segment>
         <aside>
