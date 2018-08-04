@@ -19,6 +19,7 @@
     "axios": "^0.18.0",
     "badgen": "^2.2.1",
     "byte-size": "^4.0.3",
+    "cheerio": "^1.0.0-rc.2",
     "chrome-webstore": "^1.0.0",
     "micro": "^9.3.2",
     "micro-fork": "^0.1.0",

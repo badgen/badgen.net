@@ -1,5 +1,6 @@
-const axios = require('../axios.js')
 const millify = require('millify')
+const cheerio = require('cheerio')
+const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
@@ -20,6 +21,8 @@ module.exports = async function npm (topic, ...args) {
       return download('last-month', args)
     case 'dy':
       return download('last-year', args)
+    case 'dependents':
+      return dependents(args.join('/'))
     case 'license':
       return pkg('license', args)
     case 'node':
@@ -112,4 +115,22 @@ async function download (period, args) {
     status: millify(stats.downloads) + per,
     color: 'green'
   }
+}
+
+// https://github.com/astur/check-npm-dependents/blob/master/index.js
+async function dependents (name) {
+  const { data } = await axios(`https://www.npmjs.com/package/${name}`)
+
+  return {
+    subject: 'dependents',
+    status: parseDependents(data),
+    color: 'green'
+  }
+}
+
+const parseDependents = html => {
+  const $ = cheerio.load(html)
+  const depLink = $('a[href="?activeTab=dependents"]')
+  if (depLink.length !== 1) return -1
+  return depLink.text().replace(/[^0-9]/g, '')
 }

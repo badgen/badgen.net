@@ -96,7 +96,8 @@ Available query params:
       ['yearly downloads', '/npm/dy/express'],
       ['total downloads', '/npm/dt/express'],
       ['license', '/npm/license/lodash'],
-      ['engines (node)', '/npm/node/express']
+      ['engines (node)', '/npm/node/express'],
+      ['dependents', '/npm/dependents/got']
     ],
     crates: [
       ['version', '/crates/v/regex'],
