@@ -1,3 +1,5 @@
+const fs = require('fs')
+const path = require('path')
 const { send } = require('micro')
 const { router, get } = require('micro-fork')
 const liveFunctions = require('./live-fns/_index.js')
@@ -15,6 +17,10 @@ const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {
   })
 })
 
+const indexContent = fs.readFileSync(path.join(__dirname, 'index-api.md'), 'utf8')
+const serveIndex = (req, res) => send(res, 200, indexContent)
+
 module.exports = router()(
+  get('/', serveIndex),
   ...apiHandlers
 )
