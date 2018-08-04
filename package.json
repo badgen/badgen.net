@@ -9,11 +9,11 @@
     "dev": "micro-dev service.js -s",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
-    "start": "micro service.js",
+    "start": "node service.js",
     "precanary": "now alias rm badgen-canary -y -T amio",
     "canary": "now -T amio && now alias badgen-canary -T amio",
     "predeploy": "now rm badgen-service --safe -y -T amio || true",
-    "deploy": "now -T amio && now alias -T amio"
+    "deploy": "now -T amio -e API_HOST='https://api.badgen.net'"
   },
   "dependencies": {
     "axios": "^0.18.0",

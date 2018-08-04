@@ -2,9 +2,9 @@
   "alias": [
     "badgen",
     "badgen.net",
-    "flat.badgen.net"
+    "flat.badgen.net",
+    "api.badgen.net"
   ],
-  "public": true,
   "files": [
     "package-lock.json",
     "service.js",

@@ -6,7 +6,7 @@ const serve404 = require('./libs/serve-404.js')
 const serveDocs = require('./libs/serve-docs.js')
 const serveBadge = require('./libs/serve-badge.js')
 const liveHandlers = require('./libs/live-handlers.js')
-const serveCache = require('./libs/serve-cache.js')
+const serveApi = require('./libs/serve-api.js')
 
 const main = router()(
   get('/*', serve404),
@@ -23,7 +23,7 @@ module.exports = function (req, res) {
   switch (req.headers.host) {
     case 'api.badgen.net':
     case '127.0.0.1:3000':
-      return serveCache(req, res)
+      return serveApi(req, res)
     default:
       return main(req, res)
   }
