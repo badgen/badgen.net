@@ -24,6 +24,7 @@ module.exports = serveMarked('libs/index.md', {
     dt a:hover { text-decoration: none }
     dt a:hover:before { content: '➻'; display: inline-block; width: 0px; position: relative }
     dt a:hover:before { left: -1.2em; font: 20px/20px Arial; vertical-align: middle; color: #CCC }
+    dt a:nth-child(2) { float: right }
     dd { font: 14px/20px monospace; vertical-align: top; height: 28px; white-space: nowrap; margin: 0 }
     dd img { vertical-align: top }
     dd b { font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif }
