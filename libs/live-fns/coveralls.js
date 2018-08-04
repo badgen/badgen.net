@@ -1,5 +1,6 @@
 const axios = require('../axios.js')
 const covColor = require('../utils/cov-color.js')
+const round = require('../utils/round.js')
 
 module.exports = async function (topic, platform, user, repo, branch) {
   // only support topic="c" fow now
@@ -12,7 +13,7 @@ module.exports = async function (topic, platform, user, repo, branch) {
 
   return {
     subject: 'coverage',
-    status: Number(covered_percent).toFixed() + '%',
+    status: round(covered_percent, 1) + '%',
     color: covColor(covered_percent)
   }
 }

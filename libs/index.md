@@ -155,7 +155,9 @@ Available query params:
       ['coverage (github)', '/codecov/c/github/tunnckoCore/gitcommit'],
       ['coverage (github, branch)', '/codecov/c/github/babel/babel/6.x'],
       ['coverage (bitbucket)', '/codecov/c/bitbucket/ignitionrobotics/ign-math'],
-      ['coverage (bitbucket, branch)', '/codecov/c/bitbucket/ignitionrobotics/ign-math/master']
+      ['coverage (bitbucket, branch)', '/codecov/c/bitbucket/ignitionrobotics/ign-math/master'],
+      ['coverage (gitlab)', '/codecov/c/gitlab/gitlab-org/gitaly'],
+      ['coverage (gitlab, branch)', '/codecov/c/gitlab/gitlab-org/gitaly/master']
     ],
     coveralls: [
       ['coverage (github)', '/coveralls/c/github/jekyll/jekyll'],
