@@ -198,8 +198,9 @@ Available query params:
       ['yearly income', '/opencollective/yearly/webpack'],
     ]
   }
-  window.docPages = {
-    packagephobia: 'packagephobia',
+
+  window.links = {
+    packagephobia: { doc: true },
   }
 </script>
 
@@ -218,12 +219,13 @@ Available query params:
   // Render live badge examples
   import { html, render } from 'https://cdn.jsdelivr.net/npm/lit-html@0.10.2/lit-html.js'
 
-  const genExamples = (badges, docs) => html`
+  const genExamples = (badges, links) => html`
     <h4 id="live-badge">Live Badge</h4>
     <div>${Object.entries(badges).map(([service, examples]) => html`
       <dl>
         <dt id="${service}"><a href="#${service}">${service}</a>
-        ${docs[service] ? html`<a href="docs/${docs[service]}" target="_blank">Docs</a>` : ''}
+        ${links[service] && links[service].doc ?
+          html`<a href="docs/${service.replace(/ /m, '-')}" target="_blank">&nbsp;?</a>` : ''}
         </dt>
         ${examples.map(([desc, src]) => html`
           <dd>
@@ -241,7 +243,7 @@ Available query params:
   const badges = only ? { [only]: window.liveBadges[only] } : window.liveBadges
 
   render(
-    genExamples(badges, window.docPages),
+    genExamples(badges, window.links),
     document.querySelector('#live-badge-examples')
   )
 </script>
