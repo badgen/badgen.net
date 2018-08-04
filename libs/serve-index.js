@@ -22,10 +22,11 @@ module.exports = serveMarked('libs/index.md', {
     dt { margin-bottom: 1em; padding-top: 1em; border-bottom: 1px solid #DDD; line-height: 2em }
     dt a { color: #333; position: relative }
     dt a:hover { text-decoration: none }
-    dt a:first-child:hover:before { content: '➻'; display: inline-block; width: 0px; position: relative }
-    dt a:first-child:hover:before { left: -1.2em; font: 20px/20px Arial; vertical-align: middle; color: #CCC }
-    dt a:nth-child(2) { background: #BBB; color: #FFF; font: 14px/16px sans-serif; height: 16px; width: 16px }
-    dt a:nth-child(2) { border-radius: 50%; display: inline-block; margin-left: 1em }
+    dt a.title:hover:before { content: '➻'; display: inline-block; width: 0px; position: relative }
+    dt a.title:hover:before { left: -1.2em; font: 20px/20px Arial; vertical-align: middle; color: #CCC }
+    dt a.doc { background: #CCC; color: #FFF; font: 14px/16px verdana, sans-serif; height: 16px; width: 16px }
+    dt a.doc { border-radius: 50%; display: inline-block; text-align: center; margin-left: 0.5em }
+    dt a.doc:hover { background-color: #BBB }
     dd { font: 14px/20px monospace; vertical-align: top; height: 28px; white-space: nowrap; margin: 0 }
     dd img { vertical-align: top }
     dd b { font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif }

@@ -223,9 +223,10 @@ Available query params:
     <h4 id="live-badge">Live Badge</h4>
     <div>${Object.entries(badges).map(([service, examples]) => html`
       <dl>
-        <dt id="${service}"><a href="#${service}">${service}</a>
-        ${links[service] && links[service].doc ?
-          html`<a href="docs/${service.replace(/ /m, '-')}" target="_blank">&nbsp;?</a>` : ''}
+        <dt id="${service}">
+          <a class="title" href="#${service}">${service}</a>
+          ${links[service] && links[service].doc ?
+            html`<a class="doc" href="/docs/${service.replace(/ /m, '-')}" target="_blank">?</a>` : ''}
         </dt>
         ${examples.map(([desc, src]) => html`
           <dd>
