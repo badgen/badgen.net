@@ -10,6 +10,36 @@ module.exports = async function (vcsType, username, project, branch) {
   return {
     subject: 'circleci',
     status: latest.status.replace(/_/g, ' '),
-    color: latest.status === 'success' ? 'green' : 'red'
+    color: getStatusColor(latest.status)
+  }
+}
+
+function getStatusColor (status) {
+  switch (status) {
+    case 'infrastructure_fail':
+    case 'timedout':
+    case 'failed':
+    case 'no_tests':
+      return 'red'
+
+    case 'canceled':
+    case 'not_run':
+    case 'not_running':
+      return 'grey'
+
+    case 'queued':
+    case 'scheduled':
+      return 'yellow'
+
+    case 'retried':
+    case 'running':
+      return 'blue'
+
+    case 'fixed':
+    case 'success':
+      return 'green'
+
+    default:
+      return 'grey'
   }
 }
