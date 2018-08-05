@@ -44,13 +44,13 @@ module.exports = async function (topic, vendor, pkg, channel = 'stable') {
     case 'dd':
       return {
         subject: 'downloads',
-        status: millify(response.package.downloads.daily),
+        status: millify(response.package.downloads.daily) + '/day',
         color: 'green'
       }
     case 'dm':
       return {
         subject: 'downloads',
-        status: millify(response.package.downloads.monthly),
+        status: millify(response.package.downloads.monthly) + '/month',
         color: 'green'
       }
     case 'favers':
