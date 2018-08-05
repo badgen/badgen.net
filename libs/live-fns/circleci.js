@@ -33,7 +33,7 @@ function getStatusColor (status) {
 
     case 'retried':
     case 'running':
-      return 'blue'
+      return 'orange'
 
     case 'fixed':
     case 'success':
