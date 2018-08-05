@@ -4,7 +4,7 @@ const { send } = require('micro')
 const { router, get } = require('micro-fork')
 const liveFunctions = require('./live-fns/_index.js')
 const liveFetcher = require('./live-fetcher.js')
-const serveStatus = require('./serve-status.js')
+const serveStats = require('./serve-stats.js')
 
 const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
 const sMaxAges = {
@@ -23,6 +23,6 @@ const serveIndex = (req, res) => send(res, 200, indexContent)
 
 module.exports = router()(
   get('/', serveIndex),
-  get('/_status', serveStatus),
+  get('/_stats', serveStats),
   ...apiHandlers
 )
