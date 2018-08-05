@@ -1,6 +1,6 @@
 # Badgen
 
-Fast badge generating service.
+Fast badge generating service.  
 [![classic](https://badgen.net/badge/style/classic/pink)](https://badgen.net)
 [![flat](https://flat.badgen.net/badge/style/flat/pink)](https://flat.badgen.net)
 
