@@ -1,7 +1,6 @@
 const axios = require('../axios.js')
 const xml2js = require('xml2js')
 const millify = require('millify')
-const round = require('../utils/round.js')
 const stars = require('../utils/stars.js')
 const semColor = require('../utils/sem-color.js')
 
@@ -32,7 +31,7 @@ module.exports = async function (topic, ...args) {
     case 'rating':
       return {
         subject: 'rating',
-        status: `${round(addon.rating, 2)}/5`,
+        status: `${Number(addon.rating).toFixed(2)}/5`,
         color: 'green'
       }
     case 'stars':
