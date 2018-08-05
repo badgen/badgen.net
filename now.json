@@ -10,6 +10,9 @@
     "service.js",
     "libs"
   ],
+  "env": {
+    "GH_TOKEN": "@badgen-gh-token"
+  },
   "engines": {
     "node": "^10.0.0"
   }

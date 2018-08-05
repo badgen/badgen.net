@@ -1,4 +1,5 @@
 const axios = require('../axios.js')
+const token = process.env.GH_TOKEN
 
 // https://developer.github.com/v3/repos/
 
@@ -18,8 +19,10 @@ module.exports = async function (topic, ...args) {
 }
 
 async function release (user, repo, channel) {
-  const endpoint = `https://api.github.com/repos/${user}/${repo}/releases`
-  const logs = await axios.get(endpoint).then(res => res.data)
+  const url = `https://api.github.com/repos/${user}/${repo}/releases`
+  const headers = token && { 'Authorization': `token ${token}` }
+
+  const logs = await axios({ url, headers }).then(res => res.data)
 
   const [latest] = logs
   const stable = logs.find(log => !log.prerelease)
