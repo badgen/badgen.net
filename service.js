@@ -8,9 +8,18 @@ const serveBadge = require('./libs/serve-badge.js')
 const liveHandlers = require('./libs/live-handlers.js')
 const serveApi = require('./libs/serve-api.js')
 
+const homeHandler = (req, res) => {
+  if (req.headers.host === 'badgen.now.sh') {
+    res.setHeader('Location', 'https://badgen.net')
+    micro.send(res, 301)
+  } else {
+    serveIndex(req, res)
+  }
+}
+
 const main = router()(
   get('/*', serve404),
-  get('/', serveIndex),
+  get('/', homeHandler),
   get('/docs/:topic', serveDocs),
   get('/favicon.ico', serveFavicon),
   get('/favicon.svg', serveFavicon),
