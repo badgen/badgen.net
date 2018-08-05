@@ -139,6 +139,17 @@ Available query params:
       ['version (pre)', '/nuget/v/newtonsoft.json/pre'],
       ['version (latest)', '/nuget/v/newtonsoft.json/latest']
     ],
+    packagist: [
+      ['version (stable)', '/packagist/v/monolog/monolog'],
+      ['version (pre)', '/packagist/v/monolog/monolog/pre'],
+      ['version (latest)', '/packagist/v/monolog/monolog/latest'],
+      ['total downloads', '/packagist/dt/monolog/monolog'],
+      ['daily downloads', '/packagist/dd/monolog/monolog'],
+      ['monthly downloads', '/packagist/dm/monolog/monolog'],
+      ['favers', '/packagist/favers/monolog/monolog'],
+      ['dependents', '/packagist/dependents/monolog/monolog'],
+      ['suggesters', '/packagist/suggesters/monolog/monolog'],
+    ],
     /* CIs */
     travis: [
       ['build', '/travis/babel/babel'],

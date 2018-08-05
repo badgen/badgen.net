@@ -16,6 +16,7 @@ module.exports = {
   'nuget': require('./nuget.js'),
   'opencollective': require('./opencollective.js'),
   'packagephobia': require('./packagephobia.js'),
+  'packagist': require('./packagist.js'),
   'pypi': require('./pypi.js'),
   'runkit': require('./runkit.js'),
   'travis': require('./travis.js'),
