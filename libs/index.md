@@ -149,6 +149,12 @@ Available query params:
       ['favers', '/packagist/favers/monolog/monolog'],
       ['dependents', '/packagist/dependents/monolog/monolog'],
       ['suggesters', '/packagist/suggesters/monolog/monolog'],
+      ['name', '/packagist/n/monolog/monolog'],
+      ['github stars', '/packagist/ghs/monolog/monolog'],
+      ['github watchers', '/packagist/ghw/monolog/monolog'],
+      ['github forks', '/packagist/ghf/monolog/monolog'],
+      ['github issues', '/packagist/ghi/monolog/monolog'],
+      ['language', '/packagist/lang/monolog/monolog'],
     ],
     /* CIs */
     travis: [
