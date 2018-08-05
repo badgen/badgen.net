@@ -218,6 +218,7 @@ Available query params:
 
   window.links = {
     packagephobia: { doc: true },
+    'uptime robot': { doc: true },
   }
 </script>
 
