@@ -154,7 +154,7 @@ Available query params:
       ['github watchers', '/packagist/ghw/monolog/monolog'],
       ['github forks', '/packagist/ghf/monolog/monolog'],
       ['github issues', '/packagist/ghi/monolog/monolog'],
-      ['language', '/packagist/l/monolog/monolog'],
+      ['language', '/packagist/lang/monolog/monolog'],
     ],
     /* CIs */
     travis: [

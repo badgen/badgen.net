@@ -102,7 +102,7 @@ module.exports = async function (topic, vendor, pkg, channel = 'stable') {
         status: millify(response.package.github_open_issues),
         color: 'green'
       }
-    case 'l':
+    case 'lang':
       return {
         subject: 'language',
         status: response.package.language,
