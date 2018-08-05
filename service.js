@@ -5,9 +5,10 @@ const serveIndex = require('./libs/serve-index.js')
 const serve404 = require('./libs/serve-404.js')
 const serveDocs = require('./libs/serve-docs.js')
 const serveBadge = require('./libs/serve-badge.js')
-const liveBadgeHandlers = require('./libs/live-badge-handlers.js')
+const liveHandlers = require('./libs/live-handlers.js')
+const serveApi = require('./libs/serve-api.js')
 
-module.exports = router()(
+const main = router()(
   get('/*', serve404),
   get('/', serveIndex),
   get('/docs/:topic', serveDocs),
@@ -15,8 +16,18 @@ module.exports = router()(
   get('/favicon.svg', serveFavicon),
   get('/badge/:subject/:status', (req, res) => serveBadge(req, res)),
   get('/badge/:subject/:status/:color', (req, res) => serveBadge(req, res)),
-  ...liveBadgeHandlers
+  ...liveHandlers
 )
+
+module.exports = function (req, res) {
+  switch (req.headers.host) {
+    case 'api.badgen.net':
+    case '127.0.0.1:3000':
+      return serveApi(req, res)
+    default:
+      return main(req, res)
+  }
+}
 
 if (require.main === module) {
   micro(module.exports).listen(3000)
