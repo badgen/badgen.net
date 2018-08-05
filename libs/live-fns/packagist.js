@@ -9,11 +9,11 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 module.exports = async function (topic, vendor, pkg, channel = 'stable') {
   const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
-  const { package } = await axios.get(endpoint).then(res => res.data)
+  const response = await axios.get(endpoint).then(res => res.data)
 
   switch (topic) {
     case 'v':
-      const versions = Object.keys(package.versions)
+      const versions = Object.keys(response.package.versions)
 
       let version = ''
 
@@ -32,49 +32,43 @@ module.exports = async function (topic, vendor, pkg, channel = 'stable') {
 
       return {
         subject: 'packagist',
-        status: version ? version : 'unknown',
+        status: version || 'unknown',
         color: semColor(version)
-      }
-
-      return {
-        subject: 'packagist',
-        status: 'v' + versions[1],
-        color: semColor(versions[1])
       }
     case 'dt':
       return {
         subject: 'downloads',
-        status: millify(package.downloads.total),
+        status: millify(response.package.downloads.total),
         color: 'green'
       }
     case 'dd':
       return {
         subject: 'downloads',
-        status: millify(package.downloads.daily),
+        status: millify(response.package.downloads.daily),
         color: 'green'
       }
     case 'dm':
       return {
         subject: 'downloads',
-        status: millify(package.downloads.monthly),
+        status: millify(response.package.downloads.monthly),
         color: 'green'
       }
     case 'favers':
       return {
         subject: 'favers',
-        status: millify(package.favers),
+        status: millify(response.package.favers),
         color: 'green'
       }
     case 'dependents':
       return {
         subject: 'dependents',
-        status: package.dependents,
+        status: response.package.dependents,
         color: 'green'
       }
     case 'suggesters':
       return {
         subject: 'suggesters',
-        status: package.suggesters,
+        status: response.package.suggesters,
         color: 'green'
       }
     default:
