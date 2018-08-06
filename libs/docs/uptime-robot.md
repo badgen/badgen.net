@@ -11,10 +11,10 @@
 
 ## Creating the API key
 
-To use an `/uptime-robot` badge, you have to create or find an API key specific to your monitor
-<br/><br/>
+To use an `/uptime-robot` badge, you have to create or find an API key specific to your monitor.
+
 From your UptimeRobot dashboard, go to
-[My Settings](https://uptimerobot.com/dashboard.php#mySettings) > API Settings > Monitor-Specific API Keys
+[My Settings](https://uptimerobot.com/dashboard.php#mySettings) > API Settings > Monitor-Specific API Keys.
 
 ## Examples
 
