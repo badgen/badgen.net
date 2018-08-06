@@ -28,7 +28,7 @@ const stable = versions => versions.filter(v => {
 const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 const request = async endpoint => {
-    return axios.get(`https://rubygems.org/api/v1/${endpoint}.json`).then(res => res.data)
+  return axios.get(`https://rubygems.org/api/v1/${endpoint}.json`).then(res => res.data)
 }
 
 module.exports = async function (topic, gem, channel = 'stable') {
@@ -40,7 +40,7 @@ module.exports = async function (topic, gem, channel = 'stable') {
 
   switch (topic) {
     case 'v':
-    response = await request(`versions/${gem}`)
+      response = await request(`versions/${gem}`)
 
       const versions = Object
         .values(response)
@@ -49,7 +49,6 @@ module.exports = async function (topic, gem, channel = 'stable') {
 
       let version = ''
 
-        console.log(latest(stable(versions)))
       switch (channel) {
         case 'latest':
           version = latest(versions)
