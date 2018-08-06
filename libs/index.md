@@ -69,8 +69,8 @@ Available query params:
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
 |![](/badge/become/a%20patron/F96854) | [/badge/become/a%20patron/F96854](/badge/become/a%20patron/F96854)
 |![](/badge/code%20style/standard/f2a) | [/badge/code%20style/standard/f2a](/badge/code%20style/standard/f2a)
-|![](/badge/platform/iOS,macOS,watchOS?list=1) | [/badge/platform/iOS,macOS,watchOS?list=1](/badge/platform/iOS,macOS,watchOS?list=1)
-|![](/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111) | [/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111](/badge/▲%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111)
+|![](/badge/▲/$%20now%20amio%2Fbadgen-service/222) | [/badge/▲/$%20now%20amio%2Fbadgen-service/222](/badge/▲/$%20now%20amio%2Fbadgen-service/222)
+|![](/badge/platform/iOS,macOS,watchOS,tvOS?list=1) | [/badge/platform/iOS,macOS,watchOS,tvOS?list=1](/badge/platform/iOS,macOS,watchOS,tvOS?list=1)
 
 <div id="live-badge-examples"></div>
 
