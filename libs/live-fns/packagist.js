@@ -7,7 +7,7 @@ const semColor = require('../utils/sem-color.js')
 const pre = versions => versions.filter(v => v.includes('-') && v.indexOf('dev') !== 0)
 const stable = versions => versions.filter(v => !v.includes('-'))
 const latest = versions => versions.length > 0 && versions.slice(-1)[0]
-const nodev = versions => versions.filter(v => v.indexOf('dev') === -1)
+const noDev = versions => versions.filter(v => v.indexOf('dev') === -1)
 
 module.exports = async function (topic, vendor, pkg, channel = 'stable') {
   const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
@@ -21,7 +21,7 @@ module.exports = async function (topic, vendor, pkg, channel = 'stable') {
 
       switch (channel) {
         case 'latest':
-          version = latest(nodev(versions))
+          version = latest(noDev(versions))
           break
         case 'pre':
           version = latest(pre(versions))
