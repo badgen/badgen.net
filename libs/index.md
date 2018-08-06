@@ -156,6 +156,15 @@ Available query params:
       ['github issues', '/packagist/ghi/monolog/monolog'],
       ['language', '/packagist/lang/monolog/monolog'],
     ],
+    rubygems: [
+      ['version (stable)', '/rubygems/v/rails'],
+      ['version (pre)', '/rubygems/v/rails/pre'],
+      ['version (latest)', '/rubygems/v/rails/latest'],
+      ['total downloads', '/rubygems/dt/rails'],
+      ['version downloads', '/rubygems/dv/rails'],
+      ['name', '/rubygems/n/rails'],
+      ['platform', '/rubygems/p/rails'],
+    ],
     /* CIs */
     travis: [
       ['build', '/travis/babel/babel'],
