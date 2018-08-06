@@ -18,6 +18,7 @@ module.exports = {
   'packagephobia': require('./packagephobia.js'),
   'packagist': require('./packagist.js'),
   'pypi': require('./pypi.js'),
+  'rubygems': require('./rubygems.js'),
   'runkit': require('./runkit.js'),
   'travis': require('./travis.js'),
   'uptime-robot': require('./uptime-robot.js')
