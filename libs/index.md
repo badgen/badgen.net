@@ -227,6 +227,12 @@ Available query params:
       ['contributors', '/opencollective/contributors/webpack'],
       ['balance', '/opencollective/balance/webpack'],
       ['yearly income', '/opencollective/yearly/webpack'],
+    ],
+    'apm': [
+      ['version', '/apm/v/linter'],
+      ['license', '/apm/license/linter'],
+      ['downloads', '/apm/dl/linter'],
+      ['stars', '/apm/stars/linter'],
     ]
   }
 
