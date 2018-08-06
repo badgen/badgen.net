@@ -164,6 +164,12 @@ Available query params:
       ['version downloads', '/rubygems/dv/rails'],
       ['name', '/rubygems/n/rails'],
       ['platform', '/rubygems/p/rails'],
+    brackets: [
+      ['daily downloads', '/brackets/dd/brackets-emmet'],
+      ['weekly downloads', '/brackets/dw/brackets-emmet'],
+      ['total downloads', '/brackets/dt/brackets-emmet'],
+      ['downloads (latest)', '/brackets/dl/brackets-emmet'],
+      ['version', '/brackets/v/brackets-emmet'],
     ],
     /* CIs */
     travis: [
