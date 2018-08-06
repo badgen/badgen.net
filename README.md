@@ -6,7 +6,7 @@
 [![response time][response-src]][uptime-href]
 [![deploy to now][deploy-to-now]](#deploy-to-now-cloud)
 
-Home of [Badgen](https://badgen.net), fast badge generating service.
+Home of [badgen.net](https://badgen.net), fast badge generating service.
 
 ## The Badgen Story
 
@@ -19,7 +19,7 @@ The [badgen](https://github.com/amio/badgen) library was born as an exploration 
 
 And so, Badge Service was born. I had a good time with [shields.io](https://shields.io)(and earlier [badge.fury.io](https://badge.fury.io)), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative with simplicity and flexibility. Its codebase is well structured and fun to develop - it is pretty easy to add badge(s) for new service(s).
 
-At the beginning I was considering between [now.sh](https://zeit.co/now) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Zeit released [Now CDN](https://zeit.co/blog/now-cdn) on the same day as [badgen.now.sh](https://badgen.now.sh)'s reveal, what a fate! Base such service on Zeit's Now CDN is the perfect choice, we can stop thinking about caching and scalability issues. Badgen is the fastest possible badge generating service out there. It's fast, it's amazing, it's globally distributed and cached, because of Now.
+At the beginning I was considering between [now.sh](https://zeit.co/now) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Zeit released [Now CDN](https://zeit.co/blog/now-cdn) on the same day as badgen.now.sh's reveal, what a fate! Base such service on Zeit's Now CDN is the perfect choice, we can stop thinking about caching and scalability issues. Badgen is the fastest possible badge generating service out there. It's fast, it's amazing, it's globally distributed and cached, because of Now.
 
 Thanks to awesome people's help, Badgen are getting better and better. Welcome to join us, let's build the best badge service in the universe 🔥
 
