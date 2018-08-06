@@ -9,10 +9,20 @@ module.exports = async function (topic, ...args) {
       return release(...args)
     case 'tag':
       return tag(...args)
+    case 'stars':
+      return stats('stargazers', ...args)
+    case 'forks':
+      return stats('forks', ...args)
+    case 'watchers':
+      return stats('watchers', ...args)
+    case 'open-issues':
+      return issues('open', ...args)
+    case 'issues':
+      return issues('all', ...args)
     default:
       return {
         subject: 'github',
-        status: 'unknown',
+        status: 'unknown topic',
         color: 'grey'
       }
   }
@@ -51,5 +61,67 @@ async function tag (user, repo) {
     subject: 'latest tag',
     status: latest.name || 'unknown',
     color: 'blue'
+  }
+}
+
+function queryGithub (query) {
+  return axios.post('https://api.github.com/graphql', { query }, {
+    headers: {
+      'Accept': 'application/vnd.github.hawkgirl-preview+json',
+      'Authorization': `bearer ${token}`
+    }
+  }).then(res => res.data)
+}
+
+async function issues (filter, user, repo) {
+  const queryFilter = filter === 'open' ? '(states:[OPEN])' : ''
+  const { data, errors } = await queryGithub(`
+    query {
+      repository(owner:"${user}", name:"${repo}") {
+        issues${queryFilter} {
+          totalCount
+        }
+      }
+    }
+  `)
+
+  if (errors) {
+    console.error(JSON.stringify(errors))
+    return { subject: 'issues' }
+  } else {
+    return {
+      subject: filter === 'open' ? 'open issues' : 'issues',
+      status: data.repository.issues.totalCount,
+      color: filter === 'open' ? 'orange' : 'blue'
+    }
+  }
+}
+
+async function stats (topic, user, repo) {
+  const { data, errors } = await queryGithub(`
+    query {
+      repository(owner:"${user}", name:"${repo}") {
+        forks {
+          totalCount
+        }
+        stargazers {
+          totalCount
+        }
+        watchers {
+          totalCount
+        }
+      }
+    }
+  `)
+
+  if (errors) {
+    console.error(JSON.stringify(errors))
+    return { subject: topic }
+  } else {
+    return {
+      subject: topic.replace('stargazers', 'stars'),
+      status: data.repository[topic].totalCount,
+      color: 'blue'
+    }
   }
 }
