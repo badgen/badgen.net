@@ -63,7 +63,7 @@ Available query params:
 
 | Preview | URL |
 | ------- | --- |
-|![](/badge/Swift/4.0/orange) | [/badge/Swift/4.0/orange](/badge/Swift/4.0/orange)
+|![](/badge/Swift/4.2/orange) | [/badge/Swift/4.0/orange](/badge/Swift/4.2/orange)
 |![](/badge/license/MIT/blue) | [/badge/license/MIT/blue](/badge/license/MIT/blue)
 |![](/badge/chat/on%20gitter/cyan) | [/badge/chat/on%20gitter/cyan](/badge/chat/on%20gitter/cyan)
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
