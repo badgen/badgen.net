@@ -9,7 +9,7 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 const nodev = versions => versions.filter(version => version !== 'dev-master')
 
 module.exports = async function (topic, vendor, pkg, channel = 'stable') {
-  const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
+  const endpoint = `https://repo.packagist.org/packages/${vendor}/${pkg}.json`
   const response = await axios.get(endpoint).then(res => res.data)
 
   switch (topic) {
