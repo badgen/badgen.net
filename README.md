@@ -41,8 +41,10 @@ To ensure that your addition is working correctly start the development server w
 
 Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen Service to [Now Cloud](https://zeit.co/now) with one single command:
 ```
-now amio/badgen-service
+now amio/badgen-service -e GH_TOKEN=''
 ```
+
+> `GH_TOKEN` is required by Now Deployment, but it's optional for Badgen.
 
 ## About
 
@@ -57,4 +59,4 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af
 [response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
-[deploy-to-now]: https://badgen.net/badge/%E2%96%B2%20Deploy%20to%20Now/$%20now%20amio%2Fbadgen-service/111
+[deploy-to-now]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/222
