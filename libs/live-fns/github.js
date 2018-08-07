@@ -42,6 +42,14 @@ async function release (user, repo, channel) {
   const [latest] = logs
   const stable = logs.find(log => !log.prerelease)
 
+  if (!latest) {
+    return {
+      subject: 'release',
+      status: 'none',
+      color: 'yellow'
+    }
+  }
+
   switch (channel) {
     case 'stable':
       return {
