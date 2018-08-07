@@ -43,8 +43,9 @@ Available icons:
 ![](/badge//chrome?icon=chrome)
 ![](/badge//twitter?icon=twitter)
 ![](/badge//terminal?icon=terminal)
-![](/badge//airbnb?icon=airbnb)
 ![](/badge//patreon?icon=patreon)
+![](/badge//airbnb?icon=airbnb)
+![](/badge//atom?icon=atom)
 ![](/badge//apple?icon=apple)
 ![](/badge//windows?icon=windows)
 
