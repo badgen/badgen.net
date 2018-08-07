@@ -1,3 +1,4 @@
+const cheerio = require('cheerio')
 const axios = require('../axios.js')
 const token = process.env.GH_TOKEN
 
@@ -19,6 +20,10 @@ module.exports = async function (topic, ...args) {
       return issues('open', ...args)
     case 'issues':
       return issues('all', ...args)
+    case 'dependents-repo':
+      return dependents('REPOSITORY', ...args)
+    case 'dependents-pkg':
+      return dependents('PACKAGE', ...args)
     default:
       return {
         subject: 'github',
@@ -62,6 +67,28 @@ async function tag (user, repo) {
     status: latest.name || 'unknown',
     color: 'blue'
   }
+}
+
+async function dependents (type, user, repo) {
+  const html = await axios({
+    url: `https://github.com/${user}/${repo}/network/dependents`,
+    headers: {
+      'Accept': 'text/html,application/xhtml+xml,application/xml'
+    }
+  }).then(res => res.data)
+
+  return {
+    subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',
+    status: parseDependents(html, type),
+    color: 'blue'
+  }
+}
+
+function parseDependents (html, type) {
+  const $ = cheerio.load(html)
+  const depLink = $(`a[href$="?dependent_type=${type}"]`)
+  if (depLink.length !== 1) return -1
+  return depLink.text().replace(/[^0-9,]/g, '')
 }
 
 function queryGithub (query) {
