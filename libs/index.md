@@ -171,6 +171,12 @@ Available query params:
       ['name', '/rubygems/n/rails'],
       ['platform', '/rubygems/p/rails'],
     ],
+    'apm': [
+      ['version', '/apm/v/linter'],
+      ['license', '/apm/license/linter'],
+      ['downloads', '/apm/dl/linter'],
+      ['stars', '/apm/stars/linter'],
+    ],
     /* CIs */
     travis: [
       ['build', '/travis/babel/babel'],
@@ -228,12 +234,6 @@ Available query params:
       ['contributors', '/opencollective/contributors/webpack'],
       ['balance', '/opencollective/balance/webpack'],
       ['yearly income', '/opencollective/yearly/webpack'],
-    ],
-    'apm': [
-      ['version', '/apm/v/linter'],
-      ['license', '/apm/license/linter'],
-      ['downloads', '/apm/dl/linter'],
-      ['stars', '/apm/stars/linter'],
     ]
   }
 
