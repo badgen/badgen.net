@@ -1,5 +1,6 @@
 # Badgen Service
 
+![License ISC](https://badgen.net/badge/license/ISC)
 [![StandardJS][standard-src]][standard-href]
 [![dependencies][dep-src]][dep-href]
 [![uptime past week][uptime-src]][uptime-href]
@@ -8,20 +9,21 @@
 
 Home of [badgen.net](https://badgen.net), fast badge generating service.
 
-## The Badgen Story
+## Badgen is
 
-TLDR: Badgen Service is using [badgen](https://github.com/amio/badgen) to generate svg badges, running on Zeit's [Now Cloud](https://zeit.co/now), serving behind Now CDN.
-
-> That's a service, that's a library, hooorey!  
-> [@tunnckoCore](https://twitter.com/tunnckoCore)
-
-The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge svg markup directly with JavaScript(without using pdfkit/canvas/puppeteer to measure text length)?". Result is better than I expected, Verdana(the de-facto font for badges) text width can be calculated precisely with a prebuilt [char-width-table](https://github.com/amio/badgen/blob/master/lib/widths-verdana-11.json), even no need to worry about kerning 🤯
-
-And so, Badge Service was born. I had a good time with [shields.io](https://shields.io)(and earlier [badge.fury.io](https://badge.fury.io)), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative with simplicity and flexibility. Its codebase is well structured and fun to develop - it is pretty easy to add badge(s) for new service(s).
-
-At the beginning I was considering between [now.sh](https://zeit.co/now) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Zeit released [Now CDN](https://zeit.co/blog/now-cdn) on the same day as badgen.now.sh's reveal, what a fate! Base such service on Zeit's Now CDN is the perfect choice, we can stop thinking about caching and scalability issues. Badgen is the fastest possible badge generating service out there. It's fast, it's amazing, it's globally distributed and cached, because of Now.
-
-Thanks to awesome people's help, Badgen are getting better and better. Welcome to join us, let's build the best badge service in the universe 🔥
+- Written in latest, vanilla JavaScript => no build process
+- Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly => fast & stateless
+- Hosted on [Now Cloud][now-href], serving behind Now CDN => faster & reliable
+- Cache less than 4 minutes => fresh & hot
+- Three endpoints in one server
+    - https://badgen.net - classic style badges
+    - https://flat.badgen.net - flat & square style badges
+    - https://api.badgen.net - json “style” badges data (live badges only)
+- Two badge types
+    - static badge - url defined badge (subject, status, color)
+    - live badge - show live status from 3rd party services
+- Builtin Icons
+    - Every icon is optimized with svgomg & reviewed by human eyes before it’s available online.
 
 ## Developing
 
@@ -37,6 +39,10 @@ If a service you wish to have is still missing here, we welcome new contirbution
 
 To ensure that your addition is working correctly start the development server with `npm run dev`.
 
+### Add icon
+
+Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please make sure new icon is optimized using [svgomg](https://jakearchibald.github.io/svgomg/).
+
 ### Deploy to Now Cloud
 
 Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen Service to [Now Cloud](https://zeit.co/now) with one single command:
@@ -44,7 +50,7 @@ Badgen generate badges on the fly, which means it's stateless (not rely on any d
 now amio/badgen-service -e GH_TOKEN=''
 ```
 
-> `GH_TOKEN` is required by Now Deployment, but it's optional for Badgen.
+> `GH_TOKEN` is required by Now deployment, but it's optional for Badgen (mostly, except some github badges :P).
 
 ## About
 
