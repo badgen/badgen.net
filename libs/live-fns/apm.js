@@ -46,14 +46,14 @@ async function pkg (topic, args) {
     case 'downloads': {
       return {
         subject: 'downloads',
-        status: millify(meta.downloads) || 'unknown',
+        status: millify(meta.downloads),
         color: 'green'
       }
     }
     case 'stars': {
       return {
         subject: 'stars',
-        status: millify(meta.stargazers_count) || 'unknown',
+        status: millify(meta.stargazers_count),
         color: 'green'
       }
     }
