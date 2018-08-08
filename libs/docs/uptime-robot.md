@@ -1,6 +1,10 @@
 # /uptime-robot
 ![](/badge/badgen/uptime-robot)
 
+## Website
+
+https://uptimerobot.com
+
 ## Usage
 
 - `/uptime-robot/status/:api-key`   _status_
