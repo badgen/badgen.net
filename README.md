@@ -60,7 +60,7 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
 [response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
-[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=dependencies
+[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
 [dependencies-href]: https://david-dm.org/amio/badgen-service/
 [license-src]: https://badgen.net/github/license/amio/badgen-service
 [license-href]: LICENSE.md
