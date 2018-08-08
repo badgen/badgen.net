@@ -11,7 +11,7 @@
  */
 
 module.exports = function vc (version) {
-  if (version.match(/\b(alpha|beta|canary|rc)/i)) {
+  if (version.match(/\b(alpha|beta|canary|rc|dev)/i)) {
     return 'cyan'
   }
 
