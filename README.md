@@ -9,7 +9,19 @@
 
 Home of [badgen.net](https://badgen.net), fast badge generating service.
 
-## Badgen is
+## The Badgen Story
+
+> That's a service, that's a library, hooorey!  - [@tunnckoCore](https://github.com/amio/badgen-service/pull/17)
+
+The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge svg markup directly with JavaScript(without using pdfkit/canvas/puppeteer to measure text length)?". Result is better than I expected, Verdana(the de-facto font for badges) text width can be calculated precisely with a prebuilt [char-width-table](https://github.com/amio/badgen/blob/master/lib/widths-verdana-11.json), even no need to worry about kerning 🤯
+
+Then, logically, [Badgen Service](https://badgen.net) was born. I had a good time with [shields.io](https://shields.io)(and earlier [badge.fury.io](https://badge.fury.io)), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative with simplicity and flexibility. Its codebase is well structured and fun to develop - it is pretty easy to add badge(s) for new service(s).
+
+At the beginning I was considering between [Now](https://zeit.co/now) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Zeit announced [Now CDN](https://zeit.co/blog/now-cdn) on the same day as badgen.now.sh(the PoC of Badgen Service)'s reveal, what a fate! Base such service on Zeit's Now CDN is the perfect choice, we can stop thinking about caching and scalability issues. Badgen is the fastest possible badge generating service out there. It's fast, it's reliable, it's globally distributed and cached, because of Now.
+
+At the time of badgen.now.sh's reveal, it has only four live badges as demomstration 😂. Since then, thanks to awesome people's help, Badgen keep getting better and better at a fast pace. Welcome to join us, let's build the best badge service in the universe 🔥
+
+## Anatomy
 
 - Written in latest, vanilla JavaScript => no build process
 - Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly => fast & stateless
@@ -45,7 +57,7 @@ Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please 
 
 ### Deploy to Now
 
-Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen Service to [Now][now-href] with one single command:
+Badgen is stateless (not rely on db service). Deploy your own instance to [Now][now-href] with one single command:
 ```
 now amio/badgen-service -e GH_TOKEN=''
 ```
@@ -61,10 +73,10 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
 [response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
 [dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
-[dependencies-href]: https://david-dm.org/amio/badgen-service/
+[dependencies-href]: https://david-dm.org/amio/badgen-service
 [license-src]: https://badgen.net/github/license/amio/badgen-service
 [license-href]: LICENSE.md
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
-[standard-href]: https://standardjs.com/
+[standard-href]: https://standardjs.com
 [deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/222
-[now-href]: https://zeit.co/now/
+[now-href]: https://zeit.co/now
