@@ -1,11 +1,11 @@
 # Badgen Service
 
-![License ISC](https://badgen.net/badge/license/ISC)
+[![Uptime last week][uptime-src]][uptime-href]
+[![Response time][response-src]][uptime-href]
+[![Dependencies][dependencies-src]][dependencies-href]
+[![License][license-src]][license-href]
 [![StandardJS][standard-src]][standard-href]
-[![dependencies][dep-src]][dep-href]
-[![uptime past week][uptime-src]][uptime-href]
-[![response time][response-src]][uptime-href]
-[![deploy to now][deploy-to-now]](#deploy-to-now-cloud)
+[![Deploy to now][deploy-to-now-src]](#deploy-to-now)
 
 Home of [badgen.net](https://badgen.net), fast badge generating service.
 
@@ -13,7 +13,7 @@ Home of [badgen.net](https://badgen.net), fast badge generating service.
 
 - Written in latest, vanilla JavaScript => no build process
 - Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly => fast & stateless
-- Hosted on [Now Cloud][now-href], serving behind Now CDN => faster & reliable
+- Hosted on [Now][now-href], serving behind Now CDN => faster & reliable
 - Cache less than 4 minutes => fresh & hot
 - Three endpoints in one server
     - https://badgen.net - classic style badges
@@ -43,9 +43,9 @@ To ensure that your addition is working correctly start the development server w
 
 Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please make sure new icon is optimized using [svgomg](https://jakearchibald.github.io/svgomg/).
 
-### Deploy to Now Cloud
+### Deploy to Now
 
-Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen Service to [Now Cloud](https://zeit.co/now) with one single command:
+Badgen generate badges on the fly, which means it's stateless (not rely on any db service). Deploy your own Badgen Service to [Now][now-href] with one single command:
 ```
 now amio/badgen-service -e GH_TOKEN=''
 ```
@@ -57,12 +57,14 @@ now amio/badgen-service -e GH_TOKEN=''
 Made with ❤️ by [Amio](https://github.com/amio),
 built with ⚡️ from [badgen](https://github.com/amio/badgen).
 
-[now-href]: https://zeit.co/now
-[standard-src]: https://badgen.net/badge/code%20style/standard/F2A
-[standard-href]: https://standardjs.com/
-[dep-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
-[dep-href]: https://david-dm.org/amio/badgen-service
 [uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af
-[response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
-[deploy-to-now]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/222
+[response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
+[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
+[dependencies-href]: https://david-dm.org/amio/badgen-service/
+[license-src]: https://badgen.net/github/license/amio/badgen-service
+[license-href]: LICENSE.md
+[standard-src]: https://badgen.net/badge/code%20style/standard/pink
+[standard-href]: https://standardjs.com/
+[deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/222
+[now-href]: https://zeit.co/now/

@@ -7,6 +7,7 @@ module.exports = serveMarked('libs/index.md', {
     body { max-width: inherit }
     body > * { width: 960px; margin-left: auto; margin-right: auto; box-sizing: border-box }
     h1 + p { letter-spacing: 0.1px }
+    h1 + p + p { text-align: center }
     h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
     img { height: 20px }
 
@@ -59,6 +60,7 @@ module.exports = serveMarked('libs/index.md', {
           </p>
         </segment>
         <aside>
+          <a href="https://api.badgen.net">API</a>
           <a href="https://github.com/amio/badgen-service">GitHub</a>
           <a href="https://twitter.com/badgen_net">Twitter</a>
         </aside>

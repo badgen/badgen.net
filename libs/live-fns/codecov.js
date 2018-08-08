@@ -37,7 +37,7 @@ async function coverage (vscType, user, repo, branch) {
 
   return {
     subject: 'coverage',
-    status: Number(data.commit.totals.c).toFixed(1) + '%',
+    status: Number(Number(data.commit.totals.c).toFixed(1)) + '%',
     color: covColor(data.commit.totals.c)
   }
 }

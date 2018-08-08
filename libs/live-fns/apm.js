@@ -1,5 +1,6 @@
 const millify = require('millify')
 const axios = require('../axios.js')
+const semColor = require('../utils/sem-color.js')
 
 // https://atom.io/api/packages/*
 
@@ -33,7 +34,7 @@ async function pkg (topic, args) {
       return {
         subject: `apm`,
         status: `v${meta.releases.latest}` || 'unknown',
-        color: 'green'
+        color: semColor(meta.releases.latest)
       }
     }
     case 'license': {

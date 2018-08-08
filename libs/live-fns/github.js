@@ -10,16 +10,14 @@ module.exports = async function (topic, ...args) {
       return release(...args)
     case 'tag':
       return tag(...args)
-    case 'stars':
-      return stats('stargazers', ...args)
-    case 'forks':
-      return stats('forks', ...args)
     case 'watchers':
-      return stats('watchers', ...args)
-    case 'open-issues':
-      return issues('open', ...args)
+    case 'stars':
+    case 'forks':
     case 'issues':
-      return issues('all', ...args)
+    case 'open-issues':
+    case 'closed-issues':
+    case 'license':
+      return stats(topic, ...args)
     case 'dependents-repo':
       return dependents('REPOSITORY', ...args)
     case 'dependents-pkg':
@@ -77,6 +75,103 @@ async function tag (user, repo) {
   }
 }
 
+function queryGithub (query) {
+  return axios.post('https://api.github.com/graphql', { query }, {
+    headers: {
+      'Accept': 'application/vnd.github.hawkgirl-preview+json',
+      'Authorization': `bearer ${token}`
+    }
+  }).then(res => res.data)
+}
+
+async function stats (topic, user, repo) {
+  let query = ''
+  switch (topic) {
+    case 'watchers':
+      query = `watchers { totalCount }`
+      break
+    case 'stars':
+      query = `stargazers { totalCount }`
+      break
+    case 'forks':
+      query = `forks { totalCount }`
+      break
+    case 'issues':
+      query = `issues { totalCount }`
+      break
+    case 'open-issues':
+      query = `issues(states:[OPEN]) { totalCount }`
+      break
+    case 'closed-issues':
+      query = `issues(states:[CLOSED]) { totalCount }`
+      break
+    case 'license':
+      query = `licenseInfo { spdxId }`
+      break
+  }
+
+  const { data, errors } = await queryGithub(`
+    query {
+      repository(owner:"${user}", name:"${repo}") {
+        ${query}
+      }
+    }
+  `)
+
+  if (errors) {
+    console.error(JSON.stringify(errors))
+    return { subject: topic }
+  }
+
+  switch (topic) {
+    case 'watchers':
+    case 'forks':
+    case 'issues':
+      return {
+        subject: topic,
+        status: data.repository[topic].totalCount,
+        color: 'blue'
+      }
+    case 'stars':
+      return {
+        subject: topic,
+        status: data.repository.stargazers.totalCount,
+        color: 'blue'
+      }
+    case 'open-issues':
+      return {
+        subject: 'open issues',
+        status: data.repository.issues.totalCount,
+        color: 'orange'
+      }
+    case 'closed-issues':
+      return {
+        subject: 'closed issues',
+        status: data.repository.issues.totalCount,
+        color: 'blue'
+      }
+    case 'license':
+      return {
+        subject: topic,
+        status: data.repository.licenseInfo.spdxId,
+        color: 'blue'
+      }
+    default:
+      return {
+        subject: 'github',
+        status: 'unknown topic',
+        color: 'grey'
+      }
+  }
+}
+
+function parseDependents (html, type) {
+  const $ = cheerio.load(html)
+  const depLink = $(`a[href$="?dependent_type=${type}"]`)
+  if (depLink.length !== 1) return -1
+  return depLink.text().replace(/[^0-9,]/g, '')
+}
+
 async function dependents (type, user, repo) {
   const html = await axios({
     url: `https://github.com/${user}/${repo}/network/dependents`,
@@ -89,74 +184,5 @@ async function dependents (type, user, repo) {
     subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',
     status: parseDependents(html, type),
     color: 'blue'
-  }
-}
-
-function parseDependents (html, type) {
-  const $ = cheerio.load(html)
-  const depLink = $(`a[href$="?dependent_type=${type}"]`)
-  if (depLink.length !== 1) return -1
-  return depLink.text().replace(/[^0-9,]/g, '')
-}
-
-function queryGithub (query) {
-  return axios.post('https://api.github.com/graphql', { query }, {
-    headers: {
-      'Accept': 'application/vnd.github.hawkgirl-preview+json',
-      'Authorization': `bearer ${token}`
-    }
-  }).then(res => res.data)
-}
-
-async function issues (filter, user, repo) {
-  const queryFilter = filter === 'open' ? '(states:[OPEN])' : ''
-  const { data, errors } = await queryGithub(`
-    query {
-      repository(owner:"${user}", name:"${repo}") {
-        issues${queryFilter} {
-          totalCount
-        }
-      }
-    }
-  `)
-
-  if (errors) {
-    console.error(JSON.stringify(errors))
-    return { subject: 'issues' }
-  } else {
-    return {
-      subject: filter === 'open' ? 'open issues' : 'issues',
-      status: data.repository.issues.totalCount,
-      color: filter === 'open' ? 'orange' : 'blue'
-    }
-  }
-}
-
-async function stats (topic, user, repo) {
-  const { data, errors } = await queryGithub(`
-    query {
-      repository(owner:"${user}", name:"${repo}") {
-        forks {
-          totalCount
-        }
-        stargazers {
-          totalCount
-        }
-        watchers {
-          totalCount
-        }
-      }
-    }
-  `)
-
-  if (errors) {
-    console.error(JSON.stringify(errors))
-    return { subject: topic }
-  } else {
-    return {
-      subject: topic.replace('stargazers', 'stars'),
-      status: data.repository[topic].totalCount,
-      color: 'blue'
-    }
   }
 }

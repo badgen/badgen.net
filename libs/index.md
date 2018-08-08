@@ -1,6 +1,7 @@
 # Badgen
 
-Fast badge generating service.  
+Fast badge generating service.
+
 [![classic](https://badgen.net/badge/style/classic/pink)](https://badgen.net)
 [![flat](https://flat.badgen.net/badge/style/flat/pink)](https://flat.badgen.net)
 
@@ -29,24 +30,24 @@ Available color names:
 
 Available icons:
 
-![](/badge//travis?icon=travis)
-![](/badge//circleci?icon=circleci)
+![](/badge//airbnb?icon=airbnb)
+![](/badge//apple?icon=apple)
 ![](/badge//appveyor?icon=appveyor)
-![](/badge//dependabot?icon=dependabot)
+![](/badge//atom?icon=atom)
+![](/badge//chrome?icon=chrome)
+![](/badge//circleci?icon=circleci)
 ![](/badge//codecov?icon=codecov)
+![](/badge//dependabot?icon=dependabot)
 ![](/badge//docker?icon=docker)
+![](/badge//firefox?icon=firefox)
 ![](/badge//github?icon=github)
 ![](/badge//gitlab?icon=gitlab)
-![](/badge//slack?icon=slack)
 ![](/badge//gitter?icon=gitter)
-![](/badge//firefox?icon=firefox)
-![](/badge//chrome?icon=chrome)
-![](/badge//twitter?icon=twitter)
-![](/badge//terminal?icon=terminal)
 ![](/badge//patreon?icon=patreon)
-![](/badge//airbnb?icon=airbnb)
-![](/badge//atom?icon=atom)
-![](/badge//apple?icon=apple)
+![](/badge//slack?icon=slack)
+![](/badge//terminal?icon=terminal)
+![](/badge//travis?icon=travis)
+![](/badge//twitter?icon=twitter)
 ![](/badge//windows?icon=windows)
 
 Available query params:
@@ -64,7 +65,7 @@ Available query params:
 
 | Preview | URL |
 | ------- | --- |
-|![](/badge/Swift/4.2/orange) | [/badge/Swift/4.0/orange](/badge/Swift/4.2/orange)
+|![](/badge/Swift/4.2/orange) | [/badge/Swift/4.2/orange](/badge/Swift/4.2/orange)
 |![](/badge/license/MIT/blue) | [/badge/license/MIT/blue](/badge/license/MIT/blue)
 |![](/badge/chat/on%20gitter/cyan) | [/badge/chat/on%20gitter/cyan](/badge/chat/on%20gitter/cyan)
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
@@ -82,11 +83,15 @@ Available query params:
       ['latest release', '/github/release/babel/babel'],
       ['latest stable release', '/github/release/babel/babel/stable'],
       ['latest tag', '/github/tag/micromatch/micromatch'],
+      ['watchers', '/github/watchers/micromatch/micromatch'],
       ['stars', '/github/stars/micromatch/micromatch'],
       ['forks', '/github/forks/micromatch/micromatch'],
-      ['watchers', '/github/watchers/micromatch/micromatch'],
       ['issues', '/github/issues/micromatch/micromatch'],
-      ['open issues', '/github/open-issues/micromatch/micromatch']
+      ['open issues', '/github/open-issues/micromatch/micromatch'],
+      ['closed issues', '/github/closed-issues/micromatch/micromatch'],
+      ['license', '/github/license/micromatch/micromatch'],
+      ['repository dependents', '/github/dependents-repo/micromatch/micromatch'],
+      ['package dependents', '/github/dependents-pkg/micromatch/micromatch']
     ],
     /* release registries */
     npm: [
