@@ -43,6 +43,7 @@ Available icons:
 ![](/badge//github?icon=github)
 ![](/badge//gitlab?icon=gitlab)
 ![](/badge//gitter?icon=gitter)
+![](/badge//haskell?icon=haskell)
 ![](/badge//patreon?icon=patreon)
 ![](/badge//slack?icon=slack)
 ![](/badge//terminal?icon=terminal)
