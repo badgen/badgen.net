@@ -83,11 +83,15 @@ Available query params:
       ['latest release', '/github/release/babel/babel'],
       ['latest stable release', '/github/release/babel/babel/stable'],
       ['latest tag', '/github/tag/micromatch/micromatch'],
+      ['watchers', '/github/watchers/micromatch/micromatch'],
       ['stars', '/github/stars/micromatch/micromatch'],
       ['forks', '/github/forks/micromatch/micromatch'],
-      ['watchers', '/github/watchers/micromatch/micromatch'],
       ['issues', '/github/issues/micromatch/micromatch'],
-      ['open issues', '/github/open-issues/micromatch/micromatch']
+      ['open issues', '/github/open-issues/micromatch/micromatch'],
+      ['closed issues', '/github/closed-issues/micromatch/micromatch'],
+      ['license', '/github/license/micromatch/micromatch'],
+      ['repository dependents', '/github/dependents-repo/micromatch/micromatch'],
+      ['package dependents', '/github/dependents-pkg/micromatch/micromatch']
     ],
     /* release registries */
     npm: [
