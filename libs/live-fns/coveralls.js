@@ -12,7 +12,7 @@ module.exports = async function (topic, platform, user, repo, branch) {
 
   return {
     subject: 'coverage',
-    status: Number(covered_percent).toFixed(1) + '%',
+    status: Number(covered_percent.toFixed(1)) + '%',
     color: covColor(covered_percent)
   }
 }
