@@ -10,7 +10,7 @@ module.exports = async function (topic, pkg) {
   switch (topic) {
     case 'v':
       return {
-        subject: 'cabal',
+        subject: 'hackage',
         status: 'v' + version,
         color: semColor(version)
       }
