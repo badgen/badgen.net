@@ -1,6 +1,7 @@
 # Badgen
 
-Fast badge generating service.  
+Fast badge generating service.
+
 [![classic](https://badgen.net/badge/style/classic/pink)](https://badgen.net)
 [![flat](https://flat.badgen.net/badge/style/flat/pink)](https://flat.badgen.net)
 
@@ -64,7 +65,7 @@ Available query params:
 
 | Preview | URL |
 | ------- | --- |
-|![](/badge/Swift/4.2/orange) | [/badge/Swift/4.0/orange](/badge/Swift/4.2/orange)
+|![](/badge/Swift/4.2/orange) | [/badge/Swift/4.2/orange](/badge/Swift/4.2/orange)
 |![](/badge/license/MIT/blue) | [/badge/license/MIT/blue](/badge/license/MIT/blue)
 |![](/badge/chat/on%20gitter/cyan) | [/badge/chat/on%20gitter/cyan](/badge/chat/on%20gitter/cyan)
 |![](/badge/stars/★★★★☆/green) | [/badge/stars/★★★★☆](/badge/stars/★★★★☆/green)
