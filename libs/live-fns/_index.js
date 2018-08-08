@@ -12,6 +12,7 @@ module.exports = {
   'david': require('./david.js'),
   'docker': require('./docker.js'),
   'github': require('./github.js'),
+  'hackage': require('./hackage.js'),
   'homebrew': require('./homebrew.js'),
   'npm': require('./npm.js'),
   'nuget': require('./nuget.js'),

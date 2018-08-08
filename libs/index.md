@@ -177,11 +177,16 @@ Available query params:
       ['name', '/rubygems/n/rails'],
       ['platform', '/rubygems/p/rails'],
     ],
-    'apm': [
+    apm: [
       ['version', '/apm/v/linter'],
       ['license', '/apm/license/linter'],
       ['downloads', '/apm/dl/linter'],
       ['stars', '/apm/stars/linter'],
+    ],
+    hackage: [
+      ['version', '/hackage/v/abt'],
+      ['version', '/hackage/v/Cabal'],
+      ['license', '/hackage/license/Cabal']
     ],
     /* CIs */
     travis: [
