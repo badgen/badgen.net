@@ -10,9 +10,5 @@ const axios = require('../axios.js')
 
 module.exports = async function (endpointId, ...args) {
   const endpoint = `https://${endpointId}.runkit.sh/${args.join('/')}`
-  const { subject, status, color } = await axios(endpoint).then(res => res.data)
-
-  if (subject && status) {
-    return { subject, status, color }
-  }
+  return axios(endpoint).then(res => res.data)
 }
