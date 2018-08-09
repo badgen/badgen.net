@@ -2,8 +2,8 @@
 
 Serve badge data as json.
 
-- Same url path as badgen.net
-- Mainly for live badges
+- Same url path schema as badgen.net
+- Mainly for live badges (who needs api for static badge?)
 
 ## Examples
 
