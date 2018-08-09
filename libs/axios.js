@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 module.exports = axios.create({
-  timeout: 6000,
+  timeout: 3200,
   headers: {
     'Accept': 'application/json'
   }
