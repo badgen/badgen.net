@@ -1,7 +1,7 @@
 const axios = require('../axios.js')
 const millify = require('millify')
 
-module.exports = async function (topic, namespace, name) {
+module.exports = async (topic, namespace, name) => {
   if (!['stars', 'pulls'].includes(topic)) {
     return {
       subject: 'docker',

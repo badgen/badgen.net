@@ -5,33 +5,37 @@ const semColor = require('../utils/sem-color.js')
 
 const preConditions = ['.rc', '.beta', '-rc', '-beta']
 
-const pre = versions => versions.filter(v => {
-  for (let condition of preConditions) {
-    if (!v.includes(condition)) {
-      return false
+const pre = versions =>
+  versions.filter(v => {
+    for (let condition of preConditions) {
+      if (!v.includes(condition)) {
+        return false
+      }
     }
-  }
 
-  return true
-})
+    return true
+  })
 
-const stable = versions => versions.filter(v => {
-  for (let condition of preConditions) {
-    if (v.includes(condition)) {
-      return false
+const stable = versions =>
+  versions.filter(v => {
+    for (let condition of preConditions) {
+      if (v.includes(condition)) {
+        return false
+      }
     }
-  }
 
-  return true
-})
+    return true
+  })
 
 const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 const request = async endpoint => {
-  return axios.get(`https://rubygems.org/api/v1/${endpoint}.json`).then(res => res.data)
+  return axios
+    .get(`https://rubygems.org/api/v1/${endpoint}.json`)
+    .then(res => res.data)
 }
 
-module.exports = async function (topic, gem, channel = 'stable') {
+module.exports = async (topic, gem, channel = 'stable') => {
   let response
 
   if (topic !== 'v') {
@@ -42,8 +46,7 @@ module.exports = async function (topic, gem, channel = 'stable') {
     case 'v':
       response = await request(`versions/${gem}`)
 
-      const versions = Object
-        .values(response)
+      const versions = Object.values(response)
         .map(value => value.number)
         .reverse()
 

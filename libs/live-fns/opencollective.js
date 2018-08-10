@@ -2,7 +2,7 @@ const axios = require('../axios.js')
 
 // https://developer.opencollective.com/#/api/collectives
 
-module.exports = async function (topic, slug) {
+module.exports = async (topic, slug) => {
   const endpoint = `https://opencollective.com/${slug}.json`
 
   const details = await axios(endpoint).then(res => res.data)
@@ -33,7 +33,10 @@ module.exports = async function (topic, slug) {
     case 'yearly':
       return {
         subject: 'yearly income',
-        status: (details.yearlyIncome / 100).toLocaleString('en-US', localeOptions),
+        status: (details.yearlyIncome / 100).toLocaleString(
+          'en-US',
+          localeOptions
+        ),
         color: 'green'
       }
   }

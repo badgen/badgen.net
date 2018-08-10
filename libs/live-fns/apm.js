@@ -4,7 +4,7 @@ const semColor = require('../utils/sem-color.js')
 
 // https://atom.io/api/packages/*
 
-module.exports = async function apm (topic, ...args) {
+module.exports = async (topic, ...args) => {
   switch (topic) {
     case 'v':
       return pkg('version', args)
@@ -23,7 +23,7 @@ module.exports = async function apm (topic, ...args) {
   }
 }
 
-async function pkg (topic, args) {
+const pkg = async (topic, args) => {
   let pkg = args[0]
 
   const endpoint = `https://atom.io/api/packages/${pkg}`

@@ -4,7 +4,7 @@ const { builtin } = require('./icons.js')
 
 const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
 
-module.exports = function serveBadge (req, res, options = {}) {
+module.exports = (req, res, options = {}) => {
   const { code = 200, maxAge = '86400' } = options
 
   const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined

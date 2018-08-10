@@ -7,7 +7,7 @@ const semColor = require('../utils/sem-color.js')
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
 // https://unpkg.com/
 
-module.exports = async function npm (topic, ...args) {
+module.exports = async (topic, ...args) => {
   switch (topic) {
     case 'v':
       return pkg('version', args)
@@ -36,7 +36,7 @@ module.exports = async function npm (topic, ...args) {
   }
 }
 
-async function pkg (topic, args) {
+const pkg = async (topic, args) => {
   let pkg = args[0]
   let tag = 'latest'
   const isScoped = args[0].charAt(0) === '@'
@@ -83,7 +83,7 @@ async function pkg (topic, args) {
   }
 }
 
-async function download (period, args) {
+const download = async (period, args) => {
   const endpoint = ['https://api.npmjs.org/downloads']
   const isTotal = period === 'total'
 
@@ -118,7 +118,7 @@ async function download (period, args) {
 }
 
 // https://github.com/astur/check-npm-dependents/blob/master/index.js
-async function dependents (name) {
+const dependents = async name => {
   const { data } = await axios(`https://www.npmjs.com/package/${name}`)
 
   return {

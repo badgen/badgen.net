@@ -8,8 +8,7 @@ const axios = require('../axios.js')
  *    /uptime-robot/:topic/:api_key
  *      :api_key are generated from uptimerobot settings page
  */
-
-module.exports = async function (topic, apiKey) {
+module.exports = async (topic, apiKey) => {
   const endpoint = `https://api.uptimerobot.com/v2/getMonitors`
   const options = {
     api_key: apiKey,
@@ -59,7 +58,7 @@ const statuses = {
   9: ['down', 'red']
 }
 
-function uptime (period, ratios) {
+const uptime = (period, ratios) => {
   const [day, week, month] = ratios.split('-').map(r => parseFloat(r))
   switch (period) {
     case 'past-day':
@@ -83,7 +82,7 @@ function uptime (period, ratios) {
   }
 }
 
-function ratioColor (ratio) {
+const ratioColor = ratio => {
   if (ratio > 99) return 'green'
   if (ratio > 95) return 'yellow'
   if (ratio > 50) return 'orange'

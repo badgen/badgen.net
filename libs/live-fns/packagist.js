@@ -4,15 +4,19 @@ const axios = require('../axios.js')
 const compareVersions = require('../utils/compare-versions.js')
 const semColor = require('../utils/sem-color.js')
 
-const pre = versions => versions.filter(v => v.includes('-') && v.indexOf('dev') !== 0)
+const pre = versions =>
+  versions.filter(v => v.includes('-') && v.indexOf('dev') !== 0)
 const stable = versions => versions.filter(v => !v.includes('-'))
 const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 const noDev = versions => versions.filter(v => v.indexOf('dev') === -1)
-const license = versions => Object.values(versions).find(v => v.license.length > 0).license[0]
+const license = versions =>
+  Object.values(versions).find(v => v.license.length > 0).license[0]
 
-module.exports = async function (topic, vendor, pkg, channel = 'stable') {
+module.exports = async (topic, vendor, pkg, channel = 'stable') => {
   const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
-  const { package: packageMeta } = await axios.get(endpoint).then(res => res.data)
+  const { package: packageMeta } = await axios
+    .get(endpoint)
+    .then(res => res.data)
 
   switch (topic) {
     case 'v':

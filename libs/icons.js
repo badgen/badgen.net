@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { join, parse } = require('path')
 
-function genIcons (iconFolder, whiten) {
+const genIcons = (iconFolder, whiten) => {
   const icons = {}
 
   fs.readdirSync(join(__dirname, iconFolder)).forEach(filename => {
@@ -24,7 +24,7 @@ function genIcons (iconFolder, whiten) {
   return icons
 }
 
-function whitenSVG (svg, whiten) {
+const whitenSVG = (svg, whiten) => {
   return svg
     .replace(/fill="#\w{3,6}"/g, 'fill="white"')
     .replace(/stroke="#\w{3,6}"/g, 'stroke="white"')

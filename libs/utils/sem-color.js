@@ -9,8 +9,7 @@
  *    '1.2.3-canary.0' => 'cyan'
  *    '0.1.2-canary.0' => 'cyan'
  */
-
-module.exports = function vc (version) {
+module.exports = version => {
   if (version.match(/\b(alpha|beta|canary|rc|dev)/i)) {
     return 'cyan'
   }

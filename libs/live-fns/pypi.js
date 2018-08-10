@@ -1,7 +1,7 @@
 const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
 
-module.exports = async function (topic, project) {
+module.exports = async (topic, project) => {
   const endpoint = `https://pypi.org/pypi/${project}/json`
   const { info } = await axios.get(endpoint).then(res => res.data)
 

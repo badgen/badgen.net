@@ -2,7 +2,7 @@ const axios = require('../axios.js')
 const millify = require('millify')
 const semColor = require('../utils/sem-color.js')
 
-module.exports = async function (topic, pkg) {
+module.exports = async (topic, pkg) => {
   const endpoint = `https://crates.io/api/v1/crates/${pkg}`
   const { crate } = await axios.get(endpoint).then(res => res.data)
 

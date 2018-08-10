@@ -5,7 +5,7 @@ const pre = versions => versions.filter(v => v.includes('-'))
 const stable = versions => versions.filter(v => !v.includes('-'))
 const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
-module.exports = async function (method, project, channel) {
+module.exports = async (method, project, channel) => {
   const endpoint = `https://api.nuget.org/v3-flatcontainer/${project}/index.json`
   const { versions } = await axios.get(endpoint).then(res => res.data)
 
@@ -20,7 +20,8 @@ module.exports = async function (method, project, channel) {
         case 'pre':
           version = latest(pre(versions))
           break
-        default: // get stable version
+        default:
+          // get stable version
           version = latest(stable(versions))
       }
 

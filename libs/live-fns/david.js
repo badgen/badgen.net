@@ -1,19 +1,19 @@
 const axios = require('../axios.js')
 
 const statusInfo = {
-  'insecure': ['insecure', 'red'],
-  'outofdate': ['out of date', 'orange'],
-  'notsouptodate': ['up to date', 'yellow'],
-  'uptodate': ['up to date', 'green'],
-  'none': ['none', 'blue']
+  insecure: ['insecure', 'red'],
+  outofdate: ['out of date', 'orange'],
+  notsouptodate: ['up to date', 'yellow'],
+  uptodate: ['up to date', 'green'],
+  none: ['none', 'blue']
 }
 
-module.exports = async function (depType, user, repo) {
+module.exports = async (depType, user, repo) => {
   const prefix = {
-    'dep': '',
-    'dev': 'dev-',
-    'peer': 'peer-',
-    'optional': 'optional-'
+    dep: '',
+    dev: 'dev-',
+    peer: 'peer-',
+    optional: 'optional-'
   }[depType]
   const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json`
   const { status } = await axios.get(endpoint).then(res => res.data)

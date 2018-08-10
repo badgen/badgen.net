@@ -1,7 +1,7 @@
 const axios = require('../axios.js')
 const covColor = require('../utils/cov-color.js')
 
-module.exports = async function (topic, platform, user, repo, branch) {
+module.exports = async (topic, platform, user, repo, branch) => {
   const query = branch ? `?branch=${branch}` : ''
   const endpoint = `https://coveralls.io/${platform}/${user}/${repo}.json${query}`
 

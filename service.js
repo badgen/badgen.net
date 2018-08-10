@@ -32,7 +32,7 @@ const main = router()(
   ...liveHandlers
 )
 
-module.exports = function (req, res) {
+module.exports = (req, res) => {
   switch (req.headers.host) {
     case 'api.badgen.net':
     case '127.0.0.1:3000':

@@ -13,12 +13,18 @@ const statuses = [
   ['canceled', 'grey']
 ]
 
-module.exports = async function (user, repo, branch = 'master') {
+module.exports = async (user, repo, branch = 'master') => {
   const com = `https://api.travis-ci.com/${user}/${repo}.svg?branch=${branch}`
   const org = `https://api.travis-ci.org/${user}/${repo}.svg?branch=${branch}`
   const [svg1, svg2] = await Promise.all([
-    axios.get(com).then(({ data }) => data).catch(e => e),
-    axios.get(org).then(({ data }) => data).catch(e => e)
+    axios
+      .get(com)
+      .then(({ data }) => data)
+      .catch(e => e),
+    axios
+      .get(org)
+      .then(({ data }) => data)
+      .catch(e => e)
   ])
 
   const result = statuses.find(st => {
