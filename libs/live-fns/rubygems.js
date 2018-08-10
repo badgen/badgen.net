@@ -2,6 +2,7 @@ const millify = require('millify')
 
 const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
+const v = require('../utils/version-formatter.js')
 
 const preConditions = ['.rc', '.beta', '-rc', '-beta']
 
@@ -64,7 +65,7 @@ module.exports = async function (topic, gem, channel = 'stable') {
 
       return {
         subject: 'rubygems',
-        status: version ? `v${version}` : 'unknown',
+        status: v(version),
         color: semColor(version)
       }
     case 'dt':

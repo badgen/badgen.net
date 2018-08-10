@@ -1,5 +1,6 @@
 const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
+const v = require('../utils/version-formatter.js')
 
 module.exports = async function (topic, project) {
   const endpoint = `https://pypi.org/pypi/${project}/json`
@@ -9,7 +10,7 @@ module.exports = async function (topic, project) {
     case 'v':
       return {
         subject: 'pypi',
-        status: 'v' + info.version,
+        status: v(info.version),
         color: semColor(info.version)
       }
     case 'license':

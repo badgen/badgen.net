@@ -1,6 +1,7 @@
 const millify = require('millify')
 const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
+const v = require('../utils/version-formatter.js')
 
 // https://atom.io/api/packages/*
 
@@ -33,7 +34,7 @@ async function pkg (topic, args) {
     case 'version': {
       return {
         subject: `apm`,
-        status: `v${meta.releases.latest}` || 'unknown',
+        status: v(meta.releases.latest),
         color: semColor(meta.releases.latest)
       }
     }

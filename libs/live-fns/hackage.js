@@ -1,5 +1,6 @@
 const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
+const v = require('../utils/version-formatter.js')
 
 module.exports = async function (topic, pkg) {
   const endpoint = `https://hackage.haskell.org/package/${pkg}/${pkg}.cabal`
@@ -11,7 +12,7 @@ module.exports = async function (topic, pkg) {
     case 'v':
       return {
         subject: 'hackage',
-        status: 'v' + version,
+        status: v(version),
         color: semColor(version)
       }
     case 'license':

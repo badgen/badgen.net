@@ -3,6 +3,7 @@ const millify = require('millify')
 const axios = require('../axios.js')
 const compareVersions = require('../utils/compare-versions.js')
 const semColor = require('../utils/sem-color.js')
+const v = require('../utils/version-formatter.js')
 
 const pre = versions => versions.filter(v => v.includes('-') && v.indexOf('dev') !== 0)
 const stable = versions => versions.filter(v => !v.includes('-'))
@@ -35,7 +36,7 @@ module.exports = async function (topic, vendor, pkg, channel = 'stable') {
 
       return {
         subject: 'packagist',
-        status: version ? `v${version}` : 'unknown',
+        status: v(version),
         color: semColor(version)
       }
     case 'dt':
