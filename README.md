@@ -66,7 +66,7 @@ now amio/badgen-service -e GH_TOKEN=''
 
 ## Tracking Policy
 
-Badgen use Google Analytics on doc pages, log request time to 3rd party service for live badges, like:
+Badgen use Google Analytics on doc pages ([home](https://badgen.net), [/docs/packagephobia](https://badgen.net/packagephobia), etc.), log request time to 3rd party service for live badges, like:
 ```
 2018-08-09T04:16:30.947Z  #npm dt/chalk: 160.519ms
 2018-08-09T04:16:31.195Z  #npm dependents/chalk: 365.045ms
