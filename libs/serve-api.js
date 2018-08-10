@@ -8,7 +8,7 @@ const serveStats = require('./serve-stats.js')
 
 const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
 const sMaxAges = {
-  'github': '240'
+  github: '240'
 }
 
 const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {

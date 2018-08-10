@@ -2,7 +2,7 @@ const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
-module.exports = async function (topic, ...args) {
+module.exports = async (topic, ...args) => {
   const endpoint = `https://formulae.brew.sh/api/formula/${args[0]}.json`
   const { versions } = await axios.get(endpoint).then(res => res.data)
 

@@ -32,7 +32,7 @@ const request = async endpoint => {
   return axios.get(`https://rubygems.org/api/v1/${endpoint}.json`).then(res => res.data)
 }
 
-module.exports = async function (topic, gem, channel = 'stable') {
+module.exports = async (topic, gem, channel = 'stable') => {
   let response
 
   if (topic !== 'v') {
@@ -43,8 +43,7 @@ module.exports = async function (topic, gem, channel = 'stable') {
     case 'v':
       response = await request(`versions/${gem}`)
 
-      const versions = Object
-        .values(response)
+      const versions = Object.values(response)
         .map(value => value.number)
         .reverse()
 

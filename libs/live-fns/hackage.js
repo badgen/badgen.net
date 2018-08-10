@@ -2,7 +2,7 @@ const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
-module.exports = async function (topic, pkg) {
+module.exports = async (topic, pkg) => {
   const endpoint = `https://hackage.haskell.org/package/${pkg}/${pkg}.cabal`
 
   const cabal = await axios.get(endpoint).then(res => res.data)
@@ -29,7 +29,7 @@ module.exports = async function (topic, pkg) {
 }
 
 // Naive implementation (only parse meta blocks)
-function parseCabalFile (raw) {
+const parseCabalFile = raw => {
   return raw.match(/[\w-]+:.+\S+$/gm).reduce((accu, line) => {
     const [key, value] = line.split(':')
     accu[key] = value.trim()

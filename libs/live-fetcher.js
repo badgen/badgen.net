@@ -1,6 +1,6 @@
 const waitings = {} // Cache ongoing fetching, prevent redundant request
 
-module.exports = async function fetchLiveParams (scope, fn, paramsPath) {
+module.exports = async (scope, fn, paramsPath) => {
   const fetchKey = `#${scope} ${paramsPath}`
   if (waitings[fetchKey]) return waitings[fetchKey]
 

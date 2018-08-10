@@ -1,7 +1,7 @@
 const axios = require('../axios.js')
 const byteSize = require('byte-size')
 
-module.exports = async function (topic, ...args) {
+module.exports = async (topic, ...args) => {
   const endpoint = `https://packagephobia.now.sh/api.json?p=${args.join('/')}`
   const { data } = await axios(endpoint)
   const { installSize, publishSize } = data
@@ -51,7 +51,7 @@ const color = {
   pink: 'FF69B4'
 }
 
-function getHexColor (bytes) {
+const getHexColor = bytes => {
   if (bytes < oneHundredKb) {
     return color.brightgreen
   } else if (bytes < megabyte) {

@@ -5,8 +5,10 @@ const stars = require('../utils/stars.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
-module.exports = async function (topic, ...args) {
-  const endpoint = `https://services.addons.mozilla.org/en-US/firefox/api/1.5/addon/${args[0]}`
+module.exports = async (topic, ...args) => {
+  const endpoint = `https://services.addons.mozilla.org/en-US/firefox/api/1.5/addon/${
+    args[0]
+  }`
   const xml = await axios.get(endpoint).then(res => res.data)
 
   const { addon } = await new Promise((resolve, reject) => {

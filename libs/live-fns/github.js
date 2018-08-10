@@ -4,7 +4,7 @@ const token = process.env.GH_TOKEN
 
 // https://developer.github.com/v3/repos/
 
-module.exports = async function (topic, ...args) {
+module.exports = async (topic, ...args) => {
   switch (topic) {
     case 'release':
       return release(...args)
@@ -31,9 +31,9 @@ module.exports = async function (topic, ...args) {
   }
 }
 
-async function release (user, repo, channel) {
+const release = async (user, repo, channel) => {
   const url = `https://api.github.com/repos/${user}/${repo}/releases`
-  const headers = token && { 'Authorization': `token ${token}` }
+  const headers = token && { Authorization: `token ${token}` }
 
   const logs = await axios({ url, headers }).then(res => res.data)
 
@@ -64,7 +64,7 @@ async function release (user, repo, channel) {
   }
 }
 
-async function tag (user, repo) {
+const tag = async (user, repo) => {
   const endpoint = `https://api.github.com/repos/${user}/${repo}/tags`
   const [latest] = await axios.get(endpoint).then(res => res.data)
 
@@ -75,16 +75,16 @@ async function tag (user, repo) {
   }
 }
 
-function queryGithub (query) {
+const queryGithub = query => {
   return axios.post('https://api.github.com/graphql', { query }, {
     headers: {
-      'Accept': 'application/vnd.github.hawkgirl-preview+json',
-      'Authorization': `bearer ${token}`
+      Accept: 'application/vnd.github.hawkgirl-preview+json',
+      Authorization: `bearer ${token}`
     }
   }).then(res => res.data)
 }
 
-async function stats (topic, user, repo) {
+const stats = async (topic, user, repo) => {
   let query = ''
   switch (topic) {
     case 'watchers':
@@ -165,18 +165,18 @@ async function stats (topic, user, repo) {
   }
 }
 
-function parseDependents (html, type) {
+const parseDependents = (html, type) => {
   const $ = cheerio.load(html)
   const depLink = $(`a[href$="?dependent_type=${type}"]`)
   if (depLink.length !== 1) return -1
   return depLink.text().replace(/[^0-9,]/g, '')
 }
 
-async function dependents (type, user, repo) {
+const dependents = async (type, user, repo) => {
   const html = await axios({
     url: `https://github.com/${user}/${repo}/network/dependents`,
     headers: {
-      'Accept': 'text/html,application/xhtml+xml,application/xml'
+      Accept: 'text/html,application/xhtml+xml,application/xml'
     }
   }).then(res => res.data)
 

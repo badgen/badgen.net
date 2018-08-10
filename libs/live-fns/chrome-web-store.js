@@ -4,8 +4,8 @@ const semColor = require('../utils/sem-color.js')
 const stars = require('../utils/stars.js')
 const v = require('../utils/version-formatter.js')
 
-module.exports = async function (topic, ...args) {
-  const meta = await webstore.detail({id: args[0]})
+module.exports = async (topic, ...args) => {
+  const meta = await webstore.detail({ id: args[0] })
   switch (topic) {
     case 'v':
       return {

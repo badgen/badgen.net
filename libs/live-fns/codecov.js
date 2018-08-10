@@ -7,7 +7,7 @@ const unknownBadge = {
   color: 'grey'
 }
 
-module.exports = async function codecov (topic, vscType, ...args) {
+module.exports = async (topic, vscType, ...args) => {
   switch (topic) {
     case 'c': {
       switch (vscType) {
@@ -26,14 +26,14 @@ module.exports = async function codecov (topic, vscType, ...args) {
   }
 }
 
-async function coverage (vscType, user, repo, branch) {
+const coverage = async (vscType, user, repo, branch) => {
   const args = [vscType, user, repo]
   if (typeof branch === 'string') {
     args.push('branch', branch)
   }
 
   const endpoint = `https://codecov.io/api/${args.join('/')}`
-  const {data} = await axios.get(endpoint)
+  const { data } = await axios.get(endpoint)
 
   return {
     subject: 'coverage',

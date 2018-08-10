@@ -3,7 +3,7 @@ const byteSize = require('byte-size')
 
 // https://github.com/pastelsky/bundlephobia/issues/4
 
-module.exports = async function (topic, ...args) {
+module.exports = async (topic, ...args) => {
   const endpoint = `https://bundlephobia.com/api/size?package=${args.join('/')}`
   const { size, gzip } = await axios(endpoint).then(res => res.data)
 
