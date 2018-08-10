@@ -64,7 +64,7 @@ module.exports = async function (topic, gem, channel = 'stable') {
 
       return {
         subject: 'rubygems',
-        status: version || 'unknown',
+        status: version ? `v${version}` : 'unknown',
         color: semColor(version)
       }
     case 'dt':

@@ -35,7 +35,7 @@ module.exports = async function (topic, vendor, pkg, channel = 'stable') {
 
       return {
         subject: 'packagist',
-        status: version || 'unknown',
+        status: version ? `v${version}` : 'unknown',
         color: semColor(version)
       }
     case 'dt':
