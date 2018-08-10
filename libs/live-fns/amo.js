@@ -11,14 +11,10 @@ module.exports = async (topic, ...args) => {
   const xml = await axios.get(endpoint).then(res => res.data)
 
   const { addon } = await new Promise((resolve, reject) => {
-    xml2js.parseString(
-      xml,
-      {
-        trim: true,
-        explicitArray: false
-      },
-      (err, res) => (err ? reject(err) : resolve(res))
-    )
+    xml2js.parseString(xml, {
+      trim: true,
+      explicitArray: false
+    }, (err, res) => err ? reject(err) : resolve(res))
   })
 
   switch (topic) {

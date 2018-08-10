@@ -76,18 +76,12 @@ const tag = async (user, repo) => {
 }
 
 const queryGithub = query => {
-  return axios
-    .post(
-      'https://api.github.com/graphql',
-      { query },
-      {
-        headers: {
-          Accept: 'application/vnd.github.hawkgirl-preview+json',
-          Authorization: `bearer ${token}`
-        }
-      }
-    )
-    .then(res => res.data)
+  return axios.post('https://api.github.com/graphql', { query }, {
+    headers: {
+      Accept: 'application/vnd.github.hawkgirl-preview+json',
+      Authorization: `bearer ${token}`
+    }
+  }).then(res => res.data)
 }
 
 const stats = async (topic, user, repo) => {

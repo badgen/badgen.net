@@ -33,10 +33,7 @@ module.exports = async (topic, slug) => {
     case 'yearly':
       return {
         subject: 'yearly income',
-        status: (details.yearlyIncome / 100).toLocaleString(
-          'en-US',
-          localeOptions
-        ),
+        status: (details.yearlyIncome / 100).toLocaleString('en-US', localeOptions),
         color: 'green'
       }
   }

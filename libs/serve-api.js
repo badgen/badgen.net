@@ -13,10 +13,7 @@ const sMaxAges = {
 
 const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {
   return get(`/${name}/*`, async (req, res) => {
-    res.setHeader(
-      'Cache-Control',
-      `${CACHE_CONTROL}, s-maxage=${sMaxAges[name] || '120'}`
-    )
+    res.setHeader('Cache-Control', `${CACHE_CONTROL}, s-maxage=${sMaxAges[name] || '120'}`)
     const result = await liveFetcher(name, fn, req.params['*'])
     let status = 200
     if (result.failed) {
@@ -35,10 +32,7 @@ const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {
   })
 })
 
-const indexContent = fs.readFileSync(
-  path.join(__dirname, 'index-api.md'),
-  'utf8'
-)
+const indexContent = fs.readFileSync(path.join(__dirname, 'index-api.md'), 'utf8')
 const serveIndex = (req, res) => send(res, 200, indexContent)
 
 module.exports = router()(
