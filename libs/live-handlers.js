@@ -15,7 +15,8 @@ module.exports = Object.entries(liveFns).map(([name, fn]) => {
       failed = false
     } = await (API_HOST
       ? axios(API_HOST + req.url).then(res => res.data)
-      : liveFetcher(name, fn, req.params['*']))
+      : liveFetcher(name, fn, req.params['*'])
+    )
 
     const style = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
     req.params = { subject, status, color, style }
