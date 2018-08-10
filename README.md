@@ -64,6 +64,17 @@ now amio/badgen-service -e GH_TOKEN=''
 
 > `GH_TOKEN` is required by Now deployment, but it's optional for Badgen (mostly, except some github badges :P).
 
+## Tracking Policy
+
+Badgen use Google Analytics on doc pages, log request time to 3rd party service for live badges, like:
+```
+2018-08-09T04:16:30.947Z  #npm dt/chalk: 160.519ms
+2018-08-09T04:16:31.195Z  #npm dependents/chalk: 365.045ms
+2018-08-09T04:16:51.252Z  #david dep/olstenlarck/eslint-config-esmc: 445.893ms
+```
+
+And that's all. No tracking for end usage.
+
 ## About
 
 Made with ❤️ by [Amio](https://github.com/amio),
