@@ -1,6 +1,7 @@
 const millify = require('millify')
 const cheerio = require('cheerio')
 const axios = require('../axios.js')
+const prefixVersion = require('../utils/prefix-version.js')
 const semColor = require('../utils/sem-color.js')
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
@@ -55,7 +56,7 @@ async function pkg (topic, args) {
     case 'version': {
       return {
         subject: `npm${tag === 'latest' ? '' : '@' + tag}`,
-        status: `v${meta.version}`,
+        status: prefixVersion(meta.version),
         color: tag === 'latest' ? semColor(meta.version) : 'cyan'
       }
     }

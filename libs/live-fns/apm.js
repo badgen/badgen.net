@@ -1,5 +1,6 @@
 const millify = require('millify')
 const axios = require('../axios.js')
+const prefixVersion = require('../utils/prefix-version.js')
 const semColor = require('../utils/sem-color.js')
 
 // https://atom.io/api/packages/*
@@ -33,7 +34,7 @@ async function pkg (topic, args) {
     case 'version': {
       return {
         subject: `apm`,
-        status: `v${meta.releases.latest}` || 'unknown',
+        status: meta.releases.latest ? prefixVersion(meta.releases.latest) : 'unknown',
         color: semColor(meta.releases.latest)
       }
     }
