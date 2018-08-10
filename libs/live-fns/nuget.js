@@ -1,6 +1,6 @@
 const axios = require('../axios.js')
-const prefixVersion = require('../utils/prefix-version.js')
 const semColor = require('../utils/sem-color.js')
+const v = require('../utils/version-formatter.js')
 
 const pre = versions => versions.filter(v => v.includes('-'))
 const stable = versions => versions.filter(v => !v.includes('-'))
@@ -30,7 +30,7 @@ module.exports = async function (method, project, channel) {
 
       return {
         subject: 'nuget',
-        status: version ? prefixVersion(version) : 'unknown',
+        status: v(version),
         color: semColor(version)
       }
     default:

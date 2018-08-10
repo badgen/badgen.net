@@ -1,6 +1,7 @@
 const axios = require('../axios.js')
 const millify = require('millify')
 const semColor = require('../utils/sem-color.js')
+const v = require('../utils/version-formatter.js')
 
 module.exports = async function (topic, pkg) {
   const endpoint = `https://crates.io/api/v1/crates/${pkg}`
@@ -10,7 +11,7 @@ module.exports = async function (topic, pkg) {
     case 'v':
       return {
         subject: 'crates.io',
-        status: 'v' + crate.max_version,
+        status: v(crate.max_version),
         color: semColor(crate.max_version)
       }
     case 'd':

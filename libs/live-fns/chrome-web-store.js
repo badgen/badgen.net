@@ -1,7 +1,8 @@
 const webstore = require('chrome-webstore')
 const millify = require('millify')
-const stars = require('../utils/stars.js')
 const semColor = require('../utils/sem-color.js')
+const stars = require('../utils/stars.js')
+const v = require('../utils/version-formatter.js')
 
 module.exports = async function (topic, ...args) {
   const meta = await webstore.detail({id: args[0]})
@@ -9,7 +10,7 @@ module.exports = async function (topic, ...args) {
     case 'v':
       return {
         subject: 'chrome web store',
-        status: 'v' + meta.version,
+        status: v(meta.version),
         color: semColor(meta.version)
       }
     case 'users':
