@@ -17,14 +17,18 @@ const homeHandler = (req, res) => {
   }
 }
 
+const serveStaticBadge = (req, res) => {
+  serveBadge(req, res, { maxAge: '31536000' })
+}
+
 const main = router()(
   get('/*', serve404),
   get('/', homeHandler),
   get('/docs/:topic', serveDocs),
   get('/favicon.ico', serveFavicon),
   get('/favicon.svg', serveFavicon),
-  get('/badge/:subject/:status', (req, res) => serveBadge(req, res)),
-  get('/badge/:subject/:status/:color', (req, res) => serveBadge(req, res)),
+  get('/badge/:subject/:status', serveStaticBadge),
+  get('/badge/:subject/:status/:color', serveStaticBadge),
   ...liveHandlers
 )
 
