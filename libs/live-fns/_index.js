@@ -6,6 +6,7 @@ module.exports = {
   bundlephobia: require('./bundlephobia.js'),
   'chrome-web-store': require('./chrome-web-store.js'),
   circleci: require('./circleci.js'),
+  codeclimate: require('./codeclimate.js'),
   codecov: require('./codecov.js'),
   coveralls: require('./coveralls.js'),
   crates: require('./crates.js'),

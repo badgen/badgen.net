@@ -217,6 +217,15 @@ Available query params:
       ['coverage (bitbucket, branch)', '/coveralls/c/bitbucket/pyKLIP/pyklip/master'],
     ],
     /* quality & metrics */
+    'code climate': [
+      ['lines of code', '/codeclimate/loc/jekyll/jekyll'],
+      ['issues', '/codeclimate/issues/jekyll/jekyll'],
+      ['technical debt', '/codeclimate/tech-debt/jekyll/jekyll'],
+      ['maintainability', '/codeclimate/maintainability/jekyll/jekyll'],
+      ['maintainability (percentage)', '/codeclimate/maintainability-percentage/jekyll/jekyll'],
+      ['coverage', '/codeclimate/coverage/jekyll/jekyll'],
+      ['coverage (letter)', '/codeclimate/coverage-letter/jekyll/jekyll']
+    ],
     'david-dm': [
       ['dependencies', '/david/dep/zeit/pkg'],
       ['dev dependencies', '/david/dev/zeit/pkg'],

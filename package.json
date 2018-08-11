@@ -22,6 +22,7 @@
     "byte-size": "^4.0.3",
     "cheerio": "^1.0.0-rc.2",
     "chrome-webstore": "^1.0.0",
+    "got": "^9.0.0",
     "micro": "^9.3.3",
     "micro-fork": "^0.1.0",
     "millify": "^2.0.1",
