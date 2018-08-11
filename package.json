@@ -36,6 +36,15 @@
     "tap": "^12.0.1"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "extends": "standard",
+    "rules": {
+      "max-len": [
+        "error",
+        {
+          "code": 90,
+          "ignoreTemplateLiterals": true
+        }
+      ]
+    }
   }
 }
