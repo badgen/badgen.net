@@ -19,7 +19,11 @@ module.exports = async (scope, fn, paramsPath) => {
   }).then(result => {
     console.timeEnd(fetchKey)
     waitings[fetchKey] = undefined
-    return result || { failed: true }
+    if (typeof result === 'object') {
+      return result
+    } else {
+      return { failed: true }
+    }
   })
 
   return waitings[fetchKey]
