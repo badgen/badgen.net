@@ -26,6 +26,7 @@
     "micro": "^9.3.3",
     "micro-fork": "^0.1.0",
     "millify": "^2.0.1",
+    "moment": "^2.22.2",
     "semver": "^5.5.0",
     "serve-marked": "0.3.0",
     "xml2js": "^0.4.19"
