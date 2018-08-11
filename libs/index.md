@@ -107,7 +107,7 @@ Available query params:
       ['releases', '/github/releases/micromatch/micromatch'],
       ['license', '/github/license/micromatch/micromatch'],
       ['last commit', '/github/last-commit/micromatch/micromatch'],
-      ['total downloads', '/github/dt/webpack/webpack'],
+      ['total downloads', '/github/dt/electron/electron'],
       ['repository dependents', '/github/dependents-repo/micromatch/micromatch'],
       ['package dependents', '/github/dependents-pkg/micromatch/micromatch']
     ],
