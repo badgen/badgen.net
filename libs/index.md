@@ -111,6 +111,22 @@ Available query params:
       ['engines (node)', '/npm/node/express'],
       ['dependents', '/npm/dependents/got']
     ],
+    'david-dm': [
+      ['dependencies', '/david/dep/zeit/pkg'],
+      ['dev dependencies', '/david/dev/zeit/pkg'],
+      ['peer dependencies', '/david/peer/epoberezkin/ajv-keywords'],
+      ['optional dependencies', '/david/optional/epoberezkin/ajv-keywords'],
+    ],
+    packagephobia: [
+      ['install size', '/packagephobia/install/webpack'],
+      ['publish size', '/packagephobia/publish/webpack'],
+      ['publish size (scoped)', '/packagephobia/publish/@tusbar/cache-control']
+    ],
+    bundlephobia: [
+      ['minified', '/bundlephobia/min/react'],
+      ['minified + gzip', '/bundlephobia/minzip/react'],
+      ['(scoped) minified + gzip', '/bundlephobia/minzip/@nuxtjs/axios']
+    ],
     crates: [
       ['version', '/crates/v/regex'],
       ['downloads', '/crates/d/regex'],
@@ -225,22 +241,6 @@ Available query params:
       ['maintainability (percentage)', '/codeclimate/maintainability-percentage/jekyll/jekyll'],
       ['coverage', '/codeclimate/coverage/jekyll/jekyll'],
       ['coverage (letter)', '/codeclimate/coverage-letter/jekyll/jekyll']
-    ],
-    'david-dm': [
-      ['dependencies', '/david/dep/zeit/pkg'],
-      ['dev dependencies', '/david/dev/zeit/pkg'],
-      ['peer dependencies', '/david/peer/epoberezkin/ajv-keywords'],
-      ['optional dependencies', '/david/optional/epoberezkin/ajv-keywords'],
-    ],
-    packagephobia: [
-      ['install size', '/packagephobia/install/webpack'],
-      ['publish size', '/packagephobia/publish/webpack'],
-      ['publish size (scoped)', '/packagephobia/publish/@tusbar/cache-control']
-    ],
-    bundlephobia: [
-      ['minified', '/bundlephobia/min/react'],
-      ['minified + gzip', '/bundlephobia/minzip/react'],
-      ['(scoped) minified + gzip', '/bundlephobia/minzip/@nuxtjs/axios']
     ],
     'uptime robot': [
       ['status', '/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af'],
