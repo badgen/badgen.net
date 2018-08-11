@@ -6,5 +6,5 @@ module.exports = (req, res) => {
     status: '404',
     color: 'red'
   }
-  serveBadge(req, res, { code: 404 })
+  serveBadge(req, res, { code: 200 })
 }

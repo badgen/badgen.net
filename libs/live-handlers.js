@@ -6,13 +6,11 @@ const liveFetcher = require('./live-fetcher.js')
 
 const { API_HOST } = process.env
 const apiFetcher = async url => {
-  return axios.get(API_HOST + url, {
-    validateStatus: status => status >= 200 && status < 300
-  }).then(
+  return axios.get(API_HOST + url).then(
     res => res.data,
     err => {
       console.error('API_ERR', url, err.message)
-      return { ...err.response.data, statusCode: err.response.status }
+      return { ...err.response.data, httpCode: 200 }
     }
   )
 }
@@ -24,7 +22,7 @@ module.exports = Object.entries(liveFns).map(([name, fn]) => {
       status = 'unknown',
       color = 'grey',
       failed = false,
-      statusCode = 200
+      httpCode = 200
     } = await (
       API_HOST
         ? apiFetcher(req.url)
@@ -34,7 +32,7 @@ module.exports = Object.entries(liveFns).map(([name, fn]) => {
     const style = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
     req.params = { subject, status, color, style }
     serveBadge(req, res, {
-      code: statusCode,
+      code: httpCode,
       maxAge: failed ? '0' : (Math.random() * 60 + 60).toFixed()
     })
   })
