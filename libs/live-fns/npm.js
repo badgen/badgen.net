@@ -4,6 +4,12 @@ const axios = require('../axios.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
+const unknownBadge = {
+  subject: 'npm',
+  status: 'unknown',
+  color: 'grey'
+}
+
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
 // https://unpkg.com/
@@ -29,11 +35,7 @@ module.exports = async (topic, ...args) => {
     case 'node':
       return pkg('node', args)
     default:
-      return {
-        subject: 'npm',
-        status: 'unknown',
-        color: 'grey'
-      }
+      return unknownBadge
   }
 }
 
@@ -75,11 +77,7 @@ const pkg = async (topic, args) => {
       }
     }
     default: {
-      return {
-        subject: 'npm',
-        status: 'unknown',
-        color: 'grey'
-      }
+      return unknownBadge
     }
   }
 }
@@ -103,7 +101,13 @@ const download = async (period, args) => {
   endpoint.push(`/${args.join('/')}`)
 
   const per = isTotal ? '' : period.replace('last-', '/')
-  const stats = await axios.get(endpoint.join('')).then(res => res.data)
+  let stats = null
+
+  try {
+    stats = await axios.get(endpoint.join('')).then(res => res.data)
+  } catch (err) {
+    return unknownBadge
+  }
 
   if (isTotal) {
     stats.downloads = stats.downloads.reduce((prev, { downloads }) => {
