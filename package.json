@@ -34,17 +34,5 @@
     "standard": "^11.0.1",
     "supertest": "^3.1.0",
     "tap": "^12.0.1"
-  },
-  "eslintConfig": {
-    "extends": "standard",
-    "rules": {
-      "max-len": [
-        "error",
-        {
-          "code": 90,
-          "ignoreTemplateLiterals": true
-        }
-      ]
-    }
   }
 }
