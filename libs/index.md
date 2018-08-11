@@ -36,6 +36,7 @@ Available icons:
 ![](/badge//atom?icon=atom)
 ![](/badge//chrome?icon=chrome)
 ![](/badge//circleci?icon=circleci)
+![](/badge//codeclimate?icon=codeclimate)
 ![](/badge//codecov?icon=codecov)
 ![](/badge//dependabot?icon=dependabot)
 ![](/badge//docker?icon=docker)
