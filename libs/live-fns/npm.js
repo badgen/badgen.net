@@ -15,7 +15,7 @@ module.exports = async (topic, ...args) => {
     case 'dt':
       return download('total', args)
     case 'dd':
-      return download('last-day', args)
+      return download('last-day', args) // might deprecate this
     case 'dw':
       return download('last-week', args)
     case 'dm':
@@ -89,34 +89,27 @@ const download = async (period, args) => {
   const isTotal = period === 'total'
 
   if (isTotal) {
-    const now = new Date()
-    endpoint.push(`/range/2005-01-01:${now.getFullYear() + 1}-01-01`)
-  } else if (period === 'last-day') {
-    const beforeTwoDays = Date.now() - 172800000
-    const dateBefore = new Date(beforeTwoDays)
-    const [date] = dateBefore.toISOString().split('T')
-
-    endpoint.push(`/point/${date}`)
+    endpoint.push(`/range/2005-01-01:${new Date().getFullYear() + 1}-01-01`)
   } else {
     endpoint.push(`/point/${period}`)
   }
   endpoint.push(`/${args.join('/')}`)
 
   const per = isTotal ? '' : period.replace('last-', '/')
-  const stats = await axios.get(endpoint.join('')).then(
+  const { downloads } = await axios.get(endpoint.join('')).then(
     res => res.data,
     err => err.response.status === 404 && { downloads: 0 }
   )
 
-  if (isTotal) {
-    stats.downloads = stats.downloads.reduce((prev, { downloads }) => {
-      return prev + downloads
+  const count = typeof downloads === 'number'
+    ? downloads
+    : downloads.reduce((accu, { downloads }) => {
+      return accu + downloads
     }, 0)
-  }
 
   return {
     subject: 'downloads',
-    status: millify(stats.downloads) + per,
+    status: millify(count) + per,
     color: 'green'
   }
 }
