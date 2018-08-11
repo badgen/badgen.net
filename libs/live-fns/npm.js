@@ -103,7 +103,10 @@ const download = async (period, args) => {
   endpoint.push(`/${args.join('/')}`)
 
   const per = isTotal ? '' : period.replace('last-', '/')
-  const stats = await axios.get(endpoint.join('')).then(res => res.data)
+  const stats = await axios.get(endpoint.join('')).then(
+    res => res.data,
+    err => err.response.status === 404 && { downloads: 0 }
+  )
 
   if (isTotal) {
     stats.downloads = stats.downloads.reduce((prev, { downloads }) => {
