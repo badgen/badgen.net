@@ -11,10 +11,11 @@ module.exports = serveMarked('libs/index.md', {
     h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
     img { height: 20px }
 
-    table { border-spacing: 0; vertical-align: top; font-family: Roboto, sans-serif }
+    table { border-spacing: 0; vertical-align: top; font-family: Roboto, sans-serif; }
     td { padding-right: 0.6em; height: 28px; font-size: 14px; white-space: nowrap }
+    td + td { padding-right: 20rem }
     td img { position: relative; top: 2px }
-    td a { font: 14px/20px monospace }
+    td a { font: 14px/20px monospace; }
     pre, code { background-color: #f2f5f9; font-weight: 400 }
     pre > code { padding: 0 }
     table code { padding: 0.3em 0.5em; display: pre }
