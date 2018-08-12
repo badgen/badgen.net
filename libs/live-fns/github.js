@@ -3,7 +3,7 @@ const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
 const millify = require('millify')
 const axios = require('../axios.js')
 const v = require('../utils/version-formatter.js')
-const token = process.env.GH_TOKEN || '2ab90ccc0ed6e29caf270b1344638d8bc1d3be60'
+const token = process.env.GH_TOKEN
 
 // https://developer.github.com/v3/repos/
 
