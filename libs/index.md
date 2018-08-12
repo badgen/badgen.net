@@ -94,6 +94,8 @@ Available query params:
       ['latest tag', '/github/tag/micromatch/micromatch'],
       ['watchers', '/github/watchers/micromatch/micromatch'],
       ['stars', '/github/stars/micromatch/micromatch'],
+      ['collaborators', '/github/collaborators/micromatch/micromatch'],
+      ['contributors', '/github/contributors/micromatch/micromatch'],
       ['forks', '/github/forks/micromatch/micromatch'],
       ['issues', '/github/issues/micromatch/micromatch'],
       ['open issues', '/github/open-issues/micromatch/micromatch'],
