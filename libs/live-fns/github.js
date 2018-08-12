@@ -1,23 +1,35 @@
 const cheerio = require('cheerio')
+const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
+const millify = require('millify')
 const axios = require('../axios.js')
+const v = require('../utils/version-formatter.js')
 const token = process.env.GH_TOKEN
 
 // https://developer.github.com/v3/repos/
 
 module.exports = async (topic, ...args) => {
   switch (topic) {
-    case 'release':
-      return release(...args)
-    case 'tag':
-      return tag(...args)
     case 'watchers':
     case 'stars':
     case 'forks':
     case 'issues':
     case 'open-issues':
     case 'closed-issues':
+    case 'prs':
+    case 'open-prs':
+    case 'closed-prs':
+    case 'merged-prs':
+    case 'commits':
+    case 'branches':
+    case 'releases':
+    case 'tags':
+    case 'tag':
     case 'license':
+    case 'last-commit':
+    case 'dt':
       return stats(topic, ...args)
+    case 'release':
+      return release(...args)
     case 'dependents-repo':
       return dependents('REPOSITORY', ...args)
     case 'dependents-pkg':
@@ -31,14 +43,33 @@ module.exports = async (topic, ...args) => {
   }
 }
 
+const queryGithub = (query, graphql = true) => {
+  const headers = token ? { Authorization: `token ${token}` } : {}
+
+  if (!graphql) {
+    const url = `https://api.github.com/${query}`
+    return axios({
+      url,
+      headers: {
+        ...headers,
+        Accept: 'application/vnd.github.hellcat-preview+json'
+      }
+    })
+  }
+
+  return axios.post('https://api.github.com/graphql', { query }, {
+    headers: {
+      ...headers,
+      Accept: 'application/vnd.github.hawkgirl-preview+json'
+    }
+  })
+}
+
 const release = async (user, repo, channel) => {
-  const url = `https://api.github.com/repos/${user}/${repo}/releases`
-  const headers = token && { Authorization: `token ${token}` }
+  const { data: releases } = await queryGithub(`repos/${user}/${repo}/releases`, false)
 
-  const logs = await axios({ url, headers }).then(res => res.data)
-
-  const [latest] = logs
-  const stable = logs.find(log => !log.prerelease)
+  const [latest] = releases
+  const stable = releases.find(release => !release.prerelease)
 
   if (!latest) {
     return {
@@ -52,40 +83,21 @@ const release = async (user, repo, channel) => {
     case 'stable':
       return {
         subject: 'release',
-        status: stable.name || stable.tag_name || 'stable',
+        status: v(stable ? stable.name || stable.tag_name : null),
         color: 'blue'
       }
     default:
       return {
         subject: 'release',
-        status: latest.name || latest.tag_name || 'unknown',
+        status: v(latest ? latest.name || latest.tag_name : null),
         color: latest.prerelease === true ? 'orange' : 'blue'
       }
   }
 }
 
-const tag = async (user, repo) => {
-  const endpoint = `https://api.github.com/repos/${user}/${repo}/tags`
-  const [latest] = await axios.get(endpoint).then(res => res.data)
-
-  return {
-    subject: 'latest tag',
-    status: latest.name || 'unknown',
-    color: 'blue'
-  }
-}
-
-const queryGithub = query => {
-  return axios.post('https://api.github.com/graphql', { query }, {
-    headers: {
-      Accept: 'application/vnd.github.hawkgirl-preview+json',
-      Authorization: `bearer ${token}`
-    }
-  }).then(res => res.data)
-}
-
-const stats = async (topic, user, repo) => {
+const stats = async (topic, user, repo, ...args) => {
   let query = ''
+  let graphqlQuery = true
   switch (topic) {
     case 'watchers':
       query = `watchers { totalCount }`
@@ -105,18 +117,94 @@ const stats = async (topic, user, repo) => {
     case 'closed-issues':
       query = `issues(states:[CLOSED]) { totalCount }`
       break
+    case 'prs':
+      query = `pullRequests { totalCount }`
+      break
+    case 'open-prs':
+      query = `pullRequests(states:[OPEN]) { totalCount }`
+      break
+    case 'closed-prs':
+      query = `pullRequests(states:[CLOSED, MERGED]) { totalCount }`
+      break
+    case 'merged-prs':
+      query = `pullRequests(states:[MERGED]) { totalCount }`
+      break
+    case 'commits':
+      query = `
+        branch: ref(qualifiedName: "${args[0] || 'master'}") {
+          target {
+            ... on Commit {
+              history(first: 0) {
+                totalCount
+              }
+            }
+          }
+        }
+      `
+      break
+    case 'branches':
+      query = `
+        refs(first: 0, refPrefix: "refs/heads/") {
+          totalCount
+        }
+      `
+      break
+    case 'releases':
+      query = `releases { totalCount }`
+      break
+    case 'tags':
+      query = `
+        refs(first: 0, refPrefix: "refs/tags/") {
+          totalCount
+        }
+      `
+      break
+    case 'tag':
+      query = `
+        refs(first: 1, refPrefix: "refs/tags/") {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      `
+      break
     case 'license':
       query = `licenseInfo { spdxId }`
       break
+    case 'last-commit':
+      query = `
+        branch: ref(qualifiedName: "${args[0] || 'master'}") {
+          target {
+            ... on Commit {
+              history(first: 1) {
+                nodes {
+                  committedDate
+                }
+              }
+            }
+          }
+        }
+      `
+      break
+    case 'dt':
+      query = `repos/${user}/${repo}/releases/${args[0] || 'latest'}`
+      graphqlQuery = false
+      break
   }
 
-  const { data, errors } = await queryGithub(`
-    query {
-      repository(owner:"${user}", name:"${repo}") {
-        ${query}
+  if (graphqlQuery) {
+    query = `
+      query {
+        repository(owner:"${user}", name:"${repo}") {
+          ${query}
+        }
       }
-    }
-  `)
+    `
+  }
+
+  const { data, errors } = await queryGithub(query, graphqlQuery)
 
   if (errors) {
     console.error(JSON.stringify(errors))
@@ -127,34 +215,103 @@ const stats = async (topic, user, repo) => {
     case 'watchers':
     case 'forks':
     case 'issues':
+    case 'releases':
       return {
         subject: topic,
-        status: data.repository[topic].totalCount,
+        status: millify(data.data.repository[topic].totalCount),
+        color: 'blue'
+      }
+    case 'branches':
+    case 'tags':
+      return {
+        subject: topic,
+        status: millify(data.data.repository.refs.totalCount),
         color: 'blue'
       }
     case 'stars':
       return {
         subject: topic,
-        status: data.repository.stargazers.totalCount,
+        status: millify(data.data.repository.stargazers.totalCount),
         color: 'blue'
       }
     case 'open-issues':
       return {
         subject: 'open issues',
-        status: data.repository.issues.totalCount,
-        color: 'orange'
+        status: millify(data.data.repository.issues.totalCount),
+        color: data.data.repository.issues.totalCount === 0 ? 'green' : 'orange'
       }
     case 'closed-issues':
       return {
         subject: 'closed issues',
-        status: data.repository.issues.totalCount,
+        status: millify(data.data.repository.issues.totalCount),
+        color: 'blue'
+      }
+    case 'prs':
+      return {
+        subject: 'PRs',
+        status: millify(data.data.repository.pullRequests.totalCount),
+        color: 'blue'
+      }
+    case 'open-prs':
+      return {
+        subject: 'open PRs',
+        status: millify(data.data.repository.pullRequests.totalCount),
+        color: 'blue'
+      }
+    case 'closed-prs':
+      return {
+        subject: 'closed PRs',
+        status: millify(data.data.repository.pullRequests.totalCount),
+        color: 'blue'
+      }
+    case 'merged-prs':
+      return {
+        subject: 'merged PRs',
+        status: millify(data.data.repository.pullRequests.totalCount),
+        color: 'blue'
+      }
+    case 'commits':
+      return {
+        subject: topic,
+        status: millify(data.data.repository.branch.target.history.totalCount),
+        color: 'blue'
+      }
+    case 'tag':
+      const tags = data.data.repository.refs.edges
+      const latestTag = tags.length > 0 ? tags[0].node.name : null
+
+      return {
+        subject: 'latest tag',
+        status: v(latestTag),
         color: 'blue'
       }
     case 'license':
       return {
         subject: topic,
-        status: data.repository.licenseInfo.spdxId,
+        status: data.data.repository.licenseInfo.spdxId,
         color: 'blue'
+      }
+    case 'last-commit':
+      const commits = data.data.repository.branch.target.history.nodes
+      const date = commits.length > 0
+        ? distanceInWordsToNow(new Date(commits[0].committedDate), { addSuffix: true })
+        : 'none'
+
+      return {
+        subject: 'last commit',
+        status: date,
+        color: 'green'
+      }
+    case 'dt':
+      /* eslint-disable camelcase */
+      const downloadCount = data && data.assets.length > 0
+        ? data.assets.reduce((result, { download_count }) => result + download_count, 0)
+        : 0
+
+      return {
+        subject: 'downloads',
+        status: millify(downloadCount),
+        color: 'green'
       }
     default:
       return {
