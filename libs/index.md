@@ -105,6 +105,7 @@ Available query params:
       ['commits', '/github/commits/micromatch/micromatch'],
       ['branches', '/github/branches/micromatch/micromatch'],
       ['releases', '/github/releases/micromatch/micromatch'],
+      ['tags', '/github/tags/micromatch/micromatch'],
       ['license', '/github/license/micromatch/micromatch'],
       ['last commit', '/github/last-commit/micromatch/micromatch'],
       ['total downloads', '/github/dt/electron/electron'],

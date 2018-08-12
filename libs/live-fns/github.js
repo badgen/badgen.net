@@ -22,6 +22,7 @@ module.exports = async (topic, ...args) => {
     case 'commits':
     case 'branches':
     case 'releases':
+    case 'tags':
     case 'tag':
     case 'license':
     case 'last-commit':
@@ -151,6 +152,13 @@ const stats = async (topic, user, repo, ...args) => {
     case 'releases':
       query = `releases { totalCount }`
       break
+    case 'tags':
+      query = `
+        refs(first: 0, refPrefix: "refs/tags/") {
+          totalCount
+        }
+      `
+      break
     case 'tag':
       query = `
         refs(first: 1, refPrefix: "refs/tags/") {
@@ -213,6 +221,13 @@ const stats = async (topic, user, repo, ...args) => {
         status: millify(data.data.repository[topic].totalCount),
         color: 'blue'
       }
+    case 'branches':
+    case 'tags':
+      return {
+        subject: topic,
+        status: millify(data.data.repository.refs.totalCount),
+        color: 'blue'
+      }
     case 'stars':
       return {
         subject: topic,
@@ -259,12 +274,6 @@ const stats = async (topic, user, repo, ...args) => {
       return {
         subject: topic,
         status: millify(data.data.repository.branch.target.history.totalCount),
-        color: 'blue'
-      }
-    case 'branches':
-      return {
-        subject: topic,
-        status: millify(data.data.repository.refs.totalCount),
         color: 'blue'
       }
     case 'tag':
