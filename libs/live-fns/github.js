@@ -100,9 +100,10 @@ const release = async (user, repo, channel) => {
 
 const contributors = async (user, repo) => {
   const { data: contributors } = await queryGithub(`repos/${user}/${repo}/contributors`, false)
+
   return {
     subject: 'contributors',
-    status: contributors.length || null,
+    status: contributors.length,
     color: 'blue'
   }
 }
