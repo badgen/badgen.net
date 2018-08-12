@@ -278,9 +278,7 @@ const stats = async (topic, user, repo, ...args) => {
       }
     case 'tag':
       const tags = data.data.repository.refs.edges
-      const latestTag = tags.length > 0
-        ? tags[0].node.name
-        : null
+      const latestTag = tags.length > 0 ? tags[0].node.name : null
 
       return {
         subject: 'latest tag',
