@@ -128,11 +128,24 @@ const stats = async (topic, user, repo, ...args) => {
       query = `pullRequests(states:[MERGED]) { totalCount }`
       break
     case 'commits':
-      query = `commitComments { totalCount }`
+      query = `
+        branch: ref(qualifiedName: "${args[0] || 'master'}") {
+          target {
+            ... on Commit {
+              history(first: 0) {
+                totalCount
+              }
+            }
+          }
+        }
+      `
       break
     case 'branches':
-      query = `repos/${user}/${repo}/branches`
-      graphqlQuery = false
+      query = `
+        refs(first: 0, refPrefix: "refs/heads/") {
+          totalCount
+        }
+      `
       break
     case 'releases':
       query = `releases { totalCount }`
@@ -178,61 +191,61 @@ const stats = async (topic, user, repo, ...args) => {
     case 'releases':
       return {
         subject: topic,
-        status: data.data.repository[topic].totalCount,
+        status: millify(data.data.repository[topic].totalCount),
         color: 'blue'
       }
     case 'stars':
       return {
         subject: topic,
-        status: data.data.repository.stargazers.totalCount,
+        status: millify(data.data.repository.stargazers.totalCount),
         color: 'blue'
       }
     case 'open-issues':
       return {
         subject: 'open issues',
-        status: data.data.repository.issues.totalCount,
+        status: millify(data.data.repository.issues.totalCount),
         color: data.data.repository.issues.totalCount === 0 ? 'green' : 'orange'
       }
     case 'closed-issues':
       return {
         subject: 'closed issues',
-        status: data.data.repository.issues.totalCount,
+        status: millify(data.data.repository.issues.totalCount),
         color: 'blue'
       }
     case 'prs':
       return {
         subject: 'PRs',
-        status: data.data.repository.pullRequests.totalCount,
+        status: millify(data.data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'open-prs':
       return {
         subject: 'open PRs',
-        status: data.data.repository.pullRequests.totalCount,
+        status: millify(data.data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'closed-prs':
       return {
         subject: 'closed PRs',
-        status: data.data.repository.pullRequests.totalCount,
+        status: millify(data.data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'merged-prs':
       return {
         subject: 'merged PRs',
-        status: data.data.repository.pullRequests.totalCount,
+        status: millify(data.data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'commits':
       return {
         subject: topic,
-        status: data.data.repository.commitComments.totalCount,
+        status: millify(data.data.repository.branch.target.history.totalCount),
         color: 'blue'
       }
     case 'branches':
       return {
         subject: topic,
-        status: data.length,
+        status: millify(data.data.repository.refs.totalCount),
         color: 'blue'
       }
     case 'tag':
