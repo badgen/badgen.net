@@ -191,7 +191,7 @@ const stats = async (topic, user, repo, ...args) => {
       return {
         subject: 'open issues',
         status: data.data.repository.issues.totalCount,
-        color: 'orange'
+        color: data.data.repository.issues.totalCount === 0 ? 'green' : 'orange'
       }
     case 'closed-issues':
       return {
