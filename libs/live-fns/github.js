@@ -2,7 +2,8 @@ const cheerio = require('cheerio')
 const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
 const millify = require('millify')
 const axios = require('../axios.js')
-const token = process.env.GH_TOKEN
+const v = require('../utils/version-formatter.js')
+const token = process.env.GH_TOKEN || '2ab90ccc0ed6e29caf270b1344638d8bc1d3be60'
 
 // https://developer.github.com/v3/repos/
 
@@ -81,13 +82,13 @@ const release = async (user, repo, channel) => {
     case 'stable':
       return {
         subject: 'release',
-        status: stable.name || stable.tag_name || 'stable',
+        status: v(stable ? stable.name || stable.tag_name : null),
         color: 'blue'
       }
     default:
       return {
         subject: 'release',
-        status: latest.name || latest.tag_name || 'unknown',
+        status: v(latest ? latest.name || latest.tag_name : null),
         color: latest.prerelease === true ? 'orange' : 'blue'
       }
   }
@@ -151,15 +152,33 @@ const stats = async (topic, user, repo, ...args) => {
       query = `releases { totalCount }`
       break
     case 'tag':
-      query = `repos/${user}/${repo}/tags`
-      graphqlQuery = false
+      query = `
+        refs(first: 1, refPrefix: "refs/tags/") {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      `
       break
     case 'license':
       query = `licenseInfo { spdxId }`
       break
     case 'last-commit':
-      query = `repos/${user}/${repo}/commits${args[0] ? `?sha=${args[0]}` : ''}`
-      graphqlQuery = false
+      query = `
+        branch: ref(qualifiedName: "${args[0] || 'master'}") {
+          target {
+            ... on Commit {
+              history(first: 1) {
+                nodes {
+                  committedDate
+                }
+              }
+            }
+          }
+        }
+      `
       break
     case 'dt':
       query = `repos/${user}/${repo}/releases/${args[0] || 'latest'}`
@@ -249,9 +268,14 @@ const stats = async (topic, user, repo, ...args) => {
         color: 'blue'
       }
     case 'tag':
+      const tags = data.data.repository.refs.edges
+      const latestTag = tags.length > 0
+        ? tags[0].node.name
+        : null
+
       return {
         subject: 'latest tag',
-        status: data.length > 0 && data[0].name ? data[0].name : 'unknown',
+        status: v(latestTag),
         color: 'blue'
       }
     case 'license':
@@ -261,8 +285,9 @@ const stats = async (topic, user, repo, ...args) => {
         color: 'blue'
       }
     case 'last-commit':
-      const date = data.length > 0
-        ? distanceInWordsToNow(new Date(data[0].commit.author.date), { addSuffix: true })
+      const commits = data.data.repository.branch.target.history.nodes
+      const date = commits.length > 0
+        ? distanceInWordsToNow(new Date(commits[0].committedDate), { addSuffix: true })
         : 'none'
 
       return {
