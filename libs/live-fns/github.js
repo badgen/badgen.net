@@ -123,7 +123,7 @@ const stats = async (topic, user, repo, ...args) => {
       query = `pullRequests(states:[OPEN]) { totalCount }`
       break
     case 'closed-prs':
-      query = `pullRequests(states:[CLOSED]) { totalCount }`
+      query = `pullRequests(states:[CLOSED, MERGED]) { totalCount }`
       break
     case 'merged-prs':
       query = `pullRequests(states:[MERGED]) { totalCount }`
