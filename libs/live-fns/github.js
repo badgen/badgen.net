@@ -35,6 +35,8 @@ module.exports = async (topic, ...args) => {
       return dependents('REPOSITORY', ...args)
     case 'dependents-pkg':
       return dependents('PACKAGE', ...args)
+    case 'contributors':
+      return contributors(...args)
     default:
       return {
         subject: 'github',
@@ -93,6 +95,15 @@ const release = async (user, repo, channel) => {
         status: v(latest ? latest.name || latest.tag_name : null),
         color: latest.prerelease === true ? 'orange' : 'blue'
       }
+  }
+}
+
+const contributors = async (user, repo) => {
+  const { data: contributors } = await queryGithub(`repos/${user}/${repo}/contributors`, false)
+  return {
+    subject: 'contributors',
+    status: contributors.length || null,
+    color: 'blue'
   }
 }
 
