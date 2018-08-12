@@ -1,6 +1,6 @@
 const cheerio = require('cheerio')
+const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
 const millify = require('millify')
-const moment = require('moment')
 const axios = require('../axios.js')
 const token = process.env.GH_TOKEN
 
@@ -248,9 +248,13 @@ const stats = async (topic, user, repo, ...args) => {
         color: 'blue'
       }
     case 'last-commit':
+      const date = data.length > 0
+        ? distanceInWordsToNow(new Date(data[0].commit.author.date), { addSuffix: true })
+        : 'none'
+
       return {
         subject: 'last commit',
-        status: data.length > 0 ? moment(data[0].commit.author.date).fromNow() : 'none',
+        status: date,
         color: 'green'
       }
     case 'dt':
