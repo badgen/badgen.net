@@ -19,7 +19,6 @@ module.exports = async (topic, ...args) => {
     case 'open-prs':
     case 'closed-prs':
     case 'merged-prs':
-    case 'collaborators':
     case 'commits':
     case 'branches':
     case 'releases':
@@ -141,9 +140,6 @@ const stats = async (topic, user, repo, ...args) => {
       break
     case 'merged-prs':
       query = `pullRequests(states:[MERGED]) { totalCount }`
-      break
-    case 'collaborators':
-      query = `collaborators { totalCount }`
       break
     case 'commits':
       query = `
