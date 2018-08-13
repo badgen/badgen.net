@@ -29,9 +29,9 @@ module.exports = async (topic, ...args) => {
     case 'tag':
     case 'license':
     case 'last-commit':
-      return stats(topic, ...args)
+      return repoStats(topic, ...args)
     case 'dt': // deprecated
-    case 'dl':
+    case 'assets-dl':
       return downloads(args[0], args[1], '/latest')
     case 'release':
       return release(...args)
@@ -50,7 +50,7 @@ module.exports = async (topic, ...args) => {
   }
 }
 
-// query github api v3 (rest)
+// request github api v3 (rest)
 const restGithub = path => got(`https://api.github.com/${path}`, {
   headers: {
     ...tokenHeader,
@@ -58,7 +58,7 @@ const restGithub = path => got(`https://api.github.com/${path}`, {
   }
 }).then(res => res.body)
 
-// query github api v4 (graphql)
+// request github api v4 (graphql)
 const queryGithub = query => {
   return got.post('https://api.github.com/graphql', {
     body: { query },
@@ -132,42 +132,35 @@ const downloads = async (user, repo, scope = '') => {
   }
 }
 
-const stats = async (topic, user, repo, ...args) => {
-  let query = ''
-  let graphqlQuery = true
+const repoQueryBodies = {
+  'license': 'licenseInfo { spdxId }',
+  'watchers': 'watchers { totalCount }',
+  'stars': 'stargazers { totalCount }',
+  'forks': 'forks { totalCount }',
+  'issues': 'issues { totalCount }',
+  'open-issues': 'issues(states:[OPEN]) { totalCount }',
+  'closed-issues': 'issues(states:[CLOSED]) { totalCount }',
+  'prs': 'pullRequests { totalCount }',
+  'open-prs': 'pullRequests(states:[OPEN]) { totalCount }',
+  'closed-prs': 'pullRequests(states:[CLOSED, MERGED]) { totalCount }',
+  'merged-prs': 'pullRequests(states:[MERGED]) { totalCount }',
+  'branches': 'refs(first: 0, refPrefix: "refs/heads/") { totalCount }',
+  'releases': 'releases { totalCount }',
+  'tags': 'refs(first: 0, refPrefix: "refs/tags/") { totalCount }',
+  'tag': `refs(first: 1, refPrefix: "refs/tags/") {
+    edges {
+      node {
+        name
+      }
+    }
+  }`
+}
+
+const makeRepoQuery = (topic, user, repo, ...args) => {
+  let queryBody = ''
   switch (topic) {
-    case 'watchers':
-      query = `watchers { totalCount }`
-      break
-    case 'stars':
-      query = `stargazers { totalCount }`
-      break
-    case 'forks':
-      query = `forks { totalCount }`
-      break
-    case 'issues':
-      query = `issues { totalCount }`
-      break
-    case 'open-issues':
-      query = `issues(states:[OPEN]) { totalCount }`
-      break
-    case 'closed-issues':
-      query = `issues(states:[CLOSED]) { totalCount }`
-      break
-    case 'prs':
-      query = `pullRequests { totalCount }`
-      break
-    case 'open-prs':
-      query = `pullRequests(states:[OPEN]) { totalCount }`
-      break
-    case 'closed-prs':
-      query = `pullRequests(states:[CLOSED, MERGED]) { totalCount }`
-      break
-    case 'merged-prs':
-      query = `pullRequests(states:[MERGED]) { totalCount }`
-      break
     case 'commits':
-      query = `
+      queryBody = `
         branch: ref(qualifiedName: "${args[0] || 'master'}") {
           target {
             ... on Commit {
@@ -179,39 +172,8 @@ const stats = async (topic, user, repo, ...args) => {
         }
       `
       break
-    case 'branches':
-      query = `
-        refs(first: 0, refPrefix: "refs/heads/") {
-          totalCount
-        }
-      `
-      break
-    case 'releases':
-      query = `releases { totalCount }`
-      break
-    case 'tags':
-      query = `
-        refs(first: 0, refPrefix: "refs/tags/") {
-          totalCount
-        }
-      `
-      break
-    case 'tag':
-      query = `
-        refs(first: 1, refPrefix: "refs/tags/") {
-          edges {
-            node {
-              name
-            }
-          }
-        }
-      `
-      break
-    case 'license':
-      query = `licenseInfo { spdxId }`
-      break
     case 'last-commit':
-      query = `
+      queryBody = `
         branch: ref(qualifiedName: "${args[0] || 'master'}") {
           target {
             ... on Commit {
@@ -225,23 +187,21 @@ const stats = async (topic, user, repo, ...args) => {
         }
       `
       break
-    case 'dt':
-      query = `repos/${user}/${repo}/releases/${args[0] || 'latest'}`
-      graphqlQuery = false
-      break
+    default:
+      queryBody = repoQueryBodies[topic]
   }
-
-  if (graphqlQuery) {
-    query = `
-      query {
-        repository(owner:"${user}", name:"${repo}") {
-          ${query}
-        }
+  return queryBody && `
+    query {
+      repository(owner:"${user}", name:"${repo}") {
+        ${queryBody}
       }
-    `
-  }
+    }
+  `
+}
 
-  const data = await queryGithub(query, graphqlQuery)
+const repoStats = async (topic, user, repo, ...args) => {
+  const repoQuery = makeRepoQuery(topic, user, repo, ...args)
+  const { data } = await queryGithub(repoQuery)
 
   switch (topic) {
     case 'watchers':
@@ -250,68 +210,67 @@ const stats = async (topic, user, repo, ...args) => {
     case 'releases':
       return {
         subject: topic,
-        status: millify(data.data.repository[topic].totalCount),
+        status: millify(data.repository[topic].totalCount),
         color: 'blue'
       }
     case 'branches':
     case 'tags':
       return {
         subject: topic,
-        status: millify(data.data.repository.refs.totalCount),
+        status: millify(data.repository.refs.totalCount),
         color: 'blue'
       }
     case 'stars':
       return {
         subject: topic,
-        status: millify(data.data.repository.stargazers.totalCount),
+        status: millify(data.repository.stargazers.totalCount),
         color: 'blue'
       }
     case 'open-issues':
       return {
         subject: 'open issues',
-        status: millify(data.data.repository.issues.totalCount),
-        color: data.data.repository.issues.totalCount === 0 ? 'green' : 'orange'
+        status: millify(data.repository.issues.totalCount),
+        color: data.repository.issues.totalCount === 0 ? 'green' : 'orange'
       }
     case 'closed-issues':
       return {
         subject: 'closed issues',
-        status: millify(data.data.repository.issues.totalCount),
+        status: millify(data.repository.issues.totalCount),
         color: 'blue'
       }
     case 'prs':
       return {
         subject: 'PRs',
-        status: millify(data.data.repository.pullRequests.totalCount),
+        status: millify(data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'open-prs':
       return {
         subject: 'open PRs',
-        status: millify(data.data.repository.pullRequests.totalCount),
+        status: millify(data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'closed-prs':
       return {
         subject: 'closed PRs',
-        status: millify(data.data.repository.pullRequests.totalCount),
+        status: millify(data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'merged-prs':
       return {
         subject: 'merged PRs',
-        status: millify(data.data.repository.pullRequests.totalCount),
+        status: millify(data.repository.pullRequests.totalCount),
         color: 'blue'
       }
     case 'commits':
       return {
         subject: topic,
-        status: millify(data.data.repository.branch.target.history.totalCount),
+        status: millify(data.repository.branch.target.history.totalCount),
         color: 'blue'
       }
     case 'tag':
-      const tags = data.data.repository.refs.edges
+      const tags = data.repository.refs.edges
       const latestTag = tags.length > 0 ? tags[0].node.name : null
-
       return {
         subject: 'latest tag',
         status: v(latestTag),
@@ -320,29 +279,16 @@ const stats = async (topic, user, repo, ...args) => {
     case 'license':
       return {
         subject: topic,
-        status: data.data.repository.licenseInfo.spdxId,
+        status: data.repository.licenseInfo.spdxId,
         color: 'blue'
       }
     case 'last-commit':
-      const commits = data.data.repository.branch.target.history.nodes
-      const date = commits.length > 0
-        ? distanceInWordsToNow(new Date(commits[0].committedDate), { addSuffix: true })
-        : 'none'
-
+      const commits = data.repository.branch.target.history.nodes
+      const lastDate = commits.length && new Date(commits[0].committedDate)
+      const fromNow = lastDate && distanceInWordsToNow(lastDate, { addSuffix: true })
       return {
         subject: 'last commit',
-        status: date,
-        color: 'green'
-      }
-    case 'dt':
-      /* eslint-disable camelcase */
-      const downloadCount = data && data.assets.length > 0
-        ? data.assets.reduce((result, { download_count }) => result + download_count, 0)
-        : 0
-
-      return {
-        subject: 'downloads',
-        status: millify(downloadCount),
+        status: fromNow || 'none',
         color: 'green'
       }
     default:
