@@ -2,10 +2,7 @@
 
 [![Uptime last week][uptime-src]][uptime-href]
 [![Response time][response-src]][uptime-href]
-[![Dependencies][dependencies-src]][dependencies-href]
 [![License][license-src]][license-href]
-[![StandardJS][standard-src]][standard-href]
-[![Deploy to now][deploy-to-now-src]](#deploy-to-now)
 
 Home of [badgen.net](https://badgen.net), fast badge generating service.
 
@@ -38,6 +35,9 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
     - Every icon is optimized with svgomg & reviewed by human eyes before it’s available online.
 
 ## Developing
+
+[![StandardJS][standard-src]][standard-href]
+[![Dependencies][dependencies-src]][dependencies-href]
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
@@ -83,7 +83,7 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
 [response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
-[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
+[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service
 [dependencies-href]: https://david-dm.org/amio/badgen-service
 [license-src]: https://badgen.net/github/license/amio/badgen-service
 [license-href]: LICENSE.md
