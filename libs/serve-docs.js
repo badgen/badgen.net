@@ -16,7 +16,7 @@ const serveMarkedOptions = {
     p img + a { vertical-align: top; margin-left: 0.4em; font: 14px/20px monospace }
   `,
   beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
-  trackingGA: 'UA-4646421-14'
+  trackingGA: process.env.TRACKING_GA || null
 }
 
 const docsFolder = path.join(__dirname, 'docs')
