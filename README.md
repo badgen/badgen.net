@@ -59,7 +59,7 @@ Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please 
 
 Badgen is stateless (not rely on db service). Deploy your own instance to [Now][now-href] with one single command:
 ```
-now amio/badgen-service -e GH_TOKEN=''
+now amio/badgen-service -e GH_TOKEN='' -e TRACKING_GA=''
 ```
 
 > `GH_TOKEN` is required by Now deployment, but it's optional for Badgen (mostly, except some github badges :P).
