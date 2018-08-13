@@ -32,7 +32,7 @@ module.exports = async (topic, user, repo) => {
 
 const getReport = async (repoId, reportId, type, topic) => {
   const api = `https://api.codeclimate.com/v1/repos/${repoId}/${type}/${reportId}`
-  const { meta, attributes } = await axios.get(api).then(res => res.body.data)
+  const { meta, attributes } = await axios.get(api).then(res => res.data.data)
 
   switch (topic) {
     case 'issues':
