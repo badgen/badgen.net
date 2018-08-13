@@ -109,7 +109,7 @@ Available query params:
       ['tags', '/github/tags/micromatch/micromatch'],
       ['license', '/github/license/micromatch/micromatch'],
       ['last commit', '/github/last-commit/micromatch/micromatch'],
-      ['total downloads', '/github/dt/electron/electron'],
+      ['latest assets downloads', '/github/dl/electron/electron'],
       ['repository dependents', '/github/dependents-repo/micromatch/micromatch'],
       ['package dependents', '/github/dependents-pkg/micromatch/micromatch']
     ],
