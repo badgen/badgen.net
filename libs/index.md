@@ -102,6 +102,8 @@ Available query params:
       ['open PRs', '/github/open-prs/micromatch/micromatch'],
       ['closed PRs', '/github/closed-prs/micromatch/micromatch'],
       ['merged PRs', '/github/merged-prs/micromatch/micromatch'],
+      ['collaborators', '/github/collaborators/micromatch/micromatch'],
+      ['contributors', '/github/contributors/micromatch/micromatch'],
       ['commits', '/github/commits/micromatch/micromatch'],
       ['branches', '/github/branches/micromatch/micromatch'],
       ['releases', '/github/releases/micromatch/micromatch'],

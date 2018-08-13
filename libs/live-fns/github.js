@@ -19,6 +19,7 @@ module.exports = async (topic, ...args) => {
     case 'open-prs':
     case 'closed-prs':
     case 'merged-prs':
+    case 'collaborators':
     case 'commits':
     case 'branches':
     case 'releases':
@@ -34,6 +35,8 @@ module.exports = async (topic, ...args) => {
       return dependents('REPOSITORY', ...args)
     case 'dependents-pkg':
       return dependents('PACKAGE', ...args)
+    case 'contributors':
+      return contributors(...args)
     default:
       return {
         subject: 'github',
@@ -95,6 +98,16 @@ const release = async (user, repo, channel) => {
   }
 }
 
+const contributors = async (user, repo) => {
+  const { data: contributors } = await queryGithub(`repos/${user}/${repo}/contributors`, false)
+
+  return {
+    subject: 'contributors',
+    status: contributors.length,
+    color: 'blue'
+  }
+}
+
 const stats = async (topic, user, repo, ...args) => {
   let query = ''
   let graphqlQuery = true
@@ -128,6 +141,9 @@ const stats = async (topic, user, repo, ...args) => {
       break
     case 'merged-prs':
       query = `pullRequests(states:[MERGED]) { totalCount }`
+      break
+    case 'collaborators':
+      query = `collaborators { totalCount }`
       break
     case 'commits':
       query = `
