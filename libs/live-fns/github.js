@@ -2,8 +2,11 @@ const cheerio = require('cheerio')
 const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
 const millify = require('millify')
 const axios = require('../axios.js')
+const got = require('../got.js')
 const v = require('../utils/version-formatter.js')
+
 const token = process.env.GH_TOKEN
+const tokenHeader = token ? { Authorization: `token ${token}` } : {}
 
 // https://developer.github.com/v3/repos/
 
@@ -26,8 +29,10 @@ module.exports = async (topic, ...args) => {
     case 'tag':
     case 'license':
     case 'last-commit':
-    case 'dt':
       return stats(topic, ...args)
+    case 'dt': // deprecated
+    case 'dl':
+      return downloads(args[0], args[1], '/latest')
     case 'release':
       return release(...args)
     case 'dependents-repo':
@@ -45,30 +50,27 @@ module.exports = async (topic, ...args) => {
   }
 }
 
-const queryGithub = (query, graphql = true) => {
-  const headers = token ? { Authorization: `token ${token}` } : {}
-
-  if (!graphql) {
-    const url = `https://api.github.com/${query}`
-    return axios({
-      url,
-      headers: {
-        ...headers,
-        Accept: 'application/vnd.github.hellcat-preview+json'
-      }
-    })
+// query github api v3 (rest)
+const restGithub = path => got(`https://api.github.com/${path}`, {
+  headers: {
+    ...tokenHeader,
+    Accept: 'application/vnd.github.hellcat-preview+json'
   }
+}).then(res => res.body)
 
-  return axios.post('https://api.github.com/graphql', { query }, {
+// query github api v4 (graphql)
+const queryGithub = query => {
+  return got.post('https://api.github.com/graphql', {
+    body: { query },
     headers: {
-      ...headers,
+      ...tokenHeader,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
-  })
+  }).then(res => res.body)
 }
 
 const release = async (user, repo, channel) => {
-  const { data: releases } = await queryGithub(`repos/${user}/${repo}/releases`, false)
+  const releases = await restGithub(`repos/${user}/${repo}/releases`)
 
   const [latest] = releases
   const stable = releases.find(release => !release.prerelease)
@@ -98,12 +100,35 @@ const release = async (user, repo, channel) => {
 }
 
 const contributors = async (user, repo) => {
-  const { data: contributors } = await queryGithub(`repos/${user}/${repo}/contributors`, false)
+  const contributors = await restGithub(`repos/${user}/${repo}/contributors`)
 
   return {
     subject: 'contributors',
     status: contributors.length,
     color: 'blue'
+  }
+}
+
+const downloads = async (user, repo, scope = '') => {
+  const release = await restGithub(`repos/${user}/${repo}/releases${scope}`)
+
+  if (!release || !release.assets || !release.assets.length) {
+    return {
+      subject: 'downloads',
+      status: 'no assets',
+      color: 'grey'
+    }
+  }
+
+  /* eslint-disable camelcase */
+  const downloadCount = release.assets.reduce((result, { download_count }) => {
+    return result + download_count
+  }, 0)
+
+  return {
+    subject: 'downloads',
+    status: millify(downloadCount),
+    color: 'green'
   }
 }
 
@@ -216,12 +241,7 @@ const stats = async (topic, user, repo, ...args) => {
     `
   }
 
-  const { data, errors } = await queryGithub(query, graphqlQuery)
-
-  if (errors) {
-    console.error(JSON.stringify(errors))
-    return { subject: topic }
-  }
+  const data = await queryGithub(query, graphqlQuery)
 
   switch (topic) {
     case 'watchers':

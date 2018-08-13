@@ -14,7 +14,8 @@ module.exports = async (scope, fn, paramsPath) => {
       status = 'timeout'
     }
 
-    console.error(fetchKey, `LIVEFN_ERR<${status}>`, e.message)
+    const info = status === 'unknown' ? e.stack : e.message
+    console.error(fetchKey, `LIVEFN_ERR<${status}>`, info)
     return { status, failed: true }
   }).then(result => {
     console.timeEnd(fetchKey)
