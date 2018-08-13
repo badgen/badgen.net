@@ -2,7 +2,6 @@ const cheerio = require('cheerio')
 const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
 const millify = require('millify')
 const axios = require('../axios.js')
-const got = require('../got.js')
 const v = require('../utils/version-formatter.js')
 
 const token = process.env.GH_TOKEN
@@ -51,22 +50,22 @@ module.exports = async (topic, ...args) => {
 }
 
 // request github api v3 (rest)
-const restGithub = path => got(`https://api.github.com/${path}`, {
+const restGithub = path => axios.get(`https://api.github.com/${path}`, {
   headers: {
     ...tokenHeader,
     Accept: 'application/vnd.github.hellcat-preview+json'
   }
-}).then(res => res.body)
+}).then(res => res.data)
 
 // request github api v4 (graphql)
 const queryGithub = query => {
-  return got.post('https://api.github.com/graphql', {
+  return axios.post('https://api.github.com/graphql', {
     body: { query },
     headers: {
       ...tokenHeader,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
-  }).then(res => res.body)
+  }).then(res => res.data)
 }
 
 const release = async (user, repo, channel) => {

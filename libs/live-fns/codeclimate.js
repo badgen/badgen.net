@@ -1,9 +1,9 @@
-const got = require('../got.js')
+const axios = require('../axios.js')
 const scale = require('../utils/scale.js')
 
 module.exports = async (topic, user, repo) => {
   const api = `https://api.codeclimate.com/v1/repos?github_slug=${user}/${repo}`
-  const meta = await got(api).then(res => res.body.data[0])
+  const meta = await axios.get(api).then(res => res.data.data[0])
 
   if (!meta) {
     return {
@@ -32,7 +32,7 @@ module.exports = async (topic, user, repo) => {
 
 const getReport = async (repoId, reportId, type, topic) => {
   const api = `https://api.codeclimate.com/v1/repos/${repoId}/${type}/${reportId}`
-  const { meta, attributes } = await got(api).then(res => res.body.data)
+  const { meta, attributes } = await axios.get(api).then(res => res.body.data)
 
   switch (topic) {
     case 'issues':
