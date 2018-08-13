@@ -68,5 +68,5 @@ module.exports = serveMarked('libs/index.md', {
       </div>
     </div>
   `,
-  trackingGA: 'UA-4646421-14'
+  trackingGA: process.env.TRACKING_GA || null
 })
