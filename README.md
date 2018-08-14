@@ -3,6 +3,7 @@
 [![Uptime last week][uptime-src]][uptime-href]
 [![Response time][response-src]][uptime-href]
 [![License][license-src]][license-href]
+[![Deploy to Now][deploy-to-now-src]](#deploy-to-now)
 
 Home of [badgen.net](https://badgen.net), fast badge generating service.
 
@@ -59,10 +60,8 @@ Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please 
 
 Badgen is stateless (not rely on db service). Deploy your own instance to [Now][now-href] with one single command:
 ```
-now amio/badgen-service -e GH_TOKEN='' -e TRACKING_GA=''
+now amio/badgen-service
 ```
-
-> `GH_TOKEN` is required by Now deployment, but it's optional for Badgen (mostly, except some github badges :P).
 
 ## Tracking Policy
 
@@ -89,5 +88,5 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [license-href]: LICENSE.md
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
 [standard-href]: https://standardjs.com
-[deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/222
+[deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/333
 [now-href]: https://zeit.co/now
