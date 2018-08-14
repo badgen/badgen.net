@@ -8,10 +8,12 @@ const serveMarkedOptions = {
   inlineCSS: `
     body { max-width: 800px; padding: 0 2rem 5rem 2rem }
     h1 + p { letter-spacing: 0.1px; margin-top: 2em }
+    h1 + p + p { text-align: center; margin: 1em 0 }
     img { height: 20px }
     em { font-size: 0.8em; color: #666 }
     li { padding: 0.4em 0 }
     code { padding: 0.4em 0.6em; display: pre }
+    pre code { padding: 0 }
     p { margin: 0; line-height: 2em }
     p img + a { vertical-align: top; margin-left: 0.4em; font: 14px/20px monospace }
   `,

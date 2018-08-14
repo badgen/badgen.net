@@ -83,6 +83,10 @@ Available query params:
 
 <div id="live-badge-examples"></div>
 
+#### For badge makers
+
+- [`/runkit`](/docs/runkit) Create arbitrary live badge with RunKit's online IDE.
+
 <script>
   window.liveBadges = {
     /* source control */
