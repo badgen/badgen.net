@@ -15,6 +15,7 @@ module.exports = {
   github: require('./github.js'),
   hackage: require('./hackage.js'),
   homebrew: require('./homebrew.js'),
+  https: require('./https.js'),
   npm: require('./npm.js'),
   nuget: require('./nuget.js'),
   opencollective: require('./opencollective.js'),

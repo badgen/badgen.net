@@ -67,6 +67,11 @@ Available query params:
 - `list` Set `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
 - `icon` Use builtin icon in front of subject text. [e.g.][icon-eg-href]
 
+Advance usage:
+
+- [`/runkit`](/docs/runkit) create arbitrary live badge with RunKit's online IDE.
+- [`/https`](/docs/https) create arbitrary live badge from arbitrary endpoint.
+
 ## Examples
 
 #### Static Badge
@@ -82,10 +87,6 @@ Available query params:
 |![](/badge/platform/ios,macos,tvos?list=1) | [/badge/platform/ios,macos,tvos?list=1](/badge/platform/ios,macos,tvos?list=1)
 
 <div id="live-badge-examples"></div>
-
-#### For badge makers
-
-- [`/runkit`](/docs/runkit) Create arbitrary live badge with RunKit's online IDE.
 
 <script>
   window.liveBadges = {
