@@ -10,8 +10,6 @@
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
     "start": "node service.js",
-    "precanary": "now alias rm badgen-canary -y -T amio",
-    "canary": "now -T amio && now alias badgen-canary -T amio",
     "predeploy": "now -T amio inspect badgen.net && now rm badgen-service --safe -y -T amio || true",
     "deploy": "now -T amio -e API_HOST='https://api.badgen.net' -e GH_TOKEN='@badgen-gh-token' -e TRACKING_GA='@badgen-tracking-ga'",
     "postdeploy": "now -T amio alias"
