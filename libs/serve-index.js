@@ -7,18 +7,17 @@ module.exports = serveMarked('libs/index.md', {
     body { max-width: inherit }
     body > * { width: 960px; margin-left: auto; margin-right: auto; box-sizing: border-box }
     h1 + p { letter-spacing: 0.1px }
-    h1 + p + p { text-align: center }
-    h1 + p a { display: inline-block; margin-top: 1em; padding: 4px; height: 20px }
+    h1 + p + p { justify-content: center; display: flex; flex-direction: row; margin: 0 auto; }
+    h1 + p + p a { display: block; margin-top: 0em; padding: 5px; height: 20px }
     img { height: 20px }
 
-    table { border-spacing: 0; vertical-align: top; font-family: Roboto, sans-serif; }
-    td { padding-right: 0.6em; height: 28px; font-size: 14px; white-space: nowrap }
-    td + td { padding-right: 20rem }
-    td img { position: relative; top: 2px }
-    td a { font: 14px/20px monospace; }
-    pre, code { background-color: #f2f5f9; font-weight: 400 }
+    pre, code { background-color: #EEF2F8; font-weight: 400 }
     pre > code { padding: 0 }
-    table code { padding: 0.3em 0.5em; display: pre }
+
+    li { vertical-align: top; font: 14px/26px sans-serif; color: #666 }
+    li code { padding: 0.3em 0.5em; display: pre; color: #333 }
+
+    td + td { padding-right: 20rem }
 
     dl { margin-top: 0 }
     dt { margin-bottom: 1em; padding-top: 1em; border-bottom: 1px solid #DDD; line-height: 2em }

@@ -8,10 +8,11 @@ Fast badge generating service.
 ## Usage
 
 ```
-https://badgen.net/badge/:subject/:status/:color
-                   ──┬──  ───┬───  ──┬───  ──┬──
-                     │       │       │       └─ RGB / Color Name
-                     │      TEXT    TEXT       ( optional )
+https://badgen.net/badge/:subject/:status/:color?icon=github
+                   ──┬──  ───┬───  ──┬───  ──┬── ────┬──────
+                     │       │       │       │       └─ Advance Options (label, list, icon)
+                     │       │       │       │
+                     │      TEXT    TEXT    RGB / COLOR_NAME ( optional )
                      │
                   "badge" - default(static) badge generator
 ```
@@ -62,12 +63,9 @@ Available icons:
 
 Available query params:
 
-| param | desc |
-| ----- | ---- |
-|`label`| Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
-|`emoji`| Set `emoji=1` if subject/status text contains emoji.
-| `list`| Set `list=1` will replace `,` with ` \| ` in status text. [e.g.][list-eg-href]
-| `icon`| Use builtin icon in front of subject text. [e.g.][icon-eg-href]
+- `label` Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
+- `list` Set `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
+- `icon` Use builtin icon in front of subject text. [e.g.][icon-eg-href]
 
 ## Examples
 
