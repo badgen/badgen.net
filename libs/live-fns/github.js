@@ -199,6 +199,10 @@ const makeRepoQuery = (topic, user, repo, ...args) => {
 }
 
 const repoStats = async (topic, user, repo, ...args) => {
+  if (!token) {
+    return { status: 'token required' }
+  }
+
   const repoQuery = makeRepoQuery(topic, user, repo, ...args)
   const { data } = await queryGithub(repoQuery)
 
