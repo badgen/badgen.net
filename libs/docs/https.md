@@ -1,13 +1,13 @@
 # /https
 
-create arbitrary live badge from arbitrary endpoint
+Create arbitrary live badge from arbitrary endpoint.
 
 ![](/badge/badgen/https)
 
 ## Usage
 
-- `/https/:url` _generate badge by data from https://<url>_
-- `/https/:url/:args` _generate badge by data from https://<url> with args_
+- `/https/:url` _generate badge by data from https://&lt;url>_
+- `/https/:url/:args` _generate badge by data from https://&lt;url> with args_
 
 ## How to
 

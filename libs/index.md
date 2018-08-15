@@ -14,7 +14,7 @@ https://badgen.net/badge/:subject/:status/:color?icon=github
                      │       │       │       │
                      │      TEXT    TEXT    RGB / COLOR_NAME ( optional )
                      │
-                  "badge" - default(static) badge generator
+                  "badge" - default (static) badge generator
 ```
 
 Available color names:
@@ -63,11 +63,11 @@ Available icons:
 
 Available query params:
 
-- `label` Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
-- `list` Set `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
 - `icon` Use builtin icon in front of subject text. [e.g.][icon-eg-href]
+- `list` Set `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
+- `label` Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
 
-Advance usage:
+Advanced usage (for badge makers):
 
 - [`/runkit`](/docs/runkit) create arbitrary live badge with RunKit's online IDE.
 - [`/https`](/docs/https) create arbitrary live badge from arbitrary endpoint.

@@ -14,10 +14,11 @@ module.exports = serveMarked('libs/index.md', {
     pre, code { background-color: #EEF2F8; font-weight: 400 }
     pre > code { padding: 0 }
 
-    li { vertical-align: top; font: 14px/26px sans-serif; color: #666 }
+    li { vertical-align: top; font: 16px/32px sans-serif; color: #777 }
     li code { padding: 0.3em 0.5em; display: pre; color: #333 }
+    a code { color: #06D }
 
-    td + td { padding-right: 20rem }
+    td + td a { font-family: monospace; margin-right: 20rem }
 
     dl { margin-top: 0 }
     dt { margin-bottom: 1em; padding-top: 1em; border-bottom: 1px solid #DDD; line-height: 2em }
