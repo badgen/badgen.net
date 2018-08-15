@@ -1,9 +1,9 @@
 {
   "alias": [
-    "badgen",
-    "badgen.net",
+    "api.badgen.net",
     "flat.badgen.net",
-    "api.badgen.net"
+    "badgen.net",
+    "badgen"
   ],
   "files": [
     "package-lock.json",
