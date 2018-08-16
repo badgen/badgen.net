@@ -32,7 +32,7 @@ module.exports = async (scope, fn, paramsPath) => {
 const errorLogger = (fetchKey, err, status) => {
   try {
     if (status === 'unknown') {
-      raven.captureException(err, {
+      raven && raven.captureException(err, {
         tags: { fetchKey, status, service: fetchKey.split(' ')[0] }
       })
       // log details err info

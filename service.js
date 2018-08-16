@@ -43,8 +43,10 @@ module.exports = (req, res) => {
   }
 }
 
-raven.context(() => {
+const autoRun = () => {
   if (require.main === module) {
     micro(module.exports).listen(3000)
   }
-})
+}
+
+raven ? raven.context(autoRun) : autoRun()

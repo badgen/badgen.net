@@ -5,4 +5,4 @@ if (SENTRY_URI) {
   raven.config(SENTRY_URI).install()
 }
 
-module.exports = raven
+module.exports = SENTRY_URI && raven
