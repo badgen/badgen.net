@@ -17,21 +17,21 @@ https://runkit.com/home#endpoint
 
 If you are not familiar with RunKit endpoint, [this guide](https://runkit.com/docs/endpoint) would help.
 
-1. Create a RunKit notebook, response with JSON like:
+1. Create a RunKit notebook ([e.g.](https://runkit.com/amio/peoples)), response with JSON like:
 
-        {
-          subject: 'runkit',
-          label: 'hi',
-          color: 'blue'
-        }
+       {
+         subject: 'community',
+         status: '11363 members',
+         color: 'green'
+       }
 
-2. Click "endpoint" on notebook page to get the endpoint, like:
+2. Click "endpoint" on notebook page to get the endpoint:
 
-        https://people-txwpy888xiuk.runkit.sh/
+       https://people-txwpy888xiuk.runkit.sh/
 
-3. Use this id (`untitled-txwpy888xiuk`) with Badgen, this is the badge url:
+3. Use this id (`people-txwpy888xiuk`) with Badgen, this is the badge url (with param `102909`):
 
-        https://badgen.net/runkit/people-txwpy888xiuk
+       https://badgen.net/runkit/people-txwpy888xiuk/102909
 
 ## Examples
 

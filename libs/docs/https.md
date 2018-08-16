@@ -16,7 +16,7 @@ or any platform, response with JSON in this format:
 
         {
           subject: 'hello',
-          label: 'world',
+          status: 'world',
           color: 'blue'
         }
 
