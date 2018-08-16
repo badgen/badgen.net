@@ -17,12 +17,12 @@ module.exports = async (user, repo, branch = 'master') => {
   const com = `https://api.travis-ci.com/${user}/${repo}.svg?branch=${branch}`
   const org = `https://api.travis-ci.org/${user}/${repo}.svg?branch=${branch}`
   const [svg1, svg2] = await Promise.all([
-    axios.get(com).then(({ data }) => data).catch(e => e),
-    axios.get(org).then(({ data }) => data).catch(e => e)
+    axios(com).then(({ data }) => data).catch(e => undefined),
+    axios(org).then(({ data }) => data).catch(e => undefined)
   ])
 
   const result = statuses.find(st => {
-    return svg1.includes(st[0]) || svg2.includes(st[0])
+    return (svg1 && svg1.includes(st[0])) || (svg2 && svg2.includes(st[0]))
   })
 
   if (result) {
