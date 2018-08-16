@@ -33,7 +33,10 @@ const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {
 })
 
 const indexContent = fs.readFileSync(path.join(__dirname, 'index-api.md'), 'utf8')
-const serveIndex = (req, res) => send(res, 200, indexContent)
+const serveIndex = (req, res) => {
+  res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=86400')
+  send(res, 200, indexContent)
+}
 
 module.exports = router()(
   get('/', serveIndex),
