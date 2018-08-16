@@ -44,6 +44,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 [![StandardJS][standard-src]][standard-href]
 [![Dependencies][dependencies-src]][dependencies-href]
 [![Maintainability][maintainability-src]][maintainability-href]
+[![Contributors][contributors-src]][contributors-href]
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
@@ -96,4 +97,6 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/333
 [maintainability-src]: https://badgen.net/codeclimate/maintainability/amio/badgen-service
 [maintainability-href]: https://codeclimate.com/github/amio/badgen-service
+[contributors-src]: https://badgen.net/github/contributors/amio/badgen-service
+[contributors-href]: https://github.com/amio/badgen-service/graphs/contributors
 [now-href]: https://zeit.co/now
