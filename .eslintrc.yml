@@ -4,4 +4,6 @@ rules:
   max-len:
   - error
   - code: 90
+    ignoreStrings: true
     ignoreTemplateLiterals: true
+    ignoreComments: true
