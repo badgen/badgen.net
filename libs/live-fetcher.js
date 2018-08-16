@@ -1,5 +1,6 @@
 // Cache ongoing fetching, prevent redundant request
 const { waitings } = require('./live-pool.js')
+const raven = require('./raven.js')
 
 module.exports = async (scope, fn, paramsPath) => {
   const fetchKey = `#${scope} ${paramsPath}`
@@ -29,6 +30,7 @@ module.exports = async (scope, fn, paramsPath) => {
 }
 
 const errorLogger = (fetchKey, err, status) => {
+  raven.captureException(err)
   if (status === 'unknown') {
     // log details err info
     const resData = JSON.stringify(err.response.data, null, 2)
