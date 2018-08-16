@@ -30,12 +30,11 @@ module.exports = async (scope, fn, paramsPath) => {
 }
 
 const errorLogger = (fetchKey, err, status) => {
-  raven.captureException(err, {
-    tags: { fetchKey, status, service: fetchKey.split(' ')[0] }
-  })
-
   try {
     if (status === 'unknown') {
+      raven.captureException(err, {
+        tags: { fetchKey, status, service: fetchKey.split(' ')[0] }
+      })
       // log details err info
       const resData = JSON.stringify(err.response.data, null, 2)
       const details = err.stack + '\n' + resData.replace(/^/mg, '    >   ')
