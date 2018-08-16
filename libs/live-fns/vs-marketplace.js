@@ -1,0 +1,61 @@
+const millify = require('millify')
+const axios = require('../axios.js')
+const v = require('../utils/version-formatter.js')
+const semColor = require('../utils/sem-color.js')
+
+module.exports = async (topic, pkg) => {
+  const { results } = await queryVSM(pkg).then(res => res.data)
+  const extension = results[0].extensions[0]
+
+  switch (topic) {
+    case 'v':
+      const version = extension.versions[0].version
+      return {
+        subject: 'VS Marketplace',
+        status: v(version),
+        color: semColor(version)
+      }
+    case 'd':
+      const { install, updateCount } = parseStatistics(extension)
+      return {
+        subject: 'downloads',
+        status: millify(install + updateCount),
+        color: 'green'
+      }
+    case 'i':
+      return {
+        subject: 'installs',
+        status: millify(parseStatistics(extension).install),
+        color: 'green'
+      }
+    case 'rating':
+      const { averagerating, ratingcount } = parseStatistics(extension)
+      return {
+        subject: 'rating',
+        status: `${averagerating.toFixed(1)}/5 (${ratingcount})`,
+        color: 'green'
+      }
+    default:
+      return {
+        subject: 'Visual Studio Marketplace',
+        status: 'unknown topic'
+      }
+  }
+}
+
+const queryVSM = async pkgName => {
+  const endpoint = 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery/'
+  return axios.post(endpoint, {
+    filters: [{ criteria: [{ filterType: 7, value: pkgName }] }],
+    flags: 914
+  }, {
+    headers: { Accept: 'application/json;api-version=3.0-preview.1' }
+  })
+}
+
+const parseStatistics = extension => {
+  return extension.statistics.reduce((accu, curr) => {
+    accu[curr.statisticName] = curr.value
+    return accu
+  }, {})
+}

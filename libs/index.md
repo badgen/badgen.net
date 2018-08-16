@@ -227,6 +227,12 @@ Advanced usage (for badge makers):
       ['version', '/hackage/v/Cabal'],
       ['license', '/hackage/license/Cabal']
     ],
+    'visual studio marketplace': [
+      ['version', '/vs-marketplace/v/vscodevim.vim'],
+      ['installs', '/vs-marketplace/i/vscodevim.vim'],
+      ['downloads', '/vs-marketplace/d/vscodevim.vim'],
+      ['rating', '/vs-marketplace/rating/vscodevim.vim'],
+    ],
     /* CIs */
     travis: [
       ['build', '/travis/babel/babel'],

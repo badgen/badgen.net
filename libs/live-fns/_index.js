@@ -25,5 +25,6 @@ module.exports = {
   rubygems: require('./rubygems.js'),
   runkit: require('./runkit.js'),
   travis: require('./travis.js'),
-  'uptime-robot': require('./uptime-robot.js')
+  'uptime-robot': require('./uptime-robot.js'),
+  'vs-marketplace': require('./vs-marketplace.js')
 }
