@@ -7,6 +7,13 @@ module.exports = async (topic, pkg) => {
   const { results } = await queryVSM(pkg).then(res => res.data)
   const extension = results[0].extensions[0]
 
+  if (!extension) {
+    return {
+      subject: 'VS Marketplace',
+      status: 'not found'
+    }
+  }
+
   switch (topic) {
     case 'v':
       const version = extension.versions[0].version
