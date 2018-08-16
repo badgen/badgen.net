@@ -30,13 +30,21 @@ module.exports = async (scope, fn, paramsPath) => {
 }
 
 const errorLogger = (fetchKey, err, status) => {
-  raven.captureException(err)
-  if (status === 'unknown') {
-    // log details err info
-    const resData = JSON.stringify(err.response.data, null, 2)
-    const details = err.stack + '\n' + resData.replace(/^/mg, '    >   ')
-    return console.error(fetchKey, `LIVEFN_ERR<${status}>`, details)
-  } else {
-    return console.error(fetchKey, `LIVEFN_ERR<${status}>`, err.message)
+  raven.captureException(err, {
+    tags: { fetchKey, status, service: fetchKey.split(' ')[0] }
+  })
+
+  try {
+    if (status === 'unknown') {
+      // log details err info
+      const resData = JSON.stringify(err.response.data, null, 2)
+      const details = err.stack + '\n' + resData.replace(/^/mg, '    >   ')
+      return console.error(fetchKey, `LIVEFN_ERR<${status}>`, details)
+    } else {
+      return console.error(fetchKey, `LIVEFN_ERR<${status}>`, err.message)
+    }
+  } catch (e) {
+    console.error(fetchKey, `LIVEFN_ERR<${status}>`, err.message)
+    console.error(e.message)
   }
 }

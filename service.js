@@ -7,6 +7,7 @@ const serveDocs = require('./libs/serve-docs.js')
 const serveBadge = require('./libs/serve-badge.js')
 const liveHandlers = require('./libs/live-handlers.js')
 const serveApi = require('./libs/serve-api.js')
+const raven = require('./libs/raven.js')
 
 const homeHandler = (req, res) => {
   if (req.headers.host === 'badgen.now.sh') {
@@ -42,6 +43,8 @@ module.exports = (req, res) => {
   }
 }
 
-if (require.main === module) {
-  micro(module.exports).listen(3000)
-}
+raven.context(() => {
+  if (require.main === module) {
+    micro(module.exports).listen(3000)
+  }
+})
