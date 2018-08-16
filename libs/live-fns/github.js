@@ -59,8 +59,7 @@ const restGithub = path => axios.get(`https://api.github.com/${path}`, {
 
 // request github api v4 (graphql)
 const queryGithub = query => {
-  return axios.post('https://api.github.com/graphql', {
-    body: { query },
+  return axios.post('https://api.github.com/graphql', { query }, {
     headers: {
       ...tokenHeader,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
