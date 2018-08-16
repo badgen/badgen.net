@@ -17,8 +17,7 @@ module.exports = async (scope, fn, paramsPath) => {
         status = 'timeout'
       }
 
-      const info = status === 'unknown' ? err.stack : err.message
-      console.error(fetchKey, `LIVEFN_ERR<${status}>`, info)
+      errorLogger(fetchKey, err, status)
 
       return { status, failed: true }
     }).finally(() => {
@@ -27,4 +26,15 @@ module.exports = async (scope, fn, paramsPath) => {
   })
 
   return waitings[fetchKey]
+}
+
+const errorLogger = (fetchKey, err, status) => {
+  if (status === 'unknown') {
+    // log details err info
+    const resData = JSON.stringify(err.response.data, null, 2)
+    const details = err.stack + '\n' + resData.replace(/^/mg, '    >   ')
+    return console.error(fetchKey, `LIVEFN_ERR<${status}>`, details)
+  } else {
+    return console.error(fetchKey, `LIVEFN_ERR<${status}>`, err.message)
+  }
 }
