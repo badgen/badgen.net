@@ -41,6 +41,7 @@ module.exports = serveMarked('libs/index.md', {
     #foo-content { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; letter-spacing: 0.5px }
     #foo-content { display: grid; grid-template-columns: 1fr 1fr }
     #foo-content h3 { font-weight: 300 }
+    #foo-content img { height: 16px; color: #FFF; opacity: 0.6; margin-right: 8px; position: relative; top: 1px }
     #foo-content p { line-height: 2em; font-weight: 300 }
     #foo-content a { color: #FFF }
     #foo-content aside { padding: 1rem 1rem; display: flex; justify-content: flex-end; align-items: flex-end }
@@ -52,7 +53,7 @@ module.exports = serveMarked('libs/index.md', {
     <div id="footer">
       <div id="foo-content">
         <segment>
-          <h3>Badgen Service</h3>
+          <h3><img src="/static/badgen-logo-w.svg" />Badgen Service</h3>
           <p>
             built with ♥<br/>
             by <a href="https://github.com/amio">Amio</a>
