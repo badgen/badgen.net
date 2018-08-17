@@ -17,7 +17,7 @@ const serveMarkedOptions = {
     p { margin: 0; line-height: 2em }
     p img + a { vertical-align: top; margin-left: 0.4em; font: 14px/20px monospace }
   `,
-  beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
+  beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/static/badgen-logo.svg">`,
   trackingGA: process.env.TRACKING_GA || null
 }
 

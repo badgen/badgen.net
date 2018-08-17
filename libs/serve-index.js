@@ -46,7 +46,7 @@ module.exports = serveMarked('libs/index.md', {
     #foo-content aside { padding: 1rem 1rem; display: flex; justify-content: flex-end; align-items: flex-end }
     #foo-content aside a { line-height: 2em; margin-left: 1rem }
   `,
-  beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
+  beforeHeadEnd: `<link rel="icon" type="image/svg+xml" href="/static/badgen-logo.svg">`,
   beforeBodyEnd: `
     <div id="the-end">⚡️</div>
     <div id="footer">
