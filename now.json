@@ -8,6 +8,7 @@
   "files": [
     "package-lock.json",
     "service.js",
+    "static",
     "libs"
   ],
   "engines": {
