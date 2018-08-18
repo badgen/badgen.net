@@ -1,9 +1,13 @@
-# Badgen Service
-
-[![Uptime last week][uptime-src]][uptime-href]
-[![Response time][response-src]][uptime-href]
-[![License][license-src]][license-href]
-[![Deploy to Now][deploy-to-now-src]](#deploy-to-now)
+<p align="center">
+    <img height="60px" width="60px" src="https://badgen.net/static/badgen-logo.svg" />
+    <h1 align="center">Badgen Service</h1>
+</p>
+<p align="center">
+    <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=past%20week%20uptime" /></a>
+    <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af" /></a>
+    <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
+    <a href="#deploy-to-now"><img src="https://badgen.net/badge/%E2%96%B2/$%20now%20amio%2Fbadgen-service/333" /></a>
+</p>
 
 Home of [badgen.net](https://badgen.net), fast badge generating service.
 
