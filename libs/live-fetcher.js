@@ -1,13 +1,13 @@
 // Cache ongoing fetching, prevent redundant request
-const { waitings } = require('./live-pool.js')
+const pool = require('./live-pool.js')
 const raven = require('./raven.js')
 
 module.exports = async (scope, fn, paramsPath) => {
   const fetchKey = `#${scope} ${paramsPath}`
-  if (waitings[fetchKey]) return waitings[fetchKey]
+  if (pool.has(fetchKey)) return pool.get(fetchKey)
 
   console.time(fetchKey)
-  waitings[fetchKey] = fn(...paramsPath.split('/')).then(
+  const fetcher = fn(...paramsPath.split('/')).then(
     result => typeof result === 'object' ? result : { failed: true },
     err => {
       let status = 'unknown'
@@ -23,10 +23,11 @@ module.exports = async (scope, fn, paramsPath) => {
       return { status, failed: true }
     }).finally(() => {
     console.timeEnd(fetchKey)
-    waitings[fetchKey] = undefined
+    pool.delete(fetchKey)
   })
+  pool.set(fetchKey, fetcher)
 
-  return waitings[fetchKey]
+  return fetcher
 }
 
 const errorLogger = (fetchKey, err, status) => {
