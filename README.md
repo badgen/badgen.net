@@ -7,7 +7,7 @@
     <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=past%20week%20uptime" /></a>
     <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af" /></a>
     <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
-    <a href="#deploy-to-now"><img src="https://badgen.net/badge/%E2%96%B2/$%20now%20amio%2Fbadgen-service/333" /></a>
+    <a href="https://gitter.im/badgen/service"><img src="https://badgen.net/badge/chat/on%20gitter/cyan" /></a>
 </p>
 
 <p align="center">Home of <a href="https://badgen.net">badgen.net</a>, fast badge generating service.</p>
@@ -50,6 +50,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 [![Dependencies][dependencies-src]][dependencies-href]
 [![Maintainability][maintainability-src]][maintainability-href]
 [![Contributors][contributors-src]][contributors-href]
+[![Deploy to Now][deploy-to-now-src]](#deploy-to-now)
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
@@ -97,6 +98,8 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [dependencies-href]: https://david-dm.org/amio/badgen-service
 [license-src]: https://badgen.net/github/license/amio/badgen-service
 [license-href]: LICENSE.md
+[gitter-src]: https://badgen.net/badge/chat/on%20gitter/cyan
+[gitter-href]: https://gitter.im/badgen/service
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
 [standard-href]: https://standardjs.com
 [deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/333
