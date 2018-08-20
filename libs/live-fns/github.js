@@ -10,6 +10,10 @@ const tokenHeader = token ? { Authorization: `token ${token}` } : {}
 // https://developer.github.com/v3/repos/
 
 module.exports = async (topic, ...args) => {
+  if (args.length < 2) {
+    return { status: 'invalid' }
+  }
+
   switch (topic) {
     case 'watchers':
     case 'stars':
@@ -41,11 +45,7 @@ module.exports = async (topic, ...args) => {
     case 'contributors':
       return contributors(...args)
     default:
-      return {
-        subject: 'github',
-        status: 'unknown topic',
-        color: 'grey'
-      }
+      return { status: 'unknown topic' }
   }
 }
 
@@ -204,6 +204,10 @@ const repoStats = async (topic, user, repo, ...args) => {
 
   const repoQuery = makeRepoQuery(topic, user, repo, ...args)
   const { data } = await queryGithub(repoQuery)
+
+  if (!data.repository) {
+    return { status: 'not found' }
+  }
 
   switch (topic) {
     case 'watchers':

@@ -1,14 +1,14 @@
 const axios = require('axios')
 const { send } = require('micro')
-const livePool = require('./live-pool.js')
+const pool = require('./live-pool.js')
 
 module.exports = async (req, res) => {
   const [githubRateLimit] = await Promise.all([getGithubRateLimit()])
-  const fetching = Object.values(livePool.list()).filter(Boolean).length
-  const cpuUsage = process.cpuUsage()
   const memUsage = process.memoryUsage()
+  const cpuUsage = process.cpuUsage()
+  const fetching = pool.size
 
-  const stats = { githubRateLimit, fetching, cpuUsage, memUsage }
+  const stats = { githubRateLimit, memUsage, cpuUsage, fetching }
 
   res.setHeader('Content-Type', 'application/json; charset=utf-8')
   res.setHeader('Cache-Control', 'public, max-age=1, s-maxage=1')
