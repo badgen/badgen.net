@@ -10,7 +10,7 @@ Fast badge generating service.
 ```
 https://badgen.net/badge/:subject/:status/:color?icon=github
                    ──┬──  ───┬───  ──┬───  ──┬── ────┬──────
-                     │       │       │       │       └─ Advance Options (label, list, icon)
+                     │       │       │       │       └─ Advanced Options (label, list, icon)
                      │       │       │       │
                      │      TEXT    TEXT    RGB / COLOR_NAME ( optional )
                      │
