@@ -6,9 +6,12 @@ module.exports = serveMarked('libs/index.md', {
   inlineCSS: `
     body { max-width: inherit }
     body > * { width: 960px; margin-left: auto; margin-right: auto; box-sizing: border-box }
-    h1 + p { letter-spacing: 0.1px }
+    h1 img { height: 42px; position: relative; top: 3px }
+    h1 + p { letter-spacing: 0.4px; color: #333; font-size: 20px }
     h1 + p + p { justify-content: center; display: flex; flex-direction: row; margin: 0 auto; }
-    h1 + p + p a { display: block; margin-top: 0em; padding: 5px; height: 20px }
+    h1 + p + p a { padding: 5px 8px; color: #AAA; }
+    h1 + p + p a { font: 14px/20px Roboto, sans-serif; text-transform: uppercase; font-weight: 400; letter-spacing: 0.5px }
+    h1 + p + p a:hover { color: #777; }
     img { height: 20px }
 
     pre, code { background-color: #EEF2F8; font-weight: 400 }

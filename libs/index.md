@@ -1,9 +1,10 @@
-# Badgen
+# ![Badgen](https://badgen.net/static/badgen-logo.svg) Badgen
 
 Fast badge generating service.
 
-[![classic](https://badgen.net/badge/style/classic/pink)](https://badgen.net)
-[![flat](https://flat.badgen.net/badge/style/flat/pink)](https://flat.badgen.net)
+[classic](https://badgen.net)
+[flat](https://flat.badgen.net)
+[api](https://api.badgen.net)
 
 ## Usage
 
