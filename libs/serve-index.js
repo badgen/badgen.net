@@ -65,7 +65,7 @@ module.exports = serveMarked('libs/index.md', {
           </p>
         </segment>
         <aside>
-          <a href="https://api.badgen.net">API</a>
+          <a href="https://stats.uptimerobot.com/z6nqBfYGB">Status</a>
           <a href="https://github.com/amio/badgen-service">GitHub</a>
           <a href="https://twitter.com/badgen_net">Twitter</a>
         </aside>
