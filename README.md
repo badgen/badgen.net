@@ -91,9 +91,9 @@ And that's all. No tracking for end usage.
 Made with ❤️ by [Amio](https://github.com/amio),
 built with ⚡️ from [badgen](https://github.com/amio/badgen).
 
-[uptime-src]: https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=past%20week%20uptime
+[uptime-src]: https://badgen.net/uptime-robot/day/m780862024-50db2c44c703e5c68d6b1ebb?label=past%20week%20uptime
 [uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
-[response-src]: https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af
+[response-src]: https://badgen.net/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb
 [dependencies-src]: https://badgen.net/david/dep/amio/badgen-service
 [dependencies-href]: https://david-dm.org/amio/badgen-service
 [license-src]: https://badgen.net/github/license/amio/badgen-service
