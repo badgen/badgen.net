@@ -272,11 +272,11 @@ Advanced usage (for badge makers):
       ['coverage (letter)', '/codeclimate/coverage-letter/jekyll/jekyll']
     ],
     'uptime robot': [
-      ['status', '/uptime-robot/status/m780731617-a9e038618dc1aee36a44c4af'],
-      ['(24 hours) uptime', '/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af'],
-      ['(past week) uptime', '/uptime-robot/week/m780731617-a9e038618dc1aee36a44c4af'],
-      ['(past month) uptime', '/uptime-robot/month/m780731617-a9e038618dc1aee36a44c4af'],
-      ['(last hours) response', '/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af']
+      ['status', '/uptime-robot/status/m780862024-50db2c44c703e5c68d6b1ebb'],
+      ['(24 hours) uptime', '/uptime-robot/day/m780862024-50db2c44c703e5c68d6b1ebb'],
+      ['(past week) uptime', '/uptime-robot/week/m780862024-50db2c44c703e5c68d6b1ebb'],
+      ['(past month) uptime', '/uptime-robot/month/m780862024-50db2c44c703e5c68d6b1ebb'],
+      ['(last hours) response', '/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb']
     ],
     /* utilities */
     'opencollective': [
