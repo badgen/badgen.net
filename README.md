@@ -4,8 +4,8 @@
 </p>
 
 <p align="center">
-    <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/day/m780731617-a9e038618dc1aee36a44c4af?label=past%20week%20uptime" /></a>
-    <a href="https://stats.uptimerobot.com/z6nqBfYGB/780862024"><img src="https://badgen.net/uptime-robot/response/m780731617-a9e038618dc1aee36a44c4af" /></a>
+    <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/day/m780862024-50db2c44c703e5c68d6b1ebb?label=past%20week%20uptime" /></a>
+    <a href="https://stats.uptimerobot.com/z6nqBfYGB/780862024"><img src="https://badgen.net/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb" /></a>
     <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
     <a href="https://twitter.com/badgen_net"><img src="https://badgen.net/badge//@badgen_net/1DA1F2?icon=twitter" /></a>
 </p>
