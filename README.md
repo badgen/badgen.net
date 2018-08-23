@@ -42,7 +42,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
     - static badge - url defined badge (subject, status, color)
     - live badge - show live status from 3rd party services
 - Builtin Icons
-    - Every icon is optimized with svgomg & reviewed by human eyes before it’s available online.
+    - Svg files in [libs/icons](libs/icons/) will be auto loaded as builtin icon
 
 ## Developing
 
