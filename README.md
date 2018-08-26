@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-    <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/day/m780862024-50db2c44c703e5c68d6b1ebb?label=past%20week%20uptime" /></a>
+    <a href="https://stats.uptimerobot.com/z6nqBfYGB"><img src="https://badgen.net/uptime-robot/week/m780862024-50db2c44c703e5c68d6b1ebb?label=past%20week%20uptime" /></a>
     <a href="https://stats.uptimerobot.com/z6nqBfYGB/780862024"><img src="https://badgen.net/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb" /></a>
     <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
     <a href="https://twitter.com/badgen_net"><img src="https://badgen.net/badge//@badgen_net/1DA1F2?icon=twitter" /></a>
@@ -91,14 +91,8 @@ And that's all. No tracking for end usage.
 Made with ❤️ by [Amio](https://github.com/amio),
 built with ⚡️ from [badgen](https://github.com/amio/badgen).
 
-[uptime-src]: https://badgen.net/uptime-robot/day/m780862024-50db2c44c703e5c68d6b1ebb?label=past%20week%20uptime
-[uptime-href]: https://stats.uptimerobot.com/z6nqBfYGB
-[response-src]: https://badgen.net/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb
-[response-href]: https://stats.uptimerobot.com/z6nqBfYGB/780862024
 [dependencies-src]: https://badgen.net/david/dep/amio/badgen-service
 [dependencies-href]: https://david-dm.org/amio/badgen-service
-[license-src]: https://badgen.net/github/license/amio/badgen-service
-[license-href]: LICENSE.md
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
 [standard-href]: https://standardjs.com
 [deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/333
