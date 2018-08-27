@@ -139,6 +139,7 @@ Advanced usage (for badge makers):
       ['dev dependencies', '/david/dev/zeit/pkg'],
       ['peer dependencies', '/david/peer/epoberezkin/ajv-keywords'],
       ['optional dependencies', '/david/optional/epoberezkin/ajv-keywords'],
+      ['dependencies (sub path)', '/david/dep/babel/babel/packages/babel-cli']
     ],
     packagephobia: [
       ['install size', '/packagephobia/install/webpack'],

@@ -8,14 +8,15 @@ const statusInfo = {
   none: ['none', 'blue']
 }
 
-module.exports = async (depType, user, repo) => {
+module.exports = async (depType, user, repo, ...path) => {
   const prefix = {
     dep: '',
     dev: 'dev-',
     peer: 'peer-',
     optional: 'optional-'
   }[depType]
-  const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json`
+  const query = path ? `?path=${path.join('/')}` : ''
+  const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json${query}`
   const { status } = await axios.get(endpoint).then(res => res.data)
 
   switch (depType) {
