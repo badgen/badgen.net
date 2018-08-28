@@ -1,4 +1,5 @@
 const axios = require('../axios.js')
+const scale = require('../utils/scale.js')
 
 /**
  * DOCS
@@ -63,28 +64,26 @@ const uptime = (period, ratios) => {
   switch (period) {
     case 'past-day':
       return {
-        subject: 'uptime',
+        subject: 'uptime /24h',
         status: day + '%',
         color: ratioColor(day)
       }
     case 'past-week':
       return {
-        subject: 'uptime',
+        subject: 'uptime /week',
         status: week + '%',
         color: ratioColor(week)
       }
     case 'past-month':
       return {
-        subject: 'uptime',
+        subject: 'uptime /month',
         status: month + '%',
         color: ratioColor(month)
       }
   }
 }
 
-const ratioColor = ratio => {
-  if (ratio > 99) return 'green'
-  if (ratio > 95) return 'yellow'
-  if (ratio > 50) return 'orange'
-  return 'red'
-}
+const ratioColor = scale(
+  [94, 97, 99, 99.9],
+  ['red', 'orange', 'EA2', '9C1', 'green']
+)
