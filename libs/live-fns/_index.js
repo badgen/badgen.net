@@ -3,6 +3,7 @@ module.exports = {
   amo: require('./amo.js'),
   apm: require('./apm.js'),
   appveyor: require('./appveyor.js'),
+  badgesize: require('./badgesize.js'),
   bundlephobia: require('./bundlephobia.js'),
   'chrome-web-store': require('./chrome-web-store.js'),
   circleci: require('./circleci.js'),

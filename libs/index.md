@@ -279,6 +279,12 @@ Advanced usage (for badge makers):
       ['(past month) uptime', '/uptime-robot/month/m780862024-50db2c44c703e5c68d6b1ebb'],
       ['(last hours) response', '/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb']
     ],
+    badgesize: [
+      ['normal size', '/badgesize/normal/amio/emoji.json/master/emoji-compact.json'],
+      ['brotli size', '/badgesize/brotli/amio/emoji.json/master/emoji-compact.json'],
+      ['gzip size', '/badgesize/gzip/amio/emoji.json/master/emoji-compact.json'],
+      ['arbitrary url', '/badgesize/normal/https://unpkg.com/snarkdown/dist/snarkdown.js']
+    ],
     /* utilities */
     'opencollective': [
       ['backers', '/opencollective/backers/webpack'],
