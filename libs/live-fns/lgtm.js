@@ -15,22 +15,30 @@ module.exports = async (topic, ...args) => {
 
   switch (topic) {
     case 'alerts':
-      return {
-        subject: 'lgtm',
-        status: `${millify(data.alerts)} alert${(data.alerts === 1 ? '' : 's')}`,
-        color: data.alerts === 0 ? 'green' : 'yellow'
-      }
+      return alertsBadge(data)
     case 'grade':
-      for (const languageData of data.languages) {
-        if (languageData.lang === lang && 'grade' in languageData) {
-          const langLabel = langLabelOverrides[lang] || lang
-          return {
-            subject: `code quality: ${langLabel}`,
-            status: languageData.grade,
-            color: gradeColors[languageData.grade] || 'red'
-          }
-        }
+      return gradeBadge(data, lang)
+  }
+}
+
+const alertsBadge = (data) => (
+  {
+    subject: 'lgtm',
+    status: `${millify(data.alerts)} alert${(data.alerts === 1 ? '' : 's')}`,
+    color: data.alerts === 0 ? 'green' : 'yellow'
+  }
+)
+
+const gradeBadge = (data, lang) => {
+  for (const languageData of data.languages) {
+    if (languageData.lang === lang && 'grade' in languageData) {
+      const langLabel = langLabelOverrides[lang] || lang
+      return {
+        subject: `code quality: ${langLabel}`,
+        status: languageData.grade,
+        color: gradeColors[languageData.grade] || 'red'
       }
+    }
   }
 }
 
