@@ -12,7 +12,8 @@
     "start": "node service.js",
     "predeploy": "now -T amio inspect badgen.net && now rm badgen-service --safe -y -T amio || true",
     "deploy": "now -T amio -e API_HOST='https://api.badgen.net' -e GH_TOKEN='@badgen-gh-token' -e SENTRY_URI='@badgen-sentry-uri' -e TRACKING_GA='@badgen-tracking-ga'",
-    "postdeploy": "now -T amio alias"
+    "postdeploy": "now -T amio alias",
+    "canary": "now -T amio -e GH_TOKEN='@badgen-gh-token' && now -T amio alias badgen-canary"
   },
   "dependencies": {
     "axios": "^0.18.0",
