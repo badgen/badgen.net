@@ -15,7 +15,7 @@ module.exports = async (depType, user, repo, ...path) => {
     peer: 'peer-',
     optional: 'optional-'
   }[depType]
-  const query = path ? `?path=${path.join('/')}` : ''
+  const query = path.length ? `?path=${path.join('/')}` : ''
   const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json${query}`
   const { status } = await axios.get(endpoint).then(res => res.data)
 
