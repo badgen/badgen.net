@@ -5,6 +5,7 @@ const serveIndex = require('./libs/serve-index.js')
 const serve404 = require('./libs/serve-404.js')
 const serveDocs = require('./libs/serve-docs.js')
 const serveBadge = require('./libs/serve-badge.js')
+const serveMetadata = require('./libs/serve-metadata.js')
 const liveHandlers = require('./libs/live-handlers.js')
 const serveApi = require('./libs/serve-api.js')
 const raven = require('./libs/raven.js')
@@ -25,6 +26,7 @@ const serveStaticBadge = (req, res) => {
 const main = router()(
   get('/*', serve404),
   get('/', indexHandler),
+  get('/metadata.json', serveMetadata),
   get('/static/*', serveStatic),
   get('/docs/:topic', serveDocs),
   get('/badge/:subject/:status', serveStaticBadge),

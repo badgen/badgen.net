@@ -32,35 +32,7 @@ Available color names:
 
 Available icons:
 
-![](/badge//airbnb?icon=airbnb)
-![](/badge//apple?icon=apple)
-![](/badge//appveyor?icon=appveyor)
-![](/badge//atom?icon=atom)
-![](/badge//chrome?icon=chrome)
-![](/badge//circleci?icon=circleci)
-![](/badge//codeclimate?icon=codeclimate)
-![](/badge//codecov?icon=codecov)
-![](/badge//codeship?icon=codeship)
-![](/badge//dependabot?icon=dependabot)
-![](/badge//dockbit?icon=dockbit)
-![](/badge//docker?icon=docker)
-![](/badge//eclipse?icon=eclipse)
-![](/badge//firefox?icon=firefox)
-![](/badge//github?icon=github)
-![](/badge//gitlab?icon=gitlab)
-![](/badge//gitter?icon=gitter)
-![](/badge//graphql?icon=graphql)
-![](/badge//haskell?icon=haskell)
-![](/badge//npm?icon=npm)
-![](/badge//patreon?icon=patreon)
-![](/badge//ruby?icon=ruby)
-![](/badge//scrutinizer?icon=scrutinizer)
-![](/badge//slack?icon=slack)
-![](/badge//sourcegraph?icon=sourcegraph)
-![](/badge//terminal?icon=terminal)
-![](/badge//travis?icon=travis)
-![](/badge//twitter?icon=twitter)
-![](/badge//windows?icon=windows)
+<div id="icon-examples"></div>
 
 Available query params:
 
@@ -309,6 +281,21 @@ Advanced usage (for badge makers):
       'flat.badgen.net'
     ).replace(/\n/g, '\n     ')
   }
+</script>
+
+<script>
+  // Generate the icons example
+  fetch('/metadata.json')
+    .then((resp) => resp.json())
+    .then(json => {
+      const icons = document.querySelector('#icon-examples')
+      for (const icon of json.icons) {
+        const img = document.createElement('img')
+        img.src = `/badge//${icon}?icon=${icon}`
+        icons.appendChild(img)
+        icons.appendChild(document.createTextNode("\n"))
+      }
+  })
 </script>
 
 <script type="module">
