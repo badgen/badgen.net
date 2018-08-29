@@ -12,7 +12,7 @@ module.exports = (req, res, options = {}) => {
   const { style, label, list, icon } = req.query
 
   const badge = badgen({
-    subject: typeof label !== 'undefined' ? label : subject,
+    subject: (typeof label !== 'undefined' ? label : subject).replace('<', '&lt;'),
     status: String(list ? status.replace(/,/g, ' | ') : status),
     color: color,
     style: style || hostStyle,
