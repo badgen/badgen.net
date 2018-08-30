@@ -21,6 +21,7 @@ module.exports = async (topic, ...args) => {
     case 'issues':
     case 'open-issues':
     case 'closed-issues':
+    case 'label-issues':
     case 'prs':
     case 'open-prs':
     case 'closed-prs':
@@ -157,6 +158,12 @@ const repoQueryBodies = {
 const makeRepoQuery = (topic, user, repo, ...args) => {
   let queryBody = ''
   switch (topic) {
+    case 'label-issues':
+      const issueFilter = args[1] ? `(states:[${args[1].toUpperCase()}])` : ''
+      queryBody = `
+        label(name:"${args[0]}") { color, issues${issueFilter} { totalCount } }
+      `
+      break
     case 'commits':
       queryBody = `
         branch: ref(qualifiedName: "${args[0] || 'master'}") {
@@ -197,15 +204,15 @@ const makeRepoQuery = (topic, user, repo, ...args) => {
   `
 }
 
-const repoStats = async (topic, user, repo, ...args) => {
+const repoStats = async (topic, user, repository, ...args) => {
   if (!token) {
     return { status: 'token required' }
   }
 
-  const repoQuery = makeRepoQuery(topic, user, repo, ...args)
-  const { data } = await queryGithub(repoQuery)
+  const repoQuery = makeRepoQuery(topic, user, repository, ...args)
+  const repo = await queryGithub(repoQuery).then(res => res.data.repository)
 
-  if (!data.repository) {
+  if (!repo) {
     return { status: 'not found' }
   }
 
@@ -216,66 +223,72 @@ const repoStats = async (topic, user, repo, ...args) => {
     case 'releases':
       return {
         subject: topic,
-        status: millify(data.repository[topic].totalCount),
+        status: millify(repo[topic].totalCount),
         color: 'blue'
       }
     case 'branches':
     case 'tags':
       return {
         subject: topic,
-        status: millify(data.repository.refs.totalCount),
+        status: millify(repo.refs.totalCount),
         color: 'blue'
       }
     case 'stars':
       return {
         subject: topic,
-        status: millify(data.repository.stargazers.totalCount),
+        status: millify(repo.stargazers.totalCount),
         color: 'blue'
       }
     case 'open-issues':
       return {
         subject: 'open issues',
-        status: millify(data.repository.issues.totalCount),
-        color: data.repository.issues.totalCount === 0 ? 'green' : 'orange'
+        status: millify(repo.issues.totalCount),
+        color: repo.issues.totalCount === 0 ? 'green' : 'orange'
       }
     case 'closed-issues':
       return {
         subject: 'closed issues',
-        status: millify(data.repository.issues.totalCount),
+        status: millify(repo.issues.totalCount),
         color: 'blue'
+      }
+    case 'label-issues':
+      return {
+        subject: `${args[0]}`,
+        status: repo.label.issues.totalCount,
+        color: repo.label.color
       }
     case 'prs':
       return {
         subject: 'PRs',
-        status: millify(data.repository.pullRequests.totalCount),
+        status: millify(repo.pullRequests.totalCount),
         color: 'blue'
       }
     case 'open-prs':
       return {
         subject: 'open PRs',
-        status: millify(data.repository.pullRequests.totalCount),
+        status: millify(repo.pullRequests.totalCount),
         color: 'blue'
       }
     case 'closed-prs':
       return {
         subject: 'closed PRs',
-        status: millify(data.repository.pullRequests.totalCount),
+        status: millify(repo.pullRequests.totalCount),
         color: 'blue'
       }
     case 'merged-prs':
       return {
         subject: 'merged PRs',
-        status: millify(data.repository.pullRequests.totalCount),
+        status: millify(repo.pullRequests.totalCount),
         color: 'blue'
       }
     case 'commits':
       return {
         subject: topic,
-        status: millify(data.repository.branch.target.history.totalCount),
+        status: millify(repo.branch.target.history.totalCount),
         color: 'blue'
       }
     case 'tag':
-      const tags = data.repository.refs.edges
+      const tags = repo.refs.edges
       const latestTag = tags.length > 0 ? tags[0].node.name : null
       return {
         subject: 'latest tag',
@@ -285,11 +298,11 @@ const repoStats = async (topic, user, repo, ...args) => {
     case 'license':
       return {
         subject: topic,
-        status: data.repository.licenseInfo.spdxId,
+        status: repo.licenseInfo.spdxId,
         color: 'blue'
       }
     case 'last-commit':
-      const commits = data.repository.branch.target.history.nodes
+      const commits = repo.branch.target.history.nodes
       const lastDate = commits.length && new Date(commits[0].committedDate)
       const fromNow = lastDate && distanceInWordsToNow(lastDate, { addSuffix: true })
       return {
