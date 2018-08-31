@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "badgen": "^2.4.3",
+    "badgen": "^2.4.4",
     "byte-size": "^4.0.3",
     "cheerio": "^1.0.0-rc.2",
     "chrome-webstore": "^1.0.0",
