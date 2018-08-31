@@ -11,8 +11,6 @@ module.exports = async (topic, ...args) => {
     timeout: 3200
   }).get(endpoint).then(res => res.data)
 
-  console.log('got data', data)
-
   switch (topic) {
     case 'alerts':
       return alertsBadge(data)
