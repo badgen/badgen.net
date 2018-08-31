@@ -247,6 +247,11 @@ Advanced usage (for badge makers):
       ['coverage', '/codeclimate/coverage/jekyll/jekyll'],
       ['coverage (letter)', '/codeclimate/coverage-letter/jekyll/jekyll']
     ],
+    'lgtm': [
+      ['number of alerts', '/lgtm/alerts/g/apache/cloudstack'],
+      ['java code quality', '/lgtm/grade/java/g/apache/cloudstack'],
+      ['C/C++ code quality', '/lgtm/grade/cpp/g/systemd/systemd'],
+    ],
     'uptime robot': [
       ['status', '/uptime-robot/status/m780862024-50db2c44c703e5c68d6b1ebb'],
       ['(24 hours) uptime', '/uptime-robot/day/m780862024-50db2c44c703e5c68d6b1ebb'],
