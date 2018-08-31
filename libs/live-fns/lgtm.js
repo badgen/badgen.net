@@ -1,15 +1,11 @@
 const millify = require('millify')
-
-// Use axios directly as the default Accept header breaks lgtm API
-const axios = require('axios')
+const axios = require('../axios.js')
 
 module.exports = async (topic, ...args) => {
   const lang = topic === 'grade' ? args.shift() : undefined
   const projectId = args.join('/')
   const endpoint = `https://lgtm.com/api/v0.1/project/${projectId}/details`
-  const data = await axios.create({
-    timeout: 3200
-  }).get(endpoint).then(res => res.data)
+  const data = await axios.get(endpoint).then(res => res.data)
 
   switch (topic) {
     case 'alerts':
