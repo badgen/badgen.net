@@ -296,7 +296,7 @@ Advanced usage (for badge makers):
   fetch('/metadata.json')
     .then((resp) => resp.json())
     .then(json => {
-      const blacklist = ['npm-red', 'postgresql', 'discord', 'lgtm']
+      const blacklist = ['npm-red', 'postgresql', 'discord']
       const icons = document.querySelector('#icon-examples')
       for (const icon of json.icons) {
         if (blacklist.indexOf(icon) !== -1) continue;
