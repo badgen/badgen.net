@@ -46,12 +46,12 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 ## Developing
 
+[![Contributors][contributors-src]][contributors-href]
 [![StandardJS][standard-src]][standard-href]
 [![Dependencies][dependencies-src]][dependencies-href]
 [![Maintainability][maintainability-src]][maintainability-href]
 [![Code Quality][codequality-src]][codequality-href]
 [![LGTM Alerts][alerts-src]][alerts-href]
-[![Contributors][contributors-src]][contributors-href]
 [![Deploy to Now][deploy-to-now-src]](#deploy-to-now)
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
@@ -93,7 +93,7 @@ And that's all. No tracking for end usage.
 Made with ❤️ by [Amio](https://github.com/amio),
 built with ⚡️ from [badgen](https://github.com/amio/badgen).
 
-[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service
+[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
 [dependencies-href]: https://david-dm.org/amio/badgen-service
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
 [standard-href]: https://standardjs.com
