@@ -100,9 +100,9 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/333
 [maintainability-src]: https://badgen.net/codeclimate/maintainability/amio/badgen-service
 [maintainability-href]: https://codeclimate.com/github/amio/badgen-service
-[codequality-src]: https://badgen.net/lgtm/grade/javascript/g/amio/badgen-service?icon=lgtm
+[codequality-src]: https://badgen.net/lgtm/grade/javascript/g/amio/badgen-service
 [codequality-href]: https://lgtm.com/projects/g/amio/badgen-service/context:javascript
-[alerts-src]: https://badgen.net/lgtm/alerts/g/amio/badgen-service?icon=lgtm
+[alerts-src]: https://badgen.net/lgtm/alerts/g/amio/badgen-service
 [alerts-href]: https://lgtm.com/projects/g/amio/badgen-service/alerts/
 [contributors-src]: https://badgen.net/github/contributors/amio/badgen-service
 [contributors-href]: https://github.com/amio/badgen-service/graphs/contributors
