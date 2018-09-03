@@ -1,5 +1,6 @@
 const axios = require('../axios.js')
 const scale = require('../utils/scale.js')
+const covFormat = require('../utils/cov-format.js')
 
 module.exports = async (topic, user, repo) => {
   const api = `https://api.codeclimate.com/v1/repos?github_slug=${user}/${repo}`
@@ -74,7 +75,7 @@ const getReport = async (repoId, reportId, type, topic) => {
     case 'coverage':
       return {
         subject: 'coverage',
-        status: attributes.rating.measure.value + '%',
+        status: covFormat(attributes.rating.measure.value),
         color: scale('coverage')(attributes.rating.measure.value)
       }
   }

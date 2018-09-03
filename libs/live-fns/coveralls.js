@@ -1,5 +1,6 @@
 const axios = require('../axios.js')
 const covColor = require('../utils/cov-color.js')
+const covFormat = require('../utils/cov-format.js')
 
 module.exports = async (topic, platform, user, repo, branch) => {
   switch (topic) {
@@ -28,7 +29,7 @@ const coverage = async (platform, user, repo, branch) => {
     const percentage = badgeURL.match(/_(\d+)\.svg/)[1]
     return {
       subject: 'coverage',
-      status: percentage + '%',
+      status: covFormat(percentage),
       color: covColor(Number(percentage))
     }
   } catch (e) {

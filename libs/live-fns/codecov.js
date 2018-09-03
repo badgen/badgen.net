@@ -1,5 +1,6 @@
 const axios = require('../axios.js')
 const covColor = require('../utils/cov-color.js')
+const covFormat = require('../utils/cov-format.js')
 
 const unknownBadge = {
   subject: 'codecov',
@@ -37,7 +38,7 @@ const coverage = async (vscType, user, repo, branch) => {
 
   return {
     subject: 'coverage',
-    status: Number(Number(data.commit.totals.c).toFixed(1)) + '%',
+    status: covFormat(data.commit.totals.c),
     color: covColor(data.commit.totals.c)
   }
 }
