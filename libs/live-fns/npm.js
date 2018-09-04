@@ -49,7 +49,7 @@ const pkg = async (topic, args) => {
     tag = args[1] || tag
   }
 
-  const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
+  const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
   const meta = await axios.get(endpoint).then(res => res.data)
 
   switch (topic) {
