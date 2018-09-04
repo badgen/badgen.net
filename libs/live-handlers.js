@@ -10,7 +10,7 @@ const apiFetcher = async url => {
     res => res.data,
     err => {
       console.error('API_ERR', url, err.message)
-      return (err.response && err.response.data) || {}
+      return (err.response && err.response.data) || { failed: true }
     }
   )
 }
