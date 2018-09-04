@@ -11,7 +11,7 @@ Fast badge generating service.
 ```
 https://badgen.net/badge/:subject/:status/:color?icon=github
                    ──┬──  ───┬───  ──┬───  ──┬── ────┬──────
-                     │       │       │       │       └─ Advanced Options (label, list, icon)
+                     │       │       │       │       └─ Advanced Options (label, list, icon, color)
                      │       │       │       │
                      │      TEXT    TEXT    RGB / COLOR_NAME ( optional )
                      │
@@ -39,6 +39,7 @@ Available query params:
 - `icon` Use builtin icon in front of subject text. [e.g.][icon-eg-href]
 - `list` Set `list=1` will replace `,` with ` | ` in status text. [e.g.][list-eg-href]
 - `label` Override default subject text ([URL-Encoding][url-enc-href] needed for spaces or special characters).
+- `color` Override badge color. [e.g.][color-eg-href]
 
 Advanced usage (for badge makers):
 
@@ -346,3 +347,4 @@ Advanced usage (for badge makers):
 [style-eg-href]: /badge/color/blue/blue?style=flat
 [list-eg-href]: /badge/platform/ios,macos,tvos?list=1
 [icon-eg-href]: /badge/docker/v1.2.3/blue?icon=docker
+[color-eg-href]: /npm/dm/express?color=pink

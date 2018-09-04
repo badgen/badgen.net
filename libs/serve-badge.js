@@ -13,12 +13,12 @@ module.exports = (req, res, options = {}) => {
 
   const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
   const { subject, status, color } = req.params
-  const { style, label, list, icon, iconWidth } = req.query
+  const { style, label, list, icon, iconWidth, color: queryColor } = req.query
 
   const badge = badgen({
     subject: typeof label !== 'undefined' ? label : subject,
     status: String(list ? status.replace(/,/g, ' | ') : status),
-    color: color,
+    color: queryColor || color,
     style: style || hostStyle,
     emoji: true,
     icon: builtin[icon],
