@@ -7,13 +7,9 @@ const liveFetcher = require('./live-fetcher.js')
 const serveStats = require('./serve-stats.js')
 
 const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
-const sMaxAges = {
-  github: '240'
-}
 
 const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {
   return get(`/${name}/*`, async (req, res) => {
-    res.setHeader('Cache-Control', `${CACHE_CONTROL}, s-maxage=${sMaxAges[name] || '120'}`)
     const result = await liveFetcher(name, fn, req.params['*'])
     let status = 200
     if (result.failed) {
@@ -28,6 +24,7 @@ const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {
           status = 500
       }
     }
+    res.setHeader('Cache-Control', `${CACHE_CONTROL}, s-maxage=${result.failed ? '0' : '180'}`)
     send(res, status, result)
   })
 })
