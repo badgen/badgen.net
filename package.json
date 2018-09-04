@@ -27,7 +27,7 @@
     "millify": "^2.0.1",
     "raven": "^2.6.3",
     "semver": "^5.5.1",
-    "serve-handler": "^5.0.0",
+    "serve-handler": "^5.0.2",
     "serve-marked": "^0.3.3",
     "xml2js": "^0.4.19"
   },
