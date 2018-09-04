@@ -1,6 +1,6 @@
 const micro = require('micro')
 const { router, get } = require('micro-fork')
-const serveStatic = require('./libs/serve-static.js')
+const publicHandlers = require('./libs/public-handlers.js')
 const serveIndex = require('./libs/serve-index.js')
 const serve404 = require('./libs/serve-404.js')
 const serveDocs = require('./libs/serve-docs.js')
@@ -27,11 +27,11 @@ const main = router()(
   get('/*', serve404),
   get('/', indexHandler),
   get('/metadata.json', serveMetadata),
-  get('/static/*', serveStatic),
   get('/docs/:topic', serveDocs),
   get('/badge/:subject/:status', serveStaticBadge),
   get('/badge/:subject/:status/:color', serveStaticBadge),
-  ...liveHandlers
+  ...liveHandlers,
+  ...publicHandlers
 )
 
 module.exports = (req, res) => {

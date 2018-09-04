@@ -7,6 +7,8 @@
   "scripts": {
     "lint": "standard",
     "dev": "micro-dev service.js -s",
+    "dev:web": "next",
+    "build": "NODE_ENV=production next build && next export -o public",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
     "start": "node service.js",
@@ -34,6 +36,9 @@
   },
   "devDependencies": {
     "micro-dev": "^3.0.0",
+    "next": "^7.0.0-canary.11",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "standard": "^12.0.1",
     "supertest": "^3.2.0",
     "tap": "^12.0.1"

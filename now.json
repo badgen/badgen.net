@@ -7,8 +7,10 @@
   ],
   "files": [
     "package-lock.json",
+    "next.config.js",
     "service.js",
     "static",
+    "pages",
     "libs"
   ],
   "engines": {
