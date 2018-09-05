@@ -1,6 +1,6 @@
 const got = require('../got.js')
 
-const convertFingerprintTo64bit = fingerprint => fingerprint.slice(fingerprint.length - 16).toUpperCase().match(/.{1,4}/g).join(' ')
+const convertFingerprintTo64bit = fingerprint => fingerprint.slice(-16).toUpperCase().match(/.{1,4}/g).join(' ')
 
 module.exports = async (topic, username) => {
   const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json`
