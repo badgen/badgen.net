@@ -2,27 +2,52 @@
 const pool = require('./live-pool.js')
 const raven = require('./raven.js')
 
-module.exports = async (scope, fn, paramsPath) => {
-  const fetchKey = `#${scope}/${paramsPath}`
+module.exports = async (service, fn, paramsPath) => {
+  const fetchStart = new Date()
+  const fetchKey = `#${service}/${paramsPath}`
+
   if (pool.has(fetchKey)) return pool.get(fetchKey)
 
-  const fetchStart = new Date()
   const fetcher = fn(...paramsPath.split('/')).then(
     result => {
-      const timeSpan = String(new Date() - fetchStart).padStart(4, ' ')
-      console.log(`${timeSpan}ms ${fetchKey}`)
+      console.log(timeSince(fetchStart), fetchKey)
       return typeof result === 'object' ? result : { failed: true }
     },
-    err => errorHandler(scope, paramsPath, err)
+    err => errorHandler(service, paramsPath, err)
   ).finally(() => {
     pool.delete(fetchKey)
   })
+
   pool.set(fetchKey, fetcher)
 
   return fetcher
 }
 
+const timeSince = startStamp => {
+  return String(new Date() - startStamp).padStart(4, ' ') + 'ms'
+}
+
+const gotErrorHandler = (service, paramsPath, err) => {
+  const serviceKey = `/${service}/${paramsPath}`
+
+  let status = 'unknown'
+  if (err.statusCode === '404') {
+    status = 'not found'
+  } else if (err.code === 'ETIMEDOUT') {
+    status = 'timeout'
+  }
+
+  logError(serviceKey, err, status)
+  sendError(serviceKey, err, status)
+
+  return { status, failed: true }
+}
+
 const errorHandler = (scope, paramsPath, err) => {
+  if (err.url) {
+    return gotErrorHandler(scope, paramsPath, err)
+  }
+
   let status = 'unknown'
 
   if (err.response && err.response.status === 404) {
@@ -57,10 +82,28 @@ const errorLogger = (serviceKey, err, status) => {
   }
 }
 
+// log error
+const logError = (serviceKey, err, status) => {
+  console.error(`LIVE_FN_ERR <${status}> ${serviceKey}
+    @ ${err.url}
+    > [${err.statusCode || err.code}] ${err.message}`)
+}
+
+// send error to sentry
+const sendError = (serviceKey, err, status) => {
+  status === 'unknown' && raven && raven.captureException(err, {
+    tags: {
+      serviceKey,
+      url: err.url
+    }
+  })
+}
+
 const printError = (serviceKey, status, err) => {
   let details = err.message
   if (status === 'unknown') {
     details += `\n ${err.stack}`.replace(/^/mg, '   ')
   }
-  console.error(`LIVE_FN_ERR <${status}> ${serviceKey} > ${err.config.url}\n`, details)
+  const url = (err.config && err.config.url) || ''
+  console.error(`LIVE_FN_ERR <${status}> ${serviceKey} > ${url}\n`, details)
 }
