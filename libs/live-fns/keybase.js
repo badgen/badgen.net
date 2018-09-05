@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 const getPGPFingerprint = user => {
   const fingerprint = user.public_keys.primary.key_fingerprint
@@ -9,8 +9,8 @@ const getPGPFingerprint = user => {
 
 module.exports = async (topic, username) => {
   const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${username}`
-  const {data} = await axios.get(endpoint)
-  const user = data.them[0]
+  const {body} = await got(endpoint)
+  const user = body.them[0]
 
   switch (topic) {
     case 'pgp':
