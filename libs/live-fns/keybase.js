@@ -1,6 +1,6 @@
 const got = require('../got.js')
 
-const get64BitFingerprint = fingerprint => fingerprint.slice(fingerprint.length - 16).toUpperCase().match(/.{1,4}/g).join(' ')
+const convertFingerprintTo64bit = fingerprint => fingerprint.slice(fingerprint.length - 16).toUpperCase().match(/.{1,4}/g).join(' ')
 
 module.exports = async (topic, username) => {
   const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json`
@@ -16,7 +16,7 @@ module.exports = async (topic, username) => {
     case 'pgp':
       return {
         subject: 'PGP',
-        status: get64BitFingerprint(user.public_keys.primary.key_fingerprint),
+        status: convertFingerprintTo64bit(user.public_keys.primary.key_fingerprint),
         color: 'blue'
       }
     default:
