@@ -4,7 +4,7 @@ const getPGPFingerprint = user => {
   const fingerprint = user.public_keys.primary.key_fingerprint
 
   // Convert to 64-bit fingerprint
-  return fingerprint.substr(fingerprint.length - 16).toUpperCase().match(/.{1,4}/g).join(' ')
+  return fingerprint.slice(fingerprint.length - 16).toUpperCase().match(/.{1,4}/g).join(' ')
 }
 
 module.exports = async (topic, username) => {
