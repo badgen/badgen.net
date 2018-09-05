@@ -10,7 +10,7 @@ const apiFetcher = async url => {
     res => res.data,
     err => {
       console.error('API_ERR', url, err.message)
-      return { ...err.response.data, httpCode: 200 }
+      return (err.response && err.response.data) || { failed: true }
     }
   )
 }
@@ -24,16 +24,14 @@ module.exports = Object.entries(liveFns).map(([name, fn]) => {
       failed = false,
       httpCode = 200
     } = await (
-      API_HOST
-        ? apiFetcher(req.url)
-        : liveFetcher(name, fn, req.params['*'])
+      API_HOST ? apiFetcher(req.url) : liveFetcher(name, fn, req.params['*'])
     )
 
     const style = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
     req.params = { subject, status, color, style }
     serveBadge(req, res, {
       code: httpCode,
-      maxAge: failed ? '0' : (Math.random() * 60 + 60).toFixed()
+      sMaxAge: failed ? '0' : (Math.random() * 60 + 60).toFixed()
     })
   })
 })

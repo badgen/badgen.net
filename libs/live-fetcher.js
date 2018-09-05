@@ -62,5 +62,6 @@ const printError = (serviceKey, status, err) => {
   if (status === 'unknown') {
     details += `\n ${err.stack}`.replace(/^/mg, '   ')
   }
-  console.error(`LIVE_FN_ERR <${status}> ${serviceKey} > ${err.config.url}\n`, details)
+  const url = (err.config && err.config.url) || ''
+  console.error(`LIVE_FN_ERR <${status}> ${serviceKey} > ${url}\n`, details)
 }
