@@ -15,7 +15,7 @@ module.exports = serveMarked('libs/index.md', {
     img { height: 20px }
 
     pre, code { background-color: #EEF2F8; font-weight: 400 }
-    pre > code { padding: 0 }
+    pre > code { padding: 0; font-family: SF Mono, Courier, Monaco, monospace }
 
     li { vertical-align: top; font: 16px/32px sans-serif; color: #777 }
     li code { padding: 0.3em 0.5em; display: pre; color: #333 }
