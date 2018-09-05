@@ -9,7 +9,8 @@ const getPGPFingerprint = user => {
 
 module.exports = async (topic, username) => {
   const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${username}`
-  const user = await axios.get(endpoint).then(res => res.data.them[0])
+  const {data} = await axios.get(endpoint)
+  const user = data.them[0]
 
   switch (topic) {
     case 'pgp':
