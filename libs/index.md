@@ -272,7 +272,10 @@ Advanced usage (for badge makers):
       ['contributors', '/opencollective/contributors/webpack'],
       ['balance', '/opencollective/balance/webpack'],
       ['yearly income', '/opencollective/yearly/webpack'],
-    ]
+    ],
+    keybase: [
+      ['pgp', '/keybase/pgp/lukechilds']
+    ],
   }
 
   window.links = {
