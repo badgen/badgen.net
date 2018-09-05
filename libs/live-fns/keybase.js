@@ -8,8 +8,10 @@ const getPGPFingerprint = user => {
 }
 
 module.exports = async (topic, username) => {
-  const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json?usernames=${username}`
-  const { body } = await got(endpoint)
+  const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json`
+  const { body } = await got(endpoint, {
+    query: { usernames: username }
+  })
   const user = body.them[0]
 
   switch (topic) {
