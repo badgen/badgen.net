@@ -20,13 +20,13 @@
 
 > Epic work on Badgen! Porting the @dependabot badges over to it now. ⚡️ - [@greybaker](https://twitter.com/greybaker/status/1023253585021333504)
 
-The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge svg markup directly with JavaScript (without using pdfkit/canvas/puppeteer to measure text length)?". Result is better than I expected, Verdana (the de-facto font for badges) text width can be calculated precisely with a prebuilt [char-width-table](https://github.com/amio/badgen/blob/master/lib/widths-verdana-11.json), even no need to worry about kerning 🤯
+The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge SVG markup directly with JavaScript (without using pdfkit/canvas/puppeteer to measure text length)?". The result is better than I expected, Verdana (the de-facto font for badges) text width can be calculated precisely with a prebuilt [char-width-table](https://github.com/amio/badgen/blob/master/lib/widths-verdana-11.json), even no need to worry about kerning 🤯
 
 Then, logically, [Badgen Service](https://badgen.net) was born. I had a good time with [shields.io](https://shields.io), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative with simplicity and flexibility. Its codebase is simple (<b title="cloc . --exclude-dir node_modules --match-f '.js$'">2K LoCs</b> vs Shields' 22K LoCs), well structured and fun to develop - it is pretty easy to add badge(s) for new service(s).
 
-At the beginning I was considering between [Now](https://zeit.co/now) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Zeit announced [Now CDN](https://zeit.co/blog/now-cdn) on the same day as badgen.now.sh (the PoC of Badgen Service)'s reveal, what a fate! Cloudflare powered Now CDN is a perfect choice for such service, caching and scalability in simplicity. Badgen is the fastest possible badge generating service out there. It's fast, it's reliable, it's globally distributed and cached, thanks to Now.
+In the beginning, I was considering both [Now](https://zeit.co/now) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Zeit announced [Now CDN](https://zeit.co/blog/now-cdn) on the same day as badgen.now.sh (the PoC of Badgen Service)'s reveal, what a fate! Cloudflare powered Now CDN is a perfect choice for such service, caching and scalability in simplicity. Badgen is the fastest possible badge generating service out there. It's fast, it's reliable, it's globally distributed and cached, thanks to Now.
 
-At the time of badgen.now.sh's reveal, it had only four live badges as demonstration. Since then, thanks to [awesome people](https://github.com/amio/badgen-service/graphs/contributors)'s help, Badgen keeps getting better at a fast pace. Welcome to join us, let's build the best badge service in the universe 🔥
+At the time of badgen.now.sh's reveal, it had only four live badges as demonstrations. Since then, thanks to [awesome people](https://github.com/amio/badgen-service/graphs/contributors)'s help, Badgen keeps getting better at a fast pace. Welcome to join us, let's build the best badge service in the universe 🔥
 
 ## Anatomy
 
@@ -39,7 +39,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
     - https://flat.badgen.net - flat & square style badges
     - https://api.badgen.net - json “style” badges data (live badges only)
 - Two badge types
-    - static badge - url defined badge (subject, status, color)
+    - static badge - URL defined badge (subject, status, color)
     - live badge - show live status from 3rd party services
 - Builtin Icons
     - Svg files in [libs/icons](libs/icons/) will be auto loaded as builtin icon
@@ -58,7 +58,7 @@ We are using [StandardJS][standard-href] style, make sure you have ESLint/Standa
 
 ### Add live badge
 
-If a service you wish to have is still missing here, we welcome new contirbutions. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it. Take [crates](https://badgen.net/#crates) as an example:
+If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it. Take [crates](https://badgen.net/#crates) as an example:
 
 - [libs/live-fns/crates.js](libs/live-fns/crates.js) - main function for [crates](https://badgen.net/#crates)
 - [libs/live-fns/_index.js](libs/live-fns/_index.js) - index of all live-badges
@@ -72,7 +72,7 @@ Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please 
 
 ### Deploy to Now
 
-Badgen is stateless (not rely on db service). Deploy your own instance to [Now][now-href] with one single command:
+Badgen is stateless (does not rely on DB service). Deploy your own instance to [Now][now-href] with one single command:
 ```
 now amio/badgen-service
 ```
@@ -86,7 +86,7 @@ Badgen use Google Analytics on doc pages ([home](https://badgen.net), [/docs/pac
 2018-08-09T04:16:51.252Z  #david dep/olstenlarck/eslint-config-esmc: 445.893ms
 ```
 
-And that's all. No tracking for end usage.
+And that's all. No tracking of end users.
 
 ## About
 
