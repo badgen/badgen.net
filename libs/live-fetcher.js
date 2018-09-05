@@ -3,10 +3,11 @@ const pool = require('./live-pool.js')
 const raven = require('./raven.js')
 
 module.exports = async (service, fn, paramsPath) => {
+  const fetchStart = new Date()
   const fetchKey = `#${service}/${paramsPath}`
+
   if (pool.has(fetchKey)) return pool.get(fetchKey)
 
-  const fetchStart = new Date()
   const fetcher = fn(...paramsPath.split('/')).then(
     result => {
       console.log(timeSince(fetchStart), fetchKey)
@@ -14,9 +15,9 @@ module.exports = async (service, fn, paramsPath) => {
     },
     err => errorHandler(service, paramsPath, err)
   ).finally(() => {
-    console.log(timeSince(fetchStart), fetchKey)
     pool.delete(fetchKey)
   })
+
   pool.set(fetchKey, fetcher)
 
   return fetcher

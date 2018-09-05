@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 const statuses = [
   ['passed', 'green'],
@@ -17,8 +17,8 @@ module.exports = async (user, repo, branch = 'master') => {
   const com = `https://api.travis-ci.com/${user}/${repo}.svg?branch=${branch}`
   const org = `https://api.travis-ci.org/${user}/${repo}.svg?branch=${branch}`
   const [svg1, svg2] = await Promise.all([
-    axios(com).then(({ data }) => data).catch(e => undefined),
-    axios(org).then(({ data }) => data).catch(e => undefined)
+    got(com, { json: false }).then(({ body }) => body),
+    got(org, { json: false }).then(({ body }) => body)
   ])
 
   const result = statuses.find(st => {
