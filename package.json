@@ -17,6 +17,9 @@
     "postdeploy": "now -T amio alias",
     "canary": "now -T amio -e GH_TOKEN='@badgen-gh-token' && now -T amio alias badgen-canary"
   },
+  "standard": {
+    "parser": "babel-eslint"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "badgen": "^2.4.5",
@@ -35,6 +38,7 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
+    "babel-eslint": "^9.0.0",
     "micro-dev": "^3.0.0",
     "next": "^7.0.0-canary.11",
     "react": "^16.4.2",
