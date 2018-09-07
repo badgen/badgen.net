@@ -1,7 +1,7 @@
 import React from 'react'
 import BadgeBuilder from '../components/badge-builder.js'
 
-export default class Index extends React.Component {
+export default class extends React.Component {
   render () {
     return (
       <div>
