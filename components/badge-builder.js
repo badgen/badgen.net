@@ -1,21 +1,27 @@
 import React from 'react'
-import Preview from './badge-preview.js'
-import TheBar from './the-bar.js'
+import Preview from './builder-preview.js'
+import Bar from './builder-bar.js'
+import Helper from './builder-helper.js'
 
 export default class extends React.Component {
   state = {
+    host: '',
     badgeURL: ''
   }
 
   setBadgeURL = badgeURL => this.setState({ badgeURL })
 
+  componentDidMount () {
+    this.setState({ host: window.location.origin })
+  }
+
   render () {
-    const { badgeURL } = this.state
+    const { host, badgeURL } = this.state
 
     return (
       <div>
         <Preview badgeURL={badgeURL} />
-        <TheBar badgeURL={badgeURL} onChange={this.setBadgeURL} />
+        <Bar host={host} badgeURL={badgeURL} onChange={this.setBadgeURL} />
         <Helper />
         <style jsx>{`
           div {
@@ -29,18 +35,4 @@ export default class extends React.Component {
       </div>
     )
   }
-}
-
-const Helper = () => {
-  return (
-    <div>
-      -
-      <style jsx>{`
-        div {
-          height: 50vh;
-          width: 100%;
-        }
-      `}</style>
-    </div>
-  )
 }
