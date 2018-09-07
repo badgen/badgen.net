@@ -6,22 +6,30 @@ import Helper from './builder-helper.js'
 export default class extends React.Component {
   state = {
     host: '',
-    badgeURL: ''
+    badgeURL: '',
+    placeholder: ''
   }
 
   setBadgeURL = badgeURL => this.setState({ badgeURL })
 
   componentDidMount () {
-    this.setState({ host: window.location.origin })
+    const forceHost = new URL(window.location).searchParams.get('host')
+    const autoHost = window.location.host === 'flat.badgen.net'
+      ? 'https://flat.badgen.net'
+      : 'https://badgen.net'
+    this.setState({
+      host: (forceHost || autoHost) + '/',
+      placeholder: 'badge/:subject/:status/:color'
+    })
   }
 
   render () {
-    const { host, badgeURL } = this.state
+    const { host, placeholder, badgeURL } = this.state
 
     return (
       <div>
         <Preview badgeURL={badgeURL} />
-        <Bar host={host} badgeURL={badgeURL} onChange={this.setBadgeURL} />
+        <Bar host={host} placeholder={placeholder} onChange={this.setBadgeURL} />
         <Helper />
         <style jsx>{`
           div {

@@ -3,14 +3,13 @@ import debounce from 'lodash.debounce'
 
 export default class extends React.Component {
   state = {
-    inputSize: 29,
-    placeholder: 'badge/:subject/:status/:color'
+    inputSize: this.props.placeholder.length
   }
 
   updateBadgeURL = debounce(this.props.onChange, 500)
 
   updateInputSize = url => {
-    const defaultSize = this.state.placeholder.length
+    const defaultSize = this.props.placeholder.length
     if (url.length > defaultSize) {
       this.setState({ inputSize: url.length })
     } else {
@@ -24,15 +23,15 @@ export default class extends React.Component {
   }
 
   render () {
-    const { host = 'https://badgen.net' } = this.props
-    const { inputSize, placeholder } = this.state
+    const { host, placeholder } = this.props
+    const { inputSize } = this.state
 
     return (
       <label>
-        <span>{host}/</span>
+        <span>{host}</span>
         <input
-          autoFocus
-          size={inputSize}
+          tabIndex={1}
+          size={inputSize || placeholder.length}
           placeholder={placeholder}
           onChange={this.onChange}
         />
@@ -51,7 +50,6 @@ export default class extends React.Component {
           }
           span {
             display: inline-block;
-            min-width: 240px;
             text-align: right;
           }
           input {
