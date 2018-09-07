@@ -1,9 +1,10 @@
 import React from 'react'
+import debounce from 'lodash.debounce'
 
 export default class extends React.Component {
-  onChange = (e) => {
-    this.props.onChange(e.target.value)
-  }
+  onChangeDebounced = debounce(this.props.onChange, 500)
+
+  onChange = ev => this.onChangeDebounced(ev.target.value)
 
   render () {
     const hostname = 'https://badgen.net/'
@@ -36,6 +37,7 @@ export default class extends React.Component {
             border: none;
             outline: none;
             background: transparent;
+            color: black;
           }
         `}</style>
       </label>
