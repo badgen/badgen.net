@@ -20,7 +20,6 @@ module.exports = (req, res, options = {}) => {
     status: String(list ? status.replace(/,/g, ' | ') : status),
     color: queryColor || color,
     style: style || hostStyle,
-    emoji: true,
     icon: builtin[icon === '' ? subject : icon],
     iconWidth: iconWidth || noneSquareIconWidths[icon]
   })
