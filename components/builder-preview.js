@@ -16,9 +16,12 @@ export default ({ host = 'https://badgen.net/', badgeURL }) => {
   )
 }
 
-const genBadgeSrc = (host, path) => {
-  if (path.split('/').length > 2) {
-    return host + path
+const genBadgeSrc = (host, url) => {
+  if (url === '') {
+    return host + 'badge///blue'
+  }
+  if (url.split('/').length > 2) {
+    return host + url
   } else {
     return host + 'badge///blue'
   }

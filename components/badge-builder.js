@@ -5,7 +5,7 @@ import Helper from './builder-helper.js'
 
 export default class extends React.Component {
   state = {
-    host: '',
+    host: undefined,
     badgeURL: '',
     placeholder: ''
   }
@@ -28,7 +28,7 @@ export default class extends React.Component {
 
     return (
       <div>
-        <Preview badgeURL={badgeURL} />
+        <Preview host={host} badgeURL={badgeURL} />
         <Bar host={host} placeholder={placeholder} onChange={this.setBadgeURL} />
         <Helper />
         <style jsx>{`
