@@ -21,7 +21,7 @@ module.exports = (req, res, options = {}) => {
     color: queryColor || color,
     style: style || hostStyle,
     emoji: true,
-    icon: builtin[icon],
+    icon: builtin[icon === '' ? subject : icon],
     iconWidth: iconWidth || noneSquareIconWidths[icon]
   })
 
