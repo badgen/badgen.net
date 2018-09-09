@@ -1,10 +1,9 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const byteSize = require('byte-size')
 
 module.exports = async (topic, ...args) => {
   const endpoint = `https://packagephobia.now.sh/api.json?p=${args.join('/')}`
-  const { data } = await axios(endpoint)
-  const { installSize, publishSize } = data
+  const { installSize, publishSize } = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'publish':
