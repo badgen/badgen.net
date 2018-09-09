@@ -33,9 +33,9 @@ const gotErrorHandler = (service, paramsPath, err) => {
   let status = 'unknown'
   if (err.code === 'ETIMEDOUT') {
     status = 'timeout'
-  } else if (err.statusCode === '404') {
+  } else if (err.statusCode === 404) {
     status = 'not found'
-  } else if (err.statusCode === '503') {
+  } else if (err.statusCode === 503) {
     status = 'unavailable'
   }
 
