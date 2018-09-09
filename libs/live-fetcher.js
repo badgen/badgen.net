@@ -31,10 +31,12 @@ const gotErrorHandler = (service, paramsPath, err) => {
   const serviceKey = `/${service}/${paramsPath}`
 
   let status = 'unknown'
-  if (err.statusCode === '404') {
-    status = 'not found'
-  } else if (err.code === 'ETIMEDOUT') {
+  if (err.code === 'ETIMEDOUT') {
     status = 'timeout'
+  } else if (err.statusCode === '404') {
+    status = 'not found'
+  } else if (err.statusCode === '503') {
+    status = 'unavailable'
   }
 
   logError(serviceKey, err, status)
