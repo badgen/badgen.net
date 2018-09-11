@@ -5,7 +5,7 @@ const statusInfo = {
   outofdate: ['out of date', 'orange'],
   notsouptodate: ['up to date', 'yellow'],
   uptodate: ['up to date', 'green'],
-  none: ['none', 'blue']
+  none: ['none', 'green']
 }
 
 module.exports = async (depType, user, repo, ...path) => {
