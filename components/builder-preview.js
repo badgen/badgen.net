@@ -7,6 +7,7 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL }) => {
       <style jsx>{`
         div {
           height: calc(50vh - 160px);
+          min-height: 100px;
           display: flex;
           align-items: center;
         }

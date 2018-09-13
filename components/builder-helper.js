@@ -1,11 +1,12 @@
-import examples from '../libs/examples.js'
+import examplesLive from '../libs/examples-live.js'
+import examplesStatic from '../libs/examples-static.js'
 
-const examplesDB = Object.entries(examples).reduce((accu, curr) => {
+const egs = Object.entries(examplesLive).reduce((accu, curr) => {
   return accu.concat(curr[1].map(eg => eg.concat(curr[0])))
-}, [])
+}, examplesStatic.map(eg => ['', eg, 'static']))
 
 export default ({ badgeURL, onSelect }) => {
-  const matched = badgeURL.length > 1 && examplesDB.filter(eg => {
+  const matched = badgeURL.length > 1 && egs.filter(eg => {
     return eg.find(str => str.includes(badgeURL))
   })
 
