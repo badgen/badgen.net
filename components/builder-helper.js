@@ -4,19 +4,23 @@ const examplesDB = Object.entries(examples).reduce((accu, curr) => {
   return accu.concat(curr[1].map(eg => eg.concat(curr[0])))
 }, [])
 
-export default ({ badgeURL, onClick }) => {
+export default ({ badgeURL, onSelect }) => {
   const matched = badgeURL.length > 1 && examplesDB.filter(eg => {
     return eg.find(str => str.includes(badgeURL))
   })
 
+  const hints = matched.length === 1 && matched[0][1] === badgeURL ? [] : matched
+
   return (
     <div className='wrapper'>
-      { matched && (
+      { hints.length ? (
         <table><tbody>
-          { matched.map(eg => (
-            <Hint key={eg[1]} info={eg} onSelect={e => onClick(eg[1])} />
+          { hints.map(eg => (
+            <Hint key={eg[1]} info={eg} onSelect={e => onSelect(eg[1])} />
           )) }
         </tbody></table>
+      ) : (
+        ''
       )}
       <style jsx>{`
         .wrapper {
@@ -29,7 +33,7 @@ export default ({ badgeURL, onClick }) => {
         table {
           min-width: 640px;
           margin: 0 auto;
-          padding: 1em 0;
+          padding: 1.2em 0;
         }
       `}</style>
     </div>

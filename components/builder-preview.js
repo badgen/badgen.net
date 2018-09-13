@@ -6,12 +6,12 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL }) => {
       <img src={genBadgeSrc(host, badgeURL)} />
       <style jsx>{`
         div {
-          height: 90px;
-          text-align: center;
+          height: calc(50vh - 160px);
+          display: flex;
+          align-items: center;
         }
         img {
           height: 30px;
-          padding: 10px 0;
         }
       `}</style>
     </div>
