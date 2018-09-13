@@ -11,6 +11,7 @@ export default class extends React.Component {
   }
 
   setBadgeURL = badgeURL => this.setState({ badgeURL })
+  selectExample = exampleURL => this.setState({ badgeURL: exampleURL })
 
   componentDidMount () {
     const forceHost = new URL(window.location).searchParams.get('host')
@@ -29,8 +30,8 @@ export default class extends React.Component {
     return (
       <div>
         <Preview host={host} badgeURL={badgeURL} />
-        <Bar host={host} placeholder={placeholder} onChange={this.setBadgeURL} />
-        <Helper />
+        <Bar host={host} badgeURL={badgeURL} placeholder={placeholder} onChange={this.setBadgeURL} />
+        <Helper host={host} badgeURL={badgeURL} onClick={this.selectExample} />
         <style jsx>{`
           div {
             height: 100%;
