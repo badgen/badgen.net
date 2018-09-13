@@ -29,5 +29,6 @@ module.exports = {
   runkit: require('./runkit.js'),
   travis: require('./travis.js'),
   'uptime-robot': require('./uptime-robot.js'),
-  'vs-marketplace': require('./vs-marketplace.js')
+  'vs-marketplace': require('./vs-marketplace.js'),
+  xo: require('./xo')
 }
