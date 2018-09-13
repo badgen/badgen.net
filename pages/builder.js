@@ -30,7 +30,11 @@ export default class BuilderPage extends React.Component {
     return (
       <div>
         <Preview host={host} badgeURL={badgeURL} />
-        <Bar host={host} badgeURL={badgeURL} placeholder={placeholder} onChange={this.setBadgeURL} />
+        <Bar
+          host={host}
+          badgeURL={badgeURL}
+          placeholder={placeholder}
+          onChange={this.setBadgeURL} />
         <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} />
         <style jsx>{`
           div {
