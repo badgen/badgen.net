@@ -1,15 +1,18 @@
-export default ({ host = 'https://badgen.net/', badgeURL }) => {
+import debounceRender from './libs/debounce-render.js'
+
+const BadgePreview = ({ host = 'https://badgen.net/', badgeURL }) => {
   return (
     <div>
       <img src={genBadgeSrc(host, badgeURL)} />
       <style jsx>{`
         div {
-          height: 90px;
-          text-align: center;
+          height: calc(50vh - 160px);
+          min-height: 100px;
+          display: flex;
+          align-items: center;
         }
         img {
           height: 30px;
-          padding: 10px 0;
         }
       `}</style>
     </div>
@@ -26,3 +29,5 @@ const genBadgeSrc = (host, url) => {
     return host + 'badge///blue'
   }
 }
+
+export default debounceRender(BadgePreview, 400)

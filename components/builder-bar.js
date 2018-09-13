@@ -1,30 +1,16 @@
 import React from 'react'
-import debounce from 'lodash.debounce'
 
 export default class extends React.Component {
-  state = {
-    inputSize: this.props.placeholder.length
-  }
-
-  updateBadgeURL = debounce(this.props.onChange, 500)
-
-  updateInputSize = url => {
+  calcInputSize = url => {
     const defaultSize = this.props.placeholder.length
-    if (url.length > defaultSize) {
-      this.setState({ inputSize: url.length })
-    } else {
-      this.setState({ inputSize: defaultSize })
-    }
+    return url.length < defaultSize ? defaultSize : url.length
   }
 
-  onChange = ev => {
-    this.updateInputSize(ev.target.value)
-    this.updateBadgeURL(ev.target.value)
-  }
+  onChange = ev => this.props.onChange(ev.target.value)
 
   render () {
-    const { host, placeholder } = this.props
-    const { inputSize } = this.state
+    const { host, placeholder, badgeURL } = this.props
+    const inputSize = this.calcInputSize(badgeURL)
 
     return (
       <label>
@@ -34,6 +20,7 @@ export default class extends React.Component {
           size={(inputSize || placeholder.length) + 1}
           placeholder={placeholder}
           onChange={this.onChange}
+          value={badgeURL}
         />
         <style jsx>{`
           label {
