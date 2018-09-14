@@ -1,11 +1,11 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 // https://developer.opencollective.com/#/api/collectives
 
 module.exports = async (topic, slug) => {
   const endpoint = `https://opencollective.com/${slug}.json`
 
-  const details = await axios(endpoint).then(res => res.data)
+  const details = await got(endpoint).then(res => res.body)
   const localeOptions = {
     style: 'currency',
     currency: details.currency

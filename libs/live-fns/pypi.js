@@ -1,10 +1,10 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
 module.exports = async (topic, project) => {
   const endpoint = `https://pypi.org/pypi/${project}/json`
-  const { info } = await axios.get(endpoint).then(res => res.data)
+  const { info } = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'v':

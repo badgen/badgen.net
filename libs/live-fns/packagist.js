@@ -1,6 +1,6 @@
 const millify = require('millify')
 
-const axios = require('../axios.js')
+const got = require('../got.js')
 const compareVersions = require('../utils/compare-versions.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
@@ -13,7 +13,7 @@ const license = versions => Object.values(versions).find(v => v.license.length).
 
 module.exports = async (topic, vendor, pkg, channel = 'stable') => {
   const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
-  const { package: packageMeta } = await axios.get(endpoint).then(res => res.data)
+  const { package: packageMeta } = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'v':

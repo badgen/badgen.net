@@ -1,11 +1,11 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const millify = require('millify')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
 module.exports = async (topic, pkg) => {
   const endpoint = `https://crates.io/api/v1/crates/${pkg}`
-  const { crate } = await axios.get(endpoint).then(res => res.data)
+  const { crate } = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'v':

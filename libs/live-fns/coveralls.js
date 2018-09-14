@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const covColor = require('../utils/cov-color.js')
 const covFormat = require('../utils/cov-format.js')
 
@@ -16,13 +16,12 @@ module.exports = async (topic, platform, user, repo, branch) => {
 // Detect coveralls.io's badge redirection instead of using it's api
 // See https://github.com/amio/badgen-service/issues/96
 const coverage = async (platform, user, repo, branch) => {
-  const query = branch ? `?branch=${branch}` : ''
-  const badgeURL = await axios({
-    url: `https://coveralls.io/repos/${platform}/${user}/${repo}/badge.svg${query}`,
-    method: 'head',
-    maxRedirects: 0,
+  const endpoint = `https://coveralls.io/repos/${platform}/${user}/${repo}/badge.svg`
+  const badgeURL = await got.head(endpoint, {
+    json: false,
+    query: { branch },
     // Expecting 302 redirection to "coveralls_xxx.svg"
-    validateStatus: status => status >= 200 && status < 400
+    followRedirect: false
   }).then(res => res.headers.location)
 
   try {

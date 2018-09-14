@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const covColor = require('../utils/cov-color.js')
 const covFormat = require('../utils/cov-format.js')
 
@@ -34,7 +34,7 @@ const coverage = async (vscType, user, repo, branch) => {
   }
 
   const endpoint = `https://codecov.io/api/${args.join('/')}`
-  const { data } = await axios.get(endpoint)
+  const data = await got(endpoint).then(res => res.body)
 
   return {
     subject: 'coverage',

@@ -1,11 +1,11 @@
 const millify = require('millify')
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 module.exports = async (topic, ...args) => {
   const lang = topic === 'grade' ? args.shift() : undefined
   const projectId = args.join('/')
   const endpoint = `https://lgtm.com/api/v0.1/project/${projectId}/details`
-  const data = await axios.get(endpoint).then(res => res.data)
+  const data = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'alerts':

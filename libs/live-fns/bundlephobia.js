@@ -1,11 +1,11 @@
-const axios = require('../axios.js')
 const byteSize = require('byte-size')
+const got = require('../got.js')
 
 // https://github.com/pastelsky/bundlephobia/issues/4
 
 module.exports = async (topic, ...args) => {
   const endpoint = `https://bundlephobia.com/api/size?package=${args.join('/')}`
-  const { size, gzip } = await axios(endpoint).then(res => res.data)
+  const { size, gzip } = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'min':

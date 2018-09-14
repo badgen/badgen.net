@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 module.exports = async (topic, ...args) => {
   switch (topic) {
@@ -16,7 +16,8 @@ module.exports = async (topic, ...args) => {
 const ci = async (account, project, branch) => {
   branch = branch ? `/branch/${branch}` : ''
   const endpoint = `https://ci.appveyor.com/api/projects/${account}/${project}${branch}`
-  const { build } = await axios.get(endpoint).then(res => res.data)
+  const { build } = await got(endpoint).then(res => res.body)
+
   return {
     subject: 'appveyor',
     status: build.status,

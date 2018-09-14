@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 /**
  * EXAMPLES
@@ -9,5 +9,5 @@ const axios = require('../axios.js')
  */
 module.exports = async (endpointId, ...args) => {
   const endpoint = `https://${endpointId}.runkit.sh/${args.join('/')}`
-  return axios(endpoint).then(res => res.data)
+  return got(endpoint).then(res => res.body)
 }

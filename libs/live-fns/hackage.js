@@ -1,11 +1,10 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
 module.exports = async (topic, pkg) => {
   const endpoint = `https://hackage.haskell.org/package/${pkg}/${pkg}.cabal`
-
-  const cabal = await axios.get(endpoint).then(res => res.data)
+  const cabal = await got(endpoint, { json: false }).then(res => res.body)
   const { version, license } = parseCabalFile(cabal)
 
   switch (topic) {

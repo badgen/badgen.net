@@ -1,6 +1,6 @@
 const millify = require('millify')
 const cheerio = require('cheerio')
-const axios = require('../axios.js')
+const got = require('../got.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
@@ -50,7 +50,7 @@ const pkg = async (topic, args) => {
   }
 
   const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
-  const meta = await axios.get(endpoint).then(res => res.data)
+  const meta = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'version': {
@@ -96,9 +96,9 @@ const download = async (period, args) => {
   endpoint.push(`/${args.join('/')}`)
 
   const per = isTotal ? '' : period.replace('last-', '/')
-  const { downloads } = await axios.get(endpoint.join('')).then(
-    res => res.data,
-    err => err.response.status === 404 && { downloads: 0 }
+  const { downloads } = await got(endpoint.join('')).then(
+    res => res.body,
+    err => err.response.statusCode === 404 && { downloads: 0 }
   )
 
   const count = typeof downloads === 'number'
@@ -116,11 +116,13 @@ const download = async (period, args) => {
 
 // https://github.com/astur/check-npm-dependents/blob/master/index.js
 const dependents = async name => {
-  const { data } = await axios(`https://www.npmjs.com/package/${name}`)
+  const html = await got(`https://www.npmjs.com/package/${name}`, {
+    json: false
+  }).then(res => res.body)
 
   return {
     subject: 'dependents',
-    status: parseDependents(data),
+    status: parseDependents(html),
     color: 'green'
   }
 }

@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 const statusInfo = {
   insecure: ['insecure', 'red'],
@@ -15,9 +15,12 @@ module.exports = async (depType, user, repo, ...path) => {
     peer: 'peer-',
     optional: 'optional-'
   }[depType]
-  const query = path.length ? `?path=${path.join('/')}` : ''
-  const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json${query}`
-  const { status } = await axios.get(endpoint).then(res => res.data)
+  const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json`
+  const { status } = await got(endpoint, {
+    query: {
+      path: path.length ? path.join('/') : ''
+    }
+  }).then(res => res.body)
 
   switch (depType) {
     case 'dep':

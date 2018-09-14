@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const millify = require('millify')
 
 module.exports = async (topic, namespace, name) => {
@@ -12,7 +12,7 @@ module.exports = async (topic, namespace, name) => {
 
   /* eslint-disable camelcase */
   const endpoint = `https://hub.docker.com/v2/repositories/${namespace}/${name}`
-  const { pull_count, star_count } = await axios(endpoint).then(res => res.data)
+  const { pull_count, star_count } = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'stars':

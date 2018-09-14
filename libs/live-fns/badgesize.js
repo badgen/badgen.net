@@ -1,20 +1,21 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 
 module.exports = async (topic, ...path) => {
-  const compression = topic === 'normal' ? '' : `?compression=${topic}`
-
   if (!topic) {
     return {
       status: 'missing topic'
     }
   }
 
-  const subject = topic === 'normal' ? 'size' : `${topic} size`
-  const endpoint = `https://img.badgesize.io/${path.join('/')}.json${compression}`
-  const { prettySize, color } = await axios(endpoint).then(res => res.data)
+  const endpoint = `https://img.badgesize.io/${path.join('/')}.json`
+  const { prettySize, color } = await got(endpoint, {
+    query: {
+      compression: topic === 'normal' ? '' : topic
+    }
+  }).then(res => res.body)
 
   return {
-    subject: subject,
+    subject: topic === 'normal' ? 'size' : `${topic} size`,
     status: prettySize,
     color: color
   }

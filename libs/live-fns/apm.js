@@ -1,7 +1,7 @@
 const millify = require('millify')
-const axios = require('../axios.js')
-const semColor = require('../utils/sem-color.js')
+const got = require('../got.js')
 const v = require('../utils/version-formatter.js')
+const semColor = require('../utils/sem-color.js')
 
 // https://atom.io/api/packages/*
 
@@ -28,7 +28,7 @@ const pkg = async (topic, args) => {
   let pkg = args[0]
 
   const endpoint = `https://atom.io/api/packages/${pkg}`
-  const meta = await axios.get(endpoint).then(res => res.data)
+  const meta = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'version': {

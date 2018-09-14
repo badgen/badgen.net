@@ -1,15 +1,13 @@
-const axios = require('../axios.js')
 const xml2js = require('xml2js')
+const got = require('../got.js')
 const millify = require('millify')
 const stars = require('../utils/stars.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
-module.exports = async (topic, ...args) => {
-  const endpoint = `https://services.addons.mozilla.org/en-US/firefox/api/1.5/addon/${
-    args[0]
-  }`
-  const xml = await axios.get(endpoint).then(res => res.data)
+module.exports = async (topic, name) => {
+  const endpoint = `https://services.addons.mozilla.org/en-US/firefox/api/1.5/addon/${name}`
+  const xml = await got(endpoint, { json: false }).then(res => res.body)
 
   const { addon } = await new Promise((resolve, reject) => {
     xml2js.parseString(xml, {

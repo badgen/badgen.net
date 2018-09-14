@@ -1,6 +1,6 @@
 const millify = require('millify')
 
-const axios = require('../axios.js')
+const got = require('../got.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
@@ -29,7 +29,7 @@ const stable = versions => versions.filter(v => {
 const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 const request = async endpoint => {
-  return axios.get(`https://rubygems.org/api/v1/${endpoint}.json`).then(res => res.data)
+  return got(`https://rubygems.org/api/v1/${endpoint}.json`).then(res => res.body)
 }
 
 module.exports = async (topic, gem, channel = 'stable') => {

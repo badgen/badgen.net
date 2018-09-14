@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
@@ -8,7 +8,7 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 module.exports = async (method, project, channel) => {
   const endpoint = `https://api.nuget.org/v3-flatcontainer/${project}/index.json`
-  const { versions } = await axios.get(endpoint).then(res => res.data)
+  const { versions } = await got(endpoint).then(res => res.body)
 
   switch (method) {
     case 'v':

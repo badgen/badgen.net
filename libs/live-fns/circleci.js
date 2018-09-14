@@ -1,11 +1,11 @@
-const axios = require('../axios.js')
 const qs = require('querystring')
+const got = require('../got.js')
 
 // https://circleci.com/docs/api/v1-reference/
-module.exports = async (vcsType, username, project, branch) => {
+module.exports = async (vcsType, user, project, branch) => {
   branch = branch ? `/tree/${qs.escape(branch)}` : ''
-  const endpoint = `https://circleci.com/api/v1.1/project/${vcsType}/${username}/${project}${branch}`
-  const [latest] = await axios.get(endpoint).then(res => res.data)
+  const endpoint = `https://circleci.com/api/v1.1/project/${vcsType}/${user}/${project}${branch}`
+  const [latest] = await got(endpoint).then(res => res.body)
 
   return {
     subject: 'circleci',

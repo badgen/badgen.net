@@ -1,4 +1,4 @@
-const axios = require('../axios.js')
+const got = require('../got.js')
 const scale = require('../utils/scale.js')
 
 /**
@@ -11,13 +11,14 @@ const scale = require('../utils/scale.js')
  */
 module.exports = async (topic, apiKey) => {
   const endpoint = `https://api.uptimerobot.com/v2/getMonitors`
-  const options = {
-    api_key: apiKey,
-    custom_uptime_ratios: '1-7-30',
-    response_times: 1,
-    response_times_limit: 12
-  }
-  const { monitors } = await axios.post(endpoint, options).then(res => res.data)
+  const { monitors } = await got.post(endpoint, {
+    body: {
+      api_key: apiKey,
+      custom_uptime_ratios: '1-7-30',
+      response_times: 1,
+      response_times_limit: 12
+    }
+  }).then(res => res.body)
 
   /* eslint-disable camelcase */
   const { status, custom_uptime_ratio, average_response_time } = monitors[0]

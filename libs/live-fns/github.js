@@ -1,13 +1,11 @@
 const cheerio = require('cheerio')
 const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
 const millify = require('millify')
-const axios = require('../axios.js')
+const got = require('../got.js')
 const v = require('../utils/version-formatter.js')
 
-const token = process.env.GH_TOKEN
-const tokenHeader = token ? { Authorization: `token ${token}` } : {}
-
-// https://developer.github.com/v3/repos/
+const { GH_TOKEN } = process.env
+const authHeader = GH_TOKEN && `token ${GH_TOKEN}`
 
 module.exports = async (topic, ...args) => {
   if (args.length < 2) {
@@ -51,21 +49,22 @@ module.exports = async (topic, ...args) => {
 }
 
 // request github api v3 (rest)
-const restGithub = path => axios.get(`https://api.github.com/${path}`, {
+const restGithub = path => got.get(`https://api.github.com/${path}`, {
   headers: {
-    ...tokenHeader,
+    Authorization: authHeader,
     Accept: 'application/vnd.github.hellcat-preview+json'
   }
-}).then(res => res.data)
+}).then(res => res.body)
 
 // request github api v4 (graphql)
 const queryGithub = query => {
-  return axios.post('https://api.github.com/graphql', { query }, {
+  return got.post('https://api.github.com/graphql', {
+    body: { query },
     headers: {
-      ...tokenHeader,
+      Authorization: authHeader,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
-  }).then(res => res.data)
+  }).then(res => res.body)
 }
 
 const release = async (user, repo, channel) => {
@@ -205,7 +204,7 @@ const makeRepoQuery = (topic, user, repo, ...args) => {
 }
 
 const repoStats = async (topic, user, repository, ...args) => {
-  if (!token) {
+  if (!GH_TOKEN) {
     return { status: 'token required' }
   }
 
@@ -327,12 +326,12 @@ const parseDependents = (html, type) => {
 }
 
 const dependents = async (type, user, repo) => {
-  const html = await axios({
-    url: `https://github.com/${user}/${repo}/network/dependents`,
+  const html = await got(`https://github.com/${user}/${repo}/network/dependents`, {
+    json: false,
     headers: {
       Accept: 'text/html,application/xhtml+xml,application/xml'
     }
-  }).then(res => res.data)
+  }).then(res => res.body)
 
   return {
     subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',
