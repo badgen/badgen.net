@@ -260,6 +260,11 @@ Advanced usage (for badge makers):
       ['(past month) uptime', '/uptime-robot/month/m780862024-50db2c44c703e5c68d6b1ebb'],
       ['(last hours) response', '/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb']
     ],
+    xo: [
+      ['status', '/xo/status/badgen'],
+      ['indent', '/xo/indent/@tusbar/cache-control'],
+      ['semicolons', '/xo/semi/got']
+    ],
     badgesize: [
       ['normal size', '/badgesize/normal/amio/emoji.json/master/emoji-compact.json'],
       ['brotli size', '/badgesize/brotli/amio/emoji.json/master/emoji-compact.json'],
