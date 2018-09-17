@@ -1,10 +1,10 @@
 const millify = require('millify')
-const axios = require('../axios.js')
+const got = require('../got.js')
 const v = require('../utils/version-formatter.js')
 const semColor = require('../utils/sem-color.js')
 
 module.exports = async (topic, pkg) => {
-  const { results } = await queryVSM(pkg).then(res => res.data)
+  const { results } = await queryVSM(pkg)
   const extension = results[0].extensions[0]
 
   if (!extension) {
@@ -51,13 +51,14 @@ module.exports = async (topic, pkg) => {
 }
 
 const queryVSM = async pkgName => {
-  const endpoint = 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery/'
-  return axios.post(endpoint, {
-    filters: [{ criteria: [{ filterType: 7, value: pkgName }] }],
-    flags: 914
-  }, {
-    headers: { Accept: 'application/json;api-version=3.0-preview.1' }
-  })
+  const endpoint = 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery'
+  return got.post(endpoint, {
+    query: { 'api-version': '3.0-preview.1' },
+    body: {
+      filters: [{ criteria: [{ filterType: 7, value: pkgName }] }],
+      flags: 914
+    }
+  }).then(res => res.body)
 }
 
 const parseStatistics = extension => {
