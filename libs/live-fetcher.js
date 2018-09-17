@@ -13,7 +13,7 @@ module.exports = async (service, fn, paramsPath) => {
       console.log(timeSince(fetchStart), fetchKey)
       return typeof result === 'object' ? result : { failed: true }
     },
-    err => errorHandler(service, paramsPath, err)
+    err => gotErrorHandler(service, paramsPath, err)
   ).finally(() => {
     pool.delete(fetchKey)
   })
@@ -39,73 +39,28 @@ const gotErrorHandler = (service, paramsPath, err) => {
     status = 'unavailable'
   }
 
-  logError(serviceKey, err, status)
-  sendError(serviceKey, err, status)
+  logError(serviceKey, status, err)
+  sendError(serviceKey, status, err)
 
   return { status, failed: true }
-}
-
-const errorHandler = (scope, paramsPath, err) => {
-  if (err.url) {
-    return gotErrorHandler(scope, paramsPath, err)
-  }
-
-  let status = 'unknown'
-
-  if (err.response && err.response.status === 404) {
-    status = 'not found'
-  } else if (err.code === 'ECONNABORTED') {
-    status = 'timeout'
-  }
-
-  errorLogger(`/${scope}/${paramsPath}`, err, status)
-
-  return { status, failed: true }
-}
-
-const errorLogger = (serviceKey, err, status) => {
-  try {
-    if (status === 'unknown') {
-      // send to sentry
-      raven && raven.captureException(err, {
-        tags: {
-          serviceKey,
-          service: serviceKey.split(' ')[0],
-          fetchUrl: err.config.url
-        }
-      })
-    } else {
-      // log known error
-      printError(serviceKey, status, err)
-    }
-  } catch (e) {
-    printError(serviceKey, status, err)
-    console.error('ERR_ON_ERR', e.message)
-  }
 }
 
 // log error
-const logError = (serviceKey, err, status) => {
-  console.error(`LIVE_FN_ERR <${status}> ${serviceKey}
-    @ ${err.url}
-    > [${err.statusCode || err.code}] ${err.message}`)
+const logError = (serviceKey, status, err) => {
+  console.error(`\x1b[91mLIVE_FN_ERR <${status}> ${serviceKey}\x1b[0m`)
+  if (status === 'unknown') {
+    console.error(err)
+  } else {
+    console.error(`    @ ${err.url} [${err.statusCode || err.code || err.message}]`)
+  }
 }
 
 // send error to sentry
-const sendError = (serviceKey, err, status) => {
+const sendError = (serviceKey, status, err) => {
   status === 'unknown' && raven && raven.captureException(err, {
     tags: {
       serviceKey,
       url: err.url
     }
   })
-}
-
-const printError = (serviceKey, status, err) => {
-  let details = err.message
-  if (status === 'unknown') {
-    details += `\n ${err.stack}`.replace(/^/mg, '   ')
-  }
-  const url = (err.config && err.config.url) || ''
-  console.error(`LIVE_FN_ERR <${status}> ${serviceKey} > ${url}\n`, details)
 }
