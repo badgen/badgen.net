@@ -1,4 +1,4 @@
-const axios = require('axios')
+const got = require('got')
 const { send } = require('micro')
 const pool = require('./live-pool.js')
 
@@ -19,5 +19,5 @@ const getGithubRateLimit = () => {
   const url = 'https://api.github.com/rate_limit'
   const token = process.env.GH_TOKEN
   const headers = token && { Authorization: `token ${token}` }
-  return axios({ url, headers }).then(res => res.data.resources)
+  return got(url, { json: true, headers }).then(res => res.body.resources)
 }

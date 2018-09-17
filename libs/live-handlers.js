@@ -1,16 +1,16 @@
-const axios = require('./axios.js')
 const { get } = require('micro-fork')
+const got = require('./got.js')
 const liveFns = require('./live-fns/_index.js')
 const serveBadge = require('./serve-badge.js')
 const liveFetcher = require('./live-fetcher.js')
 
 const { API_HOST } = process.env
 const apiFetcher = async url => {
-  return axios.get(API_HOST + url).then(
-    res => res.data,
+  return got(API_HOST + url).then(
+    res => res.body,
     err => {
       console.error('API_ERR', url, err.message)
-      return (err.response && err.response.data) || { failed: true }
+      return { failed: true, ...(err.response && err.response.body) }
     }
   )
 }
