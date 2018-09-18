@@ -37,6 +37,8 @@ module.exports = async (topic, ...args) => {
       return downloads(args[0], args[1], '/latest')
     case 'release':
       return release(...args)
+    case 'status':
+      return singleStatus(...args)
     case 'dependents-repo':
       return dependents('REPOSITORY', ...args)
     case 'dependents-pkg':
@@ -65,6 +67,43 @@ const queryGithub = query => {
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
   }).then(res => res.body)
+}
+
+const singleStatus = async (user, repo, ref = 'master') => {
+  const statuses = await restGithub(`repos/${user}/${repo}/commits/${ref}/status`)
+
+  switch (statuses.state) {
+    case 'success':
+      return {
+        subject: 'status',
+        status: 'success',
+        color: 'green'
+      }
+    case 'error':
+      return {
+        subject: 'status',
+        status: 'error',
+        color: 'red'
+      }
+    case 'failure':
+      return {
+        subject: 'status',
+        status: 'failure',
+        color: 'red'
+      }
+    case 'pending':
+      return {
+        subject: 'status',
+        status: 'pending',
+        color: 'orange'
+      }
+    default:
+      return {
+        subject: 'status',
+        status: 'unknown',
+        color: 'grey'
+      }
+  }
 }
 
 const release = async (user, repo, channel) => {
