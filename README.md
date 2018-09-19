@@ -65,6 +65,11 @@ If a service you wish to have is still missing here, we welcome new contribution
 
 To ensure that your addition is working correctly start the development server with `npm run dev`.
 
+> YOU MAY NOT NEED TO MAKE PULL REQUEST
+>
+> You can create arbitrary live badge with RunKit's online IDE, or any https endpoint.  
+> Checkout documents ([runkit](https://badgen.net/docs/runkit) | [https](https://badgen.net/docs/https)).
+
 ### Add icon
 
 Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please make sure new icon is optimized using [svgomg](https://jakearchibald.github.io/svgomg/).
