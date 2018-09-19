@@ -14,6 +14,11 @@
     "static",
     "components"
   ],
+  "env": {
+    "GH_TOKEN": "@badgen-gh-token",
+    "SENTRY_URI": "@badgen-sentry-uri",
+    "TRACKING_GA": "@badgen-tracking-ga"
+  },
   "engines": {
     "node": "^10.0.0"
   },

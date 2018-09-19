@@ -52,7 +52,6 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 [![Maintainability][maintainability-src]][maintainability-href]
 [![Code Quality][codequality-src]][codequality-href]
 [![LGTM Alerts][alerts-src]][alerts-href]
-[![Deploy to Now][deploy-to-now-src]](#deploy-to-now)
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
@@ -74,7 +73,7 @@ Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please 
 
 Badgen is stateless (does not rely on DB service). Deploy your own instance to [Now][now-href] with one single command:
 ```
-now amio/badgen-service
+now amio/badgen-service -e GH_TOKEN='' -e TRACKING_GA='' -e SENTRY_URI=''
 ```
 
 ## Tracking Policy
@@ -97,7 +96,6 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [dependencies-href]: https://david-dm.org/amio/badgen-service
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
 [standard-href]: https://standardjs.com
-[deploy-to-now-src]: https://badgen.net/badge/▲/$%20now%20amio%2Fbadgen-service/333
 [maintainability-src]: https://badgen.net/codeclimate/maintainability/amio/badgen-service
 [maintainability-href]: https://codeclimate.com/github/amio/badgen-service
 [codequality-src]: https://badgen.net/lgtm/grade/javascript/g/amio/badgen-service
