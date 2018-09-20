@@ -15,8 +15,9 @@ export default class MyApp extends App {
         </Head>
         <Component {...pageProps} />
         <style jsx global>{`
-          html, body { margin: 0; height: 100% }
+          html, body { margin: 0; height: 100%; scroll-behavior: smooth }
           #__next { height: 100% }
+          a { text-decoration: none }
         `}</style>
       </Container>
     )

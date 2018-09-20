@@ -5,7 +5,7 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
     <div className='wrapper'>
       <div className={'title' + (focus ? ' focus' : '')}>
         <h1><img src='/static/badgen-logo.svg' /> Badgen</h1>
-        <p>Fast badge generating service</p>
+        <p>Fast badge generating service.</p>
       </div>
       <div className={'preview' + (focus ? ' focus' : '')}>
         <PreviewBadge host={host} url={badgeURL} />
@@ -32,31 +32,31 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
           transition: all 200ms ease-out;
         }
         .title img {
-          height: 44px;
-          width: 44px;
+          height: 42px;
+          width: 42px;
           vertical-align: top;
           margin-top: 2px;
         }
         .title h1 {
           margin: 1.5rem 0 0 0;
-          font: 52px/52px Merriweather, serif;
+          font: 48px/48px Merriweather, serif;
           font-weight: 700;
-          color: #555;
+          color: #333;
           height: 52px;
-          width: 256px;
+          width: 236px;
         }
         .title p {
-          font: 18px/32px Merriweather, serif;
+          font: 19px/32px Merriweather, serif;
           font-weight: 300;
           letter-spacing: 0.3px;
-          color: #555;
+          color: #333;
         }
         .preview {
           pointer-events: none;
           opacity: 0;
           transform: translateY(30px);
           transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
-          transition-delay: 200ms;
+          transition-delay: 160ms;
         }
         .preview.focus {
           opacity: 1;
