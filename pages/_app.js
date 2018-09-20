@@ -10,6 +10,8 @@ export default class MyApp extends App {
         <Head>
           <link rel='icon' type='image/png' href='/static/favicon.png' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+          <link rel='stylesheet'
+            href='https://fonts.googleapis.com/css?family=Merriweather:700,300' />
         </Head>
         <Component {...pageProps} />
         <style jsx global>{`

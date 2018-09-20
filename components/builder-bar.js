@@ -20,6 +20,7 @@ export default class extends React.Component {
           size={(inputSize || placeholder.length) + 1}
           placeholder={placeholder}
           onChange={this.onChange}
+          onFocus={this.props.onFocus}
           value={badgeURL}
         />
         <style jsx>{`

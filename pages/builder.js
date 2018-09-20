@@ -7,9 +7,11 @@ export default class BuilderPage extends React.Component {
   state = {
     host: undefined,
     badgeURL: '',
-    placeholder: ''
+    placeholder: '',
+    focus: false
   }
 
+  setFocus = () => this.state.focus || this.setState({ focus: true })
   setBadgeURL = badgeURL => this.setState({ badgeURL })
   selectExample = exampleURL => this.setState({ badgeURL: exampleURL })
 
@@ -25,16 +27,17 @@ export default class BuilderPage extends React.Component {
   }
 
   render () {
-    const { host, placeholder, badgeURL } = this.state
+    const { host, placeholder, badgeURL, focus } = this.state
 
     return (
       <div>
-        <Preview host={host} badgeURL={badgeURL} />
+        <Preview host={host} badgeURL={badgeURL} focus={focus} />
         <Bar
           host={host}
           badgeURL={badgeURL}
           placeholder={placeholder}
-          onChange={this.setBadgeURL} />
+          onChange={this.setBadgeURL}
+          onFocus={this.setFocus} />
         <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} />
         <style jsx>{`
           div {
