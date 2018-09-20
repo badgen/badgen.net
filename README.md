@@ -67,8 +67,7 @@ To ensure that your addition is working correctly start the development server w
 
 > YOU MAY NOT NEED TO MAKE PULL REQUEST
 >
-> You can create arbitrary live badge with RunKit's online IDE, or any https endpoint.  
-> Checkout documents ([runkit](https://badgen.net/docs/runkit) | [https](https://badgen.net/docs/https)).
+> You can create arbitrary live badge with RunKit's online IDE, or any https endpoint. Checkout docs: [/runkit](https://badgen.net/docs/runkit) or [/https](https://badgen.net/docs/https).
 
 ### Add icon
 
