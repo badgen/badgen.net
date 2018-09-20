@@ -23,6 +23,6 @@
     "node": "^10.0.0"
   },
   "github": {
-    "autoAlias": false
+    "autoAlias": true
   }
 }
