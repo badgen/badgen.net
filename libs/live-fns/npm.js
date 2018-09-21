@@ -37,19 +37,31 @@ module.exports = async (topic, ...args) => {
   }
 }
 
-const pkg = async (topic, args) => {
-  let pkg = args[0]
-  let tag = 'latest'
-  const isScoped = args[0].charAt(0) === '@'
-
-  if (isScoped) {
-    pkg = `${args[0]}/${args[1]}`
-    tag = args[2] || tag
+/**
+ * Parse npm name args
+ *
+ *   ['@babel', 'core', 'latest']
+ *   ['@babel', 'core']
+ *   ['react', 'next']
+ *   ['react']
+ */
+const parseNpmName = (args) => {
+  if (args[0].charAt(0) === '@') {
+    return {
+      pkg: `${args[0]}/${args[1]}`,
+      tag: args[2]
+    }
   } else {
-    tag = args[1] || tag
+    return {
+      pkg: args[0],
+      tag: args[1]
+    }
   }
+}
 
-  const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
+const pkg = async (topic, args) => {
+  const { pkg, tag = 'latest' } = parseNpmName(args)
+  const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
   const meta = await got(endpoint).then(res => res.body)
 
   switch (topic) {
