@@ -12,6 +12,7 @@ module.exports = async (topic, vscType, ...args) => {
   switch (topic) {
     case 'c': {
       switch (vscType) {
+        case 'gh':
         case 'github':
           return coverage('gh', ...args)
         case 'bitbucket':
