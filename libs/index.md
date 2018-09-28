@@ -229,7 +229,7 @@ Advanced usage (for badge makers):
       ['build (branch)', '/appveyor/ci/gruntjs/grunt/deprecate']
     ],
     codecov: [
-      ['coverage (github)', '/codecov/c/github/tunnckoCore/gitcommit'],
+      ['coverage (github)', '/codecov/c/github/tunnckoCoreLabs/gitcommit'],
       ['coverage (github, branch)', '/codecov/c/github/babel/babel/6.x'],
       ['coverage (bitbucket)', '/codecov/c/bitbucket/ignitionrobotics/ign-math'],
       ['coverage (bitbucket, branch)', '/codecov/c/bitbucket/ignitionrobotics/ign-math/master'],
