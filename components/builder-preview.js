@@ -43,7 +43,6 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
           font-weight: 700;
           color: #333;
           height: 52px;
-          width: 236px;
         }
         .title p {
           font: 19px/32px Merriweather, serif;
