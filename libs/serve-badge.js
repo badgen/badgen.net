@@ -9,7 +9,7 @@ const noneSquareIconWidths = {
 }
 
 module.exports = (req, res, options = {}) => {
-  const { code = 200, sMaxAge = '86400', params } = options
+  const { code = 200, sMaxAge = '604800', params } = options
 
   const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
   const { subject, status, color } = params || req.params
