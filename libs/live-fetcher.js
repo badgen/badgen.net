@@ -1,6 +1,7 @@
 // Cache ongoing fetching, prevent redundant request
 const pool = require('./live-pool.js')
 const raven = require('./raven.js')
+const sendStats = require('./send-stats.js')
 
 module.exports = async (service, fn, paramsPath) => {
   const fetchStart = new Date()
@@ -11,6 +12,7 @@ module.exports = async (service, fn, paramsPath) => {
   const fetcher = fn(...paramsPath.split('/')).then(
     result => {
       console.log(timeSince(fetchStart), fetchKey)
+      sendStats('stats', service, fetchKey, new Date() - fetchStart)
       return typeof result === 'object' ? result : { failed: true }
     },
     err => gotErrorHandler(service, paramsPath, err)
@@ -41,6 +43,7 @@ const gotErrorHandler = (service, paramsPath, err) => {
 
   logError(serviceKey, status, err)
   sendError(serviceKey, status, err)
+  sendStats('error', status, serviceKey)
 
   return { status, failed: true }
 }
@@ -57,7 +60,9 @@ const logError = (serviceKey, status, err) => {
 
 // send error to sentry
 const sendError = (serviceKey, status, err) => {
-  status === 'unknown' && raven && raven.captureException(err, {
+  if (status !== 'unknown') return
+
+  raven && raven.captureException(err, {
     tags: {
       serviceKey,
       url: err.url

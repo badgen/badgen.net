@@ -1,4 +1,5 @@
 const serveBadge = require('./serve-badge.js')
+const sendStats = require('./send-stats.js')
 
 module.exports = (req, res) => {
   req.params = {
@@ -7,4 +8,5 @@ module.exports = (req, res) => {
     color: 'orange'
   }
   serveBadge(req, res, { code: 404 })
+  sendStats('invalid', '404', req.url)
 }
