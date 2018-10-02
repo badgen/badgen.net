@@ -24,7 +24,7 @@
     "badgen": "^2.5.0",
     "byte-size": "^4.0.3",
     "cheerio": "^1.0.0-rc.2",
-    "chrome-webstore": "^1.1.0",
+    "chrome-webstore": "^1.2.0",
     "date-fns": "^1.29.0",
     "got": "^9.2.2",
     "lodash.debounce": "^4.0.8",
