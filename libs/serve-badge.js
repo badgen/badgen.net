@@ -4,6 +4,7 @@ const { builtin } = require('./icons.js')
 
 const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
 const noneSquareIconWidths = {
+  awesome: 20,
   codeclimate: 18,
   lgtm: 19
 }
