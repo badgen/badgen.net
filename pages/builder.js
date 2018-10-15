@@ -2,7 +2,6 @@ import React from 'react'
 import Preview from '../components/builder-preview.js'
 import Bar from '../components/builder-bar.js'
 import Helper from '../components/builder-helper.js'
-import ExFooter from '../components/ex-footer.js'
 
 export default class BuilderPage extends React.Component {
   state = {
@@ -40,7 +39,6 @@ export default class BuilderPage extends React.Component {
           onChange={this.setBadgeURL}
           onFocus={this.setFocus} />
         <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} />
-        <ExFooter />
         <style jsx>{`
           div {
             height: 100%;

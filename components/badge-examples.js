@@ -1,40 +1,5 @@
-import React from 'react'
-import liveExamples from '../libs/examples-live.js'
 
-export default class extends React.Component {
-  state = { expanded: false }
-
-  expand = () => this.setState({ expanded: !this.state.expanded })
-
-  render () {
-    return (
-      <div className='wrapper'>
-        <div className='ex-header'>
-          <a id='examples' href='#examples' onClick={this.expand}>
-            Badge Examples
-          </a>
-        </div>
-        { this.state.expanded && <Examples data={liveExamples} /> }
-        <style jsx>{`
-          .wrapper {
-            border-top: 1px solid #EEE;
-            width: 100%;
-          }
-          .ex-header {
-            height: 59px;
-            line-height: 59px;
-            padding: 0 1rem;
-          }
-          #examples {
-            display: inline-block;
-          }
-        `}</style>
-      </div>
-    )
-  }
-}
-
-const Examples = ({ data }) => {
+export default ({ data }) => {
   return Object.entries(data).map(([category, egs]) => (
     <dl key={category}>
       <dt>{category}</dt>
@@ -49,7 +14,7 @@ const Examples = ({ data }) => {
         dl {
           padding: 0 1em;
           margin: 0 auto;
-          width: 920px;
+          max-width: 920px;
         }
         dt {
           margin-bottom: 1em;
@@ -66,7 +31,7 @@ const Examples = ({ data }) => {
         }
         b {
           display: inline-block;
-          min-width: 15em;
+          min-width: 14em;
           font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
           text-align: right;
           font-weight: 300;
@@ -83,6 +48,11 @@ const Examples = ({ data }) => {
         }
         span {
           font-family: monospace;
+        }
+        @media (max-width: 600px) {
+          span {
+            display: none;
+          }
         }
       `}</style>
     </dl>

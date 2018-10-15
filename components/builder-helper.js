@@ -1,9 +1,10 @@
 import examplesLive from '../libs/examples-live.js'
 import examplesStatic from '../libs/examples-static.js'
 
-const egs = Object.entries(examplesLive).reduce((accu, curr) => {
-  return accu.concat(curr[1].map(eg => eg.concat(curr[0])))
-}, examplesStatic.map(eg => ['', eg, 'static']))
+const egs = Object.entries({ ...examplesLive, ...examplesStatic })
+  .reduce((accu, curr) => {
+    return accu.concat(curr[1].map(eg => eg.concat(curr[0])))
+  }, [])
 
 export default ({ badgeURL, onSelect }) => {
   const matched = badgeURL.length > 1 && egs.filter(eg => {
