@@ -1,4 +1,4 @@
-import debounceRender from './libs/debounce-render.js'
+import debounceRender from 'react-debounce-render'
 
 const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
   return (
