@@ -1,9 +1,9 @@
 {
   "name": "badgen-service",
-  "private": true,
   "description": "Badge generating service",
   "author": "Amio <amio.cn@gmail.com>",
   "license": "ISC",
+  "private": true,
   "scripts": {
     "lint": "standard",
     "dev": "micro-dev service.js -s",
@@ -13,7 +13,7 @@
     "test": "tap test/*.js --reporter spec -j12",
     "start": "node service.js",
     "now-prune": "now rm badgen-service --safe -y -T amio || true",
-    "predeploy": "now -T amio inspect badgen.net && npm run now-prune",
+    "predeploy": "now -T amio inspect badgen.net",
     "deploy": "now -T amio && now -T amio alias",
     "canary": "now -T amio && now -T amio alias badgen-canary"
   },
