@@ -8,5 +8,6 @@ const servePublicPages = (req, res) => {
 module.exports = [
   get('/_next/*', servePublicPages),
   get('/static/*', servePublicPages),
-  get('/builder', servePublicPages)
+  get('/builder', servePublicPages),
+  get('/gallery', servePublicPages)
 ]
