@@ -266,6 +266,7 @@ Advanced usage (for badge makers):
     ],
     xo: [
       ['status', '/xo/status/badgen'],
+      ['status', '/xo/status/chalk'],
       ['indent', '/xo/indent/@tusbar/cache-control'],
       ['semicolons', '/xo/semi/got']
     ],
