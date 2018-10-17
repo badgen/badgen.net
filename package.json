@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "lint": "standard",
-    "dev": "micro-dev service.js -s",
+    "dev": "micro-dev service.js -s -i .next",
     "dev:web": "next",
     "build": "NODE_ENV=production next build && next export -o public",
     "pretest": "npm run lint",

@@ -4,11 +4,7 @@ export default ({ data }) => {
     <dl key={category}>
       <dt>{category}</dt>
       { egs.map(eg => (
-        <dd key={eg[1]}>
-          <b>{eg[0]}</b>
-          <i><img src={'https://badgen.net/' + eg[1]} /></i>
-          <span><a href={eg[1]}>{'/' + eg[1]}</a></span>
-        </dd>
+        <ExampleItem key={eg[1]} desc={eg[0]} url={'/' + eg[1]} />
       )) }
       <style jsx>{`
         dl {
@@ -22,39 +18,49 @@ export default ({ data }) => {
           border-bottom: 1px solid #DDD;
           line-height: 2em;
         }
-        dd {
-          font: 14px/20px sans-serif;
-          vertical-align: top;
-          height: 28px;
-          white-space: nowrap;
-          margin: 0;
-        }
-        b {
-          display: inline-block;
-          min-width: 14em;
-          font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-          text-align: right;
-          font-weight: 300;
-          color: #999;
-        }
-        i {
-          display: inline-block;
-          min-width: 210px;
-        }
-        img {
-          vertical-align: top;
-          height: 20px;
-          margin: 0 10px;
-        }
-        span {
-          font-family: monospace;
-        }
-        @media (max-width: 600px) {
-          span {
-            display: none;
-          }
-        }
       `}</style>
     </dl>
   ))
 }
+
+const ExampleItem = ({ desc, url }) => (
+  <dd>
+    <b>{desc}</b>
+    <i><img src={url} /></i>
+    <span><a href={url}>{url}</a></span>
+    <style jsx>{`
+      dd {
+        font: 14px/20px sans-serif;
+        vertical-align: top;
+        height: 28px;
+        white-space: nowrap;
+        margin: 0;
+      }
+      b {
+        display: inline-block;
+        min-width: 14em;
+        font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+        text-align: right;
+        font-weight: 300;
+        color: #999;
+      }
+      i {
+        display: inline-block;
+        min-width: 210px;
+      }
+      img {
+        vertical-align: top;
+        height: 20px;
+        margin: 0 10px;
+      }
+      span {
+        font-family: monospace;
+      }
+      @media (max-width: 600px) {
+        span {
+          display: none;
+        }
+      }
+    `}</style>
+  </dd>
+)
