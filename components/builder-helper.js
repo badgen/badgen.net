@@ -11,14 +11,14 @@ export default ({ badgeURL, onSelect }) => {
     return eg.find(str => str.includes(badgeURL))
   })
 
-  const hints = matched.length === 1 && matched[0][1] === badgeURL ? [] : matched
+  const hints = matched.length === 1 && matched[0][1] === '/' + badgeURL ? [] : matched
 
   return (
     <div className='wrapper'>
       { hints.length ? (
         <table><tbody>
           { hints.map(eg => (
-            <Hint key={eg[1]} info={eg} onSelect={e => onSelect(eg[1])} />
+            <Hint key={eg[1]} info={eg} onSelect={e => onSelect(eg[1].replace(/^\//, ''))} />
           )) }
         </tbody></table>
       ) : (
