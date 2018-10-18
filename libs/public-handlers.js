@@ -17,5 +17,6 @@ module.exports = [
   get('/static/*', servePublicPages),
   get('/builder', servePublicPages),
   get('/gallery', redirectTo('/gallery/live')),
+  get('/gallery/', redirectTo('/gallery/live')),
   get('/gallery/*', servePublicPages)
 ]
