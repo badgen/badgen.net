@@ -3,6 +3,12 @@ import React from 'react'
 const DEFAULT_SIZE = 42
 
 export default class extends React.Component {
+  shouldComponentUpdate ({ badgeURL }) {
+    const url = badgeURL ? `#${badgeURL}` : window.location.pathname
+    window.history.replaceState({}, document.title, url)
+    return true
+  }
+
   calcInputSize = url => {
     return url.length < DEFAULT_SIZE ? DEFAULT_SIZE : url.length
   }
@@ -51,7 +57,7 @@ export default class extends React.Component {
             outline: none;
             background: transparent;
             color: black;
-            width: 526px;
+            min-width: 526px;
           }
         `}</style>
       </label>

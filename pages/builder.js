@@ -24,6 +24,7 @@ export default class BuilderPage extends React.Component {
       : 'https://badgen.net'
     this.setState({
       host: (forceHost || autoHost) + '/',
+      badgeURL: window.location.hash.replace(/^#/, ''),
       placeholder: 'badge/:subject/:status/:color?icon=github'
     })
   }
