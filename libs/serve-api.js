@@ -6,7 +6,7 @@ const liveFunctions = require('./live-fns/_index.js')
 const liveFetcher = require('./live-fetcher.js')
 const serveStats = require('./serve-stats.js')
 
-const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
+const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=604800, stale-if-error=604800`
 
 const apiHandlers = Object.entries(liveFunctions).map(([name, fn]) => {
   return get(`/${name}/*`, async (req, res) => {

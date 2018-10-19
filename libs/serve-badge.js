@@ -2,7 +2,7 @@ const badgen = require('badgen')
 const { send } = require('micro')
 const { builtin } = require('./icons.js')
 
-const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=86400, stale-if-error=86400`
+const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=604800, stale-if-error=604800`
 const noneSquareIconWidths = {
   awesome: 20,
   codeclimate: 18,
