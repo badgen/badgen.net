@@ -14,7 +14,7 @@ export default ({ badgeURL, onSelect }) => {
   const hints = matched.length === 1 && matched[0][1] === '/' + badgeURL ? [] : matched
 
   return (
-    <div className='wrapper'>
+    <div className='helper'>
       { hints.length ? (
         <table><tbody>
           { hints.map(eg => (
@@ -25,7 +25,7 @@ export default ({ badgeURL, onSelect }) => {
         ''
       )}
       <style jsx>{`
-        .wrapper {
+        .helper {
           height: calc(50vh - 60px);
           width: 100%;
           display: flex;

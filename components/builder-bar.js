@@ -1,9 +1,10 @@
 import React from 'react'
 
+const DEFAULT_SIZE = 42
+
 export default class extends React.Component {
   calcInputSize = url => {
-    const defaultSize = this.props.placeholder.length
-    return url.length < defaultSize ? defaultSize : url.length
+    return url.length < DEFAULT_SIZE ? DEFAULT_SIZE : url.length
   }
 
   onChange = ev => this.props.onChange(ev.target.value)
@@ -21,6 +22,7 @@ export default class extends React.Component {
           placeholder={placeholder}
           onChange={this.onChange}
           onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
           value={badgeURL}
         />
         <style jsx>{`
@@ -32,6 +34,7 @@ export default class extends React.Component {
             justify-content: center;
             background-color: #F3F3F3;
             overflow-x: auto;
+            cursor: text;
           }
           span, input {
             font: 16px/24px monospace;
@@ -39,6 +42,7 @@ export default class extends React.Component {
           span {
             display: inline-block;
             text-align: right;
+            width: 234px;
           }
           input {
             height: 24px;
@@ -47,6 +51,7 @@ export default class extends React.Component {
             outline: none;
             background: transparent;
             color: black;
+            width: 526px;
           }
         `}</style>
       </label>

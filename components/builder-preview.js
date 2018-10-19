@@ -3,11 +3,11 @@ import debounceRender from 'react-debounce-render'
 const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
   return (
     <div className='wrapper'>
-      <div className={'title' + (focus ? ' focus' : '')}>
+      <div className={'title ' + (focus ? 'focus' : ' show')}>
         <h1><img src='/static/badgen-logo.svg' /> Badgen</h1>
         <p>Fast badge generating service.</p>
       </div>
-      <div className={'preview' + (focus ? ' focus' : '')}>
+      <div className={'preview ' + (focus ? 'focus' : 'none')}>
         <PreviewBadge host={host} url={badgeURL} />
       </div>
       <style jsx>{`
@@ -26,10 +26,15 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
           justify-content: center;
           align-items: center;
         }
+        .title {
+          transition: all 200ms ease-out;
+        }
         .title.focus {
           opacity: 0;
           transform: translateY(-20px);
-          transition: all 200ms ease-out;
+        }
+        .title.show {
+          transition-delay: 100ms;
         }
         .title img {
           height: 42px;
@@ -55,11 +60,11 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
           opacity: 0;
           transform: translateY(30px);
           transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
-          transition-delay: 160ms;
         }
         .preview.focus {
           opacity: 1;
           transform: translateY(0);
+          transition-delay: 180ms;
         }
       `}</style>
     </div>
