@@ -27,8 +27,8 @@ module.exports = async (topic, ...project) => {
   switch (topic) {
     case 'status':
       return {
-        subject: 'xo',
-        status: 'enabled',
+        subject: 'code style',
+        status: 'XO',
         color: '5ED9C7'
       }
 
