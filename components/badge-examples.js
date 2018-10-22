@@ -94,6 +94,12 @@ const ExampleItem = ({ desc, url }) => (
       span {
         font-family: monospace;
       }
+      a {
+        color: #06D;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
       @media (max-width: 600px) {
         span {
           display: none;
