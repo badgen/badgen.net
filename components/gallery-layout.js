@@ -14,7 +14,7 @@ export default class extends React.Component {
         <Footer />
         <style jsx>{`
           .content {
-            padding: 3rem 0;
+            padding: 5rem 0;
           }
         `}</style>
       </div>
