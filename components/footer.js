@@ -18,7 +18,7 @@ export default () => (
           Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/amio/badgen-service/graphs/contributors'>contributors</a>. Hosted on <a href='https://zeit.co/now'>Now Cloud</a>. License under <a href='https://github.com/amio/badgen-service/blob/master/LICENSE.md'>ISC</a>.
         </div>
         <div className='links'>
-          <a href='https://twitter.com/badgen_service'>
+          <a href='https://twitter.com/badgen_net'>
             <img src='https://simpleicons.now.sh/icons/twitter.svg?color=ffffff' />
           </a>
           <a href='https://github.com/amio/badgen-service'>
