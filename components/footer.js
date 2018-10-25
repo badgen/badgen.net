@@ -6,11 +6,16 @@ export default () => (
       <div>
         <h3><img src='/static/badgen-logo-w.svg' />Badgen Service</h3>
         <div className='sitemap'>
-          <Link href='/gallery'><a>Gallery</a></Link>
+          <Link href='https://badgen.net'><a>Classic</a></Link>
+          <em>/</em>
+          <Link href='https://flat.badgen.net'><a>Flat</a></Link>
           <em>/</em>
           <Link href='https://api.badgen.net'><a>API</a></Link>
           <em>/</em>
+          <Link href='/gallery'><a>Gallery</a></Link>
+          <em>/</em>
           <Link href='https://status.badgen.net'><a>Status</a></Link>
+          <br />
         </div>
       </div>
       <div className='bottom'>
@@ -29,7 +34,7 @@ export default () => (
     </div>
     <style jsx>{`
       footer {
-        background-color: #333;
+        background-color: #222;
         padding: 2rem 2rem;
         color: #777;
       }
@@ -37,11 +42,12 @@ export default () => (
         margin: 0 auto;
       }
       h3 {
-        font: 22px/32px Merriweather, serif;
-        color: #EEE;
+        font: 24px/32px Merriweather, serif;
+        letter-spacing: 0.5px;
+        color: #DDD;
       }
       h3 img {
-        height: 20px;
+        height: 21px;
         opacity: 0.8;
         margin-right: 8px;
         position: relative;
@@ -49,6 +55,7 @@ export default () => (
       }
       .sitemap {
         line-height: 26px;
+        padding-bottom: 2em;
       }
       .sitemap a {
         color: #999;
@@ -60,11 +67,12 @@ export default () => (
         text-decoration: underline;
       }
       .sitemap em {
-        margin: 0 0.5rem;
+        color: #555;
+        margin: 0 0.6rem;
       }
       .bottom {
         margin-top: 2rem;
-        border-top: 1px solid #555;
+        border-top: 1px solid #444;
         padding-top: 2rem;
         display: grid;
         grid-template-columns: 1fr 100px;
@@ -76,14 +84,14 @@ export default () => (
         text-align: right;
       }
       .links a {
-        margin-left: 10px;
+        margin-left: 1em;
         opacity: 0.7;
       }
       .links a:hover {
         opacity: 1;
       }
       .links img {
-        height: 20px;
+        height: 22px;
       }
     `}</style>
   </footer>

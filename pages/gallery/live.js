@@ -6,7 +6,7 @@ import liveExamples from '../../libs/examples-live.js'
 export default class Gallery extends React.Component {
   render () {
     return (
-      <GalleryLayout tab='static'>
+      <GalleryLayout tab='live'>
         <BadgeExamples data={liveExamples} />
       </GalleryLayout>
     )
