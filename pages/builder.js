@@ -44,28 +44,10 @@ export default class BuilderPage extends React.Component {
           onFocus={this.setFocus} />
         <Hints focus={focus} badgeURL={badgeURL} />
         { badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} /> }
-        { !badgeURL && <div className='home-footer'>
-          <a href='/gallery/live'>BADGE GALLERY</a>
-        </div> }
         <style jsx>{`
           .home {
             height: 100vh;
             position: relative;
-          }
-          .home-footer {
-            width: 100%;
-            position: absolute;
-            bottom: 20px;
-            text-align: center;
-          }
-          .home-footer a {
-            color: #333;
-            font-size: 14px;
-            border: 1px solid #FFF;
-            padding: 5px 8px;
-          }
-          .home-footer a:hover {
-            border-color: #333;
           }
         `}</style>
       </div>
