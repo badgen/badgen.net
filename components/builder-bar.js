@@ -24,6 +24,7 @@ export default class extends React.Component {
         <span>{host}</span>
         <input
           tabIndex={1}
+          spellCheck='false'
           size={(inputSize || placeholder.length) + 1}
           placeholder={placeholder}
           onChange={this.onChange}
