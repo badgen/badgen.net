@@ -3,7 +3,7 @@ import debounceRender from 'react-debounce-render'
 const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
   const showPreview = focus || !!badgeURL
   return (
-    <div className='wrapper'>
+    <div className='header-preview'>
       <div className={'title ' + (showPreview ? 'hidden' : 'show')}>
         <h1><img src='/static/badgen-logo.svg' /> Badgen</h1>
         <p>Fast badge generating service.</p>
@@ -12,10 +12,10 @@ const BadgePreview = ({ host = 'https://badgen.net/', badgeURL, focus }) => {
         <PreviewBadge host={host} url={badgeURL} />
       </div>
       <style jsx>{`
-        .wrapper {
+        .header-preview {
           height: calc(50vh - 100px);
           width: 100%;
-          min-height: 100px;
+          min-height: 160px;
           position: relative;
         }
         .title, .preview {

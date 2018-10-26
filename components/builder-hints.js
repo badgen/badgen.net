@@ -8,7 +8,7 @@ export default ({ focus, badgeURL }) => {
   return (
     <div className='hints' style={style}>
       <Hint left={0} width={50} height={3}>
-        <div style={{ textAlign: 'left' }}>
+        <div style={{ textAlign: 'left', marginBottom: '2em' }}>
           <a href='/gallery/static'>badge (static badge)</a>
           <br />
           <a href='/gallery/live'>SERVICE_NAME (live badge)</a>

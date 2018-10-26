@@ -46,7 +46,7 @@ export default class BuilderPage extends React.Component {
         { badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} /> }
         <style jsx>{`
           .home {
-            height: 100vh;
+            min-height: 100vh;
             position: relative;
           }
         `}</style>
