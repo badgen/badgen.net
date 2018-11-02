@@ -1,3 +1,5 @@
 import Builder from './builder.js'
 
-export default Builder
+export default () => {
+  return <Builder />
+}

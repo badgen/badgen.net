@@ -37,7 +37,7 @@ export default ({ focus, badgeURL }) => {
           color: #333;
         }
         a:hover {
-          border-bottom: 1px dotted #333;
+          border-bottom: 1px dashed #333;
         }
       `}</style>
     </div>

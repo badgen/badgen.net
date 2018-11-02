@@ -3,6 +3,7 @@ import Preview from '../components/builder-preview.js'
 import Bar from '../components/builder-bar.js'
 import Hints from '../components/builder-hints.js'
 import Helper from '../components/builder-helper.js'
+import Footer from '../components/footer.js'
 
 export default class BuilderPage extends React.Component {
   state = {
@@ -34,18 +35,21 @@ export default class BuilderPage extends React.Component {
 
     return (
       <div className='home'>
-        <Preview host={host} badgeURL={badgeURL} focus={focus} />
-        <Bar
-          host={host}
-          badgeURL={badgeURL}
-          placeholder={placeholder}
-          onChange={this.setBadgeURL}
-          onBlur={this.setBlur}
-          onFocus={this.setFocus} />
-        <Hints focus={focus} badgeURL={badgeURL} />
-        { badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} /> }
+        <div className='hero'>
+          <Preview host={host} badgeURL={badgeURL} focus={focus} />
+          <Bar
+            host={host}
+            badgeURL={badgeURL}
+            placeholder={placeholder}
+            onChange={this.setBadgeURL}
+            onBlur={this.setBlur}
+            onFocus={this.setFocus} />
+          <Hints focus={focus} badgeURL={badgeURL} />
+          { badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} /> }
+        </div>
+        <Footer />
         <style jsx>{`
-          .home {
+          .hero {
             min-height: 100vh;
             position: relative;
           }
