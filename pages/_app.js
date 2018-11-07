@@ -1,10 +1,15 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
+import DocsLayout from '../components/docs-layout.js'
 
 export default class MyApp extends App {
   render () {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, router } = this.props
+    const pageContent = router.route.startsWith('/docs/')
+      ? <DocsLayout><Component {...pageProps} /></DocsLayout>
+      : <Component {...pageProps} />
+
     return (
       <Container>
         <Head>
@@ -13,7 +18,7 @@ export default class MyApp extends App {
           <link rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Merriweather:700,300' />
         </Head>
-        <Component {...pageProps} />
+        { pageContent }
         <style jsx global>{`
           html, body { margin: 0; height: 100%; scroll-behavior: smooth }
           #__next { height: 100% }
