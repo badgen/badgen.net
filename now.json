@@ -1,28 +1,11 @@
 {
-  "alias": [
-    "api.badgen.net",
-    "flat.badgen.net",
-    "badgen.net",
-    "badgen"
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build" },
+    { "src": "endpoints/*.js", "use": "@now/node" }
   ],
-  "files": [
-    "package-lock.json",
-    "next.config.js",
-    "service.js",
-    "libs",
-    "pages",
-    "static",
-    "components"
-  ],
-  "env": {
-    "GH_TOKEN": "@badgen-gh-token",
-    "SENTRY_URI": "@badgen-sentry-uri",
-    "TRACKING_GA": "@badgen-tracking-ga"
-  },
-  "engines": {
-    "node": "^10.0.0"
-  },
-  "github": {
-    "autoAlias": false
-  }
+  "routes": [
+    { "src": "^/static/(.*)", "dest": "/static/$1" },
+    { "src": "^/badge/.*", "dest": "/endpoints/badge.js" }
+  ]
 }

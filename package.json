@@ -8,7 +8,7 @@
     "lint": "standard",
     "dev": "micro-dev service.js -s -i .next",
     "dev:web": "next",
-    "build": "NODE_ENV=production next build && next export -o public",
+    "now-build": "NODE_ENV=production next build && next export -o dist",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
     "start": "node service.js",
