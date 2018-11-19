@@ -276,6 +276,11 @@ Advanced usage (for badge makers):
       ['gzip size', '/badgesize/gzip/amio/emoji.json/master/emoji-compact.json'],
       ['arbitrary url', '/badgesize/normal/https://unpkg.com/snarkdown/dist/snarkdown.js']
     ],
+    jsdelivr: [
+      ['hits (per month)', '/jsdelivr/stats/gh/jquery/jquery'],
+      ['hits (per month)', '/jsdelivr/stats/npm/lodash'],
+      ['rank', '/jsdelivr/rank/npm/lodash'],
+    ],
     /* utilities */
     'opencollective': [
       ['backers', '/opencollective/backers/webpack'],

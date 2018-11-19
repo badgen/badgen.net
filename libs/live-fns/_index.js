@@ -17,6 +17,7 @@ module.exports = {
   hackage: require('./hackage.js'),
   homebrew: require('./homebrew.js'),
   https: require('./https.js'),
+  jsdelivr: require('./jsdelivr.js'),
   keybase: require('./keybase.js'),
   lgtm: require('./lgtm.js'),
   npm: require('./npm.js'),
