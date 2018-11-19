@@ -212,9 +212,10 @@ module.exports = {
     ['arbitrary url', '/badgesize/normal/https://unpkg.com/snarkdown/dist/snarkdown.js']
   ],
   jsdelivr: [
-    ['hits (per month)', '/jsdelivr/stats/gh/jquery/jquery'],
-    ['hits (per month)', '/jsdelivr/stats/npm/lodash'],
-    ['rank', '/jsdelivr/rank/npm/lodash']
+    ['hits (per month)', '/jsdelivr/hits/gh/jquery/jquery'],
+    ['hits (per month)', '/jsdelivr/hits/npm/lodash'],
+    ['rank', '/jsdelivr/rank/npm/lodash'],
+    ['version', '/jsdelivr/v/npm/lodash']
   ],
   /* utilities */
   'opencollective': [
