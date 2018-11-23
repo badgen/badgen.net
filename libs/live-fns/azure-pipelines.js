@@ -9,7 +9,7 @@ module.exports = async (organization, project, definition, branch = 'master') =>
     return {
       subject: 'Azure Pipelines',
       status: 'unknown',
-      color: 'blue'
+      color: 'grey'
     }
   }
 
