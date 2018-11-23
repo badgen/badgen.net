@@ -217,6 +217,10 @@ module.exports = {
     ['rank', '/jsdelivr/rank/npm/lodash'],
     ['version', '/jsdelivr/v/npm/lodash']
   ],
+  'azure pipelines': [
+    ['build', '/azure-pipelines/yarnpkg/yarn/Yarn Acceptance Tests'],
+    ['build (branch)', '/azure-pipelines/yarnpkg/yarn/Yarn Acceptance Tests/azure-pipelines']
+  ],
   /* utilities */
   'opencollective': [
     ['backers', '/opencollective/backers/webpack'],
