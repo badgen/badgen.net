@@ -255,7 +255,7 @@ Advanced usage (for badge makers):
     'lgtm': [
       ['number of alerts', '/lgtm/alerts/g/apache/cloudstack'],
       ['java code quality', '/lgtm/grade/java/g/apache/cloudstack'],
-      ['C/C++ code quality', '/lgtm/grade/cpp/g/systemd/systemd'],
+      ['C/C++ code quality', '/lgtm/grade/cpp/g/systemd/systemd']
     ],
     'uptime robot': [
       ['status', '/uptime-robot/status/m780862024-50db2c44c703e5c68d6b1ebb'],
@@ -280,7 +280,7 @@ Advanced usage (for badge makers):
       ['hits (per month)', '/jsdelivr/hits/gh/jquery/jquery'],
       ['hits (per month)', '/jsdelivr/hits/npm/lodash'],
       ['rank', '/jsdelivr/rank/npm/lodash'],
-      ['version', '/jsdelivr/v/npm/lodash'],
+      ['version', '/jsdelivr/v/npm/lodash']
     ],
     'azure pipelines': [
       ['build', '/azure-pipelines/yarnpkg/yarn/Yarn Acceptance Tests'],
@@ -291,11 +291,15 @@ Advanced usage (for badge makers):
       ['backers', '/opencollective/backers/webpack'],
       ['contributors', '/opencollective/contributors/webpack'],
       ['balance', '/opencollective/balance/webpack'],
-      ['yearly income', '/opencollective/yearly/webpack'],
+      ['yearly income', '/opencollective/yearly/webpack']
     ],
     keybase: [
       ['pgp', '/keybase/pgp/lukechilds']
     ],
+    twitter: [
+      ['follower count', '/twitter/follow/rustlang'],
+      ['follower count', '/twitter/follow/golang']
+    ]
   }
 
   window.links = {
