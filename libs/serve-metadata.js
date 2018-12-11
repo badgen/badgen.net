@@ -1,11 +1,11 @@
 const { send } = require('micro')
-const { builtin } = require('./icons.js')
+const icons = require('badgen-icons')
 
 module.exports = (req, res) => {
   const code = 200
 
   const info = {
-    icons: Object.keys(builtin)
+    icons: Object.keys(icons)
   }
 
   res.setHeader('Content-Type', 'application/json')
