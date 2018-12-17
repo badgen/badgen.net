@@ -5,7 +5,6 @@
     { "src": "endpoints/*.js", "use": "@now/node" }
   ],
   "routes": [
-    { "src": "^/static/(.*)", "dest": "/static/$1" },
     { "src": "^/badge/.*", "dest": "/endpoints/badge.js" }
   ]
 }
