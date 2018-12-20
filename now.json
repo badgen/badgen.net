@@ -1,7 +1,7 @@
 {
   "version": 2,
   "builds": [
-    { "src": "package.json", "use": "@now/static-build" },
+    { "src": "package.json", "use": "@now/next" },
     { "src": "endpoints/*.js", "use": "@now/node" }
   ],
   "routes": [

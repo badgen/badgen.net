@@ -230,5 +230,9 @@ module.exports = {
   ],
   keybase: [
     ['pgp', '/keybase/pgp/lukechilds']
+  ],
+  twitter: [
+    ['follower count', '/twitter/follow/rustlang'],
+    ['follower count', '/twitter/follow/golang']
   ]
 }

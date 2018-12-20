@@ -2,6 +2,7 @@ import React from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
 import DocsLayout from '../components/docs-layout.js'
+import Footer from '../components/footer.js'
 
 export default class MyApp extends App {
   render () {
@@ -17,6 +18,7 @@ export default class MyApp extends App {
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
           <link rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Merriweather:700,300' />
+          <link rel='stylesheet' href='/static/index.css' />
         </Head>
         { pageContent }
         <style jsx global>{`
