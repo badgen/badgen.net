@@ -1,13 +1,9 @@
-// Cache ongoing fetching, prevent redundant request
-const pool = require('./live-pool.js')
 const raven = require('./raven.js')
 const sendStats = require('./send-stats.js')
 
 module.exports = async (service, fn, paramsPath) => {
   const fetchStart = new Date()
   const fetchKey = `#${service}/${paramsPath}`
-
-  if (pool.has(fetchKey)) return pool.get(fetchKey)
 
   const fetcher = fn(...paramsPath.split('/')).then(
     result => {
@@ -16,11 +12,7 @@ module.exports = async (service, fn, paramsPath) => {
       return typeof result === 'object' ? result : { failed: true }
     },
     err => gotErrorHandler(service, paramsPath, err)
-  ).finally(() => {
-    pool.delete(fetchKey)
-  })
-
-  pool.set(fetchKey, fetcher)
+  )
 
   return fetcher
 }
