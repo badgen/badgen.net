@@ -129,7 +129,7 @@ Advanced usage (for badge makers):
     bundlephobia: [
       ['minified', '/bundlephobia/min/react'],
       ['minified + gzip', '/bundlephobia/minzip/react'],
-      ['(scoped) minified + gzip', '/bundlephobia/minzip/@nuxtjs/axios']
+      ['(scoped) minified + gzip', '/bundlephobia/minzip/@material-ui/core']
     ],
     crates: [
       ['version', '/crates/v/regex'],
