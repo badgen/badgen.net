@@ -9,14 +9,14 @@ module.exports = async (topic, ...args) => {
     case 'publish':
       return {
         subject: 'publish size',
-        status: byteSize(publishSize, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
-        color: getHexColor(publishSize)
+        status: formatSize(publishSize),
+        color: formatColor(publishSize)
       }
     case 'install':
       return {
         subject: 'install size',
-        status: byteSize(installSize, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
-        color: getHexColor(installSize)
+        status: formatSize(installSize),
+        color: formatColor(installSize)
       }
     default:
       return {
@@ -25,6 +25,13 @@ module.exports = async (topic, ...args) => {
         color: 'grey'
       }
   }
+}
+
+const formatSize = (size) => {
+  return byteSize(size, {
+    units: 'iec',
+    precision: 2
+  }).toString().replace(/iB\b/, 'B')
 }
 
 /**
@@ -50,7 +57,7 @@ const color = {
   pink: 'FF69B4'
 }
 
-const getHexColor = bytes => {
+const formatColor = bytes => {
   if (bytes < oneHundredKb) {
     return color.brightgreen
   } else if (bytes < megabyte) {
