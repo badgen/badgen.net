@@ -184,7 +184,7 @@ const repoQueryBodies = {
   'branches': 'refs(first: 0, refPrefix: "refs/heads/") { totalCount }',
   'releases': 'releases { totalCount }',
   'tags': 'refs(first: 0, refPrefix: "refs/tags/") { totalCount }',
-  'tag': `refs(first: 1, refPrefix: "refs/tags/") {
+  'tag': `refs(last: 1, refPrefix: "refs/tags/") {
     edges {
       node {
         name
