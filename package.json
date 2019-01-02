@@ -21,7 +21,7 @@
     "parser": "babel-eslint"
   },
   "dependencies": {
-    "badgen": "^2.5.0",
+    "badgen": "^2.6.0",
     "badgen-icons": "^0.2.0",
     "byte-size": "^5.0.1",
     "cheerio": "^1.0.0-rc.2",
