@@ -64,7 +64,7 @@ module.exports = {
   bundlephobia: [
     ['minified', '/bundlephobia/min/react'],
     ['minified + gzip', '/bundlephobia/minzip/react'],
-    ['(scoped) minified + gzip', '/bundlephobia/minzip/@nuxtjs/axios']
+    ['(scoped) minified + gzip', '/bundlephobia/minzip/@material-ui/core']
   ],
   xo: [
     ['status', '/xo/status/badgen'],

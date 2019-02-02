@@ -42,7 +42,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
     - static badge - URL defined badge (subject, status, color)
     - live badge - show live status from 3rd party services
 - Builtin Icons
-    - Svg files in [libs/icons](libs/icons/) will be auto loaded as builtin icon
+    - see [badgen-icons](https://github.com/badgen/badgen-icons)
 
 ## Developing
 
@@ -71,7 +71,7 @@ To ensure that your addition is working correctly start the development server w
 
 ### Add icon
 
-Badgen Server will auto load all svg files in [libs/icons](libs/icons/). Please make sure new icon is optimized using [svgomg](https://jakearchibald.github.io/svgomg/).
+You can contribute icons to [badgen-icons](https://github.com/badgen/badgen-icons). Please make sure new icon is optimized using [svgomg](https://jakearchibald.github.io/svgomg/).
 
 ### Deploy to Now
 

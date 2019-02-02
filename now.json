@@ -3,7 +3,7 @@
   "builds": [
     { "src": "package.json", "use": "@now/next" },
     { "src": "endpoints/*.js", "use": "@now/node" }
-  ],
+ ],
   "routes": [
     { "src": "^/badge/.*", "dest": "/endpoints/badge.js" }
   ]
