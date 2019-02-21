@@ -46,7 +46,7 @@
     "micro-dev": "^3.0.0",
     "next": "^7.0.2",
     "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "react-dom": "^16.8.2",
     "standard": "^12.0.1",
     "supertest": "^3.4.2",
     "tap": "^12.5.3"
