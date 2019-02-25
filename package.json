@@ -30,7 +30,7 @@
     "got": "^9.6.0",
     "lodash.debounce": "^4.0.8",
     "micro": "^9.3.3",
-    "micro-fork": "^0.1.1",
+    "micro-fork": "^1.0.0",
     "millify": "^2.0.1",
     "raven": "^2.6.4",
     "react-debounce-render": "^5.0.0",
