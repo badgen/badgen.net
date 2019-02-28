@@ -5,7 +5,7 @@ const semColor = require('../utils/sem-color.js')
 const v = require('../utils/version-formatter.js')
 
 module.exports = async (topic, name) => {
-  const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}`
+  const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
   const addon = await got(endpoint).then(res => res.body)
 
   switch (topic) {
