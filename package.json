@@ -39,7 +39,7 @@
     "serve-marked": "^0.4.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^0.18.2",
+    "@mdx-js/mdx": "^0.19.0",
     "@zeit/next-mdx": "^1.2.0",
     "babel-eslint": "^10.0.1",
     "micro-dev": "^3.0.0",
