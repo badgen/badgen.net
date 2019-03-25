@@ -329,7 +329,7 @@ Advanced usage (for badge makers):
       for (const icon of json.icons) {
         if (blacklist.indexOf(icon) !== -1) continue;
         const img = document.createElement('img')
-        img.src = `/badge//${icon}?icon=${icon}`
+        img.src = `/badge/-/${icon}?icon=${icon}&label`
         icons.appendChild(img)
         icons.appendChild(document.createTextNode("\n"))
       }
