@@ -60,13 +60,13 @@ module.exports = serveMarked('libs/index.md', {
           <p>
             built with ♥<br/>
             by <a href="https://github.com/amio">Amio</a>
-            and awesome <a href="https://github.com/amio/badgen-service/graphs/contributors">contributors</a><br/>
+            and awesome <a href="https://github.com/badgen/badgen.net/graphs/contributors">contributors</a><br/>
             hosted on <a href="https://zeit.co/now">Now Cloud</a>
           </p>
         </segment>
         <aside>
           <a href="https://status.badgen.net">Status</a>
-          <a href="https://github.com/amio/badgen-service">GitHub</a>
+          <a href="https://github.com/badgen/badgen.net">GitHub</a>
           <a href="https://twitter.com/badgen_net">Twitter</a>
         </aside>
       </div>
