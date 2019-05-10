@@ -2,14 +2,14 @@ const badgen = require('badgen')
 const { send } = require('micro')
 const icons = require('badgen-icons')
 
-const CACHE_CONTROL = `public, max-age=60, stale-while-revalidate=604800, stale-if-error=604800`
+const CACHE_CONTROL = `public, max-age=10, stale-while-revalidate=604800, stale-if-error=604800`
 
 module.exports = (req, res, options = {}) => {
-  const { code = 200, sMaxAge = '604800', params } = options
+  const { code = 200, sMaxAge = '604800', query = {}, params } = options
 
   const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
   const { subject, status, color } = params || req.params
-  const { style, label, list, icon, iconWidth, color: queryColor } = req.query
+  const { style, label, list, icon, iconWidth, color: queryColor } = query || req.query
   const _icon = icons[icon === '' ? subject : icon] || {
     base64: icon,
     width: iconWidth

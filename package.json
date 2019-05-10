@@ -32,6 +32,7 @@
     "micro": "^9.3.4",
     "micro-fork": "^1.0.0",
     "millify": "^2.0.1",
+    "path-parser": "^4.2.0",
     "raven": "^2.6.4",
     "react-debounce-render": "^5.0.0",
     "semver": "^6.0.0",
