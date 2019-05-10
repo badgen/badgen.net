@@ -14,7 +14,7 @@ module.exports = async (topic, platform, user, repo, branch) => {
 }
 
 // Detect coveralls.io's badge redirection instead of using it's api
-// See https://github.com/amio/badgen-service/issues/96
+// See https://github.com/badgen/badgen.net/issues/96
 const coverage = async (platform, user, repo, branch) => {
   const endpoint = `https://coveralls.io/repos/${platform}/${user}/${repo}/badge.svg`
   const badgeURL = await got.head(endpoint, {

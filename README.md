@@ -8,6 +8,8 @@
     <a href="https://stats.uptimerobot.com/z6nqBfYGB/780862024"><img src="https://badgen.net/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb" /></a>
     <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
     <a href="https://twitter.com/badgen_net"><img src="https://badgen.net/badge//@badgen_net/1DA1F2?icon=twitter" /></a>
+    <a href="#backers"><img src="https://opencollective.com/badgen/backers/badge.svg"/></a>
+ 	<a href="#sponsors"><img src="https://opencollective.com/badgen/sponsors/badge.svg"/></a> 
 </p>
 
 <p align="center">Home of <a href="https://badgen.net">badgen.net</a>, fast badge generating service.</p>
@@ -109,3 +111,33 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [contributors-src]: https://badgen.net/github/contributors/amio/badgen-service
 [contributors-href]: https://github.com/amio/badgen-service/graphs/contributors
 [now-href]: https://zeit.co/now
+
+## Contributors
+
+This project exists thanks to all the people who contribute. 
+<a href="https://github.com/amio/badgen-service/graphs/contributors"><img src="https://opencollective.com/badgen/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/badgen#backer)]
+
+<a href="https://opencollective.com/badgen#backers" target="_blank"><img src="https://opencollective.com/badgen/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/badgen#sponsor)]
+
+<a href="https://opencollective.com/badgen/sponsor/0/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/1/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/2/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/3/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/4/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/5/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/6/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/7/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/8/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/badgen/sponsor/9/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/9/avatar.svg"></a>
+
+
