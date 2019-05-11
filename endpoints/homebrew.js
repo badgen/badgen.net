@@ -1,6 +1,6 @@
-const badgenServe = require('../libs/badgen-serve.js')
 const got = require('../libs/got.js')
 const semColor = require('../libs/utils/sem-color.js')
+const badgenServe = require('../libs/badgen-serve.js')
 const v = require('../libs/utils/version-formatter.js')
 
 const help = `# badgen/homebrew`

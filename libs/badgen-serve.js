@@ -4,13 +4,12 @@ const PathParser = require('path-parser').default
 const serve404 = require('./serve-404.js')
 const serveBadge = require('./serve-badge.js')
 
-module.exports = function createHandler (schemes, handler, { help, examples }) {
+module.exports = function createHandler (schemes, handler, { help = '', examples = [] }) {
   const matchers = schemes.map(scheme => new PathParser(scheme))
 
   return async function httpHandler (req, res) {
     const { pathname, query } = url.parse(req.url, true)
 
-    console.log(matchers)
     if (pathname === '/favicon.ico') {
       return serve404(req, res)
     }
