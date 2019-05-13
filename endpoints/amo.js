@@ -14,10 +14,10 @@ const examples = [
 ]
 
 const handlers = {
-  '/amo/:topic/name': handler
+  '/amo/:topic/:name': handler
 }
 
-const handler = async (topic, name) => {
+async function handler ({ topic, name }) {
   const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
   const addon = await got(endpoint).then(res => res.body)
 
