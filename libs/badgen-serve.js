@@ -5,13 +5,13 @@ const serve404 = require('./serve-404.js')
 const serveHelp = require('./serve-help.js')
 const serveBadge = require('./serve-badge.js')
 
-module.exports = function createHandler (handlers, { help = '', examples = [] } = {}) {
+module.exports = function badgenServe (handlers, { help = '', examples = [] } = {}) {
   return async function httpHandler (req, res) {
     const { pathname, query } = url.parse(req.url, true)
 
     // serve favicon
     if (pathname === '/favicon.ico') {
-      return serve404(req, res)
+      return res.end()
     }
 
     // serve help message

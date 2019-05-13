@@ -3,7 +3,6 @@ const got = require('../libs/got.js')
 const stars = require('../libs/utils/stars.js')
 const semColor = require('../libs/utils/sem-color.js')
 const v = require('../libs/utils/version-formatter.js')
-
 const badgenServe = require('../libs/badgen-serve.js')
 
 const examples = [
