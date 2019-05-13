@@ -10,11 +10,6 @@ const examples = [
   '/badge/platform/ios,macos,tvos?list=1'
 ]
 
-const schemes = [
-  '/badge/:label/:status',
-  '/badge/:label/:status/:color'
-]
-
 const handler = async (args) => {
   const { label, status, color } = args
   return {
@@ -24,4 +19,9 @@ const handler = async (args) => {
   }
 }
 
-module.exports = badgenServe(schemes, handler, { help, examples })
+const handlers = {
+  '/badge/:label/:status': handler,
+  '/badge/:label/:status/:color': handler
+}
+
+module.exports = badgenServe(handlers, { examples })
