@@ -1,6 +1,6 @@
-const fs = require('fs')
-const path = require('path')
-const http = require('http')
+import fs from 'fs'
+import path from 'path'
+import http from 'http'
 
 const serve404 = require('../libs/serve-404.js')
 
@@ -9,7 +9,7 @@ const badgeHandlers = fs.readdirSync(__dirname)
   .map(name => name.replace(/\.js$/, ''))
 
 module.exports = http.createServer((req, res) => {
-  const handler = badgeHandlers.find(h => req.url.startsWith(`/${h}`))
+  const handler = badgeHandlers.find(h => req.url!.startsWith(`/${h}`))
 
   if (handler) {
     return require(path.join(__dirname, handler))(req, res)
