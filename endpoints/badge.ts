@@ -1,4 +1,4 @@
-const badgenServe = require('../libs/badgen-serve.js')
+import { badgenServe } from '../libs/badgen-serve'
 
 const examples = [
   '/badge/Swift/4.2/orange',
@@ -24,4 +24,4 @@ const handlers = {
   '/badge/:label/:status/:color': handler
 }
 
-module.exports = badgenServe(handlers, { examples })
+export default badgenServe(handlers, { examples })
