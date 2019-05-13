@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "noImplicitAny": false,
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -11,7 +12,7 @@
     "lib": ["esnext"]
   },
   "include": [
-    "./src",
+    "./endpoints",
     "./types"
   ]
 }

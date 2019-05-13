@@ -1,11 +1,10 @@
-const millify = require('millify')
-const got = require('../libs/got.js')
-const stars = require('../libs/utils/stars.js')
-const semColor = require('../libs/utils/sem-color.js')
-const v = require('../libs/utils/version-formatter.js')
-const badgenServe = require('../libs/badgen-serve.js')
+import got from '../libs/got'
+import { millify, stars, version, versionColor } from '../libs/utils'
+import { badgenServe, BadgenServeHandlers, BadgenServeHandlerArgs } from '../libs/badgen-serve'
 
-const examples = [
+export const help = ``
+
+export const examples = [
   '/amo/v/markdown-viewer-chrome',
   '/amo/users/markdown-viewer-chrome',
   '/amo/rating/markdown-viewer-chrome',
@@ -17,7 +16,7 @@ const handlers = {
   '/amo/:topic/:name': handler
 }
 
-async function handler ({ topic, name }) {
+async function handler ({ topic, name }: BadgenServeHandlerArgs) {
   const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
   const addon = await got(endpoint).then(res => res.body)
 
@@ -25,8 +24,8 @@ async function handler ({ topic, name }) {
     case 'v':
       return {
         subject: 'mozilla add-on',
-        status: v(addon.current_version.version),
-        color: semColor(addon.current_version.version)
+        status: version(addon.current_version.version),
+        color: versionColor(addon.current_version.version)
       }
     case 'users':
       return {

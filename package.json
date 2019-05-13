@@ -5,6 +5,7 @@
   "license": "ISC",
   "private": true,
   "scripts": {
+    "dev2": "nodemon -e ts,js -w endpoints -x 'ts-node index.ts'",
     "lint": "standard",
     "dev": "micro-dev service.js -s -i .next",
     "dev:web": "next",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@mdx-js/mdx": "^0.20.3",
+    "@types/got": "^9.4.4",
     "@zeit/next-mdx": "^1.2.0",
     "babel-eslint": "^10.0.1",
     "micro-dev": "^3.0.0",

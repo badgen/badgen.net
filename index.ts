@@ -2,17 +2,19 @@ import fs from 'fs'
 import path from 'path'
 import http from 'http'
 
-const serve404 = require('../libs/serve-404.js')
+const serve404 = require('./libs/serve-404.js')
 
-const badgeHandlers = fs.readdirSync(__dirname)
+const badgeHandlers = fs.readdirSync(path.join(__dirname, 'endpoints'))
   .filter(name => !name.startsWith('_'))
-  .map(name => name.replace(/\.js$/, ''))
+  .map(name => name.replace(/\.ts$/, ''))
 
-module.exports = http.createServer((req, res) => {
+module.exports = http.createServer(async (req, res) => {
   const handler = badgeHandlers.find(h => req.url!.startsWith(`/${h}`))
 
   if (handler) {
-    return require(path.join(__dirname, handler))(req, res)
+    return import(path.join(__dirname, 'endpoints', handler)).then(h => {
+      h.default(req, res)
+    })
   } else {
     return serve404(req, res)
   }
