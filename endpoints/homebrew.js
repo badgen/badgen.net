@@ -10,21 +10,19 @@ const examples = [
   '/homebrew/v/cake'
 ]
 
-const schemes = [
-  '/homebrew/v/:package'
-]
+const handlers = {
+  '/homebrew/v/:package': async (args) => {
+    const { package } = args
 
-const handler = async (args) => {
-  const { package } = args
+    const endpoint = `https://formulae.brew.sh/api/formula/${package}.json`
+    const { versions } = await got(endpoint).then(res => res.body)
 
-  const endpoint = `https://formulae.brew.sh/api/formula/${package}.json`
-  const { versions } = await got(endpoint).then(res => res.body)
-
-  return {
-    subject: 'homebrew',
-    status: v(versions.stable),
-    color: semColor(versions.stable)
+    return {
+      subject: 'homebrew',
+      status: v(versions.stable),
+      color: semColor(versions.stable)
+    }
   }
 }
 
-module.exports = badgenServe(schemes, handler, { help, examples })
+module.exports = badgenServe(handlers, { help, examples })
