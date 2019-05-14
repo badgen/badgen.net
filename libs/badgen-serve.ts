@@ -27,8 +27,20 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
     })
 
     if (matchedScheme) {
-      const params = await handlers[matchedScheme](matchedArgs)
-      return serveBadge(req, res, { params, query })
+      try {
+        const params = await handlers[matchedScheme](matchedArgs)
+        return serveBadge(req, res, { params, query })
+      } catch (error) {
+        console.error(error)
+        return serveBadge(req, res, {
+          code: 500,
+          params: {
+            subject: 'badgen',
+            status: 'error',
+            color: 'red'
+          }
+        })
+      }
     } else {
       return serve404(req, res)
     }
