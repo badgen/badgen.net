@@ -20,7 +20,7 @@ module.exports = http.createServer(async (req, res) => {
   }
 })
 
-if (require.main) {
+if (require.main === module) {
   module.exports.listen(3000)
 }
 
