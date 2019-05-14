@@ -7,7 +7,34 @@ import { badgenServe, BadgenServeHandlerArgs as Args } from '../libs/badgen-serv
 
 export const examples = [
   '/github/release/babel/babel',
-  '/github/release/babel/babel/stable'
+  '/github/release/babel/babel/stable',
+  '/github/tag/micromatch/micromatch',
+  '/github/watchers/micromatch/micromatch',
+  '/github/status/micromatch/micromatch',
+  '/github/status/micromatch/micromatch/gh-pages',
+  '/github/status/micromatch/micromatch/f4809eb6df80b',
+  '/github/stars/micromatch/micromatch',
+  '/github/forks/micromatch/micromatch',
+  '/github/issues/micromatch/micromatch',
+  '/github/open-issues/micromatch/micromatch',
+  '/github/closed-issues/micromatch/micromatch',
+  '/github/label-issues/nodejs/node/ES%20Modules',
+  '/github/label-issues/atom/atom/help-wanted/open',
+  '/github/label-issues/rust-lang/rust/B-RFC-approved/closed',
+  '/github/prs/micromatch/micromatch',
+  '/github/open-prs/micromatch/micromatch',
+  '/github/closed-prs/micromatch/micromatch',
+  '/github/merged-prs/micromatch/micromatch',
+  '/github/commits/micromatch/micromatch',
+  '/github/last-commit/micromatch/micromatch',
+  '/github/branches/micromatch/micromatch',
+  '/github/releases/micromatch/micromatch',
+  '/github/tags/micromatch/micromatch',
+  '/github/license/micromatch/micromatch',
+  '/github/contributors/micromatch/micromatch',
+  '/github/assets-dl/electron/electron',
+  '/github/dependents-repo/micromatch/micromatch',
+  '/github/dependents-pkg/micromatch/micromatch'
 ]
 
 export const handlers = {
