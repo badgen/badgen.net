@@ -5,7 +5,6 @@ const got = require('../got.js')
 const v = require('../utils/version-formatter.js')
 
 const { GH_TOKEN } = process.env
-const authHeader = GH_TOKEN && `token ${GH_TOKEN}`
 
 module.exports = async (topic, ...args) => {
   if (args.length < 2) {
@@ -50,10 +49,15 @@ module.exports = async (topic, ...args) => {
   }
 }
 
+const pickGithubToken = () => {
+  const tokens = GH_TOKEN.split(',')
+  return tokens[Math.floor(Math.random() * tokens.length)]
+}
+
 // request github api v3 (rest)
 const restGithub = path => got.get(`https://api.github.com/${path}`, {
   headers: {
-    Authorization: authHeader,
+    Authorization: `token ${pickGithubToken()}`,
     Accept: 'application/vnd.github.hellcat-preview+json'
   }
 }).then(res => res.body)
@@ -63,7 +67,7 @@ const queryGithub = query => {
   return got.post('https://api.github.com/graphql', {
     body: { query },
     headers: {
-      Authorization: authHeader,
+      Authorization: `token ${pickGithubToken()}`,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
   }).then(res => res.body)

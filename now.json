@@ -1,9 +1,20 @@
 {
   "version": 2,
+  "alias": [
+    "v2.badgen.net"
+  ],
   "builds": [
     { "src": "endpoints/*.ts", "use": "@now/node" }
  ],
   "routes": [
     { "src": "/(?<name>\\w+)/.*", "dest": "/endpoints/$name.ts" }
-  ]
+  ],
+  "env": {
+    "GH_TOKEN": "@badgen-gh-tokens",
+    "SENTRY_URI": "@badgen-sentry-uri",
+    "TRACKING_GA": "@badgen-tracking-ga"
+  },
+  "github": {
+    "autoAlias": false
+  }
 }
