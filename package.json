@@ -31,17 +31,17 @@
     "got": "^9.6.0",
     "lodash.debounce": "^4.0.8",
     "micro": "^9.3.4",
-    "micro-fork": "^1.0.0",
-    "millify": "^2.0.1",
+    "micro-fork": "^2.0.0",
+    "millify": "^3.0.2",
     "path-parser": "^4.2.0",
     "raven": "^2.6.4",
     "react-debounce-render": "^5.0.0",
     "semver": "^6.0.0",
-    "serve-handler": "^5.0.8",
+    "serve-handler": "^6.0.0",
     "serve-marked": "^1.0.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^0.20.3",
+    "@mdx-js/mdx": "^1.0.19",
     "@types/got": "^9.4.4",
     "@zeit/next-mdx": "^1.2.0",
     "babel-eslint": "^10.0.1",
@@ -51,7 +51,7 @@
     "react-dom": "^16.8.6",
     "standard": "^12.0.1",
     "supertest": "^4.0.2",
-    "tap": "^12.7.0",
+    "tap": "^13.1.8",
     "ts-node": "^8.1.0",
     "typescript": "^3.4.5"
   }
