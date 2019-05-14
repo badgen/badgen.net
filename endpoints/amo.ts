@@ -60,4 +60,4 @@ async function handler ({ topic, name }: BadgenServeHandlerArgs) {
   }
 }
 
-module.exports = badgenServe(handlers, { examples })
+export default badgenServe(handlers, { examples })

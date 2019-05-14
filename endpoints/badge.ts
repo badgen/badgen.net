@@ -1,6 +1,8 @@
 import { badgenServe } from '../libs/badgen-serve'
 
-const examples = [
+export const help = `# Static Badges`
+
+export const examples = [
   '/badge/Swift/4.2/orange',
   '/badge/license/MIT/blue',
   '/badge/chat/on%20gitter/cyan',
@@ -10,18 +12,18 @@ const examples = [
   '/badge/platform/ios,macos,tvos?list=1'
 ]
 
-const handler = async (args) => {
+export const handlers = {
+  '/badge/:label/:status': handler,
+  '/badge/:label/:status/:color': handler
+}
+
+async function handler (args) {
   const { label, status, color } = args
   return {
     subject: label,
     status,
     color
   }
-}
-
-const handlers = {
-  '/badge/:label/:status': handler,
-  '/badge/:label/:status/:color': handler
 }
 
 export default badgenServe(handlers, { examples })

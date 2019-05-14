@@ -2,12 +2,12 @@ import got from '../libs/got'
 import { version, versionColor } from '../libs/utils'
 import { badgenServe } from '../libs/badgen-serve'
 
-const examples = [
+export const examples = [
   '/homebrew/v/fish',
   '/homebrew/v/cake'
 ]
 
-const handlers = {
+export const handlers = {
   '/homebrew/v/:pkg': handler
 }
 
