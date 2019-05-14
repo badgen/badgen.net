@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import http from 'http'
 
-const serve404 = require('./libs/serve-404.js')
+import serve404 from './libs/serve-404'
 
 const badgeHandlers = fs.readdirSync(path.join(__dirname, 'endpoints'))
   .filter(name => !name.startsWith('_'))

@@ -1,10 +1,16 @@
-const badgen = require('badgen')
-const { send } = require('micro')
-const icons = require('badgen-icons')
+import badgen from 'badgen'
+import icons from 'badgen-icons'
 
-const CACHE_CONTROL = `public, max-age=10, stale-while-revalidate=604800, stale-if-error=604800`
+import { BadgenParams } from './types'
 
-module.exports = (req, res, options = {}) => {
+type ServeBadgeOptions = {
+  code?: number
+  sMaxAge?: number,
+  query?: { [key: string]: any },
+  params?: BadgenParams
+}
+
+export default function (req, res, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = '604800', query = {}, params } = options
 
   const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
@@ -24,7 +30,9 @@ module.exports = (req, res, options = {}) => {
     iconWidth: _icon.width
   })
 
+  const staleControl = `stale-while-revalidate=604800, stale-if-error=604800`
+  res.setHeader('Cache-Control', `public, max-age=10, s-maxage=${sMaxAge}, ${staleControl}`)
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
-  res.setHeader('Cache-Control', `${CACHE_CONTROL}, s-maxage=${sMaxAge}`)
-  send(res, code, badge)
+  res.statusCode = code
+  res.end(badge)
 }

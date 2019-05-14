@@ -4,11 +4,7 @@ import PathParser from 'path-parser'
 import serve404 from './serve-404.js'
 import serveBadge from './serve-badge.js'
 
-export type BadgenParams = {
-  subject: string
-  status: string
-  color: string
-}
+import { BadgenParams } from './types'
 
 export type BadgenServeHandlerArgs = { [key: string]: string }
 export type BadgenServeHandler = (args: BadgenServeHandlerArgs) => Promise<BadgenParams>
