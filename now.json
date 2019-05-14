@@ -16,7 +16,7 @@
     "components"
   ],
   "env": {
-    "GH_TOKEN": "@badgen-gh-token",
+    "GH_TOKEN": "@badgen-gh-tokens",
     "SENTRY_URI": "@badgen-sentry-uri",
     "TRACKING_GA": "@badgen-tracking-ga"
   },
