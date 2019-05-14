@@ -24,4 +24,4 @@ async function handler (args) {
   }
 }
 
-export default badgenServe(handlers, { examples })
+export default badgenServe(handlers)

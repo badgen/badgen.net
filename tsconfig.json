@@ -12,7 +12,8 @@
     "lib": ["esnext"]
   },
   "include": [
-    "./endpoints",
-    "./types"
+    "index.ts",
+    "endpoints",
+    "types"
   ]
 }

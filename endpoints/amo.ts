@@ -1,6 +1,6 @@
 import got from '../libs/got'
 import { millify, stars, version, versionColor } from '../libs/utils'
-import { badgenServe, BadgenServeHandlers, BadgenServeHandlerArgs } from '../libs/badgen-serve'
+import { badgenServe } from '../libs/badgen-serve'
 
 export const help = ``
 
@@ -12,11 +12,12 @@ export const examples = [
   '/amo/reviews/markdown-viewer-chrome',
 ]
 
-const handlers = {
+export const handlers = {
   '/amo/:topic/:name': handler
 }
 
-async function handler ({ topic, name }: BadgenServeHandlerArgs) {
+async function handler (args) {
+  const { topic, name } = args
   const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
   const addon = await got(endpoint).then(res => res.body)
 
@@ -60,4 +61,4 @@ async function handler ({ topic, name }: BadgenServeHandlerArgs) {
   }
 }
 
-export default badgenServe(handlers, { examples })
+export default badgenServe(handlers)
