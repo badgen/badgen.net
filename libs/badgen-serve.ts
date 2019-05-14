@@ -1,8 +1,8 @@
 import url from 'url'
 import PathParser from 'path-parser'
 
-import serve404 from './serve-404.js'
-import serveBadge from './serve-badge.js'
+import serve404 from './serve-404'
+import serveBadge from './serve-badge'
 
 import { BadgenParams } from './types'
 

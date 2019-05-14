@@ -1,11 +1,9 @@
 {
   "version": 2,
   "builds": [
-    { "src": "endpoints/*.js", "use": "@now/node" }
+    { "src": "endpoints/*.ts", "use": "@now/node" }
  ],
   "routes": [
-    { "src": "/badge/.*", "dest": "/endpoints/badge.js" },
-    { "src": "/amo/.*", "dest": "/endpoints/amo.js" },
-    { "src": "/homebrew/.*", "dest": "/endpoints/homebrew.js" }
+    { "src": "/(?<name>\\w+)/.*", "dest": "/endpoints/$name.ts" }
   ]
 }
