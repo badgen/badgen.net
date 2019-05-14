@@ -4,24 +4,34 @@ import http from 'http'
 
 import serve404 from './libs/serve-404'
 
+const sendError = (req, res, error) => {
+  res.statusCode = 500
+  res.end(error.message)
+}
+
 const badgeHandlers = fs.readdirSync(path.join(__dirname, 'endpoints'))
   .filter(name => !name.startsWith('_'))
   .map(name => name.replace(/\.ts$/, ''))
 
-module.exports = http.createServer(async (req, res) => {
-  const handler = badgeHandlers.find(h => req.url!.startsWith(`/${h}`))
+const server = http.createServer(async (req, res) => {
+  const handlerName = badgeHandlers.find(h => req.url!.startsWith(`/${h}`))
 
-  if (handler) {
-    return import(path.join(__dirname, 'endpoints', handler)).then(h => {
-      h.default(req, res)
-    })
-  } else {
-    return serve404(req, res)
+  try {
+    if (handlerName) {
+      const handlerPath = path.join(__dirname, 'endpoints', handlerName)
+      const { default: handler } = await import(handlerPath)
+      return handler(req, res)
+    }
+  } catch (error) {
+    console.error(error)
+    return sendError(req, res, error)
   }
+
+  return serve404(req, res)
 })
 
 if (require.main === module) {
-  module.exports.listen(3000)
+  server.listen(3000)
 }
 
-process.on('unhandledRejection', err => console.error(err.message, err.stack))
+export default server
