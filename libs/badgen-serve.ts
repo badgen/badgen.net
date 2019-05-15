@@ -1,8 +1,8 @@
 import url from 'url'
-import PathParser from 'path-parser'
 
 import serve404 from './serve-404'
 import serveBadge from './serve-badge'
+import matchRoute from './match-route'
 
 import { BadgenParams } from './types'
 
@@ -22,7 +22,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
     // Lookup handler
     let matchedArgs
     const matchedScheme = Object.keys(handlers).find(scheme => {
-      matchedArgs = new PathParser(scheme).test(pathname)
+      matchedArgs = matchRoute(scheme, decodeURI(pathname))
       return matchedArgs !== null
     })
 
