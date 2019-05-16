@@ -5,11 +5,11 @@ import { badgenServe } from '../libs/badgen-serve'
 export const title = 'Mozilla Add-on'
 
 export const examples = [
-  '/amo/v/markdown-viewer-chrome',
-  '/amo/users/markdown-viewer-chrome',
-  '/amo/rating/markdown-viewer-chrome',
-  '/amo/stars/markdown-viewer-chrome',
-  '/amo/reviews/markdown-viewer-chrome',
+  ['/amo/v/markdown-viewer-chrome', 'version'],
+  ['/amo/users/markdown-viewer-chrome', 'users'],
+  ['/amo/rating/markdown-viewer-chrome', 'rating'],
+  ['/amo/stars/markdown-viewer-chrome', 'stars'],
+  ['/amo/reviews/markdown-viewer-chrome', 'reviews'],
 ]
 
 export const handlers = {
