@@ -75,7 +75,7 @@ const iconExamples = () => {
   return Object.keys(icons).map(icon => {
     const url = `/badge//${icon}?icon=${icon}`
     return (
-      <a href={url}>
+      <a href={url} key={icon}>
         <img src={url} />
         <style jsx>{`
           a {
