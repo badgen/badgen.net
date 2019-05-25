@@ -1,19 +1,14 @@
-
-const WITH_DOCS = [
-  'packagephobia',
-  'uptime robot'
-]
-
 export default ({ data }) => {
-  return Object.entries(data).map(([category, egs]) => (
-    <dl id={category} key={category}>
+  return data.map(({ title, examples }) => (
+    <dl id={title} key={title}>
       <dt>
-        <a className='title' href={`#${category}`}>{category}</a>
-        { WITH_DOCS.includes(category) && <a className='doc' href={`/docs/${category}`}>?</a> }
+        <a className='title' href={`#${title}`}>{title}</a>
       </dt>
-      { egs.map(eg => (
-        <ExampleItem key={eg[1]} desc={eg[0]} url={eg[1]} />
-      )) }
+      {
+        Object.entries(examples).map(([path, desc]) => (
+          <ExampleItem key={path} desc={desc} url={path} />
+        ))
+      }
       <style jsx>{`
         dl {
           padding: 0 1em;

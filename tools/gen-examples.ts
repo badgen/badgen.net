@@ -25,7 +25,7 @@ async function main () {
     return {
       title,
       examples,
-      handlers: Object.keys(handlers)
+      schemes: Object.keys(handlers)
     }
   }))
 
@@ -37,7 +37,7 @@ async function main () {
 
   await fse.outputJson(rel('../static/.gen/examples.json'), examples)
 
-  console.log(examples)
+  console.log(examples.live)
 }
 
 main()

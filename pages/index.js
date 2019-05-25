@@ -1,16 +1,13 @@
-import path from 'path'
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import liveBadges from '../libs/examples-live.js'
-import staticBadges from '../libs/examples-static.js'
 import BadgeExamples from '../components/badge-examples.js'
 import Header from '../components/home-header.js'
 import Intro from '../components/home-intro.js'
 import Footer from '../components/footer.js'
+import examples from '../static/.gen/examples.json'
 
 const Index = ({ badgeExamples }) => {
   const [ tab, setTab ] = useState('live')
-  const badges = badgeExamples[tab]
+  const badges = examples[tab]
 
   return <>
     <Header />
@@ -62,20 +59,6 @@ const Index = ({ badgeExamples }) => {
       }
     `}</style>
   </>
-}
-
-Index.getInitialProps = async ({ req }) => {
-  const a = await import(path.resolve(__dirname, `../../dist/endpoints/amo`))
-  const liveExamples = Object.entries(liveBadgeList).map(([name, title]) => {
-    console.log(name, title)
-    // console.log(await import(path.resolve(__dirname, '../endpoints', name)))
-  })
-  const badgeExamples = {
-    live: liveBadges,
-    static: staticBadges
-  }
-
-  return { badgeExamples }
 }
 
 export default Index
