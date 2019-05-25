@@ -2,10 +2,10 @@ import got from '../libs/got'
 import { version, versionColor } from '../libs/utils'
 import { badgenServe } from '../libs/badgen-serve'
 
-export const examples = [
-  ['/homebrew/v/fish', 'version'],
-  ['/homebrew/v/cake', 'version']
-]
+export const examples = {
+  '/homebrew/v/fish': 'version',
+  '/homebrew/v/cake': 'version'
+}
 
 export const handlers = {
   '/homebrew/v/:pkg': handler
