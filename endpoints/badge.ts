@@ -3,13 +3,18 @@ import { badgenServe } from '../libs/badgen-serve'
 export const help = `# Static Badges`
 
 export const examples = [
-  '/badge/Swift/4.2/orange',
-  '/badge/license/MIT/blue',
-  '/badge/chat/on%20gitter/cyan',
-  '/badge/stars/★★★★☆',
-  '/badge/become/a%20patron/F96854',
-  '/badge/code%20style/standard/f2a',
-  '/badge/platform/ios,macos,tvos?list=1'
+  {
+    title: 'general',
+    examples: {
+    '/badge/Swift/4.2/orange': 'swift version',
+    '/badge/license/MIT/blue': 'license MIT',
+    '/badge/chat/on%20gitter/cyan': 'chat on gitter',
+    '/badge/stars/★★★★☆': 'star rating',
+    '/badge/become/a%20patron/F96854': 'patron',
+    '/badge/code%20style/standard/f2a': 'code style: standard',
+    '/badge/platform/ios,macos,tvos?list=1': 'support platform'
+    }
+  }
 ]
 
 export const handlers = {
