@@ -16,7 +16,7 @@ module.exports = Object.entries(liveFns).map(([name, fn]) => {
     const style = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
     req.params = { subject, status, color, style }
     serveBadge(req, res, {
-      code: 200, // always 200 for badges
+      code: failed ? 500 : 200,
       sMaxAge: failed ? '0' : '360'
     })
   })
