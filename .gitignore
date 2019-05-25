@@ -2,4 +2,5 @@ node_modules
 yarn.lock
 public
 dist
+.gen
 .next
