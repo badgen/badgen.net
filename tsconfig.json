@@ -2,14 +2,18 @@
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": false,
-    "target": "esnext",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "target": "es2017",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "lib": ["esnext"]
+    "lib": ["dom", "esnext"]
   },
   "include": [
     "index.ts",
