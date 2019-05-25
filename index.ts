@@ -30,6 +30,7 @@ const server = http.createServer(async (req, res) => {
   return serve404(req, res)
 })
 
+// Auto run
 if (require.main === module) {
   server.listen(3000)
 }
