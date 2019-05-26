@@ -11,6 +11,7 @@ import {
 } from '../libs/badgen-serve'
 
 export const meta: Meta = {
+  title: 'GitHub',
   examples: {
     '/github/release/babel/babel': 'latest release',
     '/github/release/babel/babel/stable': 'latest stable release',

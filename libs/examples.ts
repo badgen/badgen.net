@@ -7,6 +7,7 @@ const rel = (...args) => path.resolve(__dirname, ...args)
 const liveBadgeExampleList = [
   'github',
   'amo',
+  'apm',
   'homebrew'
 ]
 

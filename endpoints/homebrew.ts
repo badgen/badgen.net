@@ -8,6 +8,7 @@ import {
 } from '../libs/badgen-serve'
 
 export const meta: Meta = {
+  title: 'Homebrew',
   examples: {
     '/homebrew/v/fish': 'version',
     '/homebrew/v/cake': 'version'
