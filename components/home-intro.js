@@ -43,7 +43,7 @@ export default ({ isFlat, children }) => (
       </li>
       <li>
         <a href='/docs/https'><code>/https</code></a>
-        create arbitrary live badge from arbitrary endpoint.
+        create arbitrary live badge with your own endpoint.
       </li>
     </ul>
     <style jsx>{`
@@ -73,7 +73,7 @@ const colorExamples = () => {
 
 const iconExamples = () => {
   return Object.keys(icons).map(icon => {
-    const url = `/badge//${icon}?icon=${icon}`
+    const url = `/badge/-/${icon}?icon=${icon}&label`
     return (
       <a href={url} key={icon}>
         <img src={url} />
