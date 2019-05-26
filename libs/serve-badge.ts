@@ -31,7 +31,8 @@ export default function (req, res, options: ServeBadgeOptions) {
   })
 
   const staleControl = `stale-while-revalidate=604800, stale-if-error=604800`
-  res.setHeader('Cache-Control', `public, max-age=10, s-maxage=${sMaxAge}, ${staleControl}`)
+  const cacheControl = `public, max-age=20, s-maxage=${sMaxAge}, ${staleControl}`
+  res.setHeader('Cache-Control', cacheControl)
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
   res.statusCode = code
   res.end(badge)
