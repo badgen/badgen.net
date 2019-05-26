@@ -47,18 +47,13 @@ export const meta: Meta = {
 
 export const handlers: Handlers = {
   '/github/:topic<watchers|stars|forks|branches|releases|tags|tag|license>/:owner/:repo': repoStats,
-  '/github/:topic<issues|open-issues|closed-issues>/:owner/:repo': repoStats,
-  '/github/:topic<label-issues>/:owner/:repo/:label': repoStats,
-  '/github/:topic<label-issues>/:owner/:repo/:label/:states<open|closed>': repoStats,
   '/github/:topic<prs|open-prs|closed-prs|merged-prs>/:owner/:repo': repoStats,
-  '/github/:topic<commits|last-commit>/:owner/:repo': repoStats,
-  '/github/:topic<commits|last-commit>/:owner/:repo/:ref': repoStats,
-  '/github/:topic<release>/:owner/:repo/': release,
-  '/github/:topic<release>/:owner/:repo/:channel': release,
-  '/github/:topic<dt|assets-dl>/:owner/:repo': downloads, // `dt` is deprecated
-  '/github/:topic<dt|assets-dl>/:owner/:repo/:scope': downloads, // `dt` is deprecated
-  '/github/:topic<status>/:owner/:repo': singleStatus,
-  '/github/:topic<status>/:owner/:repo/:ref': singleStatus,
+  '/github/:topic<issues|open-issues|closed-issues>/:owner/:repo': repoStats,
+  '/github/:topic<label-issues>/:owner/:repo/:label/:states?<open|closed>': repoStats,
+  '/github/:topic<commits|last-commit>/:owner/:repo/:ref?': repoStats,
+  '/github/:topic<release>/:owner/:repo/:channel?': release,
+  '/github/:topic<dt|assets-dl>/:owner/:repo/:scope?': downloads, // `dt` is deprecated
+  '/github/:topic<status>/:owner/:repo/:ref?': singleStatus,
   '/github/:topic<contributors>/:owner/:repo': contributors,
   '/github/:topic<dependents-repo>/:owner/:repo': dependents('REPOSITORY'),
   '/github/:topic<dependents-pkg>/:owner/:repo': dependents('PACKAGE'),
