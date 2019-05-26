@@ -6,6 +6,7 @@ const rel = (...args) => path.resolve(__dirname, ...args)
 // sort live badge examples manually
 const liveBadgeExampleList = [
   'github',
+  'npm',
   'appveyor',
   'amo',
   'apm',

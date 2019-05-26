@@ -37,6 +37,17 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         const params = await handlers[matchedScheme](matchedArgs)
         return serveBadge(req, res, { params, query })
       } catch (error) {
+        if (error.statusCode === 404) {
+          return serveBadge(req, res, {
+            code: 404,
+            params: {
+              subject: pathname.split('/')[1],
+              status: '404',
+              color: 'grey'
+            }
+          })
+        }
+
         console.error(error)
         return serveBadge(req, res, {
           code: 500,
