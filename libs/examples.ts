@@ -12,7 +12,7 @@ const liveBadgeExampleList = [
 
 export async function loadExamples () {
   const liveBadgeExamples = await Promise.all(liveBadgeExampleList.map(async name => {
-    const { title, examples } = await import(rel('../endpoints', name))
+    const { meta: { title, examples } } = await import(rel('../endpoints', name))
     return {
       title: title || name,
       examples

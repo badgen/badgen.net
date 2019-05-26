@@ -6,6 +6,13 @@ import matchRoute from './match-route'
 
 import { BadgenParams } from './types'
 
+export type BadgenServeMeta = {
+  title?: string
+  help?: string
+  examples: { [url: string]: string }
+  schemes?: string[]
+}
+
 export type BadgenServeHandlerArgs = { [key: string]: string }
 export type BadgenServeHandler = (args: BadgenServeHandlerArgs) => Promise<BadgenParams>
 export type BadgenServeHandlers = { [key: string]: BadgenServeHandler }

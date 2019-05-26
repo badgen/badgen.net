@@ -1,7 +1,5 @@
 import { badgenServe } from '../libs/badgen-serve'
 
-export const help = `# Static Badges`
-
 export const examples = [
   {
     title: 'general',

@@ -1,19 +1,24 @@
 import got from '../libs/got'
 import { version, versionColor } from '../libs/utils'
-import { badgenServe } from '../libs/badgen-serve'
+import {
+  badgenServe,
+  BadgenServeMeta as Meta,
+  BadgenServeHandlers as Handlers,
+  BadgenServeHandlerArgs as Args
+} from '../libs/badgen-serve'
 
-export const examples = {
-  '/homebrew/v/fish': 'version',
-  '/homebrew/v/cake': 'version'
+export const meta: Meta = {
+  examples: {
+    '/homebrew/v/fish': 'version',
+    '/homebrew/v/cake': 'version'
+  }
 }
 
-export const handlers = {
+export const handlers: Handlers = {
   '/homebrew/v/:pkg': handler
 }
 
-async function handler (args) {
-  const { pkg } = args
-
+async function handler ({ pkg }: Args) {
   const endpoint = `https://formulae.brew.sh/api/formula/${pkg}.json`
   const { versions } = await got(endpoint).then(res => res.body)
 

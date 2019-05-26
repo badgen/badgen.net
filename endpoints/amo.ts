@@ -1,23 +1,28 @@
 import got from '../libs/got'
 import { millify, stars, version, versionColor } from '../libs/utils'
-import { badgenServe } from '../libs/badgen-serve'
+import {
+  badgenServe,
+  BadgenServeMeta as Meta,
+  BadgenServeHandlers as Handlers,
+  BadgenServeHandlerArgs as Args
+} from '../libs/badgen-serve'
 
-export const title = 'Mozilla Add-on'
-
-export const examples = {
-  '/amo/v/markdown-viewer-chrome': 'version',
-  '/amo/users/markdown-viewer-chrome': 'users',
-  '/amo/rating/markdown-viewer-chrome': 'rating',
-  '/amo/stars/markdown-viewer-chrome': 'stars',
-  '/amo/reviews/markdown-viewer-chrome': 'reviews',
+export const meta: Meta = {
+  title: 'Mozilla Add-on',
+  examples: {
+    '/amo/v/markdown-viewer-chrome': 'version',
+    '/amo/users/markdown-viewer-chrome': 'users',
+    '/amo/rating/markdown-viewer-chrome': 'rating',
+    '/amo/stars/markdown-viewer-chrome': 'stars',
+    '/amo/reviews/markdown-viewer-chrome': 'reviews',
+  }
 }
 
-export const handlers = {
+export const handlers: Handlers = {
   '/amo/:topic/:name': handler
 }
 
-async function handler (args) {
-  const { topic, name } = args
+async function handler ({ topic, name }: Args) {
   const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
   const addon = await got(endpoint).then(res => res.body)
 
