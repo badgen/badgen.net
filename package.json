@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "badgen": "^2.7.1",
-    "badgen-icons": "^0.9.0",
+    "badgen-icons": "^0.9.1",
     "byte-size": "^5.0.1",
     "cheerio": "^1.0.0-rc.3",
     "chrome-webstore": "^1.2.1",
@@ -40,7 +40,7 @@
     "serve-marked": "^1.1.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^1.0.19",
+    "@mdx-js/mdx": "^1.0.20",
     "@types/got": "^9.4.4",
     "@zeit/next-mdx": "^1.2.0",
     "@zeit/next-typescript": "^1.1.1",
