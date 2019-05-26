@@ -26,7 +26,7 @@ export const meta: Meta = {
     '/npm/dy/express': 'yearly downloads',
     '/npm/dt/express': 'total downloads',
     '/npm/license/lodash': 'license',
-    '/npm/node/lodash': 'node version',
+    '/npm/node/next': 'node version',
     '/npm/dependents/got': 'dependents'
   }
 }
