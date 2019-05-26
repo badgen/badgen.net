@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import http from 'http'
+import serveHandler from 'serve-handler'
 
 import serve404 from './libs/serve-404'
 
@@ -13,7 +14,20 @@ const badgeHandlers = fs.readdirSync(path.join(__dirname, 'endpoints'))
   .filter(name => !name.startsWith('_'))
   .map(name => name.replace(/\.ts$/, ''))
 
+const isStatic = (url) => {
+  if (url === '/') return true
+  if (url.startsWith('/static/')) return true
+  if (url.startsWith('/_next/')) return true
+  return false
+}
+
 const server = http.createServer(async (req, res) => {
+  // handle statics
+  if (isStatic(req.url)) {
+    return serveHandler(req, res, { public: path.join(__dirname, 'out') })
+  }
+
+  // handle endpoints
   const handlerName = badgeHandlers.find(h => req.url!.startsWith(`/${h}`))
 
   try {

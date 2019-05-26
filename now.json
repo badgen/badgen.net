@@ -5,7 +5,9 @@
   ],
   "builds": [
     { "src": "endpoints/*.ts", "use": "@now/node" },
-    { "src": "next.config.js", "use": "@now/next" }
+    { "src": "package.json", "use": "@now/static-build", "config": {
+      "distDir": "out"
+    } }
  ],
   "routes": [
     { "src": "/(?<name>\\w+)/.*", "dest": "/endpoints/$name.ts" }

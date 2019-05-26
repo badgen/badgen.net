@@ -5,18 +5,17 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "dev2": "nodemon -e ts,js -w endpoints -x 'ts-node index.ts'",
     "lint": "standard",
-    "dev": "micro-dev service.js -s -i .next",
+    "dev": "nodemon -e ts,js -w endpoints -w libs -x 'ts-node index.ts'",
     "dev:web": "next",
-    "build": "tsc",
+    "tools": "ts-node tools/gen-examples.ts",
+    "now-build": "npm run tools && next build && next export",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
     "start": "node service.js",
     "now-prune": "now rm badgen.net --safe -y -S amio || true",
     "predeploy": "now -S amio inspect badgen.net",
-    "deploy": "now -S amio && now -S amio alias",
-    "canary": "now -S amio && now -S amio alias badgen-canary"
+    "deploy": "now -S amio && now -S amio alias"
   },
   "standard": {
     "parser": "babel-eslint"
