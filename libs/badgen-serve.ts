@@ -7,10 +7,9 @@ import matchRoute from './match-route'
 import { BadgenParams } from './types'
 
 export type BadgenServeMeta = {
-  title?: string
-  help?: string
+  title: string
   examples: { [url: string]: string }
-  schemes?: string[]
+  help?: string
 }
 
 export type BadgenServeHandlerArgs = { [key: string]: string }

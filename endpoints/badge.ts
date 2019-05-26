@@ -2,7 +2,7 @@ import { badgenServe } from '../libs/badgen-serve'
 
 export const examples = [
   {
-    title: 'general',
+    title: 'General',
     examples: {
     '/badge/Swift/4.2/orange': 'swift version',
     '/badge/license/MIT/blue': 'license MIT',

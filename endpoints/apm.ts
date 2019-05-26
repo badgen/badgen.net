@@ -7,8 +7,6 @@ import {
   BadgenServeHandlers
 } from '../libs/badgen-serve'
 
-// https://atom.io/api/packages/*
-
 export const meta: BadgenServeMeta = {
   title: 'Atom Package',
   examples: {
