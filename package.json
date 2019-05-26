@@ -9,7 +9,7 @@
     "lint": "standard",
     "dev": "micro-dev service.js -s -i .next",
     "dev:web": "next",
-    "now-build": "tsc",
+    "build": "tsc",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
     "start": "node service.js",

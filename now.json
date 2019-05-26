@@ -4,7 +4,8 @@
     "v2.badgen.net"
   ],
   "builds": [
-    { "src": "endpoints/*.ts", "use": "@now/node" }
+    { "src": "endpoints/*.ts", "use": "@now/node" },
+    { "src": "next.config.js", "use": "@now/next" }
  ],
   "routes": [
     { "src": "/(?<name>\\w+)/.*", "dest": "/endpoints/$name.ts" }
