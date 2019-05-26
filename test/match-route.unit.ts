@@ -2,7 +2,7 @@ import matchRoute from '../libs/match-route'
 
 const matcher = route => path => {
   const result = matchRoute(route, path)
-  console.log('\n', route, '\n', path, '\n', result)
+  console.log(route, '\n<=', path, '\n=>', result, '\n')
   return result
 }
 
@@ -20,5 +20,12 @@ const parsed = [
 const route2 = '/user/:id<\\d+>'
 const parsed2 = [
   '/user/123',
-  '/user/sd'
+  '/user/eiyo'
 ].map(matcher(route2))
+
+const route3 = '/usr/:id<\\d+>/:status?<active|inactive>'
+const parsed3 = [
+  '/usr/123',
+  '/usr/123/active',
+  '/usr/123/eiyo'
+].map(matcher(route3))

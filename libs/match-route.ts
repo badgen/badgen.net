@@ -5,7 +5,7 @@ type RouteArgs = null | {
 function matchRoute(pattern: string, path: string): RouteArgs {
   const parsedArgs: RouteArgs = {}
 
-  const PATTERN_SEGMENT_REG = /\/(:)?([\w-]+)([*?+]){0,1}(?:<(.+)>)?/g
+  const PATTERN_SEGMENT_REG = /\/(:)?([\w-]+)([*?+]){0,1}(?:<([^>]+)>)?/g
   const PATH_SEGMENT_REG = /\/([^/]+)/g
 
   let parsedPatternSegment = PATTERN_SEGMENT_REG.exec(pattern)
