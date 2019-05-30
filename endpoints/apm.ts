@@ -3,62 +3,64 @@ import got from '../libs/got'
 import { version, versionColor } from '../libs/utils'
 import {
   badgenServe,
-  BadgenServeMeta,
-  BadgenServeHandlers
+  BadgenServeMeta as Meta,
+  BadgenServeHandlers as Handlers,
+  BadgenServeHandlerArgs as Args
 } from '../libs/badgen-serve'
 
-export const meta: BadgenServeMeta = {
+export const meta: Meta = {
   title: 'Atom Package',
   examples: {
     '/apm/v/linter': 'version',
     '/apm/stars/linter': 'stars',
     '/apm/license/linter': 'license',
-    '/apm/dl/linter': 'downloads'
+    '/apm/downloads/linter': 'downloads'
   }
 }
 
-export const handlers: BadgenServeHandlers = {
+export const handlers: Handlers = {
   '/apm/:topic/:pkg': handler
 }
 
-async function handler (args) {
-  const { topic, pkg } = args
+async function handler ({ topic, pkg }: Args) {
   const endpoint = `https://atom.io/api/packages/${pkg}`
-  const meta = await got(endpoint).then(res => res.body)
+  const data = await got(endpoint).then(res => res.body)
 
   switch (topic) {
+    case 'v':
     case 'version': {
       return {
         subject: `apm`,
-        status: version(meta.releases.latest),
-        color: versionColor(meta.releases.latest)
+        status: version(data.releases.latest),
+        color: versionColor(data.releases.latest)
+      }
+    }
+    case 'dl':
+    case 'downloads': {
+      return {
+        subject: 'downloads',
+        status: millify(data.downloads),
+        color: 'green'
       }
     }
     case 'license': {
       return {
         subject: 'license',
-        status: meta.versions[meta.releases.latest].license || 'unknown',
+        status: data.versions[data.releases.latest].license || 'unknown',
         color: 'blue'
-      }
-    }
-    case 'downloads': {
-      return {
-        subject: 'downloads',
-        status: millify(meta.downloads),
-        color: 'green'
       }
     }
     case 'stars': {
       return {
         subject: 'stars',
-        status: millify(meta.stargazers_count),
+        status: millify(data.stargazers_count),
         color: 'green'
       }
     }
     default: {
       return {
         subject: 'apm',
-        status: 'unknown',
+        status: 'unknown topic',
         color: 'grey'
       }
     }
