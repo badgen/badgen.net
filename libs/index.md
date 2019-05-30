@@ -244,13 +244,13 @@ Advanced usage (for badge makers):
     ],
     /* quality & metrics */
     'code climate': [
-      ['lines of code', '/codeclimate/loc/jekyll/jekyll'],
-      ['issues', '/codeclimate/issues/jekyll/jekyll'],
-      ['technical debt', '/codeclimate/tech-debt/jekyll/jekyll'],
-      ['maintainability', '/codeclimate/maintainability/jekyll/jekyll'],
-      ['maintainability (percentage)', '/codeclimate/maintainability-percentage/jekyll/jekyll'],
-      ['coverage', '/codeclimate/coverage/jekyll/jekyll'],
-      ['coverage (letter)', '/codeclimate/coverage-letter/jekyll/jekyll']
+      ['lines of code', '/codeclimate/loc/codeclimate/codeclimate'],
+      ['issues', '/codeclimate/issues/codeclimate/codeclimate'],
+      ['technical debt', '/codeclimate/tech-debt/codeclimate/codeclimate'],
+      ['maintainability', '/codeclimate/maintainability/codeclimate/codeclimate'],
+      ['maintainability (percentage)', '/codeclimate/maintainability-percentage/codeclimate/codeclimate'],
+      ['coverage', '/codeclimate/coverage/codeclimate/codeclimate'],
+      ['coverage (letter)', '/codeclimate/coverage-letter/codeclimate/codeclimate']
     ],
     'lgtm': [
       ['number of alerts', '/lgtm/alerts/g/apache/cloudstack'],
