@@ -25,6 +25,7 @@ const liveBadgeExampleList = [
   'hackage',
   'vs-marketplace',
   // CI
+  'travis',
   'appveyor',
   // quality & metrics
   // utilities
