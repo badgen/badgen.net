@@ -43,6 +43,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         }
         return serveBadge(req, res, { params, query })
       } catch (error) {
+        // 404 for `got` requests
         if (error.statusCode === 404) {
           return serveBadge(req, res, {
             code: 404,
@@ -50,6 +51,18 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
               subject: defaultLabel,
               status: '404',
               color: 'grey'
+            }
+          })
+        }
+
+        // timeout for `got` requests
+        if (error.code === 'ETIMEDOUT') {
+          return serveBadge(req, res, {
+            code: 500,
+            params: {
+              subject: defaultLabel,
+              status: 'timeout',
+              color: 'red'
             }
           })
         }
