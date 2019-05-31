@@ -26,6 +26,7 @@ const liveBadgeExampleList = [
   'vs-marketplace',
   // CI
   'travis',
+  'circleci',
   'appveyor',
   // quality & metrics
   // utilities
