@@ -23,6 +23,7 @@ const liveBadgeExampleList = [
   'rubygems',
   'apm',
   'hackage',
+  'vs-marketplace',
   // CI
   'appveyor',
   // quality & metrics
