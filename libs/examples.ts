@@ -10,6 +10,7 @@ const liveBadgeExampleList = [
   // release registries
   'npm',
   'david',
+  'packagephobia',
   'amo',
   'apm',
   'homebrew',
