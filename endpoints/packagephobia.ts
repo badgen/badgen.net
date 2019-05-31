@@ -11,7 +11,7 @@ export const meta: Meta = {
   examples: {
     '/packagephobia/install/webpack': 'install size',
     '/packagephobia/publish/webpack': 'publish size',
-    '/packagephobia/publish/@tusbar/cache-control': 'publish size (scoped package)',
+    '/packagephobia/publish/@tusbar/cache-control': '(scoped pkg) publish size',
   }
 }
 

@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "lint": "standard",
+    "predev": "npm run now-build",
     "dev": "nodemon -e ts,js -w endpoints -w libs -x 'ts-node index.ts'",
     "dev:web": "next",
     "tools": "ts-node tools/gen-examples.ts",
