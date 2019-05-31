@@ -13,9 +13,10 @@ const liveBadgeExampleList = [
   'packagephobia',
   'bundlephobia',
   'crates',
+  'docker',
+  'homebrew',
   'amo',
   'apm',
-  'homebrew',
   // CI
   'appveyor',
   // quality & metrics
