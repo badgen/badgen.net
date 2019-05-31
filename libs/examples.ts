@@ -18,6 +18,7 @@ const liveBadgeExampleList = [
   'chrome-web-store',
   'amo',
   'pypi',
+  'nuget',
   'apm',
   // CI
   'appveyor',
