@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "jsx": "preserve",
-    "target": "es2017",
+    "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
