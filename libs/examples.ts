@@ -5,12 +5,18 @@ const rel = (...args) => path.resolve(__dirname, ...args)
 
 // sort live badge examples manually
 const liveBadgeExampleList = [
+  // source control
   'github',
+  // release registries
   'npm',
-  'appveyor',
+  'david',
   'amo',
   'apm',
-  'homebrew'
+  'homebrew',
+  // CI
+  'appveyor',
+  // quality & metrics
+  // utilities
 ]
 
 export async function loadExamples () {
