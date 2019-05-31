@@ -10,7 +10,7 @@
     } }
  ],
   "routes": [
-    { "src": "/(?<name>\\w+)/.*", "dest": "/endpoints/$name.ts" }
+    { "src": "/(?<name>[^/]+)/.*", "dest": "/endpoints/$name.ts" }
   ],
   "env": {
     "GH_TOKEN": "@badgen-gh-tokens",
