@@ -29,6 +29,7 @@ const liveBadgeExampleList = [
   'circleci',
   'appveyor',
   'codecov',
+  'coveralls',
   // quality & metrics
   // utilities
 ]
