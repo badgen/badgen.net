@@ -20,6 +20,7 @@ const liveBadgeExampleList = [
   'pypi',
   'nuget',
   'packagist',
+  'rubygems',
   'apm',
   // CI
   'appveyor',
