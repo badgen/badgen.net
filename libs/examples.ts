@@ -15,6 +15,7 @@ const liveBadgeExampleList = [
   'crates',
   'docker',
   'homebrew',
+  'chrome-web-store',
   'amo',
   'apm',
   // CI
