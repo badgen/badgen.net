@@ -154,7 +154,7 @@ async function release ({ owner, repo, channel }: Args) {
       return {
         subject: 'release',
         status: version(latest ? latest.name || latest.tag_name : null),
-        color: latest.prerelease === true ? 'orange' : 'blue'
+        color: latest.prerelease ? 'orange' : 'blue'
       }
   }
 }
