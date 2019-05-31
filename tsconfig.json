@@ -3,7 +3,6 @@
     "strict": true,
     "noImplicitAny": false,
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "jsx": "preserve",
     "target": "esnext",
