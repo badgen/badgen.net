@@ -17,7 +17,7 @@ export const meta: Meta = {
 }
 
 export const handlers: Handlers = {
-  '/crates/:topic/:name': handler
+  '/crates/:topic<v|d|dl>/:pkg': handler
 }
 
 export default badgenServe(handlers)
@@ -44,12 +44,6 @@ async function handler ({topic, pkg}: Args) {
         subject: 'downloads',
         status: millify(crate.recent_downloads) + ' latest version',
         color: 'green'
-      }
-    default:
-      return {
-        subject: 'crates',
-        status: 'unknown topic',
-        color: 'grey'
       }
   }
 }
