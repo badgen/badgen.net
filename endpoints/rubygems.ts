@@ -55,7 +55,6 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 async function versionHandler ({ gem, channel = 'stable' }: Args) {
   const endpoint = `https://rubygems.org/api/v1/versions/${gem}.json`
   const response = await got(endpoint).then(res => res.body)
-  console.log(response)
 
   // @ts-ignore
   const versions = Object.values(response).map(value => value.number).reverse()
