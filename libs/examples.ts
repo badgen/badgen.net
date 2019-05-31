@@ -12,6 +12,7 @@ const liveBadgeExampleList = [
   'david',
   'packagephobia',
   'bundlephobia',
+  'crates',
   'amo',
   'apm',
   'homebrew',
