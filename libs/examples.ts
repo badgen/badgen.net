@@ -30,6 +30,7 @@ const liveBadgeExampleList = [
   'appveyor',
   'codecov',
   'coveralls',
+  'codeclimate',
   // quality & metrics
   // utilities
 ]
