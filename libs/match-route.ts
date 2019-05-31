@@ -18,6 +18,11 @@ function matchRoute(pattern: string, path: string): RouteArgs {
       return flag === '?' ? parsedArgs : null
     }
 
+    if (flag === '+') {
+      parsedArgs[name] = path.slice(parsedPathSegment.index)
+      return parsedArgs
+    }
+
     const [ rawPathSegment, value ] = parsedPathSegment
 
     switch (type) {

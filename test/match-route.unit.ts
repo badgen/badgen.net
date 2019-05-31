@@ -34,8 +34,22 @@ tap.test(testRouteMultiRegex, t => {
   runTest(t, testRouteMultiRegex, suite)
 })
 
-const testRouteGithub = '/github/:topic<stars|forks>/:owner/:repo/:chanel?/:more?'
-tap.test(testRouteGithub, t => {
+const testRoutePlusSegment = '/david/:topic/:user/:repo/:path+'
+tap.test(testRoutePlusSegment, t => {
+  const suite = {
+    '/david/dep/babel/babel': null,
+    '/david/dep/babel/babel/packages/babel-cli': {
+      topic: 'dep',
+      user: 'babel',
+      repo: 'babel',
+      path: '/packages/babel-cli'
+    }
+  }
+  runTest(t, testRoutePlusSegment, suite)
+})
+
+const testRouteOptionalSegment= '/github/:topic<stars|forks>/:owner/:repo/:chanel?/:more?'
+tap.test(testRouteOptionalSegment, t => {
   const suite = {
     '/github/stars/amio/': null,
     '/github/eiyou/amio/badgen': null,
@@ -64,5 +78,5 @@ tap.test(testRouteGithub, t => {
       more: 'more'
     },
   }
-  runTest(t, testRouteGithub, suite)
+  runTest(t, testRouteOptionalSegment, suite)
 })
