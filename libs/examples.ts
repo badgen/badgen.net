@@ -17,6 +17,7 @@ const liveBadgeExampleList = [
   'homebrew',
   'chrome-web-store',
   'amo',
+  'pypi',
   'apm',
   // CI
   'appveyor',
