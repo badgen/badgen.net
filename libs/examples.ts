@@ -19,6 +19,7 @@ const liveBadgeExampleList = [
   'amo',
   'pypi',
   'nuget',
+  'packagist',
   'apm',
   // CI
   'appveyor',
