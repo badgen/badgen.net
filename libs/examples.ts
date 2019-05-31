@@ -31,6 +31,7 @@ const liveBadgeExampleList = [
   'codecov',
   'coveralls',
   'codeclimate',
+  'lgtm',
   // quality & metrics
   // utilities
 ]
