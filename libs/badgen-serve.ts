@@ -13,7 +13,8 @@ export type BadgenServeMeta = {
 }
 
 export type BadgenServeHandlerArgs = { [key: string]: string }
-export type BadgenServeHandler = (args: BadgenServeHandlerArgs) => Promise<BadgenParams>
+export type BadgenServeHandlerResult = Promise<BadgenParams | undefined>
+export type BadgenServeHandler = (args: BadgenServeHandlerArgs) => BadgenServeHandlerResult
 export type BadgenServeHandlers = { [key: string]: BadgenServeHandler }
 
 export function badgenServe (handlers: BadgenServeHandlers): Function {
@@ -32,23 +33,28 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
       return matchedArgs !== null
     })
 
+    const defaultLabel = pathname.split('/')[1]
     if (matchedScheme) {
       try {
-        const params = await handlers[matchedScheme](matchedArgs)
+        const params = await handlers[matchedScheme](matchedArgs) || {
+          subject: defaultLabel,
+          status: 'unknown',
+          color: 'grey'
+        }
         return serveBadge(req, res, { params, query })
       } catch (error) {
         if (error.statusCode === 404) {
           return serveBadge(req, res, {
             code: 404,
             params: {
-              subject: pathname.split('/')[1],
+              subject: defaultLabel,
               status: '404',
               color: 'grey'
             }
           })
         }
 
-        console.error(error)
+        console.error(`E500 ${req.url}`, error.message)
         return serveBadge(req, res, {
           code: 500,
           params: {

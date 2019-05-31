@@ -1,5 +1,4 @@
 export default ({ data }) => {
-  console.log(data)
   return data.map(({ title, examples }) => (
     <dl id={title} key={title}>
       <dt>

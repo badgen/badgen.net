@@ -377,7 +377,6 @@ async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
       const commits = result.branch.target.history.nodes
       const lastDate = commits.length && new Date(commits[0].committedDate)
       const fromNow = lastDate && distanceToNow(lastDate, { addSuffix: true })
-      console.log(commits)
       return {
         subject: 'last commit',
         status: fromNow || 'none',
