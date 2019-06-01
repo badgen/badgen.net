@@ -19,7 +19,7 @@ export default async function (req, res) {
 }
 
 const inlineCSS = `
-  .markdown-body { max-width: 800px }
+  .markdown-body { max-width: 850px }
   li > img { vertical-align: middle; margin: 0.2em 0; font-size: 12px }
   li > img + a { font-family: monospace; font-size: 0.9em }
   li > img + a + i { color: #AAA }

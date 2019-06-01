@@ -13,6 +13,7 @@ export default class MyApp extends App {
     return (
       <Container>
         <Head>
+          <title>Badgen - Fast badge generating service</title>
           <link rel='icon' type='image/png' href='/static/favicon.png' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
           <link rel='stylesheet'
