@@ -3,6 +3,7 @@
   "alias": [
     "v2.badgen.net"
   ],
+  "regions": ["sfo", "lhr", "hnd"],
   "builds": [
     { "src": "endpoints/*.ts", "use": "@now/node" },
     { "src": "package.json", "use": "@now/static-build", "config": {
