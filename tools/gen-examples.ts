@@ -6,8 +6,6 @@ const rel = (...args) => path.resolve(__dirname, ...args)
 
 async function main () {
   const badgeMeta = await loadBadgeMeta()
-  console.log(badgeMeta)
-
   await fse.outputJson(rel('../static/.gen/badges.json'), badgeMeta)
 }
 

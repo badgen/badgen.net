@@ -37,7 +37,7 @@
     "react-debounce-render": "^5.0.0",
     "semver": "^6.1.0",
     "serve-handler": "^6.0.1",
-    "serve-marked": "^1.1.0"
+    "serve-marked": "^2.0.0"
   },
   "devDependencies": {
     "@mdx-js/mdx": "^1.0.20",

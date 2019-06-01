@@ -1,20 +1,38 @@
-import { BadgenServeHandlers } from './badgen-serve'
+import serveMarked from 'serve-marked'
 
-type BadgenExample = [string, string]
 type BadgenHelpParams = {
   id: string,
   title: string,
-  examples: BadgenExample[]
+  examples: { [url: string]: string }
   routes: string[],
   help?: any
 }
 
-export default function serveHelp (req, res, id, params: BadgenHelpParams) {
-  const { help, examples, routes } = params
-  const Docs = help ? help : `# ${id}`
-  const Schemes = `## Schemes\n\n${routes.join('\n')}`
-  const Examples = `## Examples\n\n${Object.entries(examples).map(ex => ex[0]).join('\n')}`
+function genMarkdown ({ id, help, examples, routes }: BadgenHelpParams) {
+  const Docs = help ? help : `# /${id}`
+
+  const schemeLinks = routes.map(r => `- \`${r}\``)
+  const Schemes = `## Schemes\n\n${schemeLinks.join('  \n')}`
+
+  const exampleList = Object.entries(examples)
+    .map(([url, desc]) => `- ![${url}](${url}) [${url}](${url}) <i>${desc}</i>`)
+  const Examples = `## Examples\n\n${exampleList.join('\n')}`
 
   const md = [Docs, Schemes, Examples].join('\n\n')
-  res.end(md)
+  return md
 }
+
+export default function serveHelp (req, res, params: BadgenHelpParams) {
+  const md = genMarkdown(params)
+  return serveMarked(md, {
+    title: `${params.title} | Badgen`,
+    inlineCSS,
+  })(req, res)
+}
+
+const inlineCSS = `
+  .markdown-body { max-width: 800px }
+  li > img { vertical-align: middle; margin: 0.2em 0; font-size: 12px }
+  li > img + a { font-family: monospace; font-size: 0.9em }
+  li > img + a + i { color: #AAA }
+`

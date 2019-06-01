@@ -10,16 +10,9 @@ export default async function (req, res) {
 
   if (liveBadgeList.includes(name)) {
     console.info(100, `${name}: ${req.url}`)
-    try {
-      const foundBadge = badges.live.find(b => b.id === name)
-      if (foundBadge) {
-        return serveHelp(req, res, name, foundBadge)
-      }
-    } catch (error) {
-      if (error.code !== 'MODULE_NOT_FOUND') {
-        console.error(error)
-        throw error
-      }
+    const foundBadge = badges.live.find(b => b.id === name)
+    if (foundBadge) {
+      return serveHelp(req, res, foundBadge)
     }
   }
 
