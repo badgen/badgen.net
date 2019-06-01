@@ -6,11 +6,10 @@ import {
   BadgenServeHandlerArgs as Args
 } from '../libs/badgen-serve'
 
-const help = `## URL
-
-    /runkit/cal-badge-icd0onfvrxx6/Asia/Shanghai
-            ──┬─────────────────── ──┬──────────
-              └─ endpoint-id         └─ path-args (optional)
+const help = `
+    https://badgen.net/runkit/cal-badge-icd0onfvrxx6/Asia/Shanghai
+                              ──┬─────────────────── ──┬──────────
+                                └─ endpoint-id         └─ path-args (optional)
 
 
 ## RunKit Endpoint
@@ -27,7 +26,7 @@ If you are not familiar with RunKit endpoint, [this guide](https://runkit.com/do
     https://cal-badge-icd0onfvrxx6.runkit.sh
     \`\`\`
 
-  it would response with a JSON like:
+  which would response with a JSON like:
 
     \`\`\`
     {
