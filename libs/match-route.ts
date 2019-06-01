@@ -19,7 +19,7 @@ function matchRoute(pattern: string, path: string): RouteArgs {
     }
 
     if (flag === '+') {
-      parsedArgs[name] = path.slice(parsedPathSegment.index)
+      parsedArgs[name] = path.slice(parsedPathSegment.index + 1)
       return parsedArgs
     }
 

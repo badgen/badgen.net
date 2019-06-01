@@ -34,15 +34,17 @@ tap.test(testRouteMultiRegex, t => {
   runTest(t, testRouteMultiRegex, suite)
 })
 
-const testRoutePlusSegment = '/david/:topic/:user/:repo/:path+'
+const testRoutePlusSegment = '/david/:topic/:path+'
 tap.test(testRoutePlusSegment, t => {
   const suite = {
-    '/david/dep/babel/babel': null,
-    '/david/dep/babel/babel/packages/babel-cli': {
+    '/david/dep': null,
+    '/david/dep/packages/babel-cli': {
       topic: 'dep',
-      user: 'babel',
-      repo: 'babel',
-      path: '/packages/babel-cli'
+      path: 'packages/babel-cli'
+    },
+    '/david/dep/https://eiyo.com': {
+      topic: 'dep',
+      path: 'https://eiyo.com'
     }
   }
   runTest(t, testRoutePlusSegment, suite)
