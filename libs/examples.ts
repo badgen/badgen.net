@@ -38,8 +38,9 @@ export const liveBadgeList = [
   'xo',
   'badgesize',
   'jsdelivr',
-  'opencollective'
   // utilities
+  'opencollective',
+  'keybase',
 ]
 
 export async function loadExamples () {
