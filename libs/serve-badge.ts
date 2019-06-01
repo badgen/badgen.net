@@ -11,7 +11,7 @@ type ServeBadgeOptions = {
 }
 
 export default function (req, res, options: ServeBadgeOptions) {
-  const { code = 200, sMaxAge = '604800', query = {}, params } = options
+  const { code = 200, sMaxAge = 10800, query = {}, params } = options
 
   const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
   const { subject, status, color } = params || req.params
@@ -31,7 +31,7 @@ export default function (req, res, options: ServeBadgeOptions) {
   })
 
   const staleControl = `stale-while-revalidate=604800, stale-if-error=604800`
-  const cacheControl = `public, max-age=20, s-maxage=${sMaxAge}, ${staleControl}`
+  const cacheControl = `public, max-age=30, s-maxage=${sMaxAge}, ${staleControl}`
   res.setHeader('Cache-Control', cacheControl)
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
   res.statusCode = code

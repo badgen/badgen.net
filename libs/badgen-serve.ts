@@ -71,6 +71,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           console.error(`E504 ${req.url}`)
           return serveBadge(req, res, {
             code: 504,
+            sMaxAge: 5,
             params: {
               subject: defaultLabel,
               status: 'timeout',
@@ -82,6 +83,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         console.error(`E500 ${req.url}`, error.message)
         return serveBadge(req, res, {
           code: 500,
+          sMaxAge: 5,
           params: {
             subject: 'badgen',
             status: 'error',
