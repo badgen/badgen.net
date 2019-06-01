@@ -68,9 +68,9 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 
         // timeout for `got` requests
         if (error.code === 'ETIMEDOUT') {
-          console.error(`ETIMEDOUT ${req.url}`)
+          console.error(`E504 ${req.url}`)
           return serveBadge(req, res, {
-            code: 500,
+            code: 504,
             params: {
               subject: defaultLabel,
               status: 'timeout',
