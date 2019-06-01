@@ -35,6 +35,7 @@ export const liveBadgeList = [
   'lgtm',
   'uptime-robot',
   'xo',
+  'badgesize',
   // utilities
 ]
 

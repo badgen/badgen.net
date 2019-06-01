@@ -28,7 +28,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // handle endpoints
-  const handlerName = badgeHandlers.find(h => req.url!.startsWith(`/${h}`))
+  const handlerName = badgeHandlers.find(h => req.url!.startsWith(`/${h}/`))
 
   try {
     if (handlerName) {
