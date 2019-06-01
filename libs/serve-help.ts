@@ -9,7 +9,7 @@ type BadgenHelpParams = {
 }
 
 function genMarkdown ({ id, help, examples, routes }: BadgenHelpParams) {
-  const Docs = help ? help : `# /${id}`
+  const Docs = `# /${id}\n\n${help || ''}`
 
   const schemeLinks = routes.map(r => `- \`${r}\``)
   const Schemes = `## Schemes\n\n${schemeLinks.join('  \n')}`
