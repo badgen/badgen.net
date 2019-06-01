@@ -41,6 +41,7 @@ export const liveBadgeList = [
   // utilities
   'opencollective',
   'keybase',
+  'twitter',
 ]
 
 export async function loadExamples () {
