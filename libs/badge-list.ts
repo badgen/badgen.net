@@ -44,12 +44,17 @@ export const liveBadgeList = [
   'twitter',
 ]
 
-export async function loadExamples () {
-  const liveBadgeExamples = await Promise.all(liveBadgeList.map(async name => {
-    const { meta: { title, examples } } = await import(rel('../endpoints', name))
+export async function loadBadgeMeta () {
+  const liveBadgeExamples = await Promise.all(liveBadgeList.map(async id => {
+    const { meta, handlers } = await import(rel('../endpoints', id))
+    const { title, examples, help } = meta
+
     return {
-      title: title || name,
-      examples
+      id,
+      title,
+      examples,
+      routes: Object.keys(handlers),
+      help
     }
   }))
 

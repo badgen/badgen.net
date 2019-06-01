@@ -1,17 +1,19 @@
-import path from 'path'
 import serve404 from '../libs/serve-404'
 import serveHelp from '../libs/serve-help'
+import { liveBadgeList } from '../libs/badge-list'
+
+const badges = require('../static/.gen/badges.json')
 
 // Handles `/docs/:name`
 export default async function (req, res) {
-  const [ , , name ] = req.url.split('/')
+  const [ , topic, name ] = req.url.split('/')
 
-  if (name) {
+  if (liveBadgeList.includes(name)) {
+    console.info(100, `${name}: ${req.url}`)
     try {
-      const handlerModulePath = path.join(__dirname, name)
-      const { help, examples, handlers } = await import(handlerModulePath)
-      if (help || examples) {
-        return serveHelp(req, res, name, { help, examples, handlers })
+      const foundBadge = badges.live.find(b => b.id === name)
+      if (foundBadge) {
+        return serveHelp(req, res, name, foundBadge)
       }
     } catch (error) {
       if (error.code !== 'MODULE_NOT_FOUND') {

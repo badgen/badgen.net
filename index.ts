@@ -4,6 +4,7 @@ import http from 'http'
 import serveHandler from 'serve-handler'
 
 import serve404 from './libs/serve-404'
+import serveDocs from './endpoints/docs'
 
 const sendError = (req, res, error) => {
   res.statusCode = 500
@@ -27,6 +28,11 @@ const server = http.createServer(async (req, res) => {
     return serveHandler(req, res, { public: path.join(__dirname, 'out') })
   }
 
+  // handle `/docs/:name`
+  if (req.url!.startsWith('/docs/')) {
+    return serveDocs(req, res)
+  }
+
   // handle endpoints
   const handlerName = badgeHandlers.find(h => req.url!.startsWith(`/${h}/`))
 
@@ -48,5 +54,9 @@ const server = http.createServer(async (req, res) => {
 if (require.main === module) {
   server.listen(3000)
 }
+
+process.on('unhandledRejection', e => {
+  console.error(500, e)
+})
 
 export default server

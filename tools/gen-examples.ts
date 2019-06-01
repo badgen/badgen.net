@@ -1,14 +1,14 @@
 import path from 'path'
 import fse from 'fs-extra'
-import { loadExamples } from '../libs/examples'
+import { loadBadgeMeta } from '../libs/badge-list'
 
 const rel = (...args) => path.resolve(__dirname, ...args)
 
 async function main () {
-  const examples = await loadExamples()
-  console.log(examples)
+  const badgeMeta = await loadBadgeMeta()
+  console.log(badgeMeta)
 
-  await fse.outputJson(rel('../static/.gen/examples.json'), examples)
+  await fse.outputJson(rel('../static/.gen/badges.json'), badgeMeta)
 }
 
 main()
