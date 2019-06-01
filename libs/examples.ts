@@ -31,7 +31,7 @@ export const liveBadgeList = [
   'codecov',
   'coveralls',
   'codeclimate',
-  'azure-piplines',
+  'azure-pipelines',
   // quality & metrics
   'lgtm',
   'uptime-robot',
