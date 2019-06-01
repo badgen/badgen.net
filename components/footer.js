@@ -10,8 +10,6 @@ export default () => (
           <em>/</em>
           <Link href='https://flat.badgen.net'><a>Flat</a></Link>
           <em>/</em>
-          <Link href='https://api.badgen.net'><a>API</a></Link>
-          <em>/</em>
           <Link href='/gallery'><a>Gallery</a></Link>
           <em>/</em>
           <Link href='https://status.badgen.net'><a>Status</a></Link>
@@ -20,7 +18,7 @@ export default () => (
       </div>
       <div className='bottom'>
         <div>
-          Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Hosted on <a href='https://zeit.co/now'>Now Cloud</a>. License under <a href='https://github.com/badgen/badgen.net/blob/master/LICENSE.md'>ISC</a>.
+          Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Hosted on <a href='https://zeit.co/now'>Now</a>. License under <a href='https://github.com/badgen/badgen.net/blob/master/LICENSE.md'>ISC</a>.
         </div>
         <div className='links'>
           <a href='https://twitter.com/badgen_net'>

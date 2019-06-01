@@ -6,6 +6,5 @@ export default () => <>
   <p>
     <a href='https://badgen.net'>classic</a>
     <a href='https://flat.badgen.net'>flat</a>
-    <a href='https://api.badgen.net'>api</a>
   </p>
 </>

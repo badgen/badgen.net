@@ -32,14 +32,13 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 ## Anatomy
 
-- Written in latest, vanilla JavaScript => no build process
+- Written in TypeScript => better develop experience
 - Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly => fast & stateless
 - Hosted on [Now][now-href], serving behind Now CDN => faster & reliable
 - Cache less than 4 minutes => fresh & hot
-- Three endpoints in one server
+- Two styles:
     - https://badgen.net - classic style badges
     - https://flat.badgen.net - flat & square style badges
-    - https://api.badgen.net - json “style” badges data (live badges only)
 - Two badge types
     - static badge - URL defined badge (subject, status, color)
     - live badge - show live status from 3rd party services

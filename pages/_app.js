@@ -2,7 +2,6 @@ import React from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
 import DocsLayout from '../components/docs-layout.js'
-import Footer from '../components/footer.js'
 
 export default class MyApp extends App {
   render () {
