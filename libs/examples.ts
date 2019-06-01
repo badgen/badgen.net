@@ -31,9 +31,10 @@ export const liveBadgeList = [
   'codecov',
   'coveralls',
   'codeclimate',
+  // quality & metrics
   'lgtm',
   'uptime-robot',
-  // quality & metrics
+  'xo',
   // utilities
 ]
 
