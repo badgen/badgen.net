@@ -42,7 +42,7 @@ If you are not familiar with RunKit endpoint, [this guide](https://runkit.com/do
     cal-badge-icd0onfvrxx6
     \`\`\`
 
-3. Use the \`endpoint-id\` for badgen url:
+3. Use \`endpoint-id\` within badgen url:
 
     \`\`\`
     https://badgen.net/runkit/cal-badge-icd0onfvrxx6
@@ -52,7 +52,7 @@ If you are not familiar with RunKit endpoint, [this guide](https://runkit.com/do
 
   ![](https://badgen.net/runkit/cal-badge-icd0onfvrxx6)
 
-Further more, you can append arbitrary path args (e.g. \`/Asia/Shanghai\`) to the end of badgen url, Badgen will request RunKit endpoint with that. This badge:
+Furthermore, you can append arbitrary path args (e.g. \`/Asia/Shanghai\`) to the end of badgen url, Badgen will request RunKit endpoint with that. This badge:
 
 \`\`\`
 https://badgen.net/runkit/cal-badge-icd0onfvrxx6/Asia/Shanghai
