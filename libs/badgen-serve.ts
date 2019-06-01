@@ -74,7 +74,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
             params: {
               subject: defaultLabel,
               status: 'timeout',
-              color: 'red'
+              color: 'grey'
             }
           })
         }
@@ -85,7 +85,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           params: {
             subject: 'badgen',
             status: 'error',
-            color: 'red'
+            color: 'grey'
           }
         })
       }
