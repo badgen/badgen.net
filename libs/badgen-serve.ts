@@ -3,6 +3,7 @@ import url from 'url'
 import serve404 from './serve-404'
 import serveBadge from './serve-badge'
 import matchRoute from './match-route'
+// import serveApi from './serve-api'
 
 import { BadgenParams } from './types'
 
@@ -34,6 +35,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
     })
 
     const defaultLabel = pathname.split('/')[1]
+
     if (matchedScheme) {
       try {
         const params = await handlers[matchedScheme](matchedArgs) || {
@@ -41,6 +43,15 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           status: 'unknown',
           color: 'grey'
         }
+
+        // if (req.hostname === 'api.badgen.net') {
+        //   return serveApi(req, res, { params })
+        // }
+
+        if (req.hostname === 'flat.badgen.net' && query.style !== undefined) {
+          query.style = 'flat'
+        }
+
         return serveBadge(req, res, { params, query })
       } catch (error) {
         // 404 for `got` requests
@@ -57,6 +68,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 
         // timeout for `got` requests
         if (error.code === 'ETIMEDOUT') {
+          console.error(`ETIMEDOUT ${req.url}`)
           return serveBadge(req, res, {
             code: 500,
             params: {
