@@ -36,7 +36,7 @@ const helpFooter = `
         <em>/</em>
         <a href='https://flat.badgen.net'>Flat</a>
         <em>/</em>
-        <a href='https://status.badgen.net'>Status</a>
+        <a href='/builder'>Builder</a>
         <em>/</em>
         <a href='https://github.com/badgen/badgen.net'>GitHub</a>
         <em>/</em>
