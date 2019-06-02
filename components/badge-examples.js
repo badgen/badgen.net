@@ -1,8 +1,9 @@
 export default ({ data }) => {
-  return data.map(({ title, examples }) => (
-    <dl id={title} key={title}>
+  return data.map(({ id, title, examples }) => (
+    <dl id={id} key={title}>
       <dt>
-        <a className='title' href={`#${title}`}>{title}</a>
+        <a className='title' href={`#${id}`}>{title}</a>
+        <a className='doc' href={`/docs/${id}`}>?</a>
       </dt>
       {
         Object.entries(examples).map(([path, desc]) => (
@@ -33,8 +34,9 @@ export default ({ data }) => {
           color: #ccc;
           display: inline-block;
           position: relative;
-          width: 0px;
           left: -0.8em;
+          top: -0.1em;
+          width: 0px;
         }
         a.doc {
           background: #CCC;
@@ -44,9 +46,8 @@ export default ({ data }) => {
           height: 16px;
           width: 16px;
           border-radius: 50%;
-        }
-        a.doc {
           margin-left: 0.5em;
+          top: -1px;
         }
         a.doc:hover {
           background-color: #AAA
