@@ -1,29 +1,33 @@
-import examplesLive from '../libs/examples-live.js'
-import examplesStatic from '../libs/examples-static.js'
+import badgeList from '../static/.gen/badges.json'
 
-const egs = Object.entries({ ...examplesLive, ...examplesStatic })
-  .reduce((accu, curr) => {
-    return accu.concat(curr[1].map(eg => eg.concat(curr[0])))
-  }, [])
+const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) => {
+  return accu.concat(Object.entries(curr.examples))
+}, [])
 
 export default ({ badgeURL, onSelect }) => {
-  const matched = badgeURL.length > 1 && egs.filter(eg => {
-    return eg.find(str => str.includes(badgeURL))
-  })
+  if (badgeURL.length < 2) {
+    return <div className='helper' />
+  }
 
-  const hints = matched.length === 1 && matched[0][1] === '/' + badgeURL ? [] : matched
+  const matched = examples.filter(eg => eg[0].includes(badgeURL))
+
+  const hints = matched.length === 1 && matched[0][0] === '/' + badgeURL ? null : (
+    <table><tbody>
+      {
+        matched.map(eg => (
+          <Hint
+            key={eg[0]}
+            info={eg}
+            onSelect={e => onSelect(eg[0].replace(/^\//, ''))}
+          />
+        ))
+      }
+    </tbody></table>
+  )
 
   return (
     <div className='helper'>
-      { hints.length ? (
-        <table><tbody>
-          { hints.map(eg => (
-            <Hint key={eg[1]} info={eg} onSelect={e => onSelect(eg[1].replace(/^\//, ''))} />
-          )) }
-        </tbody></table>
-      ) : (
-        ''
-      )}
+      { hints }
       <style jsx>{`
         .helper {
           height: 50vh;
@@ -44,8 +48,8 @@ export default ({ badgeURL, onSelect }) => {
 
 const Hint = ({ info, onSelect }) => (
   <tr onClick={onSelect}>
-    <th>{info[2]}</th>
-    <td>{info[1]}</td>
+    <th>{info[1]}</th>
+    <td>{info[0]}</td>
     <style jsx>{`
       tr {
         font-size: 15px;

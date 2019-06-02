@@ -59,12 +59,12 @@ const PreviewBadge = debounceRender(({ host, url }) => {
 
 const genBadgeSrc = (host, url) => {
   if (!url) {
-    return host + 'badge/badgen/preview'
+    return host + 'badge/%20/%20'
   }
   if (url.split('/').length > 2) {
     return host + url
   } else {
-    return host + 'badge/badgen/preview'
+    return host + 'badge/%20/%20'
   }
 }
 
