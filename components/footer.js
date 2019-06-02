@@ -10,9 +10,11 @@ export default () => (
           <em>/</em>
           <Link href='https://flat.badgen.net'><a>Flat</a></Link>
           <em>/</em>
-          <Link href='/gallery'><a>Gallery</a></Link>
-          <em>/</em>
           <Link href='https://status.badgen.net'><a>Status</a></Link>
+          <em>/</em>
+          <Link href='https://github.com/badgen/badgen.net'><a>GitHub</a></Link>
+          <em>/</em>
+          <Link href='https://twitter.com/badgen_net'><a>Twitter</a></Link>
           <br />
         </div>
       </div>
