@@ -42,7 +42,8 @@ export const liveBadgeList = [
   'opencollective',
   'keybase',
   'twitter',
-  'runkit'
+  'runkit',
+  'https',
 ]
 
 export async function loadBadgeMeta () {
