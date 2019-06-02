@@ -7,7 +7,23 @@ import {
   BadgenServeHandlerArgs as Args
 } from '../libs/badgen-serve'
 
+const help = `## Usage
+
+- \`/uptime-robot/status/:api-key\`   _status_
+- \`/uptime-robot/day/:api-key\`      _(24 hours) uptime_
+- \`/uptime-robot/week/:api-key\`     _(past week) uptime_
+- \`/uptime-robot/month/:api-key\`    _(past month) uptime_
+- \`/uptime-robot/response/:api-key\` _(last hours) response_
+
+## Creating the API key
+
+To use an \`/uptime-robot\` badge, you have to create or find an API key specific to your monitor.
+
+From your UptimeRobot dashboard, go to
+[My Settings](https://uptimerobot.com/dashboard.php#mySettings) > API Settings > Monitor-Specific API Keys.`
+
 export const meta: Meta = {
+  help,
   title: 'Uptime Robot',
   examples: {
     '/uptime-robot/status/m780862024-50db2c44c703e5c68d6b1ebb': 'status',
