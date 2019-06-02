@@ -58,13 +58,12 @@ We are using [StandardJS][standard-href] style, make sure you have ESLint/Standa
 
 ### Add live badge
 
-If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `libs/live-fns/[name-of-service].js` and that's it. Take [crates](https://badgen.net/#crates) as an example:
+If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `endpoints/[name-of-service].ts` and that's it. Take [crates](https://badgen.net/#crates) as an example:
 
-- [libs/live-fns/crates.js](libs/live-fns/crates.js) - main function for [crates](https://badgen.net/#crates)
-- [libs/live-fns/_index.js](libs/live-fns/_index.js) - index of all live-badges
-- [libs/index.md](libs/index.md) - the `index.md` holds examples
+- [endpoints/crates.ts](endpoints/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
+- [libs/badge-list.ts](libs/badge-list.ts) - contains index of all live badges
 
-To ensure that your addition is working correctly start the development server with `npm run dev`.
+To ensure that your addition is working correctly, start the development server with `npm run dev`.
 
 > YOU MAY NOT NEED TO MAKE PULL REQUEST
 >
@@ -73,13 +72,6 @@ To ensure that your addition is working correctly start the development server w
 ### Add icon
 
 You can contribute icons to [badgen-icons](https://github.com/badgen/badgen-icons). Please make sure new icon is optimized using [svgomg](https://jakearchibald.github.io/svgomg/).
-
-### Deploy to Now
-
-Badgen is stateless (does not rely on DB service). Deploy your own instance to [Now][now-href] with one single command:
-```
-now amio/badgen-service -e GH_TOKEN='' -e TRACKING_GA='' -e SENTRY_URI=''
-```
 
 ## Tracking Policy
 
