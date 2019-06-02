@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import BadgeExamples from '../components/badge-examples.js'
-import Header from '../components/home-header.js'
+import BadgenTitle from '../components/badgen-title.jsx'
 import Intro from '../components/home-intro.js'
 import Footer from '../components/footer.js'
 import examples from '../static/.gen/badges.json'
 
-const Index = ({ badgeExamples }) => {
+const Index = () => {
   const [ tab, setTab ] = useState('live')
   const badges = examples[tab]
 
   return <>
-    <Header />
+    <BadgenTitle host='https://badgen.net' />
     <div className='docs'>
       <Intro />
       <h2 style={{ textAlign: 'center' }}>Badge Gallery</h2>
