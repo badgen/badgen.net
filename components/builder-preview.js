@@ -11,7 +11,7 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
           Badgen
           <StyleSwitch host={host} />
         </h1>
-        <p>Fast badge generating service.</p>
+        <p>Fast badge generating service</p>
       </div>
       <div className={'preview ' + (showPreview ? 'show' : 'none')}>
         <PreviewBadge host={host} url={badgeURL} />
@@ -46,12 +46,12 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
           height: 42px;
           width: 42px;
           vertical-align: top;
-          margin-top: 2px;
+          margin-top: -1px;
           margin-right: 10px;
         }
         .title h1 {
           margin: 1.5rem 0 0 0;
-          font: 48px/48px Merriweather, serif;
+          font: 46px/48px Merriweather, serif;
           font-weight: 700;
           color: #333;
           height: 52px;
@@ -59,7 +59,7 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
           position: relative;
         }
         .title p {
-          font: 19px/32px Merriweather, serif;
+          font: 20px/32px Merriweather, serif;
           font-weight: 300;
           letter-spacing: 0.3px;
           color: #333;
@@ -130,12 +130,12 @@ const PreviewBadge = debounceRender(({ host, url }) => {
 
 const genBadgeSrc = (host, url) => {
   if (url === '') {
-    return host + 'badge///blue'
+    return host + 'badge/badgen/preview'
   }
   if (url.split('/').length > 2) {
     return host + url
   } else {
-    return host + 'badge///blue'
+    return host + 'badge/badgen/preview'
   }
 }
 

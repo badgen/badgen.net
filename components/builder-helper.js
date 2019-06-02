@@ -26,7 +26,7 @@ export default ({ badgeURL, onSelect }) => {
       )}
       <style jsx>{`
         .helper {
-          height: calc(50vh - 60px);
+          height: 50vh;
           width: 100%;
           display: flex;
           justify-content: center;

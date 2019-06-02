@@ -5,13 +5,13 @@ export default ({ isFlat, children }) => (
     <h3>Usage</h3>
     <pre>{ explainCode(isFlat) }</pre>
 
-    <h3 id='color-examples'>Available color names</h3>
+    <h3 id='colors'>Available color names</h3>
     { colorExamples() }
 
-    <h3>Available icons</h3>
+    <h3 id='icons'>Available icons</h3>
     { iconExamples() }
 
-    <h3>Available query params</h3>
+    <h3 id='options'>Available query params</h3>
     <ul>
       <li>
         <code>color</code>
