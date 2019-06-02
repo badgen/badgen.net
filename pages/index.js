@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BadgeExamples from '../components/badge-examples.js'
 import BadgenTitle from '../components/badgen-title.jsx'
 import Intro from '../components/home-intro.js'
@@ -7,10 +7,19 @@ import examples from '../static/.gen/badges.json'
 
 const Index = () => {
   const [ tab, setTab ] = useState('live')
+  const [ host, setHost ] = useState('host')
   const badges = examples[tab]
 
+  useEffect(() => {
+    const forceHost = new URL(window.location).searchParams.get('host')
+    const autoHost = window.location.host === 'flat.badgen.net'
+      ? 'https://flat.badgen.net'
+      : 'https://badgen.net'
+    setHost((forceHost || autoHost) + '/')
+  })
+
   return <>
-    <BadgenTitle host='https://badgen.net' />
+    <BadgenTitle host={host} />
     <div className='docs'>
       <Intro />
       <h2 style={{ textAlign: 'center' }}>Badge Gallery</h2>

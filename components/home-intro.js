@@ -1,8 +1,7 @@
 import icons from 'badgen-icons'
 
-export default ({ isFlat, children }) => (
+export default ({ isFlat }) => (
   <div>
-    <h3>Usage</h3>
     <pre>{ explainCode(isFlat) }</pre>
 
     <h3 id='colors'>Available color names</h3>
