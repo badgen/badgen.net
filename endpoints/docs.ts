@@ -4,7 +4,7 @@ import genHelp from '../libs/gen-help'
 
 // Handles `/docs/:name`
 export default async function (req, res) {
-  const [ , topic, name ] = req.url.split('/')
+  const [ , , name ] = req.url.split('/')
   const helpMarkdown = genHelp(name)
 
   if (helpMarkdown) {

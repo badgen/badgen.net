@@ -153,7 +153,7 @@ async function release ({ owner, repo, channel }: Args) {
     default:
       return {
         subject: 'release',
-        status: version(latest ? latest.name || latest.tag_name : null),
+        status: version(latest.name || latest.tag_name),
         color: latest.prerelease ? 'orange' : 'blue'
       }
   }
