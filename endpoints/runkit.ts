@@ -66,7 +66,7 @@ https://cal-badge-icd0onfvrxx6.runkit.sh/Asia/Shanghai
 `
 
 export const meta: Meta = {
-  title: 'RunKit',
+  title: 'With RunKit Endpoint',
   examples: {
     '/runkit/satisfaction-flq08o9mm3ka/102909/topic': 'satisfaction (topic)',
     '/runkit/satisfaction-flq08o9mm3ka/102909/people': 'satisfaction (people)',

@@ -51,7 +51,7 @@ Furthermore, you may append path args to it:
 `
 
 export const meta: Meta = {
-  title: 'With https endpoint',
+  title: 'With HTTPS Endpoint',
   examples: {
     '/https/cal-badge-icd0onfvrxx6.runkit.sh': 'https endpoint',
     '/https/cal-badge-icd0onfvrxx6.runkit.sh/Asia/Shanghai': 'https endpoint (with path args)',
