@@ -105,30 +105,6 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. 
+This project exists thanks to all the people who contribute.
+
 <a href="https://github.com/amio/badgen-service/graphs/contributors"><img src="https://opencollective.com/badgen/contributors.svg?width=890&button=false" /></a>
-
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/badgen#backer)]
-
-<a href="https://opencollective.com/badgen#backers" target="_blank"><img src="https://opencollective.com/badgen/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/badgen#sponsor)]
-
-<a href="https://opencollective.com/badgen/sponsor/0/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/1/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/2/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/3/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/4/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/5/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/6/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/7/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/8/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/badgen/sponsor/9/website" target="_blank"><img src="https://opencollective.com/badgen/sponsor/9/avatar.svg"></a>
-
-
