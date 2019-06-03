@@ -7,15 +7,12 @@ import examples from '../static/.gen/badges.json'
 
 const Index = () => {
   const [ tab, setTab ] = useState('live')
-  const [ host, setHost ] = useState('host')
+  const [ host, setHost ] = useState()
   const badges = examples[tab]
 
   useEffect(() => {
     const forceHost = new URL(window.location).searchParams.get('host')
-    const autoHost = window.location.host === 'flat.badgen.net'
-      ? 'https://flat.badgen.net'
-      : 'https://badgen.net'
-    setHost((forceHost || autoHost) + '/')
+    setHost((forceHost || window.location.origin) + '/')
   })
 
   return <>
