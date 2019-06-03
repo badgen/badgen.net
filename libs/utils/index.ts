@@ -1,12 +1,12 @@
 import millify from 'millify'
 
-import coverage from './cov-format'
-import coverageColor from './cov-color'
+import coverage from './coverage'
+import coverageColor from './coverage-color'
 import scale from './scale'
-import stars from './stars.js'
-import version from './version-formatter'
-import versionCompare from './compare-versions'
-import versionColor from './sem-color'
+import stars from './stars'
+import version from './version'
+import versionCompare from './version-compare'
+import versionColor from './version-color'
 
 export {
   millify,

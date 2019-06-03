@@ -1,6 +1,6 @@
-const semver = require('semver')
+import semver from 'semver'
 
-module.exports = (v1, v2) => {
+export default (v1, v2) => {
   const validV1 = semver.valid(semver.coerce(v1))
   const validV2 = semver.valid(semver.coerce(v2))
 

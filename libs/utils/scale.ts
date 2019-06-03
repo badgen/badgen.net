@@ -23,4 +23,4 @@ const presets = {
   ]
 }
 
-module.exports = scale
+export default scale

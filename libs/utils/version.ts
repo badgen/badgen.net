@@ -9,7 +9,7 @@
  *   undefined => 'unknown'
  *   0 => 'v0'
  */
-module.exports = (version) => {
+export default (version) => {
   if (!version && version !== 0) {
     return 'unknown'
   }
