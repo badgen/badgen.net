@@ -1,7 +1,8 @@
 {
   "version": 2,
   "alias": [
-    "v2.badgen.net"
+    "v2.badgen.net",
+    "flat.badgen.net"
   ],
   "regions": ["sfo", "lhr", "hnd"],
   "builds": [
