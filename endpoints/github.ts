@@ -265,7 +265,7 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
       }
     `
 
-    return queryGithub(query).then(res => res.data.repository)
+    return queryGithub(query).then(res => res.data!.repository)
   }
 }
 

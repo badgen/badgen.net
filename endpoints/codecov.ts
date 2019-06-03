@@ -40,6 +40,14 @@ async function handler ({ vcs, owner, repo, branch }: Args) {
   const endpoint = `https://codecov.io/api/${args.join('/')}`
   const data = await got(endpoint).then(res => res.body)
 
+  if (!data.commit) {
+    return {
+      subject: 'codecov',
+      status: 'unknown',
+      color: 'grey'
+    }
+  }
+
   return {
     subject: 'coverage',
     status: coverage(data.commit.totals.c),
