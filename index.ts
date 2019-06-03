@@ -25,7 +25,7 @@ const isStatic = (url) => {
 const server = http.createServer(async (req, res) => {
   // handle statics
   if (isStatic(req.url)) {
-    return serveHandler(req, res, { public: path.join(__dirname, 'out') })
+    return serveHandler(req, res, { public: path.join(__dirname, 'dist') })
   }
 
   // handle `/docs/:name`

@@ -7,7 +7,7 @@
   "regions": ["sfo", "lhr", "hnd"],
   "builds": [
     { "src": "endpoints/*.ts", "use": "@now/node" },
-    { "src": "package.json", "use": "@now/static-build", "config": { "distDir": "out" } }
+    { "src": "package.json", "use": "@now/static-build" }
  ],
   "routes": [
     { "src": "/(?<name>[^/]+)/.*", "dest": "/endpoints/$name.ts" },
