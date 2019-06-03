@@ -15,7 +15,7 @@
     { "src": "/(?<name>[^/]+)/.*", "dest": "/endpoints/$name.ts" }
   ],
   "env": {
-    "GH_TOKEN": "@badgen-gh-tokens",
+    "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_URI": "@badgen-sentry-uri",
     "TRACKING_GA": "@badgen-tracking-ga"
   },

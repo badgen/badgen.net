@@ -64,12 +64,12 @@ export const handlers: Handlers = {
 }
 
 const pickGithubToken = () => {
-  const { GH_TOKEN } = process.env
-  if (!GH_TOKEN) {
-    throw new Error('Missing GH_TOKEN')
+  const { GH_TOKENS } = process.env
+  if (!GH_TOKENS) {
+    throw new Error('Missing env: GH_TOKENS')
   }
 
-  const tokens = GH_TOKEN.split(',')
+  const tokens = GH_TOKENS.split(',')
   return tokens[Math.floor(Math.random() * tokens.length)]
 }
 
@@ -270,7 +270,7 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
 }
 
 async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
-  if (!process.env.GH_TOKEN) {
+  if (!process.env.GH_TOKENS) {
     return {
       subject: 'github',
       status: 'token required',
@@ -391,13 +391,6 @@ async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
   }
 }
 
-const parseDependents = (html, type) => {
-  const $ = cheerio.load(html)
-  const depLink = $(`a[href$="?dependent_type=${type}"]`)
-  if (depLink.length !== 1) return -1
-  return depLink.text().replace(/[^0-9,]/g, '')
-}
-
 function dependents (type: string) {
   return async function ({ owner, repo }: Args) {
     const html = await got(`https://github.com/${owner}/${repo}/network/dependents`, {
@@ -414,6 +407,17 @@ function dependents (type: string) {
       color: 'blue'
     }
   }
+}
+
+const parseDependents = (html, type) => {
+  const $ = cheerio.load(html)
+  const depLink = $(`a[href$="?dependent_type=${type}"]`)
+
+  if (depLink.length !== 1) {
+    return 'unknown'
+  }
+
+  return depLink.text().replace(/[^0-9,]/g, '')
 }
 
 export default badgenServe(handlers)
