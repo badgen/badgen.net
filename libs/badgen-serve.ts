@@ -54,13 +54,18 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 
         return serveBadge(req, res, { params, query })
       } catch (error) {
-        // 404 for `got` requests
-        if (error.statusCode === 404) {
+        // Handle requests errors from `got`
+        if (error.statusCode) {
+          const errorInfo = `${error.url} ${error.statusMessage}`
+          console.error(`GOT:E${error.statusCode} ${req.url} ${errorInfo}`)
+          // todo: send to google
+
           return serveBadge(req, res, {
-            code: 404,
+            code: error.statusCode,
+            sMaxAge: 5,
             params: {
               subject: defaultLabel,
-              status: '404',
+              status: error.statusCode,
               color: 'grey'
             }
           })
@@ -69,6 +74,8 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         // timeout for `got` requests
         if (error.code === 'ETIMEDOUT') {
           console.error(`E504 ${req.url}`)
+          // todo: send to google
+
           return serveBadge(req, res, {
             code: 504,
             sMaxAge: 5,
