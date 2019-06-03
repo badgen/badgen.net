@@ -3,7 +3,7 @@ import url from 'url'
 import serve404 from './serve-404'
 import serveBadge from './serve-badge'
 import matchRoute from './match-route'
-// import serveApi from './serve-api'
+import sentry from './sentry'
 
 import { BadgenParams } from './types'
 
@@ -86,6 +86,12 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
             }
           })
         }
+
+        sentry.configureScope((scope) => {
+          scope.setTag('path', req.url)
+          scope.setTag('service', defaultLabel)
+        })
+        sentry.captureException(error)
 
         console.error(`E500 ${req.url}`, error.message)
         return serveBadge(req, res, {
