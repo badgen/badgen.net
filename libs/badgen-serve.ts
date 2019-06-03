@@ -44,10 +44,6 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           color: 'grey'
         }
 
-        // if (req.hostname === 'api.badgen.net') {
-        //   return serveApi(req, res, { params })
-        // }
-
         if (req.headers.host.startsWith('flat.') && query.style !== undefined) {
           query.style = 'flat'
         }
