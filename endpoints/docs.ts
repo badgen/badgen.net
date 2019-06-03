@@ -8,11 +8,12 @@ export default async function (req, res) {
   const helpMarkdown = genHelp(name)
 
   if (helpMarkdown) {
-    console.info(100, `${name}: ${req.url}`)
+    console.info(`DOC ${name}: ${req.url}`)
     return serveMarked(helpMarkdown, {
       title: `${name} badge | Badgen`,
       inlineCSS,
       beforeBodyEnd: helpFooter,
+      trackingGA: process.env.TRACKING_GA
     })(req, res)
   }
 
