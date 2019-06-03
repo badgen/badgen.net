@@ -1,4 +1,3 @@
-const raven = require('./raven.js')
 const sendStats = require('./send-stats.js')
 
 module.exports = async (service, fn, paramsPath) => {
@@ -34,7 +33,6 @@ const gotErrorHandler = (service, paramsPath, err) => {
   }
 
   logError(serviceKey, status, err)
-  sendError(serviceKey, status, err)
   sendStats('error', status, serviceKey)
 
   return { status, failed: true }
@@ -48,16 +46,4 @@ const logError = (serviceKey, status, err) => {
   } else {
     console.error(`    @ ${err.url} [${err.statusCode || err.code || err.message}]`)
   }
-}
-
-// send error to sentry
-const sendError = (serviceKey, status, err) => {
-  if (status !== 'unknown') return
-
-  raven && raven.captureException(err, {
-    tags: {
-      serviceKey,
-      url: err.url
-    }
-  })
 }
