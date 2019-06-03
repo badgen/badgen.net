@@ -44,7 +44,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           color: 'grey'
         }
 
-        if (req.headers.host.startsWith('flat.') && query.style !== undefined) {
+        if (req.headers.host.startsWith('flat.') && query.style === undefined) {
           query.style = 'flat'
         }
 
