@@ -7,15 +7,14 @@ type ServeBadgeOptions = {
   code?: number
   sMaxAge?: number,
   query?: { [key: string]: any },
-  params?: BadgenParams
+  params: BadgenParams
 }
 
 export default function (req, res, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = 10800, query = {}, params } = options
 
-  const hostStyle = req.headers.host === 'flat.badgen.net' ? 'flat' : undefined
-  const { subject, status, color } = params || req.params
-  const { style, label, list, icon, iconWidth, color: queryColor } = query || req.query
+  const { subject, status, color } = params
+  const { style, label, list, icon, iconWidth, color: queryColor } = query
   const _icon = icons[icon === '' ? subject : icon] || {
     base64: icon,
     width: iconWidth
@@ -25,7 +24,7 @@ export default function (req, res, options: ServeBadgeOptions) {
     subject: typeof label !== 'undefined' ? label : subject,
     status: String(list ? status.replace(/,/g, ' | ') : status),
     color: queryColor || color,
-    style: style || hostStyle,
+    style: style,
     icon: _icon.base64,
     iconWidth: _icon.width
   })
