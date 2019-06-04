@@ -28,7 +28,17 @@ export default badgenServe(handlers)
 async function handler ({ topic, scope, name }: Args) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://bundlephobia.com/api/size?package=${pkg}`
-  const { size, gzip } = await got(endpoint).then(res => res.body)
+  const resp = await got(endpoint).then(res => res.body)
+
+  if (!resp) {
+    return {
+      subject: 'bundlephobia',
+      status: 'unknown',
+      color: 'grey'
+    }
+  }
+
+  const { size, gzip } = resp
 
   switch (topic) {
     case 'min':
