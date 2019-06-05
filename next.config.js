@@ -1,3 +1,9 @@
 module.exports = {
-  target: 'serverless'
+  target: 'serverless',
+  exportPathMap: async function (defaultPathMap) {
+    return {
+      '/': { page: '/index' },
+      '/builder': { page: '/builder' }
+    }
+  }
 }

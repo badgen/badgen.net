@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceMap": true,
-    "outDir": "dist-server",
+    "outDir": "dist",
     "baseUrl": ".",
     "lib": ["dom", "esnext"]
   },

@@ -12,20 +12,22 @@ const sendError = (req, res, error) => {
 }
 
 const badgeHandlers = fs.readdirSync(path.join(__dirname, 'endpoints'))
-  .filter(name => !name.startsWith('_'))
-  .map(name => name.replace(/\.ts$/, ''))
+  .filter(name => /\.[jt]s$/.test(name))
+  .map(name => name.replace(/\.[jt]s$/, ''))
 
 const isStatic = (url) => {
   if (url === '/') return true
-  if (url.startsWith('/static/')) return true
   if (url.startsWith('/_next/')) return true
+  if (url.startsWith('/static/')) return true
+  if (url.startsWith('/builder')) return true
   return false
 }
 
+const { PUB_DIR = '.' } = process.env
 const server = http.createServer(async (req, res) => {
   // handle statics
   if (isStatic(req.url)) {
-    return serveHandler(req, res, { public: path.join(__dirname, 'dist') })
+    return serveHandler(req, res, { public: path.resolve(__dirname, PUB_DIR) })
   }
 
   // handle `/docs/:name`
