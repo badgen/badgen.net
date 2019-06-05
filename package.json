@@ -14,7 +14,7 @@
     "now-build": "npm run build",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
-    "start": "node service.js",
+    "start": "node dist/index.js",
     "now-prune": "now rm badgen.net --safe -y -S amio || true",
     "predeploy": "now -S amio inspect badgen.net",
     "deploy": "now -S amio && now -S amio alias"
