@@ -1,0 +1,21 @@
+{
+  "verbose": true,
+  "ignore": [
+    ".git",
+    ".next",
+    "node_modules/**/node_modules"
+  ],
+  "execMap": {
+    "js": "node --harmony",
+    "ts": "ts-node"
+  },
+  "watch": [
+    "index.ts",
+    "endpoints",
+    "libs"
+  ],
+  "env": {
+    "PUB_DIR": "dist"
+  },
+  "ext": "js,ts"
+}

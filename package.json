@@ -7,17 +7,14 @@
   "scripts": {
     "lint": "standard",
     "build": "npm run tools && next build && next export -o dist && tsc",
-    "predev": "npm run build",
-    "dev": "PUB_DIR=dist nodemon -e ts,js -w endpoints -w libs -x 'ts-node index.ts'",
+    "dev": "npm run build && npm run dev:api",
+    "dev:api": "nodemon --config nodemon.json index.ts",
     "dev:web": "next",
     "tools": "ts-node tools/gen-examples.ts",
     "now-build": "npm run build",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
-    "start": "node dist/index.js",
-    "now-prune": "now rm badgen.net --safe -y -S amio || true",
-    "predeploy": "now -S amio inspect badgen.net",
-    "deploy": "now -S amio && now -S amio alias"
+    "start": "node dist/index.js"
   },
   "standard": {
     "parser": "babel-eslint"
@@ -50,6 +47,7 @@
     "fs-extra": "^8.0.1",
     "micro-dev": "^3.0.0",
     "next": "^7.0.3",
+    "nodemon": "^1.19.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "standard": "^12.0.1",
