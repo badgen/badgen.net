@@ -23,15 +23,23 @@ const isStatic = (url) => {
   return false
 }
 
+const serveStaticHeaders = [
+  {
+    source: "**/*",
+    headers: [{
+      key: "Cache-Control",
+      value: "public, max-age: 86400, s-maxage: 86400"
+    }]
+  }
+]
+
 const { PUB_DIR = '.' } = process.env
 const server = http.createServer(async (req, res) => {
   // handle statics
   if (isStatic(req.url)) {
     return serveHandler(req, res, {
       public: path.resolve(__dirname, PUB_DIR),
-      headers: [
-        { "source": "**/*", "headers": "public, max-age: 86400, s-maxage: 86400" }
-      ]
+      headers: serveStaticHeaders
     })
   }
 
