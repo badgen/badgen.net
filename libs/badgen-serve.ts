@@ -51,8 +51,9 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         return serveBadge(req, res, { params, query })
       } catch (error) {
         if (error instanceof BadgenError) {
+          console.log(`BGE${error.code} "${error.status}" ${req.url}`)
           return serveBadge(req, res, {
-            code: 500,
+            code: error.code,
             sMaxAge: 5,
             params: {
               subject: defaultLabel,
@@ -62,24 +63,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           })
         }
 
-        // Handle requests errors from `got`
-        if (error.statusCode) {
-          const errorInfo = `${error.url} ${error.statusMessage}`
-          console.error(`GOT:E${error.statusCode} ${req.url} ${errorInfo}`)
-          // todo: send to google
-
-          return serveBadge(req, res, {
-            code: error.statusCode,
-            sMaxAge: 5,
-            params: {
-              subject: defaultLabel,
-              status: error.statusCode,
-              color: 'grey'
-            }
-          })
-        }
-
-        // timeout for `got` requests
+        // Handle timeout for `got` requests
         if (error.code === 'ETIMEDOUT') {
           console.error(`E504 ${req.url}`)
           // todo: send to google
@@ -90,6 +74,23 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
             params: {
               subject: defaultLabel,
               status: 'timeout',
+              color: 'grey'
+            }
+          })
+        }
+
+        // Handle requests errors from `got`
+        if (error.statusCode) {
+          const errorInfo = `${error.url} ${error.statusMessage}`
+          console.error(`APIE${error.statusCode} ${req.url} ${errorInfo}`)
+          // todo: send to google
+
+          return serveBadge(req, res, {
+            code: error.statusCode,
+            sMaxAge: 5,
+            params: {
+              subject: defaultLabel,
+              status: error.statusCode,
               color: 'grey'
             }
           })
@@ -119,9 +120,9 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 }
 
 export class BadgenError {
-  public status: string // badge param: status (required)
-  public color: string  // badge param: color
-  public code: number   // response code
+  public status: string // error badge param: status (required)
+  public color: string  // error badge param: color
+  public code: number   // status code for response
 
   constructor ({ status, color = 'grey', code = 500 }) {
     this.status = status
