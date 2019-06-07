@@ -5,6 +5,7 @@ import got from '../libs/got'
 import { version, millify } from '../libs/utils'
 import {
   badgenServe,
+  BadgenError,
   BadgenServeMeta as Meta,
   BadgenServeHandlers as Handlers,
   BadgenServeHandlerArgs as Args
@@ -66,7 +67,9 @@ export const handlers: Handlers = {
 const pickGithubToken = () => {
   const { GH_TOKENS } = process.env
   if (!GH_TOKENS) {
-    throw new Error('Missing env: GH_TOKENS')
+    throw new BadgenError({
+      status: 'token required'
+    })
   }
 
   const tokens = GH_TOKENS.split(',')
@@ -93,14 +96,6 @@ const queryGithub = query => {
 }
 
 async function singleStatus ({ owner, repo, ref = 'master' }: Args) {
-  if (!process.env.GH_TOKENS) {
-    return {
-      subject: 'github',
-      status: 'token required',
-      color: 'grey'
-    }
-  }
-
   const statuses = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
   switch (statuses.state) {
@@ -138,14 +133,6 @@ async function singleStatus ({ owner, repo, ref = 'master' }: Args) {
 }
 
 async function release ({ owner, repo, channel }: Args) {
-  if (!process.env.GH_TOKENS) {
-    return {
-      subject: 'github',
-      status: 'token required',
-      color: 'grey'
-    }
-  }
-
   const releases = await restGithub(`repos/${owner}/${repo}/releases`)
 
   if (!releases || !releases.length) {
@@ -286,14 +273,6 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
 }
 
 async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
-  if (!process.env.GH_TOKENS) {
-    return {
-      subject: 'github',
-      status: 'token required',
-      color: 'grey'
-    }
-  }
-
   const result = await makeRepoQuery(topic, owner, repo, restArgs)
 
   if (!result) {

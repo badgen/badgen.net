@@ -50,6 +50,18 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 
         return serveBadge(req, res, { params, query })
       } catch (error) {
+        if (error instanceof BadgenError) {
+          return serveBadge(req, res, {
+            code: 500,
+            sMaxAge: 5,
+            params: {
+              subject: defaultLabel,
+              status: error.status,
+              color: error.color
+            }
+          })
+        }
+
         // Handle requests errors from `got`
         if (error.statusCode) {
           const errorInfo = `${error.url} ${error.statusMessage}`
@@ -103,5 +115,17 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
     } else {
       return serve404(req, res)
     }
+  }
+}
+
+export class BadgenError {
+  public status: string // badge param: status (required)
+  public color: string  // badge param: color
+  public code: number   // response code
+
+  constructor ({ status, color = 'grey', code = 500 }) {
+    this.status = status
+    this.color = color
+    this.code = code
   }
 }
