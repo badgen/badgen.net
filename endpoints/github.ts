@@ -93,6 +93,14 @@ const queryGithub = query => {
 }
 
 async function singleStatus ({ owner, repo, ref = 'master' }: Args) {
+  if (!process.env.GH_TOKENS) {
+    return {
+      subject: 'github',
+      status: 'token required',
+      color: 'grey'
+    }
+  }
+
   const statuses = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
   switch (statuses.state) {
@@ -130,18 +138,26 @@ async function singleStatus ({ owner, repo, ref = 'master' }: Args) {
 }
 
 async function release ({ owner, repo, channel }: Args) {
+  if (!process.env.GH_TOKENS) {
+    return {
+      subject: 'github',
+      status: 'token required',
+      color: 'grey'
+    }
+  }
+
   const releases = await restGithub(`repos/${owner}/${repo}/releases`)
 
-  const [latest] = releases
-  const stable = releases.find(release => !release.prerelease)
-
-  if (!latest) {
+  if (!releases || !releases.length) {
     return {
       subject: 'release',
       status: 'none',
       color: 'yellow'
     }
   }
+
+  const [latest] = releases
+  const stable = releases.find(release => !release.prerelease)
 
   switch (channel) {
     case 'stable':
