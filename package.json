@@ -33,7 +33,7 @@
     "micro": "^9.3.4",
     "millify": "^3.1.0",
     "react-debounce-render": "^5.0.0",
-    "semver": "^6.1.0",
+    "semver": "^6.1.1",
     "serve-handler": "^6.0.1",
     "serve-marked": "^2.0.0"
   },
@@ -48,8 +48,8 @@
     "react-dom": "^16.8.6",
     "standard": "^12.0.1",
     "supertest": "^4.0.2",
-    "tap": "^13.1.11",
-    "ts-node": "^8.1.0",
-    "typescript": "^3.4.5"
+    "tap": "^14.2.2",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.5.1"
   }
 }
