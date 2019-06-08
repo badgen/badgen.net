@@ -1,27 +1,27 @@
 {
   "version": 1,
   "alias": [
-    "api.badgen.net",
-    "flat.badgen.net",
-    "badgen.net",
-    "badgen"
+    "v2.badgen.net"
   ],
   "files": [
     "package-lock.json",
     "next.config.js",
-    "service.js",
+    "tsconfig.json",
+    "index.ts",
+    "tools",
     "libs",
     "pages",
     "static",
+    "endpoints",
     "components"
   ],
   "env": {
-    "GH_TOKEN": "@badgen-gh-tokens",
+    "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_URI": "@badgen-sentry-uri",
     "TRACKING_GA": "@badgen-tracking-ga"
   },
   "engines": {
-    "node": "^10.0.0"
+    "node": "^10"
   },
   "github": {
     "autoAlias": false

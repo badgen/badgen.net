@@ -6,21 +6,22 @@
   "private": true,
   "scripts": {
     "lint": "standard",
-    "dev": "micro-dev service.js -s -i .next",
+    "build": "npm run tools && next build && next export -o dist && tsc",
+    "dev": "npm run build && npm run dev:api",
+    "dev:api": "nodemon --config nodemon.json index.ts",
     "dev:web": "next",
-    "build": "NODE_ENV=production next build && next export -o public",
+    "tools": "ts-node tools/gen-examples.ts",
+    "now-build": "npm run build",
     "pretest": "npm run lint",
     "test": "tap test/*.js --reporter spec -j12",
-    "start": "node service.js",
-    "now-prune": "now rm badgen.net --safe -y -S amio || true",
-    "predeploy": "now -S amio inspect badgen.net",
-    "deploy": "now -S amio && now -S amio alias",
-    "canary": "now -S amio && now -S amio alias badgen-canary"
+    "start": "node dist/index.js"
   },
   "standard": {
     "parser": "babel-eslint"
   },
   "dependencies": {
+    "@sentry/integrations": "^5.4.1",
+    "@sentry/node": "^5.4.0",
     "badgen": "^2.7.1",
     "badgen-icons": "^0.9.1",
     "byte-size": "^5.0.1",
@@ -30,24 +31,25 @@
     "got": "^9.6.0",
     "lodash.debounce": "^4.0.8",
     "micro": "^9.3.4",
-    "micro-fork": "^2.0.0",
     "millify": "^3.1.0",
-    "raven": "^2.6.4",
     "react-debounce-render": "^5.0.0",
-    "semver": "^6.1.0",
+    "semver": "^6.1.1",
     "serve-handler": "^6.0.1",
-    "serve-marked": "^1.1.0"
+    "serve-marked": "^2.0.0"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^1.0.20",
-    "@zeit/next-mdx": "^1.2.0",
+    "@types/got": "^9.4.4",
+    "@zeit/next-typescript": "^1.1.1",
     "babel-eslint": "^10.0.1",
-    "micro-dev": "^3.0.0",
-    "next": "^8.1.0",
+    "fs-extra": "^8.0.1",
+    "next": "^7.0.3",
+    "nodemon": "^1.19.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "standard": "^12.0.1",
     "supertest": "^4.0.2",
-    "tap": "^13.1.11"
+    "tap": "^14.2.2",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.5.1"
   }
 }

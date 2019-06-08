@@ -9,20 +9,16 @@ export default ({ focus, badgeURL }) => {
     <div className='hints' style={style}>
       <Hint left={0} width={50} height={3}>
         <div style={{ textAlign: 'left', marginBottom: '2em' }}>
-          <a href='/gallery/static'>badge (static badge)</a>
-          <br />
-          <a href='/gallery/live'>SERVICE_NAME (live badge)</a>
-          <br />
-          <a href='/docs/runkit'>runkit</a> / <a href='/docs/https'>https</a> (arbitrary badge)
+          SERVICE_NAME (static badge / live badge)
         </div>
       </Hint>
       <Hint left={66} width={70} height={2}>TEXT</Hint>
       <Hint left={153} width={60} height={2}>TEXT</Hint>
       <Hint left={230} width={50} height={2}>
-        &nbsp;RGB / <a href='/docs/colors'>COLOR_NAME</a> (optional)
+        &nbsp;RGB / <a href='/#colors'>COLOR_NAME</a> (optional)
       </Hint>
       <Hint left={290} width={110} height={1}>
-        <a href='/docs/options'>OPTIONS (icon, label, etc.)</a>
+        <a href='/#options'>OPTIONS (icon, label, etc.)</a>
       </Hint>
       <style jsx>{`
         .hints {
@@ -38,6 +34,7 @@ export default ({ focus, badgeURL }) => {
         }
         a:hover {
           border-bottom: 1px dashed #333;
+          text-decoration: none;
         }
       `}</style>
     </div>

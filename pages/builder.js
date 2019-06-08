@@ -20,11 +20,8 @@ export default class BuilderPage extends React.Component {
 
   componentDidMount () {
     const forceHost = new URL(window.location).searchParams.get('host')
-    const autoHost = window.location.host === 'flat.badgen.net'
-      ? 'https://flat.badgen.net'
-      : 'https://badgen.net'
     this.setState({
-      host: (forceHost || autoHost) + '/',
+      host: (forceHost || window.location.origin) + '/',
       badgeURL: window.location.hash.replace(/^#/, ''),
       placeholder: 'badge/:subject/:status/:color?icon=github'
     })

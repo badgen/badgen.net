@@ -1,4 +1,6 @@
-node_modules
 yarn.lock
-public
+node_modules
+dist-server
+dist
 .next
+.gen

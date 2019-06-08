@@ -1,5 +1,9 @@
-const withMDX = require('@zeit/next-mdx')()
-
-module.exports = withMDX({
-  pageExtensions: ['js', 'jsx', 'mdx']
-})
+module.exports = {
+  target: 'serverless',
+  exportPathMap: async function (defaultPathMap) {
+    return {
+      '/': { page: '/index' },
+      '/builder': { page: '/builder' }
+    }
+  }
+}

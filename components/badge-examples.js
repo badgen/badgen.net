@@ -1,19 +1,15 @@
-
-const WITH_DOCS = [
-  'packagephobia',
-  'uptime robot'
-]
-
 export default ({ data }) => {
-  return Object.entries(data).map(([category, egs]) => (
-    <dl id={category} key={category}>
+  return data.map(({ id, title, examples }) => (
+    <dl id={id} key={title}>
       <dt>
-        <a className='title' href={`#${category}`}>{category}</a>
-        { WITH_DOCS.includes(category) && <a className='doc' href={`/docs/${category}`}>?</a> }
+        <a className='title' href={`#${id}`}>{title}</a>
+        <a className='doc' href={`/docs/${id}`}>?</a>
       </dt>
-      { egs.map(eg => (
-        <ExampleItem key={eg[1]} desc={eg[0]} url={eg[1]} />
-      )) }
+      {
+        Object.entries(examples).map(([path, desc]) => (
+          <ExampleItem key={path} desc={desc} url={path} />
+        ))
+      }
       <style jsx>{`
         dl {
           padding: 0 1em;
@@ -38,8 +34,9 @@ export default ({ data }) => {
           color: #ccc;
           display: inline-block;
           position: relative;
-          width: 0px;
           left: -0.8em;
+          top: -0.1em;
+          width: 0px;
         }
         a.doc {
           background: #CCC;
@@ -49,9 +46,8 @@ export default ({ data }) => {
           height: 16px;
           width: 16px;
           border-radius: 50%;
-        }
-        a.doc {
           margin-left: 0.5em;
+          top: -1px;
         }
         a.doc:hover {
           background-color: #AAA
