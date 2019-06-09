@@ -67,7 +67,7 @@ const server = http.createServer(async (req, res) => {
 
 // Auto run
 if (require.main === module) {
-  server.listen(3000)
+  server.listen(process.env.PORT || 3000)
 }
 
 process.on('unhandledRejection', e => {
