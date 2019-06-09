@@ -1,8 +1,8 @@
 import url from 'url'
+import matchRoute from 'my-way'
 
 import serve404 from './serve-404'
 import serveBadge from './serve-badge'
-import matchRoute from './match-route'
 import sentry from './sentry'
 
 import { BadgenParams } from './types'

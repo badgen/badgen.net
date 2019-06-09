@@ -60,8 +60,7 @@ export const meta: Meta = {
 }
 
 export const handlers: Handlers = {
-  '/https/:hostname': handler,
-  '/https/:hostname/:path+': handler
+  '/https/:hostname/:path*': handler
 }
 
 async function handler ({ hostname, path }: Args) {

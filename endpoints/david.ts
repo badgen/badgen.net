@@ -18,8 +18,7 @@ export const meta: Meta = {
 }
 
 export const handlers: Handlers = {
-  '/david/:topic/:user/:repo': handler,
-  '/david/:topic/:user/:repo/:path+': handler
+  '/david/:topic/:user/:repo/:path*': handler
 }
 
 const statusInfo = {

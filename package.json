@@ -32,6 +32,7 @@
     "lodash.debounce": "^4.0.8",
     "micro": "^9.3.4",
     "millify": "^3.1.0",
+    "my-way": "^0.2.0",
     "react-debounce-render": "^5.0.0",
     "semver": "^6.1.1",
     "serve-handler": "^6.0.1",

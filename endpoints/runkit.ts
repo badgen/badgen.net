@@ -76,8 +76,7 @@ export const meta: Meta = {
 }
 
 export const handlers: Handlers = {
-  '/runkit/:endpoint-id': handler,
-  '/runkit/:endpoint-id/:path+': handler
+  '/runkit/:endpoint-id/:path*': handler
 }
 
 async function handler ({ 'endpoint-id': id, path }: Args) {
