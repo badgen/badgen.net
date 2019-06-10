@@ -44,12 +44,12 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           color: 'grey'
         }
 
-        params.subject = decodeURIComponent(params.subject)
-        params.status = decodeURIComponent(params.status)
+        params.subject = simpleDecode(params.subject)
+        params.status = simpleDecode(params.status)
 
         if (query.style === undefined
           && process.env.BADGE_STYLE === 'flat'
-          || req.headers.host.startsWith('flat.')) {
+          || req.headers.host.startsWith('flat')) {
           query.style = 'flat'
         }
 
@@ -107,7 +107,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         })
         sentry.captureException(error)
 
-        console.error(`E500 ${req.url}`, error.message)
+        console.error(`E500 ${req.url}`, error.message, error)
         return serveBadge(req, res, {
           code: 500,
           sMaxAge: 5,
@@ -134,4 +134,8 @@ export class BadgenError {
     this.color = color
     this.code = code
   }
+}
+
+function simpleDecode (str: any): string {
+  return String(str).replace(/%2F/g, '/')
 }
