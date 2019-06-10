@@ -9,7 +9,7 @@
     <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
     <a href="https://twitter.com/badgen_net"><img src="https://badgen.net/badge/twitter/@badgen_net/1DA1F2?icon&label" /></a>
     <a href="#backers"><img src="https://opencollective.com/badgen/backers/badge.svg"/></a>
- 	<a href="#sponsors"><img src="https://opencollective.com/badgen/sponsors/badge.svg"/></a> 
+    <a href="#sponsors"><img src="https://opencollective.com/badgen/sponsors/badge.svg"/></a>
 </p>
 
 <p align="center">Home of <a href="https://badgen.net">badgen.net</a>, fast badge generating service.</p>
@@ -56,7 +56,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
-### Add live badge
+### Add Live Badge
 
 If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `endpoints/[name-of-service].ts` and that's it. Take [crates](https://badgen.net/#crates) as an example:
 
@@ -67,27 +67,23 @@ To ensure that your addition is working correctly, start the development server 
 
 > YOU MAY NOT NEED TO MAKE PULL REQUEST
 >
-> You can create arbitrary live badge with RunKit's online IDE, or any https endpoint. Checkout docs: [/runkit](https://badgen.net/docs/runkit) or [/https](https://badgen.net/docs/https).
+> You can create arbitrary live badge with RunKit's online IDE, or a https endpoint. Checkout docs: [/runkit](https://badgen.net/docs/runkit) or [/https](https://badgen.net/docs/https).
 
-### Add icon
+### Add Icon
 
 You can contribute icons to [badgen-icons](https://github.com/badgen/badgen-icons). Please make sure new icon is optimized using [svgomg](https://jakearchibald.github.io/svgomg/).
 
 ## Tracking Policy
 
-Badgen use Google Analytics on doc pages ([home](https://badgen.net), [/docs/packagephobia](https://badgen.net/docs/packagephobia), etc.), log request time to 3rd party service for live badges, like:
-```
-2018-08-09T04:16:30.947Z  #npm dt/chalk: 160.519ms
-2018-08-09T04:16:31.195Z  #npm dependents/chalk: 365.045ms
-2018-08-09T04:16:51.252Z  #david dep/olstenlarck/eslint-config-esmc: 445.893ms
-```
+Badgen collect errors for imroving service, use Google Analytics on doc pages ([home](https://badgen.net), [/docs/packagephobia](https://badgen.net/docs/packagephobia), etc.) to understand overall usage.
 
-And that's all. No tracking of end users.
+Badgen do not collect any identifying information.
 
-## About
+## Contributors
 
-Made with ❤️ by [Amio](https://github.com/amio),
-built with ⚡️ from [badgen](https://github.com/amio/badgen).
+Made with ❤️ by [amio](https://github.com/amio) and [contributors](https://github.com/badgen/badgen.net/graphs/contributors).
+
+[![](https://opencollective.com/badgen/contributors.svg?width=920&button=false)](https://github.com/amio/badgen-service/graphs/contributors)
 
 [dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
 [dependencies-href]: https://david-dm.org/amio/badgen-service
@@ -102,9 +98,3 @@ built with ⚡️ from [badgen](https://github.com/amio/badgen).
 [contributors-src]: https://badgen.net/github/contributors/amio/badgen-service
 [contributors-href]: https://github.com/amio/badgen-service/graphs/contributors
 [now-href]: https://zeit.co/now
-
-## Contributors
-
-This project exists thanks to all the people who contribute.
-
-<a href="https://github.com/amio/badgen-service/graphs/contributors"><img src="https://opencollective.com/badgen/contributors.svg?width=890&button=false" /></a>
