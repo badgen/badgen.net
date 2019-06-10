@@ -12,6 +12,7 @@ export default async function (req, res) {
     return serveMarked(helpMarkdown, {
       title: `${name} badge | Badgen`,
       inlineCSS,
+      beforeHeadEnd: '<link rel="icon" href="/favicon.png">',
       beforeBodyEnd: helpFooter,
       trackingGA: process.env.TRACKING_GA
     })(req, res)
