@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "badgen-service"
+  },
+  "targets": {
+    "badgen-service": {
+      "hosting": {
+        "flat-badgen": [
+          "flat-badgen"
+        ],
+        "badgen": [
+          "badgen"
+        ]
+      }
+    }
   }
 }
