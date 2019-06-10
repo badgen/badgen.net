@@ -47,7 +47,9 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         params.subject = decodeURIComponent(params.subject)
         params.status = decodeURIComponent(params.status)
 
-        if (query.style === undefined && req.headers.host.startsWith('flat.')) {
+        if (query.style === undefined
+          && process.env.BADGE_STYLE === 'flat'
+          || req.headers.host.startsWith('flat.')) {
           query.style = 'flat'
         }
 
