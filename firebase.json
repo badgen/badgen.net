@@ -1,0 +1,31 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "libs",
+      "endpoints",
+      "index.js*",
+      "**/*"
+    ],
+    "rewrites": [ {
+      "source": "**",
+      "run": {
+        "serviceId": "badgen",
+        "region": "us-central1"
+      }
+    } ],
+    "headers": [ {
+      "source" : "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+      "headers" : [ {
+        "key" : "Access-Control-Allow-Origin",
+        "value" : "*"
+      } ]
+      }, {
+      "source" : "**/*.@(svg|png)",
+      "headers" : [ {
+        "key" : "Cache-Control",
+        "value" : "max-age=86400"
+      } ]
+    } ]
+  }
+}
