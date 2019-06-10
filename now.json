@@ -1,7 +1,8 @@
 {
   "version": 1,
   "alias": [
-    "v2.badgen.net"
+    "badgen.net",
+    "flat.badgen.net"
   ],
   "files": [
     "package-lock.json",
