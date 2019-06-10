@@ -47,10 +47,10 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         params.subject = simpleDecode(params.subject)
         params.status = simpleDecode(params.status)
 
-        if (query.style === undefined
-          && process.env.BADGE_STYLE === 'flat'
-          || req.headers.host.startsWith('flat')) {
-          query.style = 'flat'
+        if (query.style === undefined) {
+          if ((req.headers[':authority'] || req.headers.host).startsWith('flat')) {
+            query.style = 'flat'
+          }
         }
 
         return serveBadge(req, res, { params, query })
