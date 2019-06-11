@@ -3,6 +3,13 @@ import App, { Container } from 'next/app'
 import Head from 'next/head'
 
 export default class MyApp extends App {
+  componentDidMount () {
+    window.dataLayer = window.dataLayer || []
+    function gtag () { window.dataLayer.push(arguments) }
+    gtag('js', new Date())
+    gtag('config', 'UA-4646421-14')
+  }
+
   render () {
     const { Component, pageProps } = this.props
 
@@ -15,6 +22,7 @@ export default class MyApp extends App {
           <link rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Merriweather:700,300' />
           <link rel='stylesheet' href='/static/index.css' />
+          <script async src='https://www.googletagmanager.com/gtag/js?id=UA-4646421-14' />
         </Head>
         <Component {...pageProps} />
         <style jsx global>{`
