@@ -2,9 +2,7 @@
   "hosting": [ {
     "target": "badgen",
     "public": "dist",
-    "ignore": [
-      "**/*"
-    ],
+    "ignore": ["**/*"],
     "rewrites": [ {
       "source": "**",
       "run": {
@@ -15,9 +13,7 @@
   }, {
     "target": "flat-badgen",
     "public": "dist",
-    "ignore": [
-      "**/*"
-    ],
+    "ignore": ["**/*"],
     "rewrites": [ {
       "source": "**",
       "run": {
