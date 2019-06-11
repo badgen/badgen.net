@@ -32,11 +32,9 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 ## Anatomy
 
-- Written in TypeScript => better develop experience
-- Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly => fast & stateless
-- Hosted on [Now][now-href], serving behind Now CDN => faster & reliable
-- Cache less than 4 minutes => fresh & hot
-- Two styles:
+- Written in TypeScript
+- Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly
+- Two styles
     - https://badgen.net - classic style badges
     - https://flat.badgen.net - flat & square style badges
 - Two badge types
@@ -44,6 +42,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
     - live badge - show live status from 3rd party services
 - Builtin Icons
     - see [badgen-icons](https://github.com/badgen/badgen-icons)
+- Docker image [amio/badgen](https://hub.docker.com/r/amio/badgen)
 
 ## Developing
 
@@ -52,7 +51,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 [![Dependencies][dependencies-src]][dependencies-href]
 [![Maintainability][maintainability-src]][maintainability-href]
 [![Code Quality][codequality-src]][codequality-href]
-[![LGTM Alerts][alerts-src]][alerts-href]
+[![Docker image][docker-src]][docker-href]
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
@@ -93,8 +92,7 @@ Made with ❤️ by [amio](https://github.com/amio) and [contributors](https://g
 [maintainability-href]: https://codeclimate.com/github/amio/badgen-service
 [codequality-src]: https://badgen.net/lgtm/grade/javascript/g/amio/badgen-service
 [codequality-href]: https://lgtm.com/projects/g/amio/badgen-service/context:javascript
-[alerts-src]: https://badgen.net/lgtm/alerts/g/amio/badgen-service
-[alerts-href]: https://lgtm.com/projects/g/amio/badgen-service/alerts/
 [contributors-src]: https://badgen.net/github/contributors/amio/badgen-service
 [contributors-href]: https://github.com/amio/badgen-service/graphs/contributors
-[now-href]: https://zeit.co/now
+[docker-src]: https://badgen.net/badge/docker/amio%2Fbadgen?label&icon=docker
+[docker-href]: https://hub.docker.com/r/amio/badgen
