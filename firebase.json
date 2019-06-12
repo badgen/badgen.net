@@ -1,6 +1,5 @@
 {
-  "hosting": [ {
-    "target": "badgen",
+  "hosting": {
     "public": "dist",
     "ignore": ["**/*"],
     "rewrites": [ {
@@ -10,16 +9,5 @@
         "region": "us-central1"
       }
     } ]
-  }, {
-    "target": "flat-badgen",
-    "public": "dist",
-    "ignore": ["**/*"],
-    "rewrites": [ {
-      "source": "**",
-      "run": {
-        "serviceId": "badgen-flat",
-        "region": "us-central1"
-      }
-    } ]
-  } ]
+  }
 }
