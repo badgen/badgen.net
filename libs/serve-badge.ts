@@ -39,7 +39,7 @@ type ResolvedIcon = {
   width?: string
 }
 
-function resolveIcon (icon: string, width: string): ResolvedIcon {
+function resolveIcon (icon: string | undefined, width: string): ResolvedIcon {
   const builtinIcon = icons[icon]
   if (builtinIcon) {
     return {
@@ -48,7 +48,7 @@ function resolveIcon (icon: string, width: string): ResolvedIcon {
     }
   }
 
-  if (icon.startsWith('https://')) {
+  if (String(icon).startsWith('https://')) {
     return { src: icon, width }
   }
 
