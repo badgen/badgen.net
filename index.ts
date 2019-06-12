@@ -67,7 +67,9 @@ const server = http.createServer(async (req, res) => {
 
 // Auto run
 if (require.main === module) {
-  server.listen(process.env.PORT || 3000)
+  const port = process.env.PORT || 3000
+  server.listen(port)
+  console.log(`Badgen listening on port ${port}`)
 }
 
 process.on('unhandledRejection', e => {
