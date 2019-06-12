@@ -72,7 +72,7 @@ const colorExamples = () => {
 
 const iconExamples = () => {
   return Object.keys(icons).map(icon => {
-    const url = `/badge/-/${icon}?icon=${icon}&label`
+    const url = `/badge/icon/${icon}?icon=${icon}&label`
     return (
       <a href={url} key={icon}>
         <img src={url} />
