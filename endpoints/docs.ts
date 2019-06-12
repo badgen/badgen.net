@@ -9,6 +9,9 @@ export default async function (req, res) {
 
   if (helpMarkdown) {
     console.info(`DOC ${name}: ${req.url}`)
+
+    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400')
+
     return serveMarked(helpMarkdown, {
       title: `${name} badge | Badgen`,
       inlineCSS,
