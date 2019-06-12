@@ -48,7 +48,8 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         params.status = simpleDecode(params.status)
 
         if (query.style === undefined) {
-          if ((req.headers[':authority'] || req.headers.host).startsWith('flat')) {
+          const host = req.headers['x-forwarded-host'] || req.headers.host
+          if (host.startsWith('flat')) {
             query.style = 'flat'
           }
         }
