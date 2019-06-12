@@ -57,7 +57,7 @@ export default ({ isFlat }) => (
 )
 
 const colorExamples = () => {
-  const colors = ['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'grey']
+  const colors = ['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'grey', 'black']
   return colors.map(c => (
     <a href={`/badge/color/${c}/${c}`} key={c}>
       <img src={`/badge/color/${c}/${c}`} />
