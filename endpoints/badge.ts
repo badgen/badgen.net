@@ -19,8 +19,7 @@ export const examples = [
       '/badge/icon/github?label=custom label': 'custom label',
       '/badge/icon/github?label': 'disable label',
       '/badge/github/github?icon&label': 'use icon, disable label',
-      '/badge/icon/paypal?icon=https://simpleicons.now.sh/icons/paypal.svg%3Fcolor=FFF&label': 'external icon, disable label',
-      '/badge/platform/ios,macos,tvos?list=1': 'list'
+      '/badge/platform/ios,macos,tvos?list=|': 'list (custom seprator)'
     }
   }
 ]
