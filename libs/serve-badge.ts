@@ -17,9 +17,12 @@ export default function (req, res, options: ServeBadgeOptions) {
   const { label, list, icon, iconWidth } = query
   const _icon = resolveIcon(icon === '' ? subject : icon, iconWidth)
 
+  // TODO: review usage of list
+  list && console.log(`FEAT:LIST ${req.url}`)
+
   const badge = badgen({
     subject: typeof label !== 'undefined' ? label : subject,
-    status: list ? String(status).replace(/,/g, ' | ') : String(status),
+    status: transformStatus(status, { list }),
     color: query.color || color,
     style: query.style || process.env.BADGE_STYLE,
     icon: _icon.src,
@@ -32,6 +35,17 @@ export default function (req, res, options: ServeBadgeOptions) {
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
   res.statusCode = code
   res.end(badge)
+}
+
+function transformStatus (status: any, { list }) {
+  status = String(status)
+
+  if (list !== undefined) {
+    if (list === '1') list = '|' // compatible
+    status = status.replace(/,/g, ` ${list} `)
+  }
+
+  return status
 }
 
 type ResolvedIcon = {
