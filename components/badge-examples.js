@@ -2,8 +2,10 @@ export default ({ data }) => {
   return data.map(({ id, title, examples }) => (
     <dl id={id} key={title}>
       <dt>
-        <a className='title' href={`#${id}`}>{title}</a>
-        <a className='doc' href={`/docs/${id}`}>?</a>
+        { id
+          ? <a className='title' href={`#${id}`}>{title}</a>
+          : <span className='title'>{title}</span> }
+        { id && <a className='doc' href={`/docs/${id}`}>?</a> }
       </dt>
       {
         Object.entries(examples).map(([path, desc]) => (
