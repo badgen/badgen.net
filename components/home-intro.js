@@ -24,8 +24,8 @@ export default ({ isFlat }) => (
       </li>
       <li>
         <code>list</code>
-        Set <code>list=1</code> will replace <code>,</code> with <code>|</code> in status text.
-        <a href='/badge/platform/ios,macos,tvos?list=1'>e.g.</a>
+        Set <code>list=|</code> will replace <code>,</code> with <code>|</code> in status text.
+        <a href='/badge/platform/ios,macos,tvos?list=|'>e.g.</a>
       </li>
       <li>
         <code>label</code>
