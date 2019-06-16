@@ -57,7 +57,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         return serveBadge(req, res, { params, query })
       } catch (error) {
         if (error instanceof BadgenError) {
-          console.log(`BGE${error.code} "${error.status}" ${req.url}`)
+          console.error(`BGE${error.code} "${error.status}" ${req.url}`)
           return serveBadge(req, res, {
             code: error.code,
             sMaxAge: 5,
@@ -71,9 +71,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 
         // Handle timeout for `got` requests
         if (error.code === 'ETIMEDOUT') {
-          console.error(`E504 ${req.url}`)
-          // todo: send to google
-
+          console.error(`APIE504 ${req.url}`)
           return serveBadge(req, res, {
             code: 504,
             sMaxAge: 5,
@@ -89,10 +87,8 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         if (error.statusCode) {
           const errorInfo = `${error.url} ${error.statusMessage}`
           console.error(`APIE${error.statusCode} ${req.url} ${errorInfo}`)
-          // todo: send to google
-
           return serveBadge(req, res, {
-            code: error.statusCode,
+            code: 502,
             sMaxAge: 5,
             params: {
               subject: defaultLabel,
@@ -108,7 +104,8 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         })
         sentry.captureException(error)
 
-        console.error(`E500 ${req.url}`, error.message, error)
+        // uncatched error
+        console.error(`UCE ${req.url}`, error.message, error)
         return serveBadge(req, res, {
           code: 500,
           sMaxAge: 5,
