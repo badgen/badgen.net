@@ -55,6 +55,14 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
+**start dev server**
+
+    npm run dev
+
+**start with docker**
+
+    docker run -p 3000:3000 amio/badgen
+
 ### Add Live Badge
 
 If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `endpoints/[name-of-service].ts` and that's it. Take [crates](https://badgen.net/#crates) as an example:
