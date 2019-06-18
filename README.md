@@ -64,9 +64,11 @@ If a service you wish to have is still missing here, we welcome new contribution
 
 To ensure that your addition is working correctly, start the development server with `npm run dev`.
 
-> YOU MAY NOT NEED TO MAKE PULL REQUEST
->
-> You can create arbitrary live badge with RunKit's online IDE, or a https endpoint. Checkout docs: [/runkit](https://badgen.net/docs/runkit) or [/https](https://badgen.net/docs/https).
+__NOTES__
+
+- You can create live badge without touching badgen.net's code. Checkout docs for [/runkit](https://badgen.net/docs/runkit) or [/https](https://badgen.net/docs/https).
+
+- The [/runkit](https://badgen.net/docs/runkit) support would be super handy when prototyping a new live badge.
 
 ### Add Icon
 
