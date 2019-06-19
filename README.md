@@ -8,8 +8,7 @@
     <a href="https://stats.uptimerobot.com/z6nqBfYGB/780862024"><img src="https://badgen.net/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb" /></a>
     <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
     <a href="https://twitter.com/badgen_net"><img src="https://badgen.net/badge/twitter/@badgen_net/1DA1F2?icon&label" /></a>
-    <a href="#backers"><img src="https://opencollective.com/badgen/backers/badge.svg"/></a>
-    <a href="#sponsors"><img src="https://opencollective.com/badgen/sponsors/badge.svg"/></a>
+    <a href="https://opencollective.com/badgen"><img src="https://badgen.net/badge/support/badgen/3988FB"/></a>
 </p>
 
 <p align="center">Home of <a href="https://badgen.net">badgen.net</a>, fast badge generating service.</p>
@@ -90,19 +89,27 @@ Badgen do not collect any identifying information.
 
 ## Contributors
 
-Made with ❤️ by [amio](https://github.com/amio) and [contributors](https://github.com/badgen/badgen.net/graphs/contributors).
+Thanks to our [contributors][contributors-href] 🎉👏
 
-[![](https://opencollective.com/badgen/contributors.svg?width=920&button=false)](https://github.com/amio/badgen-service/graphs/contributors)
+[![](https://opencollective.com/badgen/contributors.svg?width=920&button=false)][contributors-href]
 
-[dependencies-src]: https://badgen.net/david/dep/amio/badgen-service?label=deps
-[dependencies-href]: https://david-dm.org/amio/badgen-service
+## Support Badgen
+
+We are on OpenCollective https://opencollective.com/badgen
+
+Support this project by donation, help Badgen continue and evolving!
+
+[[Become a backer](https://opencollective.com/badgen#backer)]
+
+[dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
+[dependencies-href]: https://david-dm.org/badgen/badgen.net
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
 [standard-href]: https://standardjs.com
-[maintainability-src]: https://badgen.net/codeclimate/maintainability/amio/badgen-service
-[maintainability-href]: https://codeclimate.com/github/amio/badgen-service
-[codequality-src]: https://badgen.net/lgtm/grade/javascript/g/amio/badgen-service
-[codequality-href]: https://lgtm.com/projects/g/amio/badgen-service/context:javascript
-[contributors-src]: https://badgen.net/github/contributors/amio/badgen-service
-[contributors-href]: https://github.com/amio/badgen-service/graphs/contributors
+[maintainability-src]: https://badgen.net/codeclimate/maintainability/badgen/badgen.net
+[maintainability-href]: https://codeclimate.com/github/badgen/badgen.net
+[codequality-src]: https://badgen.net/lgtm/grade/javascript/g/badgen/badgen.net
+[codequality-href]: https://lgtm.com/projects/g/badgen/badgen.net/context:javascript
+[contributors-src]: https://badgen.net/github/contributors/badgen/badgen.net
+[contributors-href]: https://github.com/badgen/badgen.net/graphs/contributors
 [docker-src]: https://badgen.net/badge/docker/amio%2Fbadgen?label&icon=docker
 [docker-href]: https://hub.docker.com/r/amio/badgen
