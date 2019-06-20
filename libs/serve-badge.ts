@@ -18,7 +18,7 @@ export default function (req, res, options: ServeBadgeOptions) {
   const _icon = resolveIcon(icon === '' ? subject : icon, iconWidth)
 
   // TODO: review usage of list
-  list && console.log(`FEAT:LIST ${req.url}`)
+  list && console.log(`FEAT-LIST ${req.url}`)
 
   const badge = badgen({
     subject: typeof label !== 'undefined' ? label : subject,
