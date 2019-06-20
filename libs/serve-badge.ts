@@ -62,7 +62,7 @@ function resolveIcon (icon: string | undefined, width: string): ResolvedIcon {
     }
   }
 
-  if (String(icon).startsWith('https://')) {
+  if (String(icon).startsWith('data:image/')) {
     return { src: icon, width }
   }
 

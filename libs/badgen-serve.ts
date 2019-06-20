@@ -1,8 +1,9 @@
 import url from 'url'
 import matchRoute from 'my-way'
 
-import serve404 from './serve-404'
+import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
+import serve404 from './serve-404'
 import sentry from './sentry'
 
 import { BadgenParams } from './types'
@@ -35,17 +36,33 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
     })
 
     const defaultLabel = pathname.split('/')[1]
+    const defaultParams = {
+      subject: defaultLabel,
+      status: 'unknown',
+      color: 'grey'
+    }
 
     if (matchedScheme) {
       try {
-        const params = await handlers[matchedScheme](matchedArgs) || {
-          subject: defaultLabel,
-          status: 'unknown',
-          color: 'grey'
+        const paramsPromise = handlers[matchedScheme](matchedArgs)
+
+        let iconPromise
+        if (typeof(query.icon) === 'string' && query.icon.startsWith('https://')) {
+          iconPromise = fetchIcon(query.icon)
         }
+
+        const [
+          icon = query.icon,
+          params = defaultParams
+        ] = await Promise.all([
+          iconPromise,
+          paramsPromise
+        ])
 
         params.subject = simpleDecode(params.subject)
         params.status = simpleDecode(params.status)
+
+        query.icon = icon
 
         if (query.style === undefined) {
           const host = req.headers['x-forwarded-host'] || req.headers.host
