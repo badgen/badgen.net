@@ -41,7 +41,7 @@ function transformStatus (status: any, { list }) {
   status = String(status)
 
   if (list !== undefined) {
-    if (list === '1') list = '|' // compatible
+    if (list === '1' || list === '') list = '|' // compatible
     status = status.replace(/,/g, ` ${list} `)
   }
 
