@@ -37,9 +37,9 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
     - https://badgen.net - classic style badges
     - https://flat.badgen.net - flat & square style badges
 - Two badge types
-    - static badge - URL defined badge (subject, status, color)
-    - live badge - show live status from 3rd party services
-- Builtin Icons
+    - static badge - URL defined badge (label, status, color)
+    - live badge - Show live status from 3rd party services
+- Builtin Icons & External Icon Support
     - see [badgen-icons](https://github.com/badgen/badgen-icons)
 - Docker image [amio/badgen](https://hub.docker.com/r/amio/badgen)
 
