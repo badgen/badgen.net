@@ -4,22 +4,22 @@ export default ({ isFlat }) => (
   <div>
     <pre>{ explainCode(isFlat) }</pre>
 
-    <h3 id='colors'>Available color names</h3>
+    <h3 id='colors'>Builtin color names</h3>
     { colorExamples() }
 
-    <h3 id='icons'>Available icons</h3>
+    <h3 id='icons'>Builtin icons</h3>
     { iconExamples() }
 
-    <h3 id='options'>Available query params</h3>
+    <h3 id='options'>Supported query params</h3>
     <ul>
       <li>
         <code>color</code>
-        Override badge color.
+        Override default badge color.
         <a href='/npm/dm/express?color=pink'>e.g.</a>
       </li>
       <li>
         <code>icon</code>
-        Use builtin icon in front of subject text.
+        Use builtin icon (or url for external icon) in front of subject text.
         <a href='/badge/docker/v1.2.3/blue?icon=docker'>e.g.</a>
       </li>
       <li>
