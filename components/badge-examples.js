@@ -90,7 +90,7 @@ const ExampleItem = ({ desc, url }) => (
         margin: 0 10px;
       }
       span {
-        font-family: monospace;
+        font-family: Roboto Mono, SF Mono, Consolas, monospace;
       }
       a {
         color: #06D;
