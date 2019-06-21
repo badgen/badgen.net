@@ -18,9 +18,13 @@ export const meta: Meta = {
     '/github/release/babel/babel/stable': 'latest stable release',
     '/github/tag/micromatch/micromatch': 'latest tag',
     '/github/watchers/micromatch/micromatch': 'watchers',
-    '/github/status/micromatch/micromatch': 'status',
-    '/github/status/micromatch/micromatch/gh-pages': 'status (branch)',
-    '/github/status/micromatch/micromatch/f4809eb6df80b': 'status (commit)',
+    '/github/status/micromatch/micromatch': 'combined ci status (master branch)',
+    '/github/status/micromatch/micromatch/gh-pages': 'combined ci status (branch)',
+    '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined ci status (commit)',
+    '/github/status/zeit/now-cli/master/ci/circleci:%20test-unit': 'single ci job status',
+    '/github/status/zeit/now-cli/master/ci/circleci:%20test-integration': 'single ci job status',
+    '/github/status/facebook/react/master/ci/circleci:%20lint': 'single ci job status',
+    '/github/status/facebook/react/master/coverage/coveralls': 'single ci job status',
     '/github/stars/micromatch/micromatch': 'stars',
     '/github/forks/micromatch/micromatch': 'forks',
     '/github/issues/micromatch/micromatch': 'issues',
@@ -58,7 +62,8 @@ export const handlers: Handlers = {
   '/github/:topic<commits|last-commit>/:owner/:repo/:ref?': repoStats,
   '/github/:topic<release>/:owner/:repo/:channel?': release,
   '/github/:topic<dt|assets-dl>/:owner/:repo/:scope?': downloads, // `dt` is deprecated
-  '/github/:topic<status>/:owner/:repo/:ref?': singleStatus,
+  '/github/:topic<status>/:owner/:repo/:ref/:context+': status,
+  '/github/:topic<status>/:owner/:repo/:ref?': status,
   '/github/:topic<contributors>/:owner/:repo': contributors,
   '/github/:topic<dependents-repo>/:owner/:repo': dependents('REPOSITORY'),
   '/github/:topic<dependents-pkg>/:owner/:repo': dependents('PACKAGE'),
@@ -95,40 +100,33 @@ const queryGithub = query => {
   }).then(res => res.body)
 }
 
-async function singleStatus ({ owner, repo, ref = 'master' }: Args) {
-  const statuses = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
+// https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
+const statesColor = {
+  pending: 'orange',
+  success: 'green',
+  failure: 'red',
+  error: 'red'
+}
 
-  switch (statuses.state) {
-    case 'success':
-      return {
-        subject: 'status',
-        status: 'success',
-        color: 'green'
-      }
-    case 'error':
-      return {
-        subject: 'status',
-        status: 'error',
-        color: 'red'
-      }
-    case 'failure':
-      return {
-        subject: 'status',
-        status: 'failure',
-        color: 'red'
-      }
-    case 'pending':
-      return {
-        subject: 'status',
-        status: 'pending',
-        color: 'orange'
-      }
-    default:
-      return {
-        subject: 'status',
-        status: 'unknown',
-        color: 'grey'
-      }
+async function status ({ owner, repo, ref = 'master', context }: Args) {
+  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
+
+  const state = typeof context === 'string'
+    ? resp!.statuses.find(st => st.context === context).state
+    : resp!.state
+
+  if (state) {
+    return {
+      subject: context || 'status',
+      status: state,
+      color: statesColor[state]
+    }
+  } else {
+    return {
+      subject: 'status',
+      status: 'unknown',
+      color: 'grey'
+    }
   }
 }
 
