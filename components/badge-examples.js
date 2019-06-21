@@ -74,11 +74,11 @@ const ExampleItem = ({ desc, url }) => (
       }
       b {
         display: inline-block;
-        min-width: 14em;
+        min-width: 15em;
         font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
         text-align: right;
-        font-weight: 300;
-        color: #999;
+        font-weight: 400;
+        color: #777;
       }
       i {
         display: inline-block;
