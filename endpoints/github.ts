@@ -60,13 +60,13 @@ export const handlers: Handlers = {
   '/github/:topic<issues|open-issues|closed-issues>/:owner/:repo': repoStats,
   '/github/:topic<label-issues>/:owner/:repo/:label/:states?<open|closed>': repoStats,
   '/github/:topic<commits|last-commit>/:owner/:repo/:ref?': repoStats,
-  '/github/:topic<release>/:owner/:repo/:channel?': release,
   '/github/:topic<dt|assets-dl>/:owner/:repo/:scope?': downloads, // `dt` is deprecated
-  '/github/:topic<status>/:owner/:repo/:ref/:context+': status,
-  '/github/:topic<status>/:owner/:repo/:ref?': status,
-  '/github/:topic<contributors>/:owner/:repo': contributors,
-  '/github/:topic<dependents-repo>/:owner/:repo': dependents('REPOSITORY'),
-  '/github/:topic<dependents-pkg>/:owner/:repo': dependents('PACKAGE'),
+  '/github/release/:owner/:repo/:channel?': release,
+  '/github/status/:owner/:repo/:ref/:context+': status,
+  '/github/status/:owner/:repo/:ref?': status,
+  '/github/contributors/:owner/:repo': contributors,
+  '/github/dependents-repo/:owner/:repo': dependents('REPOSITORY'),
+  '/github/dependents-pkg/:owner/:repo': dependents('PACKAGE'),
 }
 
 const pickGithubToken = () => {
