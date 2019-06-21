@@ -9,20 +9,20 @@ import {
 export const meta: Meta = {
   title: 'Dependabot',
   examples: {
-    '/dependabot/github/dependabot/dependabot-core/?icon=dependabot': 'status',
-    '/dependabot/github/greenkeeperio/greenkeeper/<repo_id>?icon=dependabot': 'status (private repo)'
+    '/dependabot/dependabot/dependabot-core/?icon=dependabot': 'status',
+    '/dependabot/greenkeeperio/greenkeeper/<repo_id>?icon=dependabot': 'status (private repo)'
   }
 }
 
 export const handlers: Handlers = {
-  '/dependabot/:host<github|gitlab>/:owner/:repo/:identifier?': handler
+  '/dependabot/:owner/:repo/:identifier?': handler
 }
 
 export default badgenServe(handlers)
 
-async function handler ({ host, owner, repo, identifier }: Args) {
+async function handler ({ owner, repo, identifier }: Args) {
   // https://github.com/dependabot/feedback/issues/6#issuecomment-503994253
-  let endpoint = `https://api.dependabot.com/badges/status?host=${host}&repo=${owner}/${repo}`
+  let endpoint = `https://api.dependabot.com/badges/status?host=github&repo=${owner}/${repo}`
   if (!!identifier && identifier !== '<repo_id>') {
     endpoint += `&identifier=${identifier}`
   }
