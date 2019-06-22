@@ -78,6 +78,7 @@ const pickGithubToken = () => {
   }
 
   const tokens = GH_TOKENS.split(',')
+  console.log(tokens)
   return tokens[Math.floor(Math.random() * tokens.length)]
 }
 
@@ -111,9 +112,15 @@ const statesColor = {
 async function status ({ owner, repo, ref = 'master', context }: Args) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
-  const state = typeof context === 'string'
-    ? resp!.statuses.find(st => st.context === context).state
+  let state = typeof context === 'string'
+    ? resp!.statuses.filter(st => st.context.startsWith(context))
     : resp!.state
+
+  if (Array.isArray(state)) {
+    const failure = state.find(x => x.state === 'failure')
+    const pending = state.find(x => x.state === 'pending')
+    state = failure ? 'failure' : (pending ? 'pending' : 'success')
+  }
 
   if (state) {
     return {
