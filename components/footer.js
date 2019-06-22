@@ -24,10 +24,10 @@ export default () => (
         </div>
         <div className='links'>
           <a href='https://twitter.com/badgen_net'>
-            <img src='https://simpleicons.now.sh/icons/twitter.svg?color=ffffff' />
+            <img src='https://simpleicons.now.sh/twitter/fff' />
           </a>
           <a href='https://github.com/badgen/badgen.net'>
-            <img src='https://simpleicons.now.sh/icons/github.svg?color=ffffff' />
+            <img src='https://simpleicons.now.sh/github/fff' />
           </a>
         </div>
       </div>
