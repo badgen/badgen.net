@@ -38,6 +38,7 @@ export const liveBadgeList = [
   'xo',
   'badgesize',
   'jsdelivr',
+  'dependabot',
   // utilities
   'opencollective',
   'keybase',
