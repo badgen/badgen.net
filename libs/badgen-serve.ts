@@ -47,16 +47,19 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         const paramsPromise = handlers[matchedScheme](matchedArgs)
 
         let iconPromise
-        if (typeof(query.icon) === 'string' && query.icon.startsWith('https://')) {
-          iconPromise = fetchIcon(query.icon)
+        if (typeof query.icon === 'string') {
+          if (query.icon === '') {
+            iconPromise = Promise.resolve(defaultLabel)
+          } else if (query.icon.startsWith('https://')) {
+            iconPromise = fetchIcon(query.icon)
+          } else {
+            iconPromise = Promise.resolve(query.icon)
+          }
         }
 
-        const [
-          icon = query.icon,
-          params = defaultParams
-        ] = await Promise.all([
+        const [ icon, params = defaultParams ] = await Promise.all([
           iconPromise,
-          paramsPromise
+          paramsPromise.catch(e => defaultParams)
         ])
 
         params.subject = simpleDecode(params.subject)

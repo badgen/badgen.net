@@ -15,7 +15,7 @@ export default function (req, res, options: ServeBadgeOptions) {
 
   const { subject, status, color } = params
   const { label, list, icon, iconWidth } = query
-  const _icon = resolveIcon(icon === '' ? subject : icon, iconWidth)
+  const _icon = resolveIcon(icon, iconWidth)
 
   // TODO: review usage of list
   list && console.log(`FEAT-LIST ${req.url}`)
