@@ -30,7 +30,7 @@ async function handler ({ topic, owner, name, lang }: Args) {
   // https://lgtm.com/help/lgtm/api/api-v1#LGTM-API-specification-Projects
   const endpoint = `https://lgtm.com/api/v1.0/projects/g/${owner}/${name}`
   const data = await got(endpoint).then(res => res.body)
-  const { language, status, alerts, lines, grade } = detailsByLang(data, lang)
+  const { language, alerts, lines, grade } = detailsByLang(data, lang)
   const langLabel = langLabelOverrides[language] || language
 
   switch (topic) {
