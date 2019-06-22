@@ -20,10 +20,10 @@
     "parser": "babel-eslint"
   },
   "dependencies": {
-    "@sentry/integrations": "^5.4.1",
-    "@sentry/node": "^5.4.0",
+    "@sentry/integrations": "^5.4.2",
+    "@sentry/node": "^5.4.3",
     "badgen": "^2.7.1",
-    "badgen-icons": "^0.9.1",
+    "badgen-icons": "^0.10.0",
     "byte-size": "^5.0.1",
     "cheerio": "^1.0.0-rc.3",
     "chrome-webstore": "^1.2.1",
@@ -32,16 +32,16 @@
     "lodash.debounce": "^4.0.8",
     "micro": "^9.3.4",
     "millify": "^3.1.0",
-    "my-way": "^1.0.0",
+    "my-way": "^1.0.1",
     "react-debounce-render": "^5.0.0",
     "semver": "^6.1.1",
-    "serve-handler": "^6.0.1",
+    "serve-handler": "^6.0.2",
     "serve-marked": "^2.0.0"
   },
   "devDependencies": {
-    "@types/got": "^9.4.4",
+    "@types/got": "^9.6.0",
     "@zeit/next-typescript": "^1.1.1",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.2",
     "fs-extra": "^8.0.1",
     "next": "^7.0.3",
     "nodemon": "^1.19.1",
@@ -49,8 +49,8 @@
     "react-dom": "^16.8.6",
     "standard": "^12.0.1",
     "supertest": "^4.0.2",
-    "tap": "^14.2.2",
-    "ts-node": "^8.2.0",
+    "tap": "^14.2.5",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   }
 }
