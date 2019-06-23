@@ -58,7 +58,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         }
 
         const [ icon, params = defaultParams ] = await Promise.all([
-          iconPromise,
+          iconPromise.catch(e => undefined),
           paramsPromise.catch(e => defaultParams)
         ])
 
