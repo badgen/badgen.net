@@ -46,7 +46,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
       try {
         const paramsPromise = handlers[matchedScheme](matchedArgs)
 
-        let iconPromise
+        let iconPromise: Promise<string | undefined> = Promise.resolve(undefined);
         if (typeof query.icon === 'string') {
           if (query.icon === '') {
             iconPromise = Promise.resolve(defaultLabel)
