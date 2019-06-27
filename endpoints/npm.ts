@@ -18,7 +18,7 @@ export const meta: Meta = {
     '/npm/v/express': 'version',
     '/npm/v/ava': 'version',
     '/npm/v/ava/next': 'version (tag)',
-    '/npm/v/next/canary': 'version (tag)',
+    '/npm/v/react/next': 'version (tag)',
     '/npm/v/@babel/core': 'version (scoped package)',
     '/npm/v/@nestjs/core/beta': 'version (scoped & tag)',
     '/npm/dw/express': 'weekly downloads',
@@ -63,7 +63,7 @@ async function handler ({ topic, scope, pkg, tag }: Args) {
     default:
       return {
         subject: 'npm',
-        status: 'unknown',
+        status: 'unknown topic',
         color: 'grey'
       }
   }
