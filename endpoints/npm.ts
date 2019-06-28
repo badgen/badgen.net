@@ -70,7 +70,8 @@ async function handler ({ topic, scope, pkg, tag }: Args) {
 }
 
 async function unpkg (topic, pkg, tag = 'latest') {
-  const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
+  // const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
+  const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
   const meta = await got(endpoint).then(res => res.body)
 
   switch (topic) {
