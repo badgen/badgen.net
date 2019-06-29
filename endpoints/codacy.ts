@@ -11,24 +11,25 @@ import { coverage as cov, coverageColor } from '../libs/utils'
 export const meta: Meta = {
   title: 'Codacy',
   examples: {
-    '/codacy/c/f0875490cea1497a9eca9c25f3f7774e': 'coverage',
-    '/codacy/c/f0875490cea1497a9eca9c25f3f7774e/dev-master': 'branch coverage',
-    '/codacy/g/f0875490cea1497a9eca9c25f3f7774e': 'code quality',
-    '/codacy/g/f0875490cea1497a9eca9c25f3f7774e/dev-master': 'branch code quality'
+    '/codacy/coverage/f0875490cea1497a9eca9c25f3f7774e': 'coverage',
+    '/codacy/coverage/f0875490cea1497a9eca9c25f3f7774e/dev-master': 'branch coverage',
+    '/codacy/grade/f0875490cea1497a9eca9c25f3f7774e': 'code quality',
+    '/codacy/grade/f0875490cea1497a9eca9c25f3f7774e/dev-master': 'branch code quality'
   }
 }
 
 export const handlers: Handlers = {
-  '/codacy/:type<c|g>/:projectId/:branch?': handler
+  '/codacy/:type<coverage|grade>/:projectId/:branch?': handler
 }
 
 export default badgenServe(handlers)
 
 const uriBase = 'https://api.codacy.com/project/badge'
 
-const coveragePercentageMatchRegex = /([\d]+(?:\.[\d]+)?)%\s*<\/text>/
-const gradeMatchRegex = /([ABCDEF])\s*<\/text>/
-const gradeColors = {
+const COVERAGE_PERCENTAGE_REGEX = />\s*([\d]+(?:\.[\d]+)?)%\s*<\/text>/
+const GRADE_REGEX = />\s*([ABCDEF])\s*<\/text>/
+
+const COLORS_BY_GRADE = {
   A: '4ac41c',
   B: '98c510',
   C: '9fa126',
@@ -37,60 +38,46 @@ const gradeColors = {
   F: 'd7624b'
 }
 
+const SUBJECT_BY_TYPE = {
+  coverage: 'coverage',
+  grade: 'code quality'
+}
+
 async function handler ({ type, projectId, branch }: Args) {
   if (projectId) {
-    if (type === 'c') {
-      const svg = await got(`${uriBase}/coverage/${projectId}${branch ? '?branch=' + branch.replace('-', '--') : ''}`,
-        // @ts-ignore
-        { json: false })
-        .then(({ body }) => body)
+    const svg = await got(`${uriBase}/${type}/${projectId}`,
+      // @ts-ignore
+      { query: { branch: branch && branch.replace('-', '--') }, json: false })
+      .then(({ body }) => body)
 
-      if (svg) {
-        const percentage = svg.match(coveragePercentageMatchRegex)[1] || null
+    const subject = SUBJECT_BY_TYPE[type] || 'codacy'
+
+    if (svg) {
+      if (type === 'coverage') {
+        const percentage = svg.match(COVERAGE_PERCENTAGE_REGEX)[1] || null
 
         if (percentage !== null) {
           return {
-            subject: 'coverage',
+            subject,
             status: cov(percentage),
             color: coverageColor(Number(percentage))
           }
         }
-      }
+      } else if (type === 'grade') {
+        const grade = svg.match(GRADE_REGEX)[1] || null
 
-      return {
-        subject: 'coverage',
-        status: 'invalid',
-        color: 'grey'
-      }
-    } else if (type === 'g') {
-      const svg = await got(`${uriBase}/grade/${projectId}${branch ? '?branch=' + branch.replace('-', '--') : ''}`,
-        // @ts-ignore
-        { json: false })
-        .then(({ body }) => body)
-
-      if (svg) {
-        const grade = svg.match(gradeMatchRegex)[1] || null
-
-        if (grade !== null) {
-          return {
-            subject: 'code quality',
-            status: grade,
-            color: gradeColors[grade]
-          }
+        return {
+          subject,
+          status: grade,
+          color: COLORS_BY_GRADE[grade]
         }
       }
-
-      return {
-        subject: 'code quality',
-        status: 'invalid',
-        color: 'grey'
-      }
     }
-  }
 
-  return {
-    subject: 'codacy',
-    status: 'unknown',
-    color: 'grey'
+    return {
+      subject,
+      status: 'invalid',
+      color: 'grey'
+    }
   }
 }
