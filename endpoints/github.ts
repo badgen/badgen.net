@@ -18,21 +18,17 @@ export const meta: Meta = {
     '/github/release/babel/babel/stable': 'latest stable release',
     '/github/tag/micromatch/micromatch': 'latest tag',
     '/github/watchers/micromatch/micromatch': 'watchers',
-    '/github/status/micromatch/micromatch': 'combined status',
-    '/github/status/micromatch/micromatch/gh-pages': 'combined status (branch ref)',
-    '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined status (commit ref)',
-    '/github/status/micromatch/micromatch/4.0.1': 'combined status (version ref)',
-
-    '/github/status/zeit/hyper/efeedd0a9d3': 'combined status (commit ref)',
-    '/github/status/zeit/hyper/efeedd0a9d3/ci/circleci': 'combined context status',
-    '/github/status/zeit/hyper/efeedd0a9d3/ci/circleci:%20build': 'single context status',
-    '/github/status/zeit/hyper/efeedd0a9d3/continuous-integration/appveyor': 'combined Appveyor status',
-    '/github/status/zeit/hyper/efeedd0a9d3/continuous-integration/travis': 'combined Travis status',
-    '/github/status/zeit/hyper/efeedd0a9d3/continuous-integration': 'combined Travis and Appveyor',
-
-    '/github/status/zeit/now-cli/master/ci/circleci:%20test-unit': 'single context status',
-    '/github/status/facebook/react/master/ci/circleci:%20lint': 'single context status',
-    '/github/status/facebook/react/master/coverage/coveralls': 'single context status',
+    '/github/status/micromatch/micromatch': 'combined ci status',
+    '/github/status/micromatch/micromatch/gh-pages': 'combined ci status (branch ref)',
+    '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined ci status (commit ref)',
+    '/github/status/micromatch/micromatch/4.0.1': 'combined ci status (version ref)',
+    '/github/status/zeit/hyper/efeedd0a9d3': 'combined ci status (commit ref)',
+    '/github/status/zeit/hyper/efeedd0a9d3/ci/circleci': 'combined ci job status',
+    '/github/status/zeit/hyper/efeedd0a9d3/ci/circleci:%20build': 'single ci job status',
+    '/github/status/babel/babel/bdbe8db5660/codecov': 'combined ci job status',
+    '/github/status/zeit/now-cli/master/ci/circleci:%20test-unit': 'single ci job status',
+    '/github/status/facebook/react/master/ci/circleci:%20lint': 'single ci job status',
+    '/github/status/facebook/react/master/coverage/coveralls': 'single ci job status',
     '/github/stars/micromatch/micromatch': 'stars',
     '/github/forks/micromatch/micromatch': 'forks',
     '/github/issues/micromatch/micromatch': 'issues',
@@ -124,9 +120,15 @@ async function status ({ owner, repo, ref = 'master', context }: Args) {
     : resp!.state
 
   if (Array.isArray(state)) {
+    const error = state.find(x => x.state === 'error')
     const failure = state.find(x => x.state === 'failure')
     const pending = state.find(x => x.state === 'pending')
-    state = failure ? 'failure' : (pending ? 'pending' : 'success')
+
+    if (error) {
+      state = 'error'
+    } else {
+      state = failure ? 'failure' : (pending ? 'pending' : 'success')
+    }
   }
 
   if (state) {
