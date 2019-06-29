@@ -29,6 +29,7 @@ export const liveBadgeList = [
   'circleci',
   'appveyor',
   'codecov',
+  'codacy',
   'coveralls',
   'codeclimate',
   'azure-pipelines',
