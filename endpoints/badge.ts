@@ -16,7 +16,7 @@ export const examples = [
     examples: {
       '/badge/icon/github?icon=github': 'use builtin icon',
       '/badge/github/github?icon': 'use builtin icon (by subject)',
-      '/badge/jquery/powered?icon=https://simpleicons.now.sh/jquery/fff': 'use external icon',
+      '/badge/jQuery/powered?icon=https://simpleicons.now.sh/jquery/fff': 'use external icon',
       '/badge/icon/github?label=custom label': 'custom label',
       '/badge/icon/github?label': 'disable label',
       '/badge/github/github?icon&label': 'use icon, disable label',

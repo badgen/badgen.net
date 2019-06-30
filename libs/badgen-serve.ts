@@ -48,9 +48,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 
         let iconPromise: Promise<string | undefined> = Promise.resolve(undefined);
         if (typeof query.icon === 'string') {
-          if (query.icon === '') {
-            iconPromise = Promise.resolve(defaultLabel)
-          } else if (query.icon.startsWith('https://')) {
+          if (query.icon.startsWith('https://')) {
             iconPromise = fetchIcon(query.icon)
           } else {
             iconPromise = Promise.resolve(query.icon)
@@ -65,7 +63,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         params.subject = simpleDecode(params.subject)
         params.status = simpleDecode(params.status)
 
-        query.icon = icon
+        query.icon = icon === '' ? params.subject : icon
 
         if (query.style === undefined) {
           const host = req.headers['x-forwarded-host'] || req.headers.host
