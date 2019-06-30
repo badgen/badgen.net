@@ -101,6 +101,11 @@ Support this project by donation, help Badgen continue and evolving!
 
 [[Become a backer](https://opencollective.com/badgen#backer)]
 
+
+## Sponsors
+
+<a href="https://sentry.io"><img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" height="40px" /></a>
+
 [dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
 [standard-src]: https://badgen.net/badge/code%20style/standard/pink
