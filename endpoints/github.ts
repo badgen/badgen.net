@@ -88,7 +88,7 @@ const pickGithubToken = () => {
 // request github api v3 (rest)
 const restGithub = path => got.get(`https://api.github.com/${path}`, {
   headers: {
-    Authorization: `token ad544190479f86e4f97e251a98d2180fdc42c5db`,
+    Authorization: `token ${pickGithubToken()}`,
     Accept: 'application/vnd.github.hellcat-preview+json'
   }
 }).then(res => res.body)
@@ -98,7 +98,7 @@ const queryGithub = query => {
   return got.post('https://api.github.com/graphql', {
     body: { query },
     headers: {
-      Authorization: `token ad544190479f86e4f97e251a98d2180fdc42c5db`,
+      Authorization: `token ${pickGithubToken()}`,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
   }).then(res => res.body)
