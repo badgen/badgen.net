@@ -88,7 +88,7 @@ const pickGithubToken = () => {
 // request github api v3 (rest)
 const restGithub = path => got.get(`https://api.github.com/${path}`, {
   headers: {
-    Authorization: `token ${pickGithubToken()}`,
+    Authorization: `token ad544190479f86e4f97e251a98d2180fdc42c5db`,
     Accept: 'application/vnd.github.hellcat-preview+json'
   }
 }).then(res => res.body)
@@ -98,7 +98,7 @@ const queryGithub = query => {
   return got.post('https://api.github.com/graphql', {
     body: { query },
     headers: {
-      Authorization: `token ${pickGithubToken()}`,
+      Authorization: `token ad544190479f86e4f97e251a98d2180fdc42c5db`,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
   }).then(res => res.body)
@@ -112,6 +112,16 @@ const statesColor = {
   error: 'red'
 }
 
+function combineState (states) {
+	if (states.find(x => x.state === 'error')) return 'error'
+	if (states.find(x => x.state === 'failure')) return 'failure'
+	if (states.find(x => x.state === 'pending')) return 'pending'
+	if (states.every(x => x.state === 'success')) return 'success'
+
+	// this shouldn't happen, but in case it happens
+	throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
+}
+
 async function status ({ owner, repo, ref = 'master', context }: Args) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
@@ -120,15 +130,7 @@ async function status ({ owner, repo, ref = 'master', context }: Args) {
     : resp!.state
 
   if (Array.isArray(state)) {
-    const error = state.find(x => x.state === 'error')
-    const failure = state.find(x => x.state === 'failure')
-    const pending = state.find(x => x.state === 'pending')
-
-    if (error) {
-      state = 'error'
-    } else {
-      state = failure ? 'failure' : (pending ? 'pending' : 'success')
-    }
+    state = combineState(state)
   }
 
   if (state) {
