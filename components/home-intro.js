@@ -10,7 +10,7 @@ export default ({ isFlat }) => (
     <h3 id='icons'>Builtin icons</h3>
     { iconExamples() }
 
-    <h3 id='options'>Supported query params</h3>
+    <h3 id='options'>Options</h3>
     <ul>
       <li>
         <code>color</code>
@@ -90,7 +90,7 @@ const explainCode = (isFlat) => {
   const text = `
 https://badgen.net/badge/:subject/:status/:color?icon=github
                    ──┬──  ───┬───  ──┬───  ──┬── ────┬──────
-                     │       │       │       │       └─ Extra Options (label, list, icon, color)
+                     │       │       │       │       └─ Options (label, list, icon, color)
                      │       │       │       │
                      │      TEXT    TEXT    RGB / COLOR_NAME ( optional )
                      │
