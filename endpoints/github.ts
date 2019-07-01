@@ -22,6 +22,10 @@ export const meta: Meta = {
     '/github/status/micromatch/micromatch/gh-pages': 'combined ci status (branch ref)',
     '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined ci status (commit ref)',
     '/github/status/micromatch/micromatch/4.0.1': 'combined ci status (version ref)',
+    '/github/status/zeit/hyper/efeedd0a9d3': 'combined ci status (commit ref)',
+    '/github/status/zeit/hyper/efeedd0a9d3/ci/circleci': 'combined ci job status',
+    '/github/status/zeit/hyper/efeedd0a9d3/ci/circleci:%20build': 'single ci job status',
+    '/github/status/babel/babel/bdbe8db5660/codecov': 'combined ci job status',
     '/github/status/zeit/now-cli/master/ci/circleci:%20test-unit': 'single ci job status',
     '/github/status/facebook/react/master/ci/circleci:%20lint': 'single ci job status',
     '/github/status/facebook/react/master/coverage/coveralls': 'single ci job status',
@@ -108,12 +112,26 @@ const statesColor = {
   error: 'red'
 }
 
+function combineState (states) {
+	if (states.find(x => x.state === 'error')) return 'error'
+	if (states.find(x => x.state === 'failure')) return 'failure'
+	if (states.find(x => x.state === 'pending')) return 'pending'
+	if (states.every(x => x.state === 'success')) return 'success'
+
+	// this shouldn't happen, but in case it happens
+	throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
+}
+
 async function status ({ owner, repo, ref = 'master', context }: Args) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
-  const state = typeof context === 'string'
-    ? resp!.statuses.find(st => st.context === context).state
+  let state = typeof context === 'string'
+    ? resp!.statuses.filter(st => st.context.startsWith(context))
     : resp!.state
+
+  if (Array.isArray(state)) {
+    state = combineState(state)
+  }
 
   if (state) {
     return {
