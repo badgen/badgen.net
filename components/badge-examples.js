@@ -5,7 +5,7 @@ export default ({ data }) => {
         { id
           ? <a className='title' href={`#${id}`}>{title}</a>
           : <span className='title'>{title}</span> }
-        { id && <a className='doc' href={`/docs/${id}`}>?</a> }
+        { id && <a className='doc' href={`/${id}`}>?</a> }
       </dt>
       {
         Object.entries(examples).map(([path, desc]) => (

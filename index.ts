@@ -50,7 +50,7 @@ const server = http.createServer(async (req, res) => {
     })
   }
 
-  // handle `/docs/:name`
+  // redirects `/docs/:name` to `/:name`
   if (url.startsWith('/docs/')) {
     return sendRedirection(res, 301, url.replace('/docs', ''))
   }
