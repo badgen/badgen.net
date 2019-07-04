@@ -3,6 +3,7 @@ import matchRoute from 'my-way'
 
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
+import serveDocs from './serve-docs'
 import serve404 from './serve-404'
 import sentry from './sentry'
 
@@ -20,15 +21,20 @@ export type BadgenServeHandler = (args: BadgenServeHandlerArgs) => BadgenServeHa
 export type BadgenServeHandlers = { [key: string]: BadgenServeHandler }
 
 export function badgenServe (handlers: BadgenServeHandlers): Function {
-  return async function httpHandler (req, res) {
+  return async function Handler (req, res, name) {
     const { pathname = '/', query } = url.parse(req.url, true)
 
-    // serve favicon
+    // Serve favicon
     if (pathname === '/favicon.ico') {
       return res.end()
     }
 
-    // Lookup handler
+    // Serve docs
+    if (matchRoute(`/${name}`, pathname)) {
+      return serveDocs(req, res)
+    }
+
+    // Find handler
     let matchedArgs
     const matchedScheme = Object.keys(handlers).find(scheme => {
       matchedArgs = matchRoute(scheme, decodeURI(pathname))

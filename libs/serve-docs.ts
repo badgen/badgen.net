@@ -2,14 +2,11 @@ import serveMarked from 'serve-marked'
 import serve404 from '../libs/serve-404'
 import genHelp from '../libs/gen-help'
 
-// Handles `/docs/:name`
 export default async function (req, res) {
-  const [ , , name ] = req.url.split('/')
+  const [ , name ] = req.url.split('/')
   const helpMarkdown = genHelp(name)
 
   if (helpMarkdown) {
-    console.info(`DOC ${name}: ${req.url}`)
-
     res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400')
 
     return serveMarked(helpMarkdown, {
