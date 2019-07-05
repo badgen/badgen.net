@@ -10,6 +10,10 @@ export default function genHelp (id) {
     return ''
   }
 
+  if (id === 'badge') {
+    return genStaticBadgeHelp(badgeModule.examples)
+  }
+
   const { meta, handlers } = badgeModule
   const { examples, help = ''} = meta
   const routes = Object.keys(handlers)
@@ -39,10 +43,7 @@ export default function genHelp (id) {
 
     // category example list
     // @ts-ignore
-    const egList = egs.map(([url, desc]) => {
-      return `- ![${url}](${url}) [${url}](${url}) <i>${desc}</i>`
-    })
-    md += egList.join('\n')
+    md += egs.map(egLine).join('\n')
   })
 
   return md
@@ -53,4 +54,18 @@ export default function genHelp (id) {
 function hashify (str: string) {
   // return str.replace(/[^\w]/g, '')
   return str.split(/[^\w]+/).filter(Boolean).join('-')
+}
+
+function egLine ([url, desc]) {
+  return `- ![${url}](${url}) [${url}](${url}) <i>${desc}</i>`
+}
+
+function genStaticBadgeHelp (staticExamples) {
+  let md = `# Static Badge\n\n`
+
+  md += staticExamples.map(({ title, examples }) => {
+    return `### ${title}\n\n` + Object.entries(examples).map(egLine).join('\n')
+  }).join('\n\n')
+
+  return md
 }
