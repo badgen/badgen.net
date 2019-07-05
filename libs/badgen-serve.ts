@@ -31,7 +31,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
 
     // Serve docs
     if (matchRoute(`/${name}`, pathname)) {
-      return serveDocs(req, res)
+      return serveDocs(req, res, name)
     }
 
     // Find handler

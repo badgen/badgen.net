@@ -2,8 +2,7 @@ import serveMarked from 'serve-marked'
 import serve404 from '../libs/serve-404'
 import genHelp from '../libs/gen-help'
 
-export default async function (req, res) {
-  const [ , name ] = req.url.split('/')
+export default async function (req, res, name) {
   const helpMarkdown = genHelp(name)
 
   if (helpMarkdown) {
