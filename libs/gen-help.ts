@@ -1,5 +1,6 @@
 // import path from 'path'
-// import { liveBadgeList } from './badge-list'
+
+import matchRoute from 'my-way'
 
 const { live: liveBadges } = require('../static/.gen/badges.json')
 
@@ -24,15 +25,31 @@ export default function genHelp (id) {
     return ''
   }
 
-  const { examples, routes, help } = meta
+  const { examples, routes, help = '' } = meta
 
-  const Docs = `# /${id}\n\n${help || ''}`
-  const schemeLinks = routes.map(r => `- \`${r}\``)
-  const Schemes = `## Schemes\n\n${schemeLinks.join('  \n')}`
-  // @ts-ignore
-  const exampleList = Object.entries(examples)
-    .map(([url, desc]) => `- ![${url}](${url}) [${url}](${url}) <i>${desc}</i>`)
-  const Examples = `## Examples\n\n${exampleList.join('\n')}`
+  let md = `# /${id}\n\n${help}`
 
-  return [Docs, Schemes, Examples].join('\n\n')
+  const egCats = routes.reduce((accu, curr) => {
+    accu[curr] = []
+    return accu
+  }, {})
+
+  Object.entries(examples).forEach((eg) => {
+    const scheme = routes.find(r => matchRoute(r, eg[0]))
+    if (scheme) {
+      egCats[scheme].push(eg)
+    }
+  })
+
+  md += '## Examples\n\n'
+
+  Object.entries(egCats).forEach(([cat, egs]) => {
+    // @ts-ignore
+    const egList = egs.map(([url, desc]) => {
+      return `- ![${url}](${url}) [${url}](${url}) <i>${desc}</i>`
+    }).join('\n')
+    md += `\n\n__\`${cat}\`__\n${egList}`
+  })
+
+  return md
 }
