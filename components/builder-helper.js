@@ -1,4 +1,4 @@
-import badgeList from '../static/.gen/badges.json'
+import badgeList from '../static/.meta/badges.json'
 
 const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) => {
   return accu.concat(Object.entries(curr.examples))

@@ -2,7 +2,7 @@
 
 import matchRoute from 'my-way'
 
-const { live: liveBadges } = require('../static/.gen/badges.json')
+const { live: liveBadges } = require('../static/.meta/badges.json')
 
 /** not supported on Now */
 // export const liveBadges = liveBadgeList.reduce((accu, curr) => {

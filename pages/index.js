@@ -3,7 +3,7 @@ import BadgeExamples from '../components/badge-examples.js'
 import BadgenTitle from '../components/badgen-title.jsx'
 import Intro from '../components/home-intro.js'
 import Footer from '../components/footer.js'
-import examples from '../static/.gen/badges.json'
+import examples from '../static/.meta/badges.json'
 
 const Index = () => {
   const [ tab, setTab ] = useState('live')
