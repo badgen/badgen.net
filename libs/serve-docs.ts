@@ -22,11 +22,15 @@ export default async function (req, res) {
 }
 
 const inlineCSS = `
+  html, body { scroll-behavior: smooth }
   .markdown-body { max-width: 850px }
   .markdown-body h1 { margin-bottom: 42px }
   li > img { vertical-align: middle; margin: 0.2em 0; font-size: 12px; float: right }
   li > img + a { font-family: monospace; font-size: 0.9em }
   li > img + a + i { color: #AAA }
+  h4 a code { color: #333; font-size: 1rem }
+  h4 a:hover { text-decoration: none !important }
+  h4 { padding: 4px 0 }
 `
 
 const helpFooter = `
