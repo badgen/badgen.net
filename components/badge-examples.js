@@ -74,7 +74,7 @@ const ExampleItem = ({ desc, url }) => (
       }
       b {
         display: inline-block;
-        min-width: 15em;
+        width: 17em;
         font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
         text-align: right;
         font-weight: 400;
@@ -82,7 +82,7 @@ const ExampleItem = ({ desc, url }) => (
       }
       i {
         display: inline-block;
-        min-width: 210px;
+        min-width: 200px;
       }
       img {
         vertical-align: top;

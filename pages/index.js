@@ -17,7 +17,7 @@ const Index = () => {
 
   return <>
     <BadgenTitle host={host} />
-    <div className='docs' style={{ width: '960px' }}>
+    <div className='docs' style={{ width: '980px' }}>
       <Intro />
       <h2 style={{ textAlign: 'center' }}>Badge Gallery</h2>
 
