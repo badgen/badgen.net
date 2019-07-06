@@ -24,6 +24,7 @@ export default badgenServe(handlers)
 
 async function handler ({ topic, path }: Args) {
   const endpoint = `https://img.badgesize.io/${path}.json`
+  console.log(endpoint)
   const { prettySize, color } = await got(endpoint, {
     query: {
       compression: topic === 'normal' ? '' : topic

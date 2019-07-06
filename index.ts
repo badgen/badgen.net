@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import http from 'http'
+import matchRoute from 'my-way'
 import serveHandler from 'serve-handler'
 
 import serve404 from './libs/serve-404'
@@ -16,7 +17,7 @@ const sendRedirection = (res: http.ServerResponse, code: number, dest: string) =
   res.end()
 }
 
-const badgeHandlers = fs.readdirSync(path.join(__dirname, 'endpoints'))
+const badgeNames = fs.readdirSync(path.join(__dirname, 'endpoints'))
   .filter(name => /\.[jt]s$/.test(name))
   .map(name => name.replace(/\.[jt]s$/, ''))
 
@@ -56,7 +57,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // handle endpoints
-  const handlerName = badgeHandlers.find(h => url.startsWith(`/${h}`))
+  const handlerName = badgeNames.find(h => matchRoute(`/${h}/:path*`, url))
 
   try {
     if (handlerName) {
