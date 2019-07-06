@@ -58,7 +58,7 @@ We are using [StandardJS][standard-href] style, make sure you have ESLint/Standa
 
     npm run dev
 
-**start with docker**
+**run with docker**
 
     docker run -p 3000:3000 amio/badgen
 

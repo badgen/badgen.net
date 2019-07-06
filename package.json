@@ -22,7 +22,7 @@
   "dependencies": {
     "@sentry/integrations": "^5.5.0",
     "@sentry/node": "^5.5.0",
-    "badgen": "^2.8.1",
+    "badgen": "^2.8.2",
     "badgen-icons": "^0.11",
     "byte-size": "^5.0.1",
     "cheerio": "^1.0.0-rc.3",
