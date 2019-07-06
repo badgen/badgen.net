@@ -14,13 +14,14 @@ export default function (req, res, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = 10800, query = {}, params } = options
 
   const { subject, status, color } = params
-  const { label, list, icon, iconWidth } = query
+  const { label, labelColor, icon, iconWidth, list } = query
   const _icon = resolveIcon(icon, iconWidth)
 
   // TODO: review usage of list
   list && console.log(`FEAT-LIST ${req.url}`)
 
   const badge = badgen({
+    labelColor,
     subject: typeof label !== 'undefined' ? label : subject,
     status: transformStatus(status, { list }),
     color: query.color || color,
