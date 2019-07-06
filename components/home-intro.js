@@ -47,7 +47,7 @@ export default ({ isFlat }) => (
       </li>
       <li>
         <a href='/docs/https'><code>/https</code></a>
-        create arbitrary live badge with your own endpoint.
+        turn an api endpoint into a svg live badge.
       </li>
     </ul>
     <style jsx>{`
