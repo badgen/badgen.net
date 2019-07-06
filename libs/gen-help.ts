@@ -18,7 +18,7 @@ export default function genHelp (id) {
   const { examples, help = ''} = meta
   const routes = Object.keys(handlers)
 
-  let md = `# /${id}\n\n${help}`
+  let md = `# /${id}\n\n${help}\n\n`
 
   const egCats = routes.reduce((accu, curr) => {
     accu[curr] = []
