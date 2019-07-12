@@ -6,9 +6,11 @@
     "flat.badgen.net"
   ],
   "files": [
+    "package.json",
     "package-lock.json",
-    "next.config.js",
+    "server.tsconfig.json",
     "tsconfig.json",
+    "next.config.js",
     "index.ts",
     "tools",
     "libs",
