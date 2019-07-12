@@ -14,8 +14,11 @@ export default class BuilderPage extends React.Component {
   }
 
   setBlur = () => this.setState({ focus: false })
+
   setFocus = () => this.setState({ focus: true })
+
   setBadgeURL = badgeURL => this.setState({ badgeURL })
+
   selectExample = exampleURL => this.setState({ badgeURL: exampleURL })
 
   componentDidMount () {
