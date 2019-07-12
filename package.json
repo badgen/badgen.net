@@ -6,9 +6,9 @@
   "private": true,
   "scripts": {
     "lint": "standard && standard *.ts",
-    "build-api": "tsc -p server.tsconfig.json",
-    "build-web": "next build && next export -o dist",
-    "build": "npm run tools && npm run build-web && npm run build-api",
+    "build:api": "tsc -p server.tsconfig.json",
+    "build:web": "next build && next export -o dist",
+    "build": "npm run tools && npm run build:web && npm run build:api",
     "dev": "npm run build && npm run dev:api",
     "dev:api": "nodemon --config nodemon.json index.ts",
     "dev:web": "next",

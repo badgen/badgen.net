@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "type": "npm",
+  "type": "docker",
   "alias": [
     "badgen.net",
     "flat.badgen.net"
@@ -10,6 +10,7 @@
     "package-lock.json",
     "server.tsconfig.json",
     "tsconfig.json",
+    "next-env.d.ts",
     "next.config.js",
     "index.ts",
     "tools",
