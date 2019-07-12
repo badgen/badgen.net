@@ -38,7 +38,7 @@
     "my-way": "^1.0.1",
     "react-debounce-render": "^5.0.0",
     "semver": "^6.2.0",
-    "serve-handler": "^6.0.3",
+    "serve-handler": "^6.1.0",
     "serve-marked": "^2.0.0"
   },
   "devDependencies": {
@@ -55,6 +55,6 @@
     "supertest": "^4.0.2",
     "tap": "^14.4.1",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   }
 }
