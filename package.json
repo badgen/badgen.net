@@ -5,7 +5,7 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "lint": "standard",
+    "lint": "standard && standard *.ts",
     "build": "npm run tools && next build && next export -o dist && tsc",
     "dev": "npm run build && npm run dev:api",
     "dev:api": "nodemon --config nodemon.json index.ts",
@@ -17,7 +17,10 @@
     "start": "node dist/index.js"
   },
   "standard": {
-    "parser": "babel-eslint"
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint/eslint-plugin"
+    ]
   },
   "dependencies": {
     "@sentry/integrations": "^5.5.0",
@@ -40,14 +43,15 @@
   },
   "devDependencies": {
     "@types/got": "^9.6.0",
+    "@typescript-eslint/eslint-plugin": "^1.11.0",
+    "@typescript-eslint/parser": "^1.11.0",
     "@zeit/next-typescript": "^1.1.1",
-    "babel-eslint": "^10.0.2",
     "fs-extra": "^8.1.0",
     "next": "^7.0.3",
     "nodemon": "^1.19.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "standard": "^12.0.1",
+    "standard": "^13.0.1",
     "supertest": "^4.0.2",
     "tap": "^14.4.1",
     "ts-node": "^8.3.0",
