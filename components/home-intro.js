@@ -30,7 +30,7 @@ export default ({ isFlat }) => (
       <li>
         <code>label</code>
         Override default subject text (<a href='https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding'>URL-Encoding</a> needed for spaces or special characters).
-        <a href='/badge/docker/v1.2.3/blue?icon=docker'>e.g.</a>
+        <a href='/badge/docker/v1.2.3/blue?label=container'>e.g.</a>
       </li>
       <li>
         <code>labelColor</code>
