@@ -27,11 +27,12 @@ export const meta: Meta = {
     '/packagist/ghi/monolog/monolog': 'github issues',
     '/packagist/lang/monolog/monolog': 'language',
     '/packagist/license/monolog/monolog': 'license',
+    '/packagist/php/monolog/monolog': 'php',
   }
 }
 
 export const handlers: Handlers = {
-  '/packagist/:topic<v>/:vendor/:pkg/:channel?': handler,
+  '/packagist/:topic<v|php>/:vendor/:pkg/:channel?': handler,
   '/packagist/:topic<dt|dd|dm|favers|dependents|suggesters|n|name>/:vendor/:pkg': handler,
   '/packagist/:topic<ghs|ghw|ghf|ghi|lang|license>/:vendor/:pkg': handler
 }
@@ -45,28 +46,32 @@ const noDev = versions => versions.filter(v => v.indexOf('dev') === -1)
 // @ts-ignore
 const license = versions => Object.values(versions).find(v => v.license.length).license[0]
 
+const getVersion = (packageMeta, channel) => {
+  const versions = Object.keys(packageMeta.versions).sort(versionCompare)
+
+  let version = ''
+
+  switch (channel) {
+    case 'latest':
+      version = latest(noDev(versions))
+      break
+    case 'pre':
+      version = latest(pre(versions))
+      break
+    default:
+      version = latest(stable(versions))
+  }
+
+  return version || latest(versions)
+}
+
 async function handler ({ topic, vendor, pkg, channel = 'latest' }: Args) {
   const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
   const { package: packageMeta } = await got(endpoint).then(res => res.body)
 
   switch (topic) {
     case 'v':
-      const versions = Object.keys(packageMeta.versions).sort(versionCompare)
-
-      let version = ''
-
-      switch (channel) {
-        case 'latest':
-          version = latest(noDev(versions))
-          break
-        case 'pre':
-          version = latest(pre(versions))
-          break
-        default:
-          version = latest(stable(versions))
-      }
-
-      version = version || latest(versions)
+      const version = getVersion(packageMeta, channel)
 
       return {
         subject: 'packagist',
@@ -150,6 +155,14 @@ async function handler ({ topic, vendor, pkg, channel = 'latest' }: Args) {
       return {
         subject: 'language',
         status: packageMeta.language,
+        color: 'green'
+      }
+    case 'php':
+      const pkg = packageMeta.versions[getVersion(packageMeta, channel)];
+
+      return {
+        subject: 'php',
+        status: pkg.require && pkg.require.php ? pkg.require.php : '*',
         color: 'green'
       }
   }
