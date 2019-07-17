@@ -69,6 +69,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         params.subject = simpleDecode(params.subject)
         params.status = simpleDecode(params.status)
 
+        // @ts-ignore
         query.icon = icon === '' ? params.subject : icon
 
         if (query.style === undefined) {
