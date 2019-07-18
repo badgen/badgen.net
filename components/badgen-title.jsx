@@ -13,9 +13,8 @@ const BadgenTitle = ({ host }) => {
       </div>
       <style jsx>{`
         .title-block {
-          height: calc(50vh - 100px);
           width: 100%;
-          min-height: 160px;
+          height: 260px;
           position: relative;
         }
         .title {
