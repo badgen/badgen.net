@@ -44,8 +44,17 @@
     "serve-marked": "^2.0.0"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.12",
+    "@types/fs-extra": "^8.0.0",
     "@types/got": "^9.6.0",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/micro": "^7.3.3",
+    "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@types/semver": "^6.0.1",
+    "@types/supertest": "^2.0.8",
+    "@types/zeit__next-typescript": "^0.1.2",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
     "@zeit/next-typescript": "^1.1.1",
