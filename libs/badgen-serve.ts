@@ -69,7 +69,9 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
         params.subject = simpleDecode(params.subject)
         params.status = simpleDecode(params.status)
 
-        query.icon = icon === '' ? params.subject : icon
+        if (icon !== undefined) {
+          query.icon = icon === '' ? params.subject : icon
+        }
 
         if (query.style === undefined) {
           const host = req.headers['x-forwarded-host'] || req.headers.host
