@@ -335,8 +335,8 @@ async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
     case 'label-issues':
       return {
         subject: `${restArgs.label}`,
-        status: result.label.issues.totalCount,
-        color: result.label.color
+        status: result.label ? result.label.issues.totalCount : 0,
+        color: result.label ? result.label.color : 'grey'
       }
     case 'prs':
       return {
