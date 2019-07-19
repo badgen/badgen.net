@@ -64,7 +64,7 @@ We are using [StandardJS][standard-href] style, make sure you have ESLint/Standa
 
 ### Add Live Badge
 
-If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `endpoints/[name-of-service].ts` and that's it. Take [crates](https://badgen.net/#crates) as an example:
+If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `endpoints/[name-of-service].ts` and that's it. Take [/crates](https://badgen.net/crates) as an example:
 
 - [endpoints/crates.ts](endpoints/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
 - [libs/badge-list.ts](libs/badge-list.ts) - contains index of all live badges
@@ -75,7 +75,7 @@ __NOTES__
 
 - You can create live badge without touching badgen.net's code. Checkout docs for [/runkit](https://badgen.net/docs/runkit) or [/https](https://badgen.net/docs/https).
 
-- The [/runkit](https://badgen.net/docs/runkit) support would be super handy when prototyping a new live badge.
+- The [/runkit](https://badgen.net/docs/runkit) support would be super handy for prototyping a new live badge.
 
 ### Add Icon
 
@@ -83,7 +83,7 @@ You can contribute icons to [badgen-icons](https://github.com/badgen/badgen-icon
 
 ## Tracking Policy
 
-Badgen collect errors for imroving service, use Google Analytics on doc pages ([home](https://badgen.net), [/docs/packagephobia](https://badgen.net/docs/packagephobia), etc.) to understand overall usage.
+Badgen use [Sentry](https://sentry.io) to collect errors for imroving service, use Google Analytics on doc pages ([home](https://badgen.net), [/github](https://badgen.net/github), [/packagephobia](https://badgen.net/packagephobia), etc.) to understand overall usage.
 
 Badgen do not collect any identifying information.
 
@@ -104,7 +104,7 @@ Support this project by donation, help Badgen continue and evolving!
 
 ## Sponsors
 
-<a href="https://sentry.io"><img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" height="40px" /></a>
+<a href="https://sentry.io"><img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" height="42px" /></a>
 
 [dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
