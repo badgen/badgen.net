@@ -83,7 +83,7 @@ You can contribute icons to [badgen-icons](https://github.com/badgen/badgen-icon
 
 ## Tracking Policy
 
-Badgen use [Sentry](https://sentry.io) to collect errors for imroving service, use Google Analytics on doc pages ([home](https://badgen.net), [/github](https://badgen.net/github), [/packagephobia](https://badgen.net/packagephobia), etc.) to understand overall usage.
+Badgen use [Sentry](https://sentry.io) to collect errors for improving service, use Google Analytics on doc pages ([home](https://badgen.net), [/github](https://badgen.net/github), [/packagephobia](https://badgen.net/packagephobia), etc.) to understand overall usage.
 
 Badgen do not collect any identifying information.
 
