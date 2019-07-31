@@ -377,10 +377,11 @@ async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
         color: 'blue'
       }
     case 'license':
+      const li = result.licenseInfo
       return {
         subject: topic,
-        status: result.licenseInfo.spdxId,
-        color: 'blue'
+        status: li ? li.spdxId : 'no license',
+        color: li ? 'blue' : 'grey'
       }
     case 'last-commit':
       const commits = result.branch.target.history.nodes
