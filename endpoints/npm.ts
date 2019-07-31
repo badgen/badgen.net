@@ -121,7 +121,7 @@ const download = async (period, npmName, tag = 'latest') => {
 
   const { downloads } = await got(endpoint.join('/')).then(
     res => res.body,
-    err => err.response!.statusCode === 404 && { downloads: 0 }
+    err => err.response && err.response.statusCode === 404 && { downloads: 0 }
   )
 
   const count = typeof downloads === 'number'
