@@ -107,10 +107,12 @@ const statesColor = {
   pending: 'orange',
   success: 'green',
   failure: 'red',
-  error: 'red'
+  error: 'red',
+  unknown: 'grey'
 }
 
-function combineState (states) {
+function combineState (states: Array<any>) {
+  if (states.length === 0) return 'unknown'
 	if (states.find(x => x.state === 'error')) return 'error'
 	if (states.find(x => x.state === 'failure')) return 'failure'
 	if (states.find(x => x.state === 'pending')) return 'pending'
