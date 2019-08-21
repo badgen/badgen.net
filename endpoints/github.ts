@@ -113,13 +113,13 @@ const statesColor = {
 
 function combineState (states: Array<any>) {
   if (states.length === 0) return 'unknown'
-	if (states.find(x => x.state === 'error')) return 'error'
-	if (states.find(x => x.state === 'failure')) return 'failure'
-	if (states.find(x => x.state === 'pending')) return 'pending'
-	if (states.every(x => x.state === 'success')) return 'success'
+  if (states.find(x => x.state === 'error')) return 'error'
+  if (states.find(x => x.state === 'failure')) return 'failure'
+  if (states.find(x => x.state === 'pending')) return 'pending'
+  if (states.every(x => x.state === 'success')) return 'success'
 
-	// this shouldn't happen, but in case it happens
-	throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
+  // this shouldn't happen, but in case it happens
+  throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
 }
 
 async function status ({ owner, repo, ref = 'master', context }: Args) {
