@@ -91,7 +91,7 @@ Badgen do not collect any identifying information.
 
 Thanks to our [contributors][contributors-href] 🎉👏
 
-[![](https://opencollective.com/badgen/contributors.svg?width=920&button=false)][contributors-href]
+[![](https://opencollective.com/badgen/contributors.svg?width=980&button=false)][contributors-href]
 
 ## Support Badgen
 
@@ -104,7 +104,7 @@ Support this project by donation, help Badgen continue and evolving!
 
 ## Sponsors
 
-<a href="https://sentry.io"><img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" height="42px" /></a>
+<a href="https://sentry.io"><img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" height="64px" /></a>
 
 [dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
