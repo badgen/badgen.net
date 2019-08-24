@@ -1,5 +1,5 @@
 import cheerio from 'cheerio'
-import distanceToNow from 'date-fns/distance_in_words_to_now'
+import distanceToNow from 'date-fns/formatDistanceToNow'
 
 import got from '../libs/got'
 import { version, millify } from '../libs/utils'
