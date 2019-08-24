@@ -62,8 +62,9 @@ const Index = () => {
         color: #EEE;
         background-color: #333;
       }
-    `}</style>
-  </>
+    `}
+    </style>
+  </> // eslint-disable-line
 }
 
 export default Index

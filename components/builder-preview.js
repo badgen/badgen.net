@@ -48,7 +48,8 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
           transform: translateY(0);
           transition-delay: 180ms;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }

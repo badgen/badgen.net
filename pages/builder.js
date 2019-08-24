@@ -13,13 +13,13 @@ export default class BuilderPage extends React.Component {
     focus: false
   }
 
-  setBlur = () => this.setState({ focus: false })
+  handleBlur = () => this.setState({ focus: false })
 
-  setFocus = () => this.setState({ focus: true })
+  handleFocus = () => this.setState({ focus: true })
 
-  setBadgeURL = badgeURL => this.setState({ badgeURL })
+  handleChange = badgeURL => this.setState({ badgeURL })
 
-  selectExample = exampleURL => this.setState({ badgeURL: exampleURL })
+  handleSelect = exampleURL => this.setState({ badgeURL: exampleURL })
 
   componentDidMount () {
     const forceHost = new URL(window.location).searchParams.get('host')
@@ -41,11 +41,12 @@ export default class BuilderPage extends React.Component {
             host={host}
             badgeURL={badgeURL}
             placeholder={placeholder}
-            onChange={this.setBadgeURL}
-            onBlur={this.setBlur}
-            onFocus={this.setFocus} />
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+          />
           <Hints focus={focus} badgeURL={badgeURL} />
-          { badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} /> }
+          {badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.handleSelect} />}
         </div>
         <Footer />
         <style jsx>{`
@@ -53,7 +54,8 @@ export default class BuilderPage extends React.Component {
             min-height: 100vh;
             position: relative;
           }
-        `}</style>
+        `}
+        </style>
       </div>
     )
   }

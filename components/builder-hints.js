@@ -36,7 +36,8 @@ export default ({ focus, badgeURL }) => {
           border-bottom: 1px dashed #333;
           text-decoration: none;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }
@@ -74,7 +75,8 @@ const Hint = ({ left, width, height, children, align = 'left' }) => {
           height: 24px;
           color: #333;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }

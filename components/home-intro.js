@@ -2,13 +2,13 @@ import icons from 'badgen-icons'
 
 export default ({ isFlat }) => (
   <div>
-    <pre>{ explainCode(isFlat) }</pre>
+    <pre>{explainCode(isFlat)}</pre>
 
     <h3 id='colors'>Builtin color names</h3>
-    { colorExamples() }
+    {colorExamples()}
 
     <h3 id='icons'>Builtin icons</h3>
-    { iconExamples() }
+    {iconExamples()}
 
     <h3 id='options'>Options</h3>
     <ul>
@@ -57,7 +57,8 @@ export default ({ isFlat }) => (
       code {
         margin-right: 6px;
       }
-    `}</style>
+    `}
+    </style>
   </div>
 )
 
@@ -70,7 +71,8 @@ const colorExamples = () => {
         a {
           margin-right: 4px;
         }
-      `}</style>
+      `}
+      </style>
     </a>
   ))
 }
@@ -85,7 +87,8 @@ const iconExamples = () => {
           a {
             margin-right: 4px;
           }
-        `}</style>
+        `}
+        </style>
       </a>
     )
   })

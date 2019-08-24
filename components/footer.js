@@ -93,6 +93,7 @@ export default () => (
       .links img {
         height: 22px;
       }
-    `}</style>
+    `}
+    </style>
   </footer>
 )

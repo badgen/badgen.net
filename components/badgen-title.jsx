@@ -58,7 +58,8 @@ const BadgenTitle = ({ host }) => {
           letter-spacing: 0.3px;
           color: #333;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }
@@ -68,13 +69,13 @@ const StyleSwitch = ({ host }) => {
 
   return (
     <span className='style-switch'>
-      { host.includes('https://flat.') ? [
+      {host.includes('https://flat.') ? [
         <Link key='2' href='https://flat.badgen.net'><a>FLAT</a></Link>,
         <Link key='1' href='https://badgen.net'><a>CLASSIC</a></Link>
       ] : [
         <Link key='1' href='https://badgen.net'><a>CLASSIC</a></Link>,
         <Link key='2' href='https://flat.badgen.net'><a>FLAT</a></Link>
-      ] }
+      ]}
       <style jsx>{`
         .style-switch {
           position: absolute;
@@ -102,7 +103,8 @@ const StyleSwitch = ({ host }) => {
           outline: none;
           color: #08C;
         }
-      `}</style>
+      `}
+      </style>
     </span>
   )
 }

@@ -16,7 +16,8 @@ export default class extends React.Component {
           .content {
             padding: 5rem 0;
           }
-        `}</style>
+        `}
+        </style>
       </div>
     )
   }

@@ -13,7 +13,7 @@ export default class extends React.Component {
     return url.length < DEFAULT_SIZE ? DEFAULT_SIZE : url.length
   }
 
-  onChange = ev => this.props.onChange(ev.target.value)
+  handleChange = ev => this.props.onChange(ev.target.value)
 
   render () {
     const { host, placeholder, badgeURL } = this.props
@@ -27,7 +27,7 @@ export default class extends React.Component {
           spellCheck='false'
           size={(inputSize || placeholder.length) + 1}
           placeholder={placeholder}
-          onChange={this.onChange}
+          onChange={this.handleChange}
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
           value={badgeURL}
@@ -60,7 +60,8 @@ export default class extends React.Component {
             color: black;
             min-width: 526px;
           }
-        `}</style>
+        `}
+        </style>
       </label>
     )
   }

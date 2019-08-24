@@ -12,22 +12,24 @@ export default ({ badgeURL, onSelect }) => {
   const matched = examples.filter(eg => eg[0].includes(badgeURL))
 
   const hints = matched.length === 1 && matched[0][0] === '/' + badgeURL ? null : (
-    <table><tbody>
-      {
-        matched.map(eg => (
-          <Hint
-            key={eg[0]}
-            info={eg}
-            onSelect={e => onSelect(eg[0].replace(/^\//, ''))}
-          />
-        ))
-      }
-    </tbody></table>
+    <table>
+      <tbody>
+        {
+          matched.map(eg => (
+            <Hint
+              key={eg[0]}
+              info={eg}
+              onSelect={e => onSelect(eg[0].replace(/^\//, ''))}
+            />
+          ))
+        }
+      </tbody>
+    </table>
   )
 
   return (
     <div className='helper'>
-      { hints }
+      {hints}
       <style jsx>{`
         .helper {
           height: 50vh;
@@ -41,7 +43,8 @@ export default ({ badgeURL, onSelect }) => {
           margin: 0 auto;
           padding: 1.2em 0;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }
@@ -70,6 +73,7 @@ const Hint = ({ info, onSelect }) => (
         cursor: pointer;
         text-decoration: underline;
       }
-    `}</style>
+    `}
+    </style>
   </tr>
 )

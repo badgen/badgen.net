@@ -45,7 +45,8 @@ export default ({ current }) => {
           color: #EEE;
           background-color: #333;
         }
-      `}</style>
+      `}
+      </style>
     </header>
   )
 }
