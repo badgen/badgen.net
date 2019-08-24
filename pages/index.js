@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import BadgeExamples from '../components/badge-examples.js'
 import BadgenTitle from '../components/badgen-title.jsx'
+import TopBar from '../components/top-bar.jsx'
 import Intro from '../components/home-intro.js'
 import Footer from '../components/footer.js'
 import examples from '../static/.meta/badges.json'
@@ -16,6 +17,7 @@ const Index = () => {
   })
 
   return <>
+    <TopBar />
     <BadgenTitle host={host} />
     <div className='docs' style={{ width: '980px', margin: '0 auto' }}>
       <Intro />
