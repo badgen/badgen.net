@@ -5,7 +5,7 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts . ",
+    "lint": "eslint --ext .js,.ts,.jsx .",
     "build:api": "tsc -p server.tsconfig.json",
     "build:web": "next build && next export -o dist",
     "build": "npm run tools && npm run build:web && npm run build:api",
