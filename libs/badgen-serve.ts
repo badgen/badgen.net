@@ -52,7 +52,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
       try {
         const paramsPromise = handlers[matchedScheme](matchedArgs)
 
-        let iconPromise: Promise<string | undefined> = Promise.resolve(undefined);
+        let iconPromise: Promise<string | undefined> = Promise.resolve(undefined)
         if (typeof query.icon === 'string') {
           if (query.icon.startsWith('https://')) {
             iconPromise = fetchIcon(query.icon).catch(e => undefined)

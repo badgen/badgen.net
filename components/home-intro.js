@@ -1,6 +1,7 @@
 import icons from 'badgen-icons'
 
-export default ({ isFlat }) => (
+export default function HomeIntro ({ isFlat }) {
+  return (
   <div>
     <pre>{explainCode(isFlat)}</pre>
 
@@ -60,7 +61,7 @@ export default ({ isFlat }) => (
     `}
     </style>
   </div>
-)
+)}
 
 const colorExamples = () => {
   const colors = ['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'grey', 'black']

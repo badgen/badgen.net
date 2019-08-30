@@ -158,7 +158,7 @@ async function handler ({ topic, vendor, pkg, channel = 'latest' }: Args) {
         color: 'green'
       }
     case 'php':
-      const pkg = packageMeta.versions[getVersion(packageMeta, channel)];
+      const pkg = packageMeta.versions[getVersion(packageMeta, channel)]
 
       return {
         subject: 'php',

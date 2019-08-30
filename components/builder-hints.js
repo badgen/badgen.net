@@ -1,5 +1,4 @@
-
-export default ({ focus, badgeURL }) => {
+export default function BuilderHints ({ focus, badgeURL }) {
   const visible = !focus && !badgeURL
   const style = {
     opacity: visible ? 1 : 0,

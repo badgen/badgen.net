@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
-export default () => (
+export default function Footer () {
+  return (
   <footer>
     <div className='footer-content'>
       <div>
@@ -100,4 +101,4 @@ export default () => (
     `}
     </style>
   </footer>
-)
+)}

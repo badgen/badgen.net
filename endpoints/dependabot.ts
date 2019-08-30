@@ -55,10 +55,10 @@ export default badgenServe(handlers)
 async function handler ({ owner, repo, identifier }: Args) {
   // https://github.com/dependabot/feedback/issues/6#issuecomment-503994253
   let endpoint = `https://api.dependabot.com/badges/status?host=github&repo=${owner}/${repo}`
-  if (!!identifier) {
+  if (identifier) {
     endpoint += `&identifier=${identifier}`
   }
-  const { status, colour } = await got(endpoint).then(res => res.body);
+  const { status, colour } = await got(endpoint).then(res => res.body)
 
   return {
     subject: 'Dependabot',

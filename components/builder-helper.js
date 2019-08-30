@@ -4,7 +4,7 @@ const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) =>
   return accu.concat(Object.entries(curr.examples))
 }, [])
 
-export default ({ badgeURL, onSelect }) => {
+export default function BuilderHelper ({ badgeURL, onSelect }) {
   if (badgeURL.length < 2) {
     return <div className='helper' />
   }

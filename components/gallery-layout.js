@@ -2,7 +2,7 @@ import React from 'react'
 import GalleryHeader from './gallery-header.js'
 import Footer from './footer.js'
 
-export default class extends React.Component {
+export default class GalleryLayout extends React.Component {
   render () {
     const { tab, children } = this.props
     return (

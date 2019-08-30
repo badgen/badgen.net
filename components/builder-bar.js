@@ -2,7 +2,7 @@ import React from 'react'
 
 const DEFAULT_SIZE = 42
 
-export default class extends React.Component {
+export default class BuilderBar extends React.Component {
   shouldComponentUpdate ({ badgeURL }) {
     const url = badgeURL ? `#${badgeURL}` : window.location.pathname
     window.history.replaceState({}, document.title, url)
