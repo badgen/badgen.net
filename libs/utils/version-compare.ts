@@ -1,6 +1,6 @@
 import semver from 'semver'
 
-export default (v1: any, v2: any) => {
+export default (v1: any, v2: any): number => {
   v1 = semver.coerce(String(v1))
   v2 = semver.coerce(String(v2))
 
@@ -18,4 +18,6 @@ export default (v1: any, v2: any) => {
   if (isV2Valid) {
     return -1
   }
+
+  return 0
 }
