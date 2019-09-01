@@ -46,13 +46,10 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 ## Developing
 
 [![Contributors][contributors-src]][contributors-href]
-[![StandardJS][standard-src]][standard-href]
 [![Dependencies][dependencies-src]][dependencies-href]
 [![Maintainability][maintainability-src]][maintainability-href]
 [![Code Quality][codequality-src]][codequality-href]
 [![Docker image][docker-src]][docker-href]
-
-We are using [StandardJS][standard-href] style, make sure you have ESLint/Standard plugin on your editor and have autofix enabled.
 
 **start dev server**
 
@@ -108,8 +105,6 @@ Support this project by donation, help Badgen continue and evolving!
 
 [dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
-[standard-src]: https://badgen.net/badge/code%20style/standard/pink
-[standard-href]: https://standardjs.com
 [maintainability-src]: https://badgen.net/codeclimate/maintainability/badgen/badgen.net
 [maintainability-href]: https://codeclimate.com/github/badgen/badgen.net
 [codequality-src]: https://badgen.net/lgtm/grade/javascript/g/badgen/badgen.net
