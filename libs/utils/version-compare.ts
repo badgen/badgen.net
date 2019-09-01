@@ -14,9 +14,8 @@ export default (v1: any, v2: any) => {
   if (isV1Valid) {
     return 1
   }
-  if (!isV2Valid) {
+
+  if (isV2Valid) {
     return -1
   }
-
-  return v1.localeCompare(v2)
 }
