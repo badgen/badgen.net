@@ -96,7 +96,7 @@ const getReport = async (repoId, reportId, type, topic) => {
       }
     case 'maintainability-percentage':
       return {
-        subject: 'maintainbality',
+        subject: 'maintainability',
         status: attributes.ratings[0].measure.value.toFixed() + '%',
         color: gradeColors[attributes.ratings[0].letter] || 'red'
       }
