@@ -80,7 +80,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           }
         }
 
-        return serveBadge(req, res, { params, query })
+        return serveBadge(req, res, { params, query: query as any })
       } catch (error) {
         if (error instanceof BadgenError) {
           console.error(`BGE${error.code} "${error.status}" ${req.url}`)

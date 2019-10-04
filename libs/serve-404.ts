@@ -17,5 +17,5 @@ export default function (req, res) {
     }
   }
 
-  serveBadge(req, res, { code: 404, params, query })
+  serveBadge(req, res, { code: 404, params, query: query as any })
 }

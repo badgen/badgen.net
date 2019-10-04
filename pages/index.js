@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import BadgeExamples from '../components/badge-examples.js'
-import BadgenTitle from '../components/badgen-title.jsx'
-import TopBar from '../components/top-bar.jsx'
-import Intro from '../components/home-intro.js'
-import Footer from '../components/footer.js'
+import BadgeExamples from '../components/badge-examples'
+import BadgenTitle from '../components/badgen-title'
+import TopBar from '../components/top-bar'
+import Intro from '../components/home-intro'
+import Footer from '../components/footer'
 import examples from '../static/.meta/badges.json'
 
 const Index = () => {

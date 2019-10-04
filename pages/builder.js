@@ -1,9 +1,9 @@
 import React from 'react'
-import Preview from '../components/builder-preview.js'
-import Bar from '../components/builder-bar.js'
-import Hints from '../components/builder-hints.js'
-import Helper from '../components/builder-helper.js'
-import Footer from '../components/footer.js'
+import Preview from '../components/builder-preview'
+import Bar from '../components/builder-bar'
+import Hints from '../components/builder-hints'
+import Helper from '../components/builder-helper'
+import Footer from '../components/footer'
 
 export default class BuilderPage extends React.Component {
   state = {

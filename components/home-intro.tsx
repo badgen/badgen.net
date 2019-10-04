@@ -38,6 +38,11 @@ export default function HomeIntro ({ isFlat }) {
         Override default label color.
         <a href='/npm/dm/express?labelColor=pink'>e.g.</a>
       </li>
+      <li>
+        <code>scale</code>
+        Custom badge scale
+        <a href='/badge/docker/v1.2.3/blue?icon=docker&scale=2'>e.g.</a>
+      </li>
     </ul>
 
     <h3>Advanced usage</h3>

@@ -1,5 +1,5 @@
 import debounceRender from 'react-debounce-render'
-import BadgenTitle from './badgen-title.jsx'
+import BadgenTitle from './badgen-title'
 
 const BadgePreview = ({ host, badgeURL, focus }) => {
   const showPreview = focus || !!badgeURL
