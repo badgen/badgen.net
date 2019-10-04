@@ -6,7 +6,7 @@ import { BadgenParams } from './types'
 type ServeBadgeOptions = {
   code?: number
   sMaxAge?: number,
-  query?: { [key: string]: any },
+  query?: { [key: string]: string },
   params: BadgenParams
 }
 
@@ -27,8 +27,8 @@ export default function (req, res, options: ServeBadgeOptions) {
     color: query.color || color,
     style: query.style || process.env.BADGE_STYLE,
     icon: _icon.src,
-    iconWidth: iconWidth || _icon.width,
-    scale: scale && parseInt(scale, 10) || 1,
+    iconWidth: parseInt(iconWidth || _icon.width || '13', 10),
+    scale: parseInt(scale || '1', 10),
   })
 
   const staleControl = `stale-while-revalidate=604800, stale-if-error=604800`
