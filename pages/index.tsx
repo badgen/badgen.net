@@ -12,7 +12,7 @@ const Index = () => {
   const badges = examples[tab]
 
   useEffect(() => {
-    const forceHost = new URL(window.location).searchParams.get('host')
+    const forceHost = new URL(window.location.href).searchParams.get('host')
     setHost((forceHost || window.location.origin) + '/')
   })
 

@@ -5,7 +5,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "jsx": "preserve",
-    "target": "esnext",
+    "target": "es2017",
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -24,7 +24,9 @@
   "include": [
     "index.ts",
     "endpoints",
-    "types"
+    "components",
+    "pages",
+    "static"
   ],
   "exclude": [
     "node_modules"

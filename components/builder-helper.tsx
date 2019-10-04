@@ -1,10 +1,16 @@
 import badgeList from '../static/.meta/badges.json'
 
 const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) => {
-  return accu.concat(Object.entries(curr.examples))
-}, [])
+  return (accu as any).concat(Object.entries(curr.examples))
+}, [] as [string, string][])
 
-export default function BuilderHelper ({ badgeURL, onSelect }) {
+interface BuilderHelperProps {
+  host?: string;
+  badgeURL: string;
+  onSelect: (value: string) => void;
+}
+
+export default function BuilderHelper ({ badgeURL, onSelect }: BuilderHelperProps) {
   if (badgeURL.length < 2) {
     return <div className='helper' />
   }

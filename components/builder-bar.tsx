@@ -5,7 +5,7 @@ const DEFAULT_SIZE = 42
 interface BuilderBarProps {
   placeholder: string;
   badgeURL: string;
-  host: string;
+  host?: string;
   onChange: (value: string) => void;
   onFocus: () => void;
   onBlur: () => void;

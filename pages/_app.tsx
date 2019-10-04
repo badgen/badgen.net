@@ -1,11 +1,17 @@
 import React from 'react'
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import Head from 'next/head'
+
+declare global {
+  interface Window {
+    dataLayer: Array<any>;
+  }
+}
 
 export default class MyApp extends App {
   componentDidMount () {
     window.dataLayer = window.dataLayer || []
-    function gtag () { window.dataLayer.push(arguments) }
+    function gtag (...args) { window.dataLayer.push(args) }
     gtag('js', new Date())
     gtag('config', 'UA-4646421-14')
   }
@@ -14,7 +20,7 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props
 
     return (
-      <Container>
+      <>
         <Head>
           <title>Badgen - Fast badge generating service</title>
           <link rel='icon' type='image/png' href='/static/favicon.png' />
@@ -33,7 +39,7 @@ export default class MyApp extends App {
           a { text-decoration: none }
         `}
         </style>
-      </Container>
+      </>
     )
   }
 }

@@ -1,6 +1,6 @@
 import icons from 'badgen-icons'
 
-export default function HomeIntro ({ isFlat }) {
+export default function HomeIntro ({ isFlat = false }) {
   return (
   <div>
     <pre>{explainCode(isFlat)}</pre>

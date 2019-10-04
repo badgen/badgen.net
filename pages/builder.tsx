@@ -22,7 +22,7 @@ export default class BuilderPage extends React.Component {
   handleSelect = exampleURL => this.setState({ badgeURL: exampleURL })
 
   componentDidMount () {
-    const forceHost = new URL(window.location).searchParams.get('host')
+    const forceHost = new URL(window.location.href).searchParams.get('host')
     this.setState({
       host: (forceHost || window.location.origin) + '/',
       badgeURL: window.location.hash.replace(/^#/, ''),
