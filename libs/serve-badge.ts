@@ -1,4 +1,4 @@
-import badgen from 'badgen'
+import { badgen } from 'badgen'
 import icons from 'badgen-icons'
 
 import { BadgenParams } from './types'
@@ -14,7 +14,7 @@ export default function (req, res, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = 10800, query = {}, params } = options
 
   const { subject, status, color } = params
-  const { label, labelColor, icon, iconWidth, list } = query
+  const { label, labelColor, icon, iconWidth, list, scale } = query
   const _icon = resolveIcon(icon, iconWidth)
 
   // TODO: review usage of list
@@ -27,7 +27,8 @@ export default function (req, res, options: ServeBadgeOptions) {
     color: query.color || color,
     style: query.style || process.env.BADGE_STYLE,
     icon: _icon.src,
-    iconWidth: iconWidth || _icon.width
+    iconWidth: iconWidth || _icon.width,
+    scale,
   })
 
   const staleControl = `stale-while-revalidate=604800, stale-if-error=604800`
