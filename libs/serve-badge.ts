@@ -25,7 +25,7 @@ export default function (req, res, options: ServeBadgeOptions) {
     subject: typeof label !== 'undefined' ? label : subject,
     status: transformStatus(status, { list }),
     color: query.color || color,
-    style: query.style || process.env.BADGE_STYLE,
+    style: (query.style || process.env.BADGE_STYLE) as 'flat' || 'classic',
     icon: _icon.src,
     iconWidth: parseInt(iconWidth || _icon.width || '13', 10),
     scale: parseInt(scale || '1', 10),
