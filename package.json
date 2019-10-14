@@ -25,8 +25,8 @@
     ]
   },
   "dependencies": {
-    "@sentry/integrations": "^5.6.1",
-    "@sentry/node": "^5.6.2",
+    "@sentry/integrations": "^5.7.0",
+    "@sentry/node": "^5.7.0",
     "badgen": "^3.0.0",
     "badgen-icons": "^0.12.0",
     "byte-size": "^5.0.1",
@@ -49,25 +49,25 @@
     "@types/got": "^9.6.7",
     "@types/lodash.debounce": "^4.0.6",
     "@types/micro": "^7.3.3",
-    "@types/node": "^12.7.11",
+    "@types/node": "^12.7.12",
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
     "@types/semver": "^6.0.2",
     "@types/supertest": "^2.0.8",
-    "@typescript-eslint/eslint-plugin": "^2.3.2",
-    "@typescript-eslint/parser": "^2.3.2",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
     "@zeit/next-typescript": "^1.1.1",
     "csstype": "^2.6.6",
     "eslint": "^6.5.1",
-    "eslint-plugin-react": "^7.15.1",
+    "eslint-plugin-react": "^7.16.0",
     "fs-extra": "^8.1.0",
     "next": "^9.0.7",
     "nodemon": "^1.19.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "supertest": "^4.0.2",
-    "tap": "^14.6.9",
+    "tap": "^14.7.0",
     "ts-node": "^8.4.1",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.4"
   }
 }
