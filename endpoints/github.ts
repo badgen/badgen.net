@@ -113,8 +113,8 @@ const statesColor = {
   unknown: 'grey'
 }
 
-function combined (states: Array<any>, key?: string) {
-  const k = key || 'state'
+function combined (states: Array<any>, stateKey?: string) {
+  const k = stateKey || 'state'
   if (states.length === 0) return 'unknown'
   if (states.find(x => x[k] === 'error')) return 'error'
   if (states.find(x => x[k] === 'failure')) return 'failure'
