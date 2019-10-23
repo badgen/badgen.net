@@ -113,13 +113,12 @@ const statesColor = {
   unknown: 'grey'
 }
 
-function combined (states: Array<any>, stateKey?: string) {
-  const k = stateKey || 'state'
+function combined (states: Array<any>, stateKey: string = 'state') {
   if (states.length === 0) return 'unknown'
-  if (states.find(x => x[k] === 'error')) return 'error'
-  if (states.find(x => x[k] === 'failure')) return 'failure'
-  if (states.find(x => x[k] === 'pending')) return 'pending'
-  if (states.every(x => x[k] === 'success')) return 'success'
+  if (states.find(x => x[stateKey] === 'error')) return 'error'
+  if (states.find(x => x[stateKey] === 'failure')) return 'failure'
+  if (states.find(x => x[stateKey] === 'pending')) return 'pending'
+  if (states.every(x => x[stateKey] === 'success')) return 'success'
 
   // this shouldn't happen, but in case it happens
   throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
