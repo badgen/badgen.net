@@ -18,6 +18,7 @@ export const meta: Meta = {
     '/github/release/babel/babel/stable': 'latest stable release',
     '/github/tag/micromatch/micromatch': 'latest tag',
     '/github/watchers/micromatch/micromatch': 'watchers',
+    '/github/checks/tunnckoCore/opensource': 'combined checks (default branch)',
     '/github/status/micromatch/micromatch': 'combined statuses (default branch)',
     '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
     '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
@@ -64,6 +65,7 @@ export const handlers: Handlers = {
   '/github/:topic<commits|last-commit>/:owner/:repo/:ref?': repoStats,
   '/github/:topic<dt|assets-dl>/:owner/:repo/:scope?': downloads, // `dt` is deprecated
   '/github/release/:owner/:repo/:channel?': release,
+  '/github/checks/:owner/:repo/:ref?': checks,
   '/github/status/:owner/:repo/:ref?': status,
   '/github/status/:owner/:repo/:ref/:context+': status,
   '/github/contributors/:owner/:repo': contributors,
@@ -84,10 +86,10 @@ const pickGithubToken = () => {
 }
 
 // request github api v3 (rest)
-const restGithub = path => got.get(`https://api.github.com/${path}`, {
+const restGithub = (path, preview = 'hellcat') => got.get(`https://api.github.com/${path}`, {
   headers: {
     Authorization: `token ${pickGithubToken()}`,
-    Accept: 'application/vnd.github.hellcat-preview+json'
+    Accept: `application/vnd.github.${preview}-preview+json`
   }
 }).then(res => res.body)
 
@@ -111,15 +113,26 @@ const statesColor = {
   unknown: 'grey'
 }
 
-function combineState (states: Array<any>) {
+function combined (states: Array<any>, stateKey: string = 'state') {
   if (states.length === 0) return 'unknown'
-  if (states.find(x => x.state === 'error')) return 'error'
-  if (states.find(x => x.state === 'failure')) return 'failure'
-  if (states.find(x => x.state === 'pending')) return 'pending'
-  if (states.every(x => x.state === 'success')) return 'success'
+  if (states.find(x => x[stateKey] === 'error')) return 'error'
+  if (states.find(x => x[stateKey] === 'failure')) return 'failure'
+  if (states.find(x => x[stateKey] === 'pending')) return 'pending'
+  if (states.every(x => x[stateKey] === 'success')) return 'success'
 
   // this shouldn't happen, but in case it happens
   throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
+}
+
+async function checks ({ owner, repo, ref = 'master'}: Args) {
+  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`, 'antiope')
+  const status = combined(resp.check_runs, 'conclusion')
+
+  return {
+    subject: 'checks',
+    status: status,
+    color: statesColor[status]
+  }
 }
 
 async function status ({ owner, repo, ref = 'master', context }: Args) {
@@ -130,7 +143,7 @@ async function status ({ owner, repo, ref = 'master', context }: Args) {
     : resp!.state
 
   if (Array.isArray(state)) {
-    state = combineState(state)
+    state = combined(state, 'state')
   }
 
   if (state) {
