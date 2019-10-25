@@ -14,8 +14,6 @@
     "dev:web": "next",
     "tools": "ts-node -TP server.tsconfig.json tools/gen-examples.ts",
     "now-build": "npm run build",
-    "pretest": "npm run lint",
-    "test": "tap test/*.js --reporter spec -j12",
     "start": "node dist/index.js"
   },
   "standard": {
@@ -66,7 +64,6 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "supertest": "^4.0.2",
-    "tap": "^14.8.2",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   }
