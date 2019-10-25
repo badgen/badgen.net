@@ -10,7 +10,7 @@
  ],
   "routes": [
     { "src": "/(?<name>[^/]+)/.*", "dest": "/endpoints/$name.ts" },
-    { "src": "/(\\w+)", "dest": "/endpoints/$1.ts" },
+    { "src": "/(\\w+)\\/?", "dest": "/endpoints/$1.ts" },
     {
       "src": "/",
       "headers": {
