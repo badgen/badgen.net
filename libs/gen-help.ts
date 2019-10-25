@@ -6,7 +6,7 @@ export default function genHelp (id) {
 
   try {
     badgeModule = require(path.resolve(__dirname, '../endpoints', id))
-  } catch {
+  } catch (e) {
     return ''
   }
 
