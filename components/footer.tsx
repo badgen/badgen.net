@@ -25,7 +25,7 @@ export default function Footer () {
         <div>
           Built with ♥ by <a href='https://github.com/amio'>Amio</a> and
           awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>.
-          Love Badgen? Please consider <a href="https://opencollective.com/badgen">donating</a> to sustain our service!
+          Powered by ZEIT <a href='now.sh'>Now</a>.
         </div>
         <div className='links'>
           <a href='https://twitter.com/badgen_net'>
