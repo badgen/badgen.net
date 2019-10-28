@@ -6,7 +6,7 @@ import { BadgenParams } from './types'
 type ServeBadgeOptions = {
   code?: number
   sMaxAge?: number,
-  query?: { [key: string]: string },
+  query?: { [key: string]: string | undefined },
   params: BadgenParams
 }
 
@@ -55,7 +55,7 @@ type ResolvedIcon = {
   width?: string
 }
 
-function resolveIcon (icon: string | undefined, width: string): ResolvedIcon {
+function resolveIcon (icon: string | undefined, width?: string): ResolvedIcon {
   const builtinIcon = icons[icon]
   if (builtinIcon) {
     return {

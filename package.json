@@ -39,7 +39,8 @@
     "react-debounce-render": "^5.0.0",
     "semver": "^6.3.0",
     "serve-handler": "^6.1.2",
-    "serve-marked": "^2.0.2"
+    "serve-marked": "^2.0.2",
+    "url-parse": "^1.4.7"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.13",
@@ -52,6 +53,7 @@
     "@types/react-dom": "^16.9.3",
     "@types/semver": "^6.0.2",
     "@types/supertest": "^2.0.8",
+    "@types/url-parse": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
     "@zeit/next-typescript": "^1.1.1",

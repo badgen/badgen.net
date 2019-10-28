@@ -12,7 +12,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "lib": ["dom", "esnext"]
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": [
     "index.ts",
