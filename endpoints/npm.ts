@@ -101,7 +101,7 @@ async function unpkg (topic, pkg, tag = 'latest') {
       }
     }
     case 'esnext': {
-      const bundled = typeof meta.esnext === 'string'
+      const bundled = typeof meta.esnext === 'string' || (typeof meta.esnext === 'object' && typeof (meta.esnext.main || meta.esnext.browser) === "string")
 
       return {
         subject: 'esnext',
