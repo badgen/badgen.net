@@ -3,4 +3,4 @@ yarn.lock
 node_modules
 .firebase
 .next
-.gen
+.meta

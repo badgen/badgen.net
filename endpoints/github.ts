@@ -1,5 +1,5 @@
 import cheerio from 'cheerio'
-import distanceToNow from 'date-fns/distance_in_words_to_now'
+import distanceToNow from 'date-fns/formatDistanceToNow'
 
 import got from '../libs/got'
 import { version, millify } from '../libs/utils'
@@ -18,13 +18,16 @@ export const meta: Meta = {
     '/github/release/babel/babel/stable': 'latest stable release',
     '/github/tag/micromatch/micromatch': 'latest tag',
     '/github/watchers/micromatch/micromatch': 'watchers',
-    '/github/status/micromatch/micromatch': 'combined ci status',
-    '/github/status/micromatch/micromatch/gh-pages': 'combined ci status (branch ref)',
-    '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined ci status (commit ref)',
-    '/github/status/micromatch/micromatch/4.0.1': 'combined ci status (version ref)',
-    '/github/status/zeit/now-cli/master/ci/circleci:%20test-unit': 'single ci job status',
-    '/github/status/facebook/react/master/ci/circleci:%20lint': 'single ci job status',
-    '/github/status/facebook/react/master/coverage/coveralls': 'single ci job status',
+    '/github/checks/tunnckoCore/opensource': 'combined checks (default branch)',
+    '/github/status/micromatch/micromatch': 'combined statuses (default branch)',
+    '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
+    '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
+    '/github/status/micromatch/micromatch/4.0.1': 'combined statuses (tag)',
+    '/github/status/facebook/react/master/ci/circleci:%20lint': 'single status',
+    '/github/status/facebook/react/master/coverage/coveralls': 'single status',
+    '/github/status/zeit/hyper/master/ci': 'combined statuses (ci*)',
+    '/github/status/zeit/hyper/master/ci/circleci': 'combined statuses (ci/circleci*)',
+    '/github/status/zeit/hyper/master/ci/circleci:%20build': 'single status',
     '/github/stars/micromatch/micromatch': 'stars',
     '/github/forks/micromatch/micromatch': 'forks',
     '/github/issues/micromatch/micromatch': 'issues',
@@ -62,8 +65,9 @@ export const handlers: Handlers = {
   '/github/:topic<commits|last-commit>/:owner/:repo/:ref?': repoStats,
   '/github/:topic<dt|assets-dl>/:owner/:repo/:scope?': downloads, // `dt` is deprecated
   '/github/release/:owner/:repo/:channel?': release,
-  '/github/status/:owner/:repo/:ref/:context+': status,
+  '/github/checks/:owner/:repo/:ref?': checks,
   '/github/status/:owner/:repo/:ref?': status,
+  '/github/status/:owner/:repo/:ref/:context+': status,
   '/github/contributors/:owner/:repo': contributors,
   '/github/dependents-repo/:owner/:repo': dependents('REPOSITORY'),
   '/github/dependents-pkg/:owner/:repo': dependents('PACKAGE'),
@@ -82,10 +86,10 @@ const pickGithubToken = () => {
 }
 
 // request github api v3 (rest)
-const restGithub = path => got.get(`https://api.github.com/${path}`, {
+const restGithub = (path, preview = 'hellcat') => got.get(`https://api.github.com/${path}`, {
   headers: {
     Authorization: `token ${pickGithubToken()}`,
-    Accept: 'application/vnd.github.hellcat-preview+json'
+    Accept: `application/vnd.github.${preview}-preview+json`
   }
 }).then(res => res.body)
 
@@ -105,15 +109,42 @@ const statesColor = {
   pending: 'orange',
   success: 'green',
   failure: 'red',
-  error: 'red'
+  error: 'red',
+  unknown: 'grey'
+}
+
+function combined (states: Array<any>, stateKey: string = 'state') {
+  if (states.length === 0) return 'unknown'
+  if (states.find(x => x[stateKey] === 'error')) return 'error'
+  if (states.find(x => x[stateKey] === 'failure')) return 'failure'
+  if (states.find(x => x[stateKey] === 'pending')) return 'pending'
+  if (states.every(x => x[stateKey] === 'success')) return 'success'
+
+  // this shouldn't happen, but in case it happens
+  throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
+}
+
+async function checks ({ owner, repo, ref = 'master'}: Args) {
+  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`, 'antiope')
+  const status = combined(resp.check_runs, 'conclusion')
+
+  return {
+    subject: 'checks',
+    status: status,
+    color: statesColor[status]
+  }
 }
 
 async function status ({ owner, repo, ref = 'master', context }: Args) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
-  const state = typeof context === 'string'
-    ? resp!.statuses.find(st => st.context === context).state
+  let state = typeof context === 'string'
+    ? resp!.statuses.filter(st => st.context.startsWith(context))
     : resp!.state
+
+  if (Array.isArray(state)) {
+    state = combined(state, 'state')
+  }
 
   if (state) {
     return {
@@ -319,8 +350,8 @@ async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
     case 'label-issues':
       return {
         subject: `${restArgs.label}`,
-        status: result.label.issues.totalCount,
-        color: result.label.color
+        status: result.label ? result.label.issues.totalCount : 0,
+        color: result.label ? result.label.color : 'grey'
       }
     case 'prs':
       return {
@@ -361,10 +392,11 @@ async function repoStats ({topic, owner, repo, ...restArgs}: Args) {
         color: 'blue'
       }
     case 'license':
+      const li = result.licenseInfo
       return {
         subject: topic,
-        status: result.licenseInfo.spdxId,
-        color: 'blue'
+        status: li ? li.spdxId : 'no license',
+        color: li ? 'blue' : 'grey'
       }
     case 'last-commit':
       const commits = result.branch.target.history.nodes

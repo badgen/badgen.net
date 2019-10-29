@@ -1,17 +1,23 @@
 import fs from 'fs'
 import path from 'path'
 import http from 'http'
+import matchRoute from 'my-way'
 import serveHandler from 'serve-handler'
 
 import serve404 from './libs/serve-404'
-import serveDocs from './endpoints/docs'
 
-const sendError = (req, res, error) => {
+const sendError = (res: http.ServerResponse, error: Error) => {
   res.statusCode = 500
   res.end(error.message)
 }
 
-const badgeHandlers = fs.readdirSync(path.join(__dirname, 'endpoints'))
+const sendRedirection = (res: http.ServerResponse, code: number, dest: string) => {
+  res.statusCode = code
+  res.setHeader('Location', dest)
+  res.end()
+}
+
+const badgeNames = fs.readdirSync(path.join(__dirname, 'endpoints'))
   .filter(name => /\.[jt]s$/.test(name))
   .map(name => name.replace(/\.[jt]s$/, ''))
 
@@ -25,41 +31,43 @@ const isStatic = (url) => {
 
 const serveStaticHeaders = [
   {
-    source: "**/*",
+    source: '**/*',
     headers: [{
-      key: "Cache-Control",
-      value: "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400"
+      key: 'Cache-Control',
+      value: 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400'
     }]
   }
 ]
 
 const { PUB_DIR = '.' } = process.env
 const server = http.createServer(async (req, res) => {
+  const url = req.url || '/'
+
   // handle statics
-  if (isStatic(req.url)) {
+  if (isStatic(url)) {
     return serveHandler(req, res, {
       public: path.resolve(__dirname, PUB_DIR),
       headers: serveStaticHeaders
     })
   }
 
-  // handle `/docs/:name`
-  if (req.url!.startsWith('/docs/')) {
-    return serveDocs(req, res)
+  // redirects `/docs/:name` to `/:name`
+  if (url.startsWith('/docs/')) {
+    return sendRedirection(res, 301, url.replace('/docs', ''))
   }
 
   // handle endpoints
-  const handlerName = badgeHandlers.find(h => req.url!.startsWith(`/${h}/`))
+  const handlerName = badgeNames.find(h => matchRoute(`/${h}/:path*`, url))
 
   try {
     if (handlerName) {
       const handlerPath = path.join(__dirname, 'endpoints', handlerName)
       const { default: handler } = await import(handlerPath)
-      return handler(req, res)
+      return handler(req, res, handlerName)
     }
   } catch (error) {
     console.error(error)
-    return sendError(req, res, error)
+    return sendError(res, error)
   }
 
   return serve404(req, res)
@@ -73,7 +81,7 @@ if (require.main === module) {
 }
 
 process.on('unhandledRejection', e => {
-  console.error(500, e)
+  console.error('REJECTION', e)
 })
 
 export default server

@@ -1,22 +1,23 @@
 import semver from 'semver'
 
-export default (v1, v2) => {
-  const validV1 = semver.valid(semver.coerce(v1))
-  const validV2 = semver.valid(semver.coerce(v2))
+export default (v1: any, v2: any): number => {
+  v1 = semver.coerce(String(v1))
+  v2 = semver.coerce(String(v2))
 
-  const isV1Valid = !!validV1
-  const isV2Valid = !!validV2
+  const isV1Valid = v1 !== null && !!semver.valid(v1)
+  const isV2Valid = v2 !== null && !!semver.valid(v2)
 
   if (isV1Valid && isV2Valid) {
-    return semver.compare(validV1, validV2)
+    return semver.compare(v1, v2)
   }
 
-  if (isV1Valid && !isV2Valid) {
+  if (isV1Valid) {
     return 1
   }
-  if (!isV1Valid && isV2Valid) {
+
+  if (isV2Valid) {
     return -1
   }
 
-  return v1.localeCompare(v2)
+  return 0
 }

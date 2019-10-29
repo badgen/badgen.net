@@ -1,16 +1,17 @@
 import icons from 'badgen-icons'
 
-export default ({ isFlat }) => (
+export default function HomeIntro ({ isFlat = false }) {
+  return (
   <div>
-    <pre>{ explainCode(isFlat) }</pre>
+    <pre>{explainCode(isFlat)}</pre>
 
     <h3 id='colors'>Builtin color names</h3>
-    { colorExamples() }
+    {colorExamples()}
 
     <h3 id='icons'>Builtin icons</h3>
-    { iconExamples() }
+    {iconExamples()}
 
-    <h3 id='options'>Supported query params</h3>
+    <h3 id='options'>Options</h3>
     <ul>
       <li>
         <code>color</code>
@@ -30,7 +31,17 @@ export default ({ isFlat }) => (
       <li>
         <code>label</code>
         Override default subject text (<a href='https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding'>URL-Encoding</a> needed for spaces or special characters).
-        <a href='/badge/docker/v1.2.3/blue?icon=docker'>e.g.</a>
+        <a href='/badge/docker/v1.2.3/blue?label=container'>e.g.</a>
+      </li>
+      <li>
+        <code>labelColor</code>
+        Override default label color.
+        <a href='/npm/dm/express?labelColor=pink'>e.g.</a>
+      </li>
+      <li>
+        <code>scale</code>
+        Custom badge scale
+        <a href='/badge/docker/v1.2.3/blue?icon=docker&scale=2'>e.g.</a>
       </li>
     </ul>
 
@@ -42,7 +53,7 @@ export default ({ isFlat }) => (
       </li>
       <li>
         <a href='/docs/https'><code>/https</code></a>
-        create arbitrary live badge with your own endpoint.
+        turn an api endpoint into a svg live badge.
       </li>
     </ul>
     <style jsx>{`
@@ -52,9 +63,10 @@ export default ({ isFlat }) => (
       code {
         margin-right: 6px;
       }
-    `}</style>
+    `}
+    </style>
   </div>
-)
+)}
 
 const colorExamples = () => {
   const colors = ['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'grey', 'black']
@@ -65,7 +77,8 @@ const colorExamples = () => {
         a {
           margin-right: 4px;
         }
-      `}</style>
+      `}
+      </style>
     </a>
   ))
 }
@@ -80,7 +93,8 @@ const iconExamples = () => {
           a {
             margin-right: 4px;
           }
-        `}</style>
+        `}
+        </style>
       </a>
     )
   })
@@ -90,7 +104,7 @@ const explainCode = (isFlat) => {
   const text = `
 https://badgen.net/badge/:subject/:status/:color?icon=github
                    ──┬──  ───┬───  ──┬───  ──┬── ────┬──────
-                     │       │       │       │       └─ Extra Options (label, list, icon, color)
+                     │       │       │       │       └─ Options (label, list, icon, color)
                      │       │       │       │
                      │      TEXT    TEXT    RGB / COLOR_NAME ( optional )
                      │

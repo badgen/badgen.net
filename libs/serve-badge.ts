@@ -1,4 +1,4 @@
-import badgen from 'badgen'
+import { badgen } from 'badgen'
 import icons from 'badgen-icons'
 
 import { BadgenParams } from './types'
@@ -6,7 +6,7 @@ import { BadgenParams } from './types'
 type ServeBadgeOptions = {
   code?: number
   sMaxAge?: number,
-  query?: { [key: string]: any },
+  query?: { [key: string]: string | undefined },
   params: BadgenParams
 }
 
@@ -14,19 +14,21 @@ export default function (req, res, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = 10800, query = {}, params } = options
 
   const { subject, status, color } = params
-  const { label, list, icon, iconWidth } = query
+  const { label, labelColor, icon, iconWidth, list, scale } = query
   const _icon = resolveIcon(icon, iconWidth)
 
   // TODO: review usage of list
   list && console.log(`FEAT-LIST ${req.url}`)
 
   const badge = badgen({
+    labelColor,
     subject: typeof label !== 'undefined' ? label : subject,
     status: transformStatus(status, { list }),
     color: query.color || color,
-    style: query.style || process.env.BADGE_STYLE,
+    style: (query.style || process.env.BADGE_STYLE) as 'flat' || 'classic',
     icon: _icon.src,
-    iconWidth: iconWidth || _icon.width
+    iconWidth: parseInt(iconWidth || _icon.width || '13', 10),
+    scale: parseInt(scale || '1', 10),
   })
 
   const staleControl = `stale-while-revalidate=604800, stale-if-error=604800`
@@ -53,7 +55,7 @@ type ResolvedIcon = {
   width?: string
 }
 
-function resolveIcon (icon: string | undefined, width: string): ResolvedIcon {
+function resolveIcon (icon: string | undefined, width?: string): ResolvedIcon {
   const builtinIcon = icons[icon]
   if (builtinIcon) {
     return {

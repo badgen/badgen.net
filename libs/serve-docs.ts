@@ -2,14 +2,10 @@ import serveMarked from 'serve-marked'
 import serve404 from '../libs/serve-404'
 import genHelp from '../libs/gen-help'
 
-// Handles `/docs/:name`
-export default async function (req, res) {
-  const [ , , name ] = req.url.split('/')
+export default async function (req, res, name) {
   const helpMarkdown = genHelp(name)
 
   if (helpMarkdown) {
-    console.info(`DOC ${name}: ${req.url}`)
-
     res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400')
 
     return serveMarked(helpMarkdown, {
@@ -25,10 +21,15 @@ export default async function (req, res) {
 }
 
 const inlineCSS = `
+  html, body { scroll-behavior: smooth }
   .markdown-body { max-width: 850px }
+  .markdown-body h1 { margin-bottom: 42px }
   li > img { vertical-align: middle; margin: 0.2em 0; font-size: 12px; float: right }
   li > img + a { font-family: monospace; font-size: 0.9em }
   li > img + a + i { color: #AAA }
+  h4 a code { color: #333; font-size: 1rem }
+  h4 a:hover { text-decoration: none !important }
+  h4 { padding: 4px 0 }
 `
 
 const helpFooter = `
@@ -51,7 +52,7 @@ const helpFooter = `
     </div>
     <div class='bottom'>
       <div>
-        Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Hosted on <a href='https://zeit.co/now'>Now</a>. License under <a href='https://github.com/badgen/badgen.net/blob/master/LICENSE.md'>ISC</a>.
+        Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Powered by ZEIT <a href='https://now.sh'>Now</a>. License under <a href='https://github.com/badgen/badgen.net/blob/master/LICENSE.md'>ISC</a>.
       </div>
       <div class='links'>
         <a href='https://twitter.com/badgen_net'>

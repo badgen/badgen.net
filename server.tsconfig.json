@@ -5,31 +5,18 @@
     "allowJs": true,
     "skipLibCheck": true,
     "jsx": "preserve",
-    "target": "es2017",
-    "module": "esnext",
+    "target": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": false
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": [
     "index.ts",
     "endpoints",
-    "components",
-    "pages",
-    "static"
-  ],
-  "exclude": [
-    "node_modules"
+    "types"
   ]
 }

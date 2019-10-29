@@ -7,7 +7,7 @@
   ],
   "execMap": {
     "js": "node --harmony",
-    "ts": "ts-node"
+    "ts": "ts-node --transpile-only --compiler-options=\"{\\\"module\\\": \\\"commonjs\\\"}\""
   },
   "watch": [
     "index.ts",

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default ({ current }) => {
+export default function GalleryHeader ({ current }) {
   return (
     <header>
       <h1>Badgen Gallery</h1>
@@ -45,7 +45,8 @@ export default ({ current }) => {
           color: #EEE;
           background-color: #333;
         }
-      `}</style>
+      `}
+      </style>
     </header>
   )
 }

@@ -1,5 +1,5 @@
 import debounceRender from 'react-debounce-render'
-import BadgenTitle from './badgen-title.jsx'
+import BadgenTitle from './badgen-title'
 
 const BadgePreview = ({ host, badgeURL, focus }) => {
   const showPreview = focus || !!badgeURL
@@ -48,7 +48,8 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
           transform: translateY(0);
           transition-delay: 180ms;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }

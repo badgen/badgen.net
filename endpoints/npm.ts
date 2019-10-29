@@ -1,18 +1,13 @@
 import cheerio from 'cheerio'
 import got from '../libs/got'
 import { millify, version, versionColor } from '../libs/utils'
-import {
-  badgenServe,
-  BadgenServeMeta as Meta,
-  BadgenServeHandlers as Handlers,
-  BadgenServeHandlerArgs as Args
-} from '../libs/badgen-serve'
+import { createBadgenHandler, BadgenServeConfig, PathArgs } from '../libs/create-badgen-handler'
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
 // https://unpkg.com/
 
-export const meta: Meta = {
+export const config: BadgenServeConfig = {
   title: 'npm',
   examples: {
     '/npm/v/express': 'version',
@@ -28,17 +23,16 @@ export const meta: Meta = {
     '/npm/license/lodash': 'license',
     '/npm/node/next': 'node version',
     '/npm/dependents/got': 'dependents'
-  }
+  },
+  handlers: {
+    '/npm/:topic/:scope<@.+>/:pkg/:tag?': handler,
+    '/npm/:topic/:pkg/:tag?': handler
+  },
 }
 
-export const handlers: Handlers = {
-  '/npm/:topic/:scope<@.+>/:pkg/:tag?': handler,
-  '/npm/:topic/:pkg/:tag?': handler
-}
+export default createBadgenHandler(config)
 
-export default badgenServe(handlers)
-
-async function handler ({ topic, scope, pkg, tag }: Args) {
+async function handler ({ topic, scope, pkg, tag }: PathArgs) {
   const npmName = scope ? `${scope}/${pkg}` : pkg
 
   switch (topic) {
@@ -121,7 +115,7 @@ const download = async (period, npmName, tag = 'latest') => {
 
   const { downloads } = await got(endpoint.join('/')).then(
     res => res.body,
-    err => err.response!.statusCode === 404 && { downloads: 0 }
+    err => err.response && err.response.statusCode === 404 && { downloads: 0 }
   )
 
   const count = typeof downloads === 'number'

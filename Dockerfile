@@ -1,11 +1,11 @@
-FROM node:alpine AS build
-WORKDIR /
+FROM node:12-alpine AS build
+WORKDIR /src
 COPY . .
 RUN npm ci && npm run build
 
-FROM node:alpine
+FROM node:12-alpine
 WORKDIR /app
-COPY --from=build /dist .
+COPY --from=build /src/dist .
 ENTRYPOINT node /app/index.js
 
 COPY package* ./

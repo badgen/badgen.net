@@ -10,14 +10,9 @@
  ],
   "routes": [
     { "src": "/(?<name>[^/]+)/.*", "dest": "/endpoints/$name.ts" },
+    { "src": "/(\\w+)\\/?", "dest": "/endpoints/$1.ts" },
     {
       "src": "/",
-      "headers": {
-        "cache-control": "public, s-maxage=604800, stale-while-revalidate: 86400"
-      }
-    },
-    {
-      "src": "/docs/.*",
       "headers": {
         "cache-control": "public, s-maxage=604800, stale-while-revalidate: 86400"
       }
@@ -30,5 +25,20 @@
   },
   "github": {
     "autoAlias": false
-  }
+  },
+  "files": [
+    "package.json",
+    "package-lock.json",
+    "server.tsconfig.json",
+    "tsconfig.json",
+    "next-env.d.ts",
+    "next.config.js",
+    "index.ts",
+    "tools",
+    "libs",
+    "pages",
+    "static",
+    "endpoints",
+    "components"
+  ]
 }

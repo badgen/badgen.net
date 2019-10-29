@@ -2,7 +2,16 @@ import React from 'react'
 
 const DEFAULT_SIZE = 42
 
-export default class extends React.Component {
+interface BuilderBarProps {
+  placeholder: string;
+  badgeURL: string;
+  host?: string;
+  onChange: (value: string) => void;
+  onFocus: () => void;
+  onBlur: () => void;
+}
+
+export default class BuilderBar extends React.Component<BuilderBarProps> {
   shouldComponentUpdate ({ badgeURL }) {
     const url = badgeURL ? `#${badgeURL}` : window.location.pathname
     window.history.replaceState({}, document.title, url)
@@ -13,7 +22,7 @@ export default class extends React.Component {
     return url.length < DEFAULT_SIZE ? DEFAULT_SIZE : url.length
   }
 
-  onChange = ev => this.props.onChange(ev.target.value)
+  handleChange = ev => this.props.onChange(ev.target.value)
 
   render () {
     const { host, placeholder, badgeURL } = this.props
@@ -24,10 +33,10 @@ export default class extends React.Component {
         <span>{host}</span>
         <input
           tabIndex={1}
-          spellCheck='false'
+          spellCheck={false}
           size={(inputSize || placeholder.length) + 1}
           placeholder={placeholder}
-          onChange={this.onChange}
+          onChange={this.handleChange}
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
           value={badgeURL}
@@ -60,7 +69,8 @@ export default class extends React.Component {
             color: black;
             min-width: 526px;
           }
-        `}</style>
+        `}
+        </style>
       </label>
     )
   }

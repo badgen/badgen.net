@@ -48,9 +48,10 @@ async function handler ({ vcs, owner, repo, branch }: Args) {
     }
   }
 
+  const cov = data.commit.totals ? data.commit.totals.c : 0
   return {
     subject: 'coverage',
-    status: coverage(data.commit.totals.c),
-    color: coverageColor(data.commit.totals.c)
+    status: coverage(cov),
+    color: coverageColor(cov)
   }
 }

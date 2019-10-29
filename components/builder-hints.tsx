@@ -1,7 +1,8 @@
+import * as CSS from 'csstype'
 
-export default ({ focus, badgeURL }) => {
+export default function BuilderHints ({ focus, badgeURL }) {
   const visible = !focus && !badgeURL
-  const style = {
+  const style: CSS.Properties = {
     opacity: visible ? 1 : 0,
     pointerEvents: visible ? 'auto' : 'none'
   }
@@ -36,17 +37,18 @@ export default ({ focus, badgeURL }) => {
           border-bottom: 1px dashed #333;
           text-decoration: none;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }
 
 const Hint = ({ left, width, height, children, align = 'left' }) => {
-  const wrapperPos = {
+  const wrapperPos: CSS.Properties = {
     left: `calc(50% + ${left}px)`,
     height: `${height * 54}px`,
     width: `${width}px`,
-    textAlign: align
+    textAlign: align as CSS.TextAlignProperty
   }
   return (
     <div className='hint' style={wrapperPos}>
@@ -74,7 +76,8 @@ const Hint = ({ left, width, height, children, align = 'left' }) => {
           height: 24px;
           color: #333;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import matchRoute from 'my-way'
 
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
+import serveDocs from './serve-docs'
 import serve404 from './serve-404'
 import sentry from './sentry'
 
@@ -20,15 +21,20 @@ export type BadgenServeHandler = (args: BadgenServeHandlerArgs) => BadgenServeHa
 export type BadgenServeHandlers = { [key: string]: BadgenServeHandler }
 
 export function badgenServe (handlers: BadgenServeHandlers): Function {
-  return async function httpHandler (req, res) {
+  return async function Handler (req, res, name) {
     const { pathname = '/', query } = url.parse(req.url, true)
 
-    // serve favicon
+    // Serve favicon
     if (pathname === '/favicon.ico') {
       return res.end()
     }
 
-    // Lookup handler
+    // Serve docs
+    if (matchRoute(`/${name}`, pathname)) {
+      return serveDocs(req, res, name)
+    }
+
+    // Find handler
     let matchedArgs
     const matchedScheme = Object.keys(handlers).find(scheme => {
       matchedArgs = matchRoute(scheme, decodeURI(pathname))
@@ -46,26 +52,26 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
       try {
         const paramsPromise = handlers[matchedScheme](matchedArgs)
 
-        let iconPromise: Promise<string | undefined> = Promise.resolve(undefined);
+        let iconPromise: Promise<string | undefined> = Promise.resolve(undefined)
         if (typeof query.icon === 'string') {
-          if (query.icon === '') {
-            iconPromise = Promise.resolve(defaultLabel)
-          } else if (query.icon.startsWith('https://')) {
-            iconPromise = fetchIcon(query.icon)
+          if (query.icon.startsWith('https://')) {
+            iconPromise = fetchIcon(query.icon).catch(e => undefined)
           } else {
             iconPromise = Promise.resolve(query.icon)
           }
         }
 
         const [ icon, params = defaultParams ] = await Promise.all([
-          iconPromise.catch(e => undefined),
-          paramsPromise.catch(e => defaultParams)
+          iconPromise,
+          paramsPromise
         ])
 
         params.subject = simpleDecode(params.subject)
         params.status = simpleDecode(params.status)
 
-        query.icon = icon
+        if (icon !== undefined) {
+          query.icon = icon === '' ? params.subject : icon
+        }
 
         if (query.style === undefined) {
           const host = req.headers['x-forwarded-host'] || req.headers.host
@@ -74,7 +80,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
           }
         }
 
-        return serveBadge(req, res, { params, query })
+        return serveBadge(req, res, { params, query: query as any })
       } catch (error) {
         if (error instanceof BadgenError) {
           console.error(`BGE${error.code} "${error.status}" ${req.url}`)

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
-export default () => (
+export default function Footer () {
+  return (
   <footer>
     <div className='footer-content'>
       <div>
@@ -15,12 +16,16 @@ export default () => (
           <Link href='https://github.com/badgen/badgen.net'><a>GitHub</a></Link>
           <em>/</em>
           <Link href='https://twitter.com/badgen_net'><a>Twitter</a></Link>
+          <em>/</em>
+          <Link href='https://opencollective.com/badgen'><a>OpenCollective</a></Link>
           <br />
         </div>
       </div>
       <div className='bottom'>
         <div>
-          Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Hosted on <a href='https://zeit.co/now'>Now</a>. License under <a href='https://github.com/badgen/badgen.net/blob/master/LICENSE.md'>ISC</a>.
+          Built with ♥ by <a href='https://github.com/amio'>Amio</a> and
+          awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>.
+          Powered by ZEIT <a href='https://now.sh'>Now</a>.
         </div>
         <div className='links'>
           <a href='https://twitter.com/badgen_net'>
@@ -93,6 +98,7 @@ export default () => (
       .links img {
         height: 22px;
       }
-    `}</style>
+    `}
+    </style>
   </footer>
-)
+)}

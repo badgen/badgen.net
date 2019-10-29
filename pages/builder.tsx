@@ -1,9 +1,9 @@
 import React from 'react'
-import Preview from '../components/builder-preview.js'
-import Bar from '../components/builder-bar.js'
-import Hints from '../components/builder-hints.js'
-import Helper from '../components/builder-helper.js'
-import Footer from '../components/footer.js'
+import Preview from '../components/builder-preview'
+import Bar from '../components/builder-bar'
+import Hints from '../components/builder-hints'
+import Helper from '../components/builder-helper'
+import Footer from '../components/footer'
 
 export default class BuilderPage extends React.Component {
   state = {
@@ -13,13 +13,16 @@ export default class BuilderPage extends React.Component {
     focus: false
   }
 
-  setBlur = () => this.setState({ focus: false })
-  setFocus = () => this.setState({ focus: true })
-  setBadgeURL = badgeURL => this.setState({ badgeURL })
-  selectExample = exampleURL => this.setState({ badgeURL: exampleURL })
+  handleBlur = () => this.setState({ focus: false })
+
+  handleFocus = () => this.setState({ focus: true })
+
+  handleChange = badgeURL => this.setState({ badgeURL })
+
+  handleSelect = exampleURL => this.setState({ badgeURL: exampleURL })
 
   componentDidMount () {
-    const forceHost = new URL(window.location).searchParams.get('host')
+    const forceHost = new URL(window.location.href).searchParams.get('host')
     this.setState({
       host: (forceHost || window.location.origin) + '/',
       badgeURL: window.location.hash.replace(/^#/, ''),
@@ -38,11 +41,12 @@ export default class BuilderPage extends React.Component {
             host={host}
             badgeURL={badgeURL}
             placeholder={placeholder}
-            onChange={this.setBadgeURL}
-            onBlur={this.setBlur}
-            onFocus={this.setFocus} />
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+          />
           <Hints focus={focus} badgeURL={badgeURL} />
-          { badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.selectExample} /> }
+          {badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.handleSelect} />}
         </div>
         <Footer />
         <style jsx>{`
@@ -50,7 +54,8 @@ export default class BuilderPage extends React.Component {
             min-height: 100vh;
             position: relative;
           }
-        `}</style>
+        `}
+        </style>
       </div>
     )
   }
