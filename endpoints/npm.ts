@@ -22,7 +22,9 @@ export const config: BadgenServeConfig = {
     '/npm/dt/express': 'total downloads',
     '/npm/license/lodash': 'license',
     '/npm/node/next': 'node version',
-    '/npm/dependents/got': 'dependents'
+    '/npm/dependents/got': 'dependents',
+    '/npm/esnext/react-scrollbars-custom': 'esnext bundle',
+    '/npm/esnext/react/next': 'esnext bundle (tag)'
   },
   handlers: {
     '/npm/:topic/:scope<@.+>/:pkg/:tag?': handler,
@@ -42,6 +44,8 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
       return unpkg('license', npmName, tag)
     case 'node':
       return unpkg('node', npmName, tag)
+    case 'esnext':
+      return unpkg('esnext', npmName, tag)
     case 'dt':
       return download('total', npmName)
     case 'dd':
@@ -88,6 +92,15 @@ async function unpkg (topic, pkg, tag = 'latest') {
         subject: 'node',
         status: (meta.engines && meta.engines.node) || '*',
         color: 'green'
+      }
+    }
+    case 'esnext': {
+      const bundled = typeof meta.esnext === 'string';
+
+      return {
+        subject: 'esnext',
+        status: `${bundled ? '' : 'not '} bundled`,
+        color: bundled ? 'green' : 'red'
       }
     }
     default: {
