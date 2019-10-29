@@ -1,13 +1,18 @@
 import cheerio from 'cheerio'
 import got from '../libs/got'
 import { millify, version, versionColor } from '../libs/utils'
-import { createBadgenHandler, BadgenServeConfig, PathArgs } from '../libs/create-badgen-handler'
+import {
+  badgenServe,
+  BadgenServeMeta as Meta,
+  BadgenServeHandlers as Handlers,
+  BadgenServeHandlerArgs as Args
+} from '../libs/badgen-serve'
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
 // https://unpkg.com/
 
-export const config: BadgenServeConfig = {
+export const meta: Meta = {
   title: 'npm',
   examples: {
     '/npm/v/express': 'version',
@@ -23,16 +28,17 @@ export const config: BadgenServeConfig = {
     '/npm/license/lodash': 'license',
     '/npm/node/next': 'node version',
     '/npm/dependents/got': 'dependents'
-  },
-  handlers: {
-    '/npm/:topic/:scope<@.+>/:pkg/:tag?': handler,
-    '/npm/:topic/:pkg/:tag?': handler
-  },
+  }
 }
 
-export default createBadgenHandler(config)
+export const handlers: Handlers = {
+  '/npm/:topic/:scope<@.+>/:pkg/:tag?': handler,
+  '/npm/:topic/:pkg/:tag?': handler
+}
 
-async function handler ({ topic, scope, pkg, tag }: PathArgs) {
+export default badgenServe(handlers)
+
+async function handler ({ topic, scope, pkg, tag }: Args) {
   const npmName = scope ? `${scope}/${pkg}` : pkg
 
   switch (topic) {
