@@ -28,9 +28,9 @@ export const meta: Meta = {
     '/npm/license/lodash': 'license',
     '/npm/node/next': 'node version',
     '/npm/dependents/got': 'dependents',
-    '/npm/typings/tslib': 'typings',
-    '/npm/typings/react': 'typings',
-    '/npm/typings/queri': 'typings',
+    '/npm/types/tslib': 'types',
+    '/npm/types/react': 'types',
+    '/npm/types/queri': 'types',
   }
 }
 
@@ -63,7 +63,7 @@ async function handler ({ topic, scope, pkg, tag }: Args) {
       return download('last-year', npmName)
     case 'dependents':
       return dependents(npmName)
-    case 'typings':
+    case 'types':
       return typesDefinition(npmName, tag)
     default:
       return {
@@ -171,9 +171,9 @@ async function typesDefinition(pkg: string, tag: string = 'latest') {
 
     if (typeof meta.types === 'string' || typeof meta.typings === "string") {
         return {
-            subject: 'typings',
+            subject: 'types',
             status: 'included',
-            color: 'blue'
+            color: '0074c1'
         }
     }
 
@@ -182,11 +182,11 @@ async function typesDefinition(pkg: string, tag: string = 'latest') {
     meta = await got(typesEndpoint).then(res => res.body).catch(err => false)
 
     return meta && meta.name === typesPkg ? {
-        subject: 'typings',
+        subject: 'types',
         status: meta.name,
         color: 'cyan',
     } : {
-        subject: 'typings',
+        subject: 'types',
         status: 'missing',
         color: 'orange',
     }
