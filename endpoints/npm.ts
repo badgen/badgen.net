@@ -101,12 +101,12 @@ async function unpkg (topic, pkg, tag = 'latest') {
       }
     }
     case 'esnext': {
-      const bundled = typeof meta.esnext === 'string' || (typeof meta.esnext === 'object' && typeof (meta.esnext.main || meta.esnext.browser) === "string")
+      const included = typeof meta.esnext === 'string' || (typeof meta.esnext === 'object' && typeof (meta.esnext.main || meta.esnext.browser) === "string")
 
       return {
         subject: 'esnext',
-        status: `${bundled ? '' : 'not '} bundled`,
-        color: bundled ? 'green' : 'red'
+        status: `${included ? '' : 'not '} included`,
+        color: included ? 'green' : 'red'
       }
     }
     default: {
