@@ -27,7 +27,10 @@ export const meta: Meta = {
     '/npm/dt/express': 'total downloads',
     '/npm/license/lodash': 'license',
     '/npm/node/next': 'node version',
-    '/npm/dependents/got': 'dependents'
+    '/npm/dependents/got': 'dependents',
+    '/npm/types/tslib': 'types',
+    '/npm/types/react': 'types',
+    '/npm/types/queri': 'types',
   }
 }
 
@@ -60,6 +63,8 @@ async function handler ({ topic, scope, pkg, tag }: Args) {
       return download('last-year', npmName)
     case 'dependents':
       return dependents(npmName)
+    case 'types':
+      return typesDefinition(npmName, tag)
     default:
       return {
         subject: 'npm',
@@ -158,4 +163,31 @@ const parseDependents = html => {
   const depLink = $('a[href="?activeTab=dependents"]')
   if (depLink.length !== 1) return -1
   return depLink.text().replace(/[^0-9]/g, '')
+}
+
+async function typesDefinition(pkg: string, tag: string = 'latest') {
+    const endpoint = `https://cdn.jsdelivr.net/npm/${ pkg }@${ tag }/package.json`
+    let meta = await got(endpoint).then(res => res.body)
+
+    if (typeof meta.types === 'string' || typeof meta.typings === "string") {
+        return {
+            subject: 'types',
+            status: 'included',
+            color: '0074c1'
+        }
+    }
+
+    const typesPkg = '@types/' + (pkg.charAt(0) === "@" ? pkg.slice(1).replace('/', '__') : pkg)
+    const typesEndpoint = `https://cdn.jsdelivr.net/npm/${ typesPkg }@latest/package.json`
+    meta = await got(typesEndpoint).then(res => res.body).catch(err => false)
+
+    return meta && meta.name === typesPkg ? {
+        subject: 'types',
+        status: meta.name,
+        color: 'cyan',
+    } : {
+        subject: 'types',
+        status: 'missing',
+        color: 'orange',
+    }
 }
