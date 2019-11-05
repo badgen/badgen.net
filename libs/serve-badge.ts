@@ -28,7 +28,7 @@ export default function (req, res, options: ServeBadgeOptions) {
     style: (query.style || process.env.BADGE_STYLE) as 'flat' || 'classic',
     icon: _icon.src,
     iconWidth: parseInt(iconWidth || _icon.width || '13', 10),
-    scale: parseInt(scale || '1', 10),
+    scale: parseFloat(scale || '1'),
   })
 
   const staleControl = `stale-while-revalidate=604800, stale-if-error=604800`
