@@ -5,18 +5,12 @@
   ],
   "regions": ["sfo", "lhr", "hnd"],
   "builds": [
-    { "src": "endpoints/*.ts", "use": "@now/node" },
+    { "src": "api/*.ts", "use": "@now/node" },
     { "src": "package.json", "use": "@now/static-build" }
  ],
   "routes": [
-    { "src": "/(?<name>[^/]+)/.*", "dest": "/endpoints/$name.ts" },
-    { "src": "/(\\w+)\\/?", "dest": "/endpoints/$1.ts" },
-    {
-      "src": "/",
-      "headers": {
-        "cache-control": "public, s-maxage=604800, stale-while-revalidate: 86400"
-      }
-    }
+    { "src": "/", "headers": { "cache-control": "public, maxage=604800, stale-while-revalidate: 86400" } },
+    { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" }
   ],
   "env": {
     "GH_TOKENS": "@badgen-gh-tokens",

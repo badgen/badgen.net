@@ -4,7 +4,7 @@ import urlParse from 'url-parse'
 
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
-import serveDocs from './serve-docs'
+import serveDoc from './serve-doc'
 import sentry from './sentry'
 
 import { BadgenParams } from './types'
@@ -183,11 +183,4 @@ function serve404 (req: http.IncomingMessage, res: http.ServerResponse) {
   }
 
   serveBadge(req, res, { code: 404, params, query })
-}
-
-function serveDoc (conf: BadgenServeConfig): http.RequestListener {
-  return (req, res) => {
-    // TODO: render docs
-    res.end('docs')
-  }
 }

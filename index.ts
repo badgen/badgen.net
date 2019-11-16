@@ -61,7 +61,7 @@ const server = http.createServer(async (req, res) => {
 
   try {
     if (handlerName) {
-      const handlerPath = path.join(__dirname, 'endpoints', handlerName)
+      const handlerPath = path.join(__dirname, 'api', handlerName)
       const { default: handler } = await import(handlerPath)
       return handler(req, res, handlerName)
     }
