@@ -25,7 +25,7 @@ export function badgenServe (handlers: BadgenServeHandlers): Function {
     const { pathname = '/', query } = url.parse(req.url, true)
 
     // Serve favicon
-    if (pathname === '/favicon.ico') {
+    if (pathname === '/favicon.ico' || pathname === null) {
       return res.end()
     }
 
