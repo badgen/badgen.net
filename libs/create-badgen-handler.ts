@@ -12,7 +12,7 @@ import { BadgenParams } from './types'
 export type PathArgs = NonNullable<ReturnType<typeof matchRoute>>
 
 export interface BadgeMaker {
-  (pathArgs: PathArgs) : Promise<BadgenParams>;
+  (pathArgs: PathArgs) : Promise<BadgenParams | undefined>;
 }
 
 export interface BadgenServeConfig {
@@ -34,8 +34,12 @@ export class BadgenError {
   }
 }
 
-export function createBadgenHandler (conf: BadgenServeConfig): http.RequestListener {
-  return async function badgenHandler (req, res) {
+export interface BadgenHandler extends http.RequestListener {
+  meta: BadgenServeConfig;
+}
+
+export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
+  async function badgenHandler (req, res) {
     const url = req.url ?? '/'
     const { pathname, query } = urlParse(url, true)
 
@@ -158,6 +162,9 @@ export function createBadgenHandler (conf: BadgenServeConfig): http.RequestListe
       })
     }
   }
+
+  badgenHandler.meta = conf
+  return badgenHandler
 }
 
 function getBadgeStyle (req: http.IncomingMessage): string | undefined {

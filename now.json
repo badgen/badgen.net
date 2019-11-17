@@ -1,10 +1,26 @@
 {
-  "version": 1,
-  "type": "docker",
+  "version": 2,
   "alias": [
-    "badgen.net",
-    "flat.badgen.net"
+    "v2.badgen.net"
   ],
+  "regions": ["sfo", "lhr", "hnd"],
+  "builds": [
+    { "src": "api/*.ts", "use": "@now/node" },
+    { "src": "package.json", "use": "@now/static-build" }
+ ],
+  "routes": [
+    { "src": "/", "headers": { "cache-control": "public, maxage=604800, stale-while-revalidate: 86400" } },
+    { "src": "/builder", "headers": { "cache-control": "public, maxage=604800, stale-while-revalidate: 86400" } },
+    { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" }
+  ],
+  "env": {
+    "GH_TOKENS": "@badgen-gh-tokens",
+    "SENTRY_DSN": "@badgen-sentry-dsn",
+    "TRACKING_GA": "@badgen-tracking-ga"
+  },
+  "github": {
+    "autoAlias": false
+  },
   "files": [
     "package.json",
     "package-lock.json",
@@ -14,21 +30,10 @@
     "next.config.js",
     "index.ts",
     "tools",
+    "api",
     "libs",
     "pages",
     "static",
-    "endpoints",
     "components"
-  ],
-  "env": {
-    "GH_TOKENS": "@badgen-gh-tokens",
-    "SENTRY_DSN": "@badgen-sentry-dsn",
-    "TRACKING_GA": "@badgen-tracking-ga"
-  },
-  "engines": {
-    "node": "^10"
-  },
-  "github": {
-    "autoAlias": false
-  }
+  ]
 }

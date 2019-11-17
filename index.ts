@@ -17,7 +17,7 @@ const sendRedirection = (res: http.ServerResponse, code: number, dest: string) =
   res.end()
 }
 
-const badgeNames = fs.readdirSync(path.join(__dirname, 'endpoints'))
+const badgeNames = fs.readdirSync(path.join(__dirname, 'api'))
   .filter(name => /\.[jt]s$/.test(name))
   .map(name => name.replace(/\.[jt]s$/, ''))
 

@@ -5,7 +5,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "jsx": "preserve",
-    "target": "es2017",
+    "target": "es2018",
     "module": "esnext",
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -20,7 +20,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false
+    "noEmit": true
   },
   "include": [
     "index.ts",
