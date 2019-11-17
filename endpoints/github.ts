@@ -51,7 +51,8 @@ export const meta: Meta = {
     '/github/tags/micromatch/micromatch': 'tags',
     '/github/license/micromatch/micromatch': 'license',
     '/github/contributors/micromatch/micromatch': 'contributers',
-    '/github/assets-dl/electron/electron': 'latest assets downloads',
+    '/github/assets-dl/electron/electron': 'assets downloads for latest release',
+    '/github/assets-dl/electron/electron/v7.0.0': 'assets downloads for a tag',
     '/github/dependents-repo/micromatch/micromatch': 'repository depentents',
     '/github/dependents-pkg/micromatch/micromatch': 'package dependents',
   }
@@ -63,7 +64,7 @@ export const handlers: Handlers = {
   '/github/:topic<issues|open-issues|closed-issues>/:owner/:repo': repoStats,
   '/github/:topic<label-issues>/:owner/:repo/:label/:states?<open|closed>': repoStats,
   '/github/:topic<commits|last-commit>/:owner/:repo/:ref?': repoStats,
-  '/github/:topic<dt|assets-dl>/:owner/:repo/:scope?': downloads, // `dt` is deprecated
+  '/github/:topic<dt|assets-dl>/:owner/:repo/:tag?': downloads, // `dt` is deprecated
   '/github/release/:owner/:repo/:channel?': release,
   '/github/checks/:owner/:repo/:ref?': checks,
   '/github/status/:owner/:repo/:ref?': status,
@@ -201,8 +202,9 @@ async function contributors ({ owner, repo }: Args) {
   }
 }
 
-async function downloads ({ owner, repo, scope = '' }: Args) {
-  const release = await restGithub(`repos/${owner}/${repo}/releases${scope}`)
+async function downloads ({ owner, repo, tag }: Args) {
+  const releaseSelection = tag ? `tags/${tag}` : 'latest'
+  const release = await restGithub(`repos/${owner}/${repo}/releases/${releaseSelection}`)
 
   if (!release || !release.assets || !release.assets.length) {
     return {
