@@ -48,11 +48,11 @@ export default function HomeIntro ({ isFlat = false }) {
     <h3>Advanced usage</h3>
     <ul>
       <li>
-        <a href='/docs/runkit'><code>/runkit</code></a>
+        <a href='/runkit'><code>/runkit</code></a>
         create arbitrary live badge with RunKit's online IDE.
       </li>
       <li>
-        <a href='/docs/https'><code>/https</code></a>
+        <a href='/https'><code>/https</code></a>
         turn an api endpoint into a svg live badge.
       </li>
     </ul>

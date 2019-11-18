@@ -1,16 +1,14 @@
 {
   "version": 2,
-  "alias": [
-    "v2.badgen.net"
-  ],
+  "alias": ["badgen.net", "flat.badgen.net"],
   "regions": ["sfo", "lhr", "hnd"],
   "builds": [
     { "src": "package.json", "use": "@now/static-build" },
     { "src": "api/*.ts", "use": "@now/node" }
   ],
   "routes": [
-    { "src": "/", "headers": { "cache-control": "public, maxage=604800, stale-while-revalidate: 86400" } },
-    { "src": "/builder", "headers": { "cache-control": "public, maxage=604800, stale-while-revalidate: 86400" } },
+    { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } },
+    { "src": "/builder", "dest": "/builder.html" },
     { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" }
   ],
   "env": {
