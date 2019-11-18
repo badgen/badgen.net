@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.jsx .",
     "build:api": "tsc -p server.tsconfig.json",
-    "build:web": "next build && next export -o dist",
+    "build:web": "next build && next export -o public",
     "build": "npm run tools && npm run build:web && npm run build:api",
     "dev": "npm run build && npm run dev:api",
     "dev:api": "nodemon --config nodemon.json index.ts",

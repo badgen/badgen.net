@@ -23,11 +23,11 @@
     "noEmit": true
   },
   "include": [
+    "api",
+    "libs",
     "index.ts",
-    "endpoints",
     "components",
-    "pages",
-    "static"
+    "pages"
   ],
   "exclude": [
     "node_modules"
