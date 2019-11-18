@@ -1,5 +1,5 @@
 import path from 'path'
-import { examples as staticBadgeExamples } from '../endpoints/badge'
+import staticBadges from '../api/badge'
 
 const rel = (...args) => path.resolve(__dirname, ...args)
 
@@ -50,20 +50,25 @@ export const liveBadgeList = [
 
 export async function loadBadgeMeta () {
   const liveBadgeExamples = await Promise.all(liveBadgeList.map(async id => {
-    const { meta, handlers } = await import(rel('../endpoints', id))
-    const { title, examples, help } = meta
+    const mod = await import(rel('../api', id))
+    const { title, examples, handlers } = mod.default.meta
 
     return {
       id,
       title,
       examples,
       routes: Object.keys(handlers),
-      help
     }
   }))
 
+  const statics = {
+    title: staticBadges.meta.title,
+    examples: staticBadges.meta.examples,
+    routes: Object.keys(staticBadges.meta.handlers)
+  }
+
   return {
     live: liveBadgeExamples,
-    static: staticBadgeExamples
+    static: [statics]
   }
 }

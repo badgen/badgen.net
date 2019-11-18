@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "type": "docker",
+  "alias": [
+    "badgen.net",
+    "flat.badgen.net"
+  ],
+  "files": [
+    "package.json",
+    "package-lock.json",
+    "server.tsconfig.json",
+    "tsconfig.json",
+    "next-env.d.ts",
+    "next.config.js",
+    "index.ts",
+    "tools",
+    "libs",
+    "pages",
+    "static",
+    "endpoints",
+    "components"
+  ],
+  "env": {
+    "GH_TOKENS": "@badgen-gh-tokens",
+    "SENTRY_DSN": "@badgen-sentry-dsn",
+    "TRACKING_GA": "@badgen-tracking-ga"
+  },
+  "engines": {
+    "node": "^10"
+  },
+  "github": {
+    "autoAlias": false
+  }
+}

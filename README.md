@@ -70,9 +70,9 @@ To ensure that your addition is working correctly, start the development server 
 
 __NOTES__
 
-- You can create live badge without touching badgen.net's code. Checkout docs for [/runkit](https://badgen.net/docs/runkit) or [/https](https://badgen.net/docs/https).
+- You can create live badge without touching badgen.net's code. Checkout docs for [/runkit](https://badgen.net/runkit) or [/https](https://badgen.net/https).
 
-- The [/runkit](https://badgen.net/docs/runkit) support would be super handy for prototyping a new live badge.
+- The [/runkit](https://badgen.net/runkit) support would be super handy for prototyping a new live badge.
 
 ### Add Icon
 

@@ -5,7 +5,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "jsx": "preserve",
-    "target": "esnext",
+    "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -16,7 +16,6 @@
   },
   "include": [
     "index.ts",
-    "endpoints",
-    "types"
+    "api"
   ]
 }

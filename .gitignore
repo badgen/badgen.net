@@ -1,6 +1,7 @@
 dist
 yarn.lock
 node_modules
+public
 .firebase
 .next
 .meta

@@ -4,7 +4,7 @@ import urlParse from 'url-parse'
 
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
-import serveDocs from './serve-docs'
+import serveDoc from './serve-doc'
 import sentry from './sentry'
 
 import { BadgenParams } from './types'
@@ -12,7 +12,7 @@ import { BadgenParams } from './types'
 export type PathArgs = NonNullable<ReturnType<typeof matchRoute>>
 
 export interface BadgeMaker {
-  (pathArgs: PathArgs) : Promise<BadgenParams>;
+  (pathArgs: PathArgs) : Promise<BadgenParams | undefined>;
 }
 
 export interface BadgenServeConfig {
@@ -34,8 +34,12 @@ export class BadgenError {
   }
 }
 
-export function createBadgenHandler (conf: BadgenServeConfig): http.RequestListener {
-  return async function badgenHandler (req, res) {
+export interface BadgenHandler extends http.RequestListener {
+  meta: BadgenServeConfig;
+}
+
+export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
+  async function badgenHandler (req, res) {
     const url = req.url ?? '/'
     const { pathname, query } = urlParse(url, true)
 
@@ -158,6 +162,9 @@ export function createBadgenHandler (conf: BadgenServeConfig): http.RequestListe
       })
     }
   }
+
+  badgenHandler.meta = conf
+  return badgenHandler
 }
 
 function getBadgeStyle (req: http.IncomingMessage): string | undefined {
@@ -183,11 +190,4 @@ function serve404 (req: http.IncomingMessage, res: http.ServerResponse) {
   }
 
   serveBadge(req, res, { code: 404, params, query })
-}
-
-function serveDoc (conf: BadgenServeConfig): http.RequestListener {
-  return (req, res) => {
-    // TODO: render docs
-    res.end('docs')
-  }
 }

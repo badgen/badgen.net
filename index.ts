@@ -17,7 +17,7 @@ const sendRedirection = (res: http.ServerResponse, code: number, dest: string) =
   res.end()
 }
 
-const badgeNames = fs.readdirSync(path.join(__dirname, 'endpoints'))
+const badgeNames = fs.readdirSync(path.join(__dirname, 'api'))
   .filter(name => /\.[jt]s$/.test(name))
   .map(name => name.replace(/\.[jt]s$/, ''))
 
@@ -61,7 +61,7 @@ const server = http.createServer(async (req, res) => {
 
   try {
     if (handlerName) {
-      const handlerPath = path.join(__dirname, 'endpoints', handlerName)
+      const handlerPath = path.join(__dirname, 'api', handlerName)
       const { default: handler } = await import(handlerPath)
       return handler(req, res, handlerName)
     }
