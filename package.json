@@ -7,13 +7,12 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.jsx .",
     "build:api": "tsc -p server.tsconfig.json",
-    "build:web": "next build && next export -o public",
+    "build:web": "next build && next export -o dist",
     "build": "npm run tools && npm run build:web && npm run build:api",
     "dev": "npm run build && npm run dev:api",
     "dev:api": "nodemon --config nodemon.json index.ts",
     "dev:web": "next",
     "tools": "ts-node -TP server.tsconfig.json tools/gen-examples.ts",
-    "now-build": "npm run build",
     "start": "node dist/index.js"
   },
   "standard": {
