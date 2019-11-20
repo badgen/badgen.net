@@ -15,8 +15,5 @@
     "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_DSN": "@badgen-sentry-dsn",
     "TRACKING_GA": "@badgen-tracking-ga"
-  },
-  "github": {
-    "autoAlias": false
   }
 }
