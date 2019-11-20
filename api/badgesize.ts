@@ -7,7 +7,7 @@ export default createBadgenHandler({
     '/badgesize/normal/amio/emoji.json/master/emoji-compact.json': 'normal size',
     '/badgesize/brotli/amio/emoji.json/master/emoji-compact.json': 'brotli size',
     '/badgesize/gzip/amio/emoji.json/master/emoji-compact.json': 'gzip size',
-    '/badgesize/normal/https://unpkg.com/snarkdown/dist/snarkdown.js': 'arbitrary url',
+    '/badgesize/normal/unpkg.com/snarkdown/dist/snarkdown.js': 'arbitrary url',
   },
   handlers: {
     '/badgesize/:topic/:path+': handler
@@ -15,7 +15,7 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, path }: PathArgs) {
-  const endpoint = `https://img.badgesize.io/${path}.json`
+  const endpoint = `https://img.badgesize.io/https://${path}.json`
   const { prettySize, color } = await got(endpoint, {
     query: {
       compression: topic === 'normal' ? '' : topic
