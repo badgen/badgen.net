@@ -1,6 +1,8 @@
 import { badgen } from 'badgen'
 import icons from 'badgen-icons'
+import originalUrl from 'original-url'
 
+import { IncomingMessage, ServerResponse } from 'http'
 import { BadgenParams } from './types'
 
 type ServeBadgeOptions = {
@@ -10,7 +12,7 @@ type ServeBadgeOptions = {
   params: BadgenParams
 }
 
-export default function (req, res, options: ServeBadgeOptions) {
+export default function (req: IncomingMessage, res: ServerResponse, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = 10800, query = {}, params } = options
 
   const { subject, status, color } = params
@@ -25,7 +27,7 @@ export default function (req, res, options: ServeBadgeOptions) {
     subject: typeof label !== 'undefined' ? label : subject,
     status: transformStatus(status, { list }),
     color: query.color || color,
-    style: (query.style || process.env.BADGE_STYLE) as 'flat' || 'classic',
+    style: autoBadgeStyle(req, query.style),
     icon: _icon.src,
     iconWidth: parseInt(iconWidth || _icon.width || '13', 10),
     scale: parseFloat(scale || '1'),
@@ -37,6 +39,14 @@ export default function (req, res, options: ServeBadgeOptions) {
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
   res.statusCode = code
   res.end(badge)
+}
+
+type BadgeStyle = 'flat' | undefined
+
+function autoBadgeStyle (req: IncomingMessage, fallbackValue?: string): BadgeStyle {
+  const isFlat = (fallbackValue || process.env.BADGE_STYLE === 'flat')
+    || originalUrl(req).hostname.includes('flat')
+  return isFlat ? 'flat' : undefined
 }
 
 function transformStatus (status: any, { list }) {

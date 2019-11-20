@@ -10,12 +10,5 @@ export default function (req, res) {
 
   const { query } = url.parse(req.url, true)
 
-  if (query.style === undefined) {
-    const host = req.headers['x-forwarded-host'] || req.headers.host
-    if (host.startsWith('flat')) {
-      query.style = 'flat'
-    }
-  }
-
   serveBadge(req, res, { code: 404, params, query: query as any })
 }

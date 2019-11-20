@@ -35,6 +35,7 @@
     "micro": "^9.3.4",
     "millify": "^3.1.0",
     "my-way": "^1.0.2",
+    "original-url": "^1.2.3",
     "react-debounce-render": "^5.0.0",
     "semver": "^6.3.0",
     "serve-handler": "^6.1.2",
