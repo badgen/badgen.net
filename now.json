@@ -1,15 +1,16 @@
 {
   "version": 2,
   "regions": ["all"],
-  "builds": [
-    { "src": "package.json", "use": "@now/static-build" },
-    { "src": "api/*.ts", "use": "@now/node" }
-  ],
   "routes": [
     { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } },
     { "src": "/builder", "dest": "/builder.html" },
     { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" }
   ],
+  "functions": {
+    "api/*.ts": {
+      "memory": 512
+    }
+  },
   "env": {
     "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_DSN": "@badgen-sentry-dsn",
