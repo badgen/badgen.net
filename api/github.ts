@@ -47,7 +47,7 @@ export default createBadgenHandler({
     '/github/contributors/micromatch/micromatch': 'contributers',
     '/github/assets-dl/electron/electron': 'assets downloads for latest release',
     '/github/assets-dl/electron/electron/v7.0.0': 'assets downloads for a tag',
-    '/github/dependents-repo/micromatch/micromatch': 'repository depentents',
+    '/github/dependents-repo/micromatch/micromatch': 'repository dependents',
     '/github/dependents-pkg/micromatch/micromatch': 'package dependents',
   },
   handlers: {
