@@ -33,7 +33,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 - Written in TypeScript
 - Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly
-- Two styles
+- Two visual styles
     - https://badgen.net - classic style badges
     - https://flat.badgen.net - flat & square style badges
 - Two badge types
@@ -61,9 +61,9 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 ### Add Live Badge
 
-If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `endpoints/[name-of-service].ts` and that's it. Take [/crates](https://badgen.net/crates) as an example:
+If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `api/[name-of-service].ts` and that's it. Take [/crates](https://badgen.net/crates) as an example:
 
-- [endpoints/crates.ts](endpoints/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
+- [api/crates.ts](api/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
 - [libs/badge-list.ts](libs/badge-list.ts) - contains index of all live badges
 
 To ensure that your addition is working correctly, start the development server with `npm run dev`.
