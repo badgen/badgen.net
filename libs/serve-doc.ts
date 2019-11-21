@@ -27,7 +27,7 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
 function generateHelpMarkdown ({ title, help, examples, handlers }: BadgenServeConfig): string {
   const mainTitle = `# ${title} Badge`
 
-  const customHelp = help ?? ''
+  const customHelp = help || ''
 
   const exampleTitle = `## Examples`
 
@@ -48,8 +48,6 @@ function generateHelpMarkdown ({ title, help, examples, handlers }: BadgenServeC
     }, '')
     return `${accu}\n\n${h4}\n\n${ul}`
   }, '')
-
-  console.log(categorizedExamples, examplesSection)
 
   return [mainTitle, customHelp, exampleTitle, examplesSection].join('\n\n')
 }
