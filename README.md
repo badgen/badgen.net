@@ -101,7 +101,8 @@ Support this project by donation, help Badgen continue and evolving!
 
 ## Sponsors
 
-<a href="https://sentry.io"><img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" height="64px" /></a>
+<a href="https://zeit.co"><img src="https://sponsors.badgen.now.sh/zeit.svg" height="60px" /></a>
+<a href="https://sentry.io"><img src="https://sponsors.badgen.now.sh/sentry.svg" height="67px" /></a>
 
 [dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
