@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "regions": ["sfo", "lhr", "hnd"],
+  "regions": ["all"],
   "builds": [
     { "src": "package.json", "use": "@now/static-build" },
     { "src": "api/*.ts", "use": "@now/node" }
