@@ -55,7 +55,11 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
     npm run dev
 
-**run with docker**
+**start prod server**
+
+    npm run build && npm start
+
+**run with docker image**
 
     docker run -p 3000:3000 amio/badgen
 
