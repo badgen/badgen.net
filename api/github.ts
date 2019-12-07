@@ -18,7 +18,6 @@ export default createBadgenHandler({
     '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
     '/github/status/micromatch/micromatch/4.0.1': 'combined statuses (tag)',
     '/github/status/facebook/react/master/ci/circleci:%20lint': 'single status',
-    '/github/status/facebook/react/master/coverage/coveralls': 'single status',
     '/github/status/zeit/hyper/master/ci': 'combined statuses (ci*)',
     '/github/status/zeit/hyper/master/ci/circleci': 'combined statuses (ci/circleci*)',
     '/github/status/zeit/hyper/master/ci/circleci:%20build': 'single status',
