@@ -1,6 +1,5 @@
 import got from '../libs/got'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
-import { isNullOrUndefined } from 'util'
 
 export default createBadgenHandler({
   title: 'Azure Piplines',
