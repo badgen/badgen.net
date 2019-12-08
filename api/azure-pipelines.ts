@@ -5,16 +5,18 @@ import { isNullOrUndefined } from 'util'
 export default createBadgenHandler({
   title: 'Azure Piplines',
   examples: {
-    '/azure-pipelines/build/status/yarnpkg/yarn/Yarn Acceptance Tests': 'build',
-    '/azure-pipelines/build/status/yarnpkg/yarn/Yarn Acceptance Tests/azure-pipelines': 'build (branch)',
+    '/azure-pipelines/build/status/yarnpkg/yarn/1': 'build status',
+    '/azure-pipelines/build/status/yarnpkg/yarn/1/1.21-stable': 'build status (branch)',
+    '/azure-pipelines/build/version/yarnpkg/yarn/1': 'build version',
+    '/azure-pipelines/build/version/yarnpkg/yarn/1/1.21-stable': 'build version (branch)'
   },
   handlers: {
-    '/azure-pipelines/:org/:project/:definition/:branch?': buildStatus,
     '/azure-pipelines/build/status/:org/:project/:definition/:branch?': buildStatus,
     '/azure-pipelines/build/version/:org/:project/:definition/:branch?': buildVersion,
     '/azure-pipelines/build/test/:org/:project/:definition/:branch?': buildTestResult,
     '/azure-pipelines/release/version/:org/:project/:definition?': releaseVersion,
     '/azure-pipelines/deployment/version/:org/:project/:definition/:environment?': deployedReleaseVersion,
+    '/azure-pipelines/:org/:project/:definition/:branch?': handler,
   }
 })
 
@@ -48,7 +50,8 @@ const azureDevOpsApiResponse = async (org: string, project: string, path: string
 }
 
 async function getLatestBuild ({ org, project, definition, branch = 'master'}: PathArgs) {
-  return await azureDevOpsApiResponse(org, project, `build/latest/${definition}?api-version=${getApiVersion(true)}&branchName=${branch}`)
+  const build = await azureDevOpsApiResponse(org, project, `build/builds?api-version=${getApiVersion(false)}&branchName=refs/heads/${branch}&definitions=${definition}&$top=1`)
+  return build.value[0]
 }
 
 async function getLatestRelease ({ org, project, definition}: PathArgs) {
@@ -94,9 +97,9 @@ async function buildTestResult ({ org, project, definition, branch = 'master'}: 
   const notExecuted: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'NotExecuted')
   const failed: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'Failed')
   
-  const passedCount = !isNullOrUndefined(passed) ? passed.count : 0
-  const notExecutedCount = !isNullOrUndefined(notExecuted) ? notExecuted.count : 0
-  const failedCount =  !isNullOrUndefined(failed) ? failed.count : total - passedCount - notExecutedCount
+  const passedCount = passed?.count ?? 0
+  const notExecutedCount = notExecuted?.count ?? 0
+  const failedCount =  failed?.count ?? total - passedCount - notExecutedCount
   
   const status = total == passedCount ? 'succeeded' : total == failedCount ? 'failed' : 'partially succeeded'
   const color = colors[status]
@@ -124,6 +127,34 @@ async function deployedReleaseVersion ({ org, project, definition, environment}:
   const color = colors['succeeded']
   return {
     subject: 'Deployed Version',
+    status,
+    color
+  }
+}
+
+async function handler ({ org, project, definition, branch = 'master'}: PathArgs) {
+  // @ts-ignore
+  const response = await got(`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}?branchName=${branch}`, { json: false })
+  const contentType = response.headers['content-type']
+
+  if (!contentType.includes('image/svg+xml')) {
+    return {
+      subject: 'Azure Pipelines',
+      status: 'unknown',
+      color: 'grey'
+    }
+  }
+
+  const $ = cheerio.load(response.body)
+  const status = $('g[font-family] > text:nth-child(3)').text()
+  const color = {
+    'succeeded': 'green',
+    'partially succeeded': 'yellow',
+    'failed': 'red'
+  }[status]
+
+  return {
+    subject: 'Azure Pipelines',
     status,
     color
   }
