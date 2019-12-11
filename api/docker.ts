@@ -7,13 +7,14 @@ export default createBadgenHandler({
   examples: {
     '/docker/pulls/library/ubuntu': 'pulls (library)',
     '/docker/stars/library/ubuntu': 'stars (library)',
-    '/docker/size/library/ubuntu/latest/amd64': 'size (library)',
+    '/docker/size/library/ubuntu': 'size (library)',
+    '/docker/size/library/ubuntu/latest/amd64': 'size (library/tag/architecture)',
     '/docker/pulls/amio/node-chrome': 'pulls (scoped)',
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
   },
   handlers: {
     '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
-    '/docker/size/:scope/:name/:tag/:architecture': sizeHandler
+    '/docker/size/:scope/:name/:tag?/:architecture?': sizeHandler
   }
 })
 
@@ -47,6 +48,8 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
 }
 
 async function sizeHandler ({ scope, name, tag, architecture }: PathArgs) {
+  tag = tag ? tag : 'latest'
+  architecture = architecture ? architecture : 'amd64'
   /* eslint-disable camelcase */
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
   let body = await got(endpoint).then(res => res.body)
