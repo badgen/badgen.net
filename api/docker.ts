@@ -7,13 +7,13 @@ export default createBadgenHandler({
   examples: {
     '/docker/pulls/library/ubuntu': 'pulls (library)',
     '/docker/stars/library/ubuntu': 'stars (library)',
-    '/docker/size/library/ubuntu/latest': 'size (library)',
+    '/docker/size/library/ubuntu/latest/amd64': 'size (library)',
     '/docker/pulls/amio/node-chrome': 'pulls (scoped)',
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
   },
   handlers: {
     '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
-    '/docker/size/:scope/:name/:tag': sizeHandler
+    '/docker/size/:scope/:name/:tag/:architecture': sizeHandler
   }
 })
 
@@ -46,7 +46,7 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
   }
 }
 
-async function sizeHandler ({ scope, name, tag }: PathArgs) {
+async function sizeHandler ({ scope, name, tag, architecture }: PathArgs) {
   /* eslint-disable camelcase */
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
   let body = await got(endpoint).then(res => res.body)
@@ -67,7 +67,17 @@ async function sizeHandler ({ scope, name, tag }: PathArgs) {
     }
   }
 
-  const sizeInMegabytes = (tagData.full_size / 1024 / 1024).toFixed(2)
+  const imageData = tagData.images.find(image => image.architecture === architecture)
+
+  if (!imageData) {
+    return {
+      subject: 'docker',
+      status: 'unknown architecture',
+      color: 'grey'
+    }
+  }
+
+  const sizeInMegabytes = (imageData.size / 1024 / 1024).toFixed(2)
 
   return {
     subject: 'docker image size',
