@@ -8,9 +8,9 @@ export default createBadgenHandler({
     '/docker/pulls/library/ubuntu': 'pulls (library)',
     '/docker/stars/library/ubuntu': 'stars (library)',
     '/docker/size/library/ubuntu': 'size (library)',
-    '/docker/size/library/ubuntu/latest/amd64': 'size (library/tag/architecture)',
     '/docker/pulls/amio/node-chrome': 'pulls (scoped)',
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
+    '/docker/size/lukechilds/bitcoind/latest/amd64': 'size (scoped/tag/architecture)',
   },
   handlers: {
     '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
