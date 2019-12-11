@@ -49,7 +49,14 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
 async function sizeHandler ({ scope, name, tag }: PathArgs) {
   /* eslint-disable camelcase */
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
-  const { results } = await got(endpoint).then(res => res.body)
+  let body = await got(endpoint).then(res => res.body)
+
+  let results = [...body.results]
+  while (body.next) {
+    body = await got(body.next).then(res => res.body)
+    results = [...results, ...body.results]
+  }
+
   const tagData = results.find(tagData => tagData.name === tag)
 
   if (!tagData) {
