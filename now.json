@@ -13,7 +13,6 @@
   "env": {
     "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_DSN": "@badgen-sentry-dsn",
-    "TRACKING_GA": "@badgen-tracking-ga",
-    "AZURE_DEVOPS_TOKEN": "@badgen-azure-token"
+    "TRACKING_GA": "@badgen-tracking-ga"
   }
 }
