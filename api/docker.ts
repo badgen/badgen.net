@@ -7,15 +7,17 @@ export default createBadgenHandler({
   examples: {
     '/docker/pulls/library/ubuntu': 'pulls (library)',
     '/docker/stars/library/ubuntu': 'stars (library)',
+    '/docker/size/library/ubuntu/latest': 'size (library)',
     '/docker/pulls/amio/node-chrome': 'pulls (scoped)',
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
   },
   handlers: {
-    '/docker/:topic<stars|pulls>/:scope/:name': handler
+    '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
+    '/docker/size/:scope/:name/:tag': sizeHandler
   }
 })
 
-async function handler ({ topic, scope, name }: PathArgs) {
+async function starPullHandler ({ topic, scope, name }: PathArgs) {
   if (!['stars', 'pulls'].includes(topic)) {
     return {
       subject: 'docker',
@@ -41,5 +43,28 @@ async function handler ({ topic, scope, name }: PathArgs) {
         status: millify(pull_count),
         color: 'blue'
       }
+  }
+}
+
+async function sizeHandler ({ scope, name, tag }: PathArgs) {
+  /* eslint-disable camelcase */
+  const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
+  const { results } = await got(endpoint).then(res => res.body)
+  const tagData = results.find(tagData => tagData.name === tag)
+
+  if (!tagData) {
+    return {
+      subject: 'docker',
+      status: 'unknown tag',
+      color: 'grey'
+    }
+  }
+
+  const sizeInMegabytes = (tagData.full_size / 1024 / 1024).toFixed(2)
+
+  return {
+    subject: 'docker image size',
+    status: `${sizeInMegabytes} MB`,
+    color: 'blue'
   }
 }
