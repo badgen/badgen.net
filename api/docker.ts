@@ -7,15 +7,18 @@ export default createBadgenHandler({
   examples: {
     '/docker/pulls/library/ubuntu': 'pulls (library)',
     '/docker/stars/library/ubuntu': 'stars (library)',
+    '/docker/size/library/ubuntu': 'size (library)',
     '/docker/pulls/amio/node-chrome': 'pulls (scoped)',
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
+    '/docker/size/lukechilds/bitcoind/latest/amd64': 'size (scoped/tag/architecture)',
   },
   handlers: {
-    '/docker/:topic<stars|pulls>/:scope/:name': handler
+    '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
+    '/docker/size/:scope/:name/:tag?/:architecture?': sizeHandler
   }
 })
 
-async function handler ({ topic, scope, name }: PathArgs) {
+async function starPullHandler ({ topic, scope, name }: PathArgs) {
   if (!['stars', 'pulls'].includes(topic)) {
     return {
       subject: 'docker',
@@ -41,5 +44,47 @@ async function handler ({ topic, scope, name }: PathArgs) {
         status: millify(pull_count),
         color: 'blue'
       }
+  }
+}
+
+async function sizeHandler ({ scope, name, tag, architecture }: PathArgs) {
+  tag = tag ? tag : 'latest'
+  architecture = architecture ? architecture : 'amd64'
+  /* eslint-disable camelcase */
+  const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
+  let body = await got(endpoint).then(res => res.body)
+
+  let results = [...body.results]
+  while (body.next) {
+    body = await got(body.next).then(res => res.body)
+    results = [...results, ...body.results]
+  }
+
+  const tagData = results.find(tagData => tagData.name === tag)
+
+  if (!tagData) {
+    return {
+      subject: 'docker',
+      status: 'unknown tag',
+      color: 'grey'
+    }
+  }
+
+  const imageData = tagData.images.find(image => image.architecture === architecture)
+
+  if (!imageData) {
+    return {
+      subject: 'docker',
+      status: 'unknown architecture',
+      color: 'grey'
+    }
+  }
+
+  const sizeInMegabytes = (imageData.size / 1024 / 1024).toFixed(2)
+
+  return {
+    subject: 'docker image size',
+    status: `${sizeInMegabytes} MB`,
+    color: 'blue'
   }
 }
