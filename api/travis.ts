@@ -44,8 +44,8 @@ async function handler ({ user, repo, branch = 'master' }: PathArgs) {
 const statuses = [
   ['passed', 'green'],
   ['passing', 'green'],
-  ['failed', 'orange'],
-  ['failing', 'orange'],
+  ['failed', 'red'],
+  ['failing', 'red'],
   ['error', 'red'],
   ['errored', 'red'],
   ['pending', 'yellow'],
