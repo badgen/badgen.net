@@ -1,4 +1,5 @@
 import got from '../libs/got'
+import cheerio from 'cheerio'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -95,11 +96,11 @@ async function buildTestResult ({ org, project, definition, branch = 'master'}: 
   const passed: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'Passed')
   const notExecuted: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'NotExecuted')
   const failed: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'Failed')
-  
+
   const passedCount = passed?.count ?? 0
   const notExecutedCount = notExecuted?.count ?? 0
   const failedCount =  failed?.count ?? total - passedCount - notExecutedCount
-  
+
   const status = total == passedCount ? 'succeeded' : total == failedCount ? 'failed' : 'partially succeeded'
   const color = colors[status]
   return {
