@@ -16,13 +16,13 @@ export default createBadgenHandler({
 
 async function handler ({ topic, path }: PathArgs) {
   if (path.startsWith('http/')) {
-    path = path.slice(0, 4) + ':/' + path.slice(4);
+    path = path.slice(0, 4) + ':/' + path.slice(4)
   } else if (path.startsWith('https/')) {
-    path = path.slice(0, 5) + ':/' + path.slice(5);
+    path = path.slice(0, 5) + ':/' + path.slice(5)
   } else if (path.startsWith('http:/')) {
-    path = path.slice(0, 5) + '/' + path.slice(5);
+    path = path.slice(0, 5) + '/' + path.slice(5)
   } else if (path.startsWith('https:/')) {
-    path = path.slice(0, 6) + '/' + path.slice(6);
+    path = path.slice(0, 6) + '/' + path.slice(6)
   }
   const endpoint = `https://img.badgesize.io/${path}.json`
   const { prettySize, color } = await got(endpoint, {
