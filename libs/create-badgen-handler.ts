@@ -1,6 +1,7 @@
 import http from 'http'
 import matchRoute from 'my-way'
 import urlParse from 'url-parse'
+import ua from 'universal-analytics'
 
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
@@ -42,6 +43,8 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
   async function badgenHandler (req, res) {
     const url = req.url ?? '/'
     const { pathname, query } = urlParse(url, true)
+
+    measurementLogRequest(url, req.headers.host)
 
     // Serve favicon
     if (pathname === '/favicon.ico') {
@@ -101,6 +104,8 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
       return serveBadge(req, res, { params, query: query as any })
     } catch (error) {
+      measurementLogError('error', error.code || error.statusCode , req.url)
+
       if (error instanceof BadgenError) {
         console.error(`BGE${error.code} "${error.status}" ${req.url}`)
         return serveBadge(req, res, {
@@ -165,6 +170,18 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
   badgenHandler.meta = conf
   return badgenHandler
+}
+
+async function measurementLogRequest (urlPath: string, host?: string) {
+  const tid = 'UA-4646421-14'
+  const cid = process.env.NOW_REGION || 'unknown-region'
+  ua(tid, cid).pageview(urlPath, host).send()
+}
+
+async function measurementLogError (category: string, action: string, label: string, value?: number) {
+  const tid = 'UA-4646421-14'
+  const cid = process.env.NOW_REGION || 'unknown-region'
+  ua(tid, cid).event(category, action, label, value).send()
 }
 
 function getBadgeStyle (req: http.IncomingMessage): string | undefined {
