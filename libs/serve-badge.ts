@@ -13,7 +13,7 @@ type ServeBadgeOptions = {
 }
 
 export default function (req: IncomingMessage, res: ServerResponse, options: ServeBadgeOptions) {
-  const { code = 200, sMaxAge = 86400, query = {}, params } = options
+  const { code = 200, sMaxAge = 21600, query = {}, params } = options
 
   const { subject, status, color } = params
   const { label, labelColor, icon, iconWidth, list, scale, cache } = query
