@@ -13,10 +13,10 @@ type ServeBadgeOptions = {
 }
 
 export default function (req: IncomingMessage, res: ServerResponse, options: ServeBadgeOptions) {
-  const { code = 200, sMaxAge = 300, query = {}, params } = options
+  const { code = 200, sMaxAge = 21600, query = {}, params } = options
 
   const { subject, status, color } = params
-  const { label, labelColor, icon, iconWidth, list, scale } = query
+  const { label, labelColor, icon, iconWidth, list, scale, cache } = query
   const _icon = resolveIcon(icon, iconWidth)
 
   // TODO: review usage of list
@@ -33,8 +33,8 @@ export default function (req: IncomingMessage, res: ServerResponse, options: Ser
     scale: parseFloat(scale || '1'),
   })
 
-  const cacheControl = `public, max-age=120, s-maxage=${sMaxAge}, stale-while-revalidate=86400`
-  res.setHeader('Cache-Control', cacheControl)
+  const cacheMaxAge = cache ? Math.max(parseInt(cache as string) || 0, 300) : sMaxAge
+  res.setHeader('Cache-Control', `public, max-age=120, s-maxage=${cacheMaxAge}, stale-while-revalidate=86400`)
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
   res.statusCode = code
   res.end(badge)
