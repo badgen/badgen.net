@@ -1,7 +1,7 @@
 import http from 'http'
 import matchRoute from 'my-way'
 import urlParse from 'url-parse'
-import ua from 'universal-analytics'
+import { measure } from './measurement-protocol'
 
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
@@ -40,11 +40,11 @@ export interface BadgenHandler extends http.RequestListener {
 }
 
 export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
-  async function badgenHandler (req, res) {
+  async function badgenHandler (req: http.IncomingMessage, res: http.ServerResponse) {
     const url = req.url ?? '/'
     const { pathname, query } = urlParse(url, true)
 
-    measurementLogRequest(url, req.headers.host)
+    measurementLogInvocation(req.headers?.host ?? 'badgen.net', url)
 
     // Serve favicon
     if (pathname === '/favicon.ico') {
@@ -104,7 +104,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
       return serveBadge(req, res, { params, query: query as any })
     } catch (error) {
-      measurementLogError('error', error.code || error.statusCode , req.url)
+      measurementLogError('error', error.code || error.statusCode , req.url || '/')
 
       if (error instanceof BadgenError) {
         console.error(`BGE${error.code} "${error.status}" ${req.url}`)
@@ -172,16 +172,18 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
   return badgenHandler
 }
 
-async function measurementLogRequest (urlPath: string, host?: string) {
-  const tid = 'UA-4646421-14'
-  const cid = process.env.NOW_REGION || 'unknown-region'
-  ua(tid, cid).pageview(urlPath, host).send()
+const { TRACKING_GA, NOW_REGION = Date.now().toString() + Math.random() } = process.env
+const visitor = TRACKING_GA && measure(TRACKING_GA, { uid: NOW_REGION })
+
+async function measurementLogInvocation (host: string, urlPath: string) {
+  visitor && visitor.pageview({
+    dh: host,
+    dp: urlPath,
+  }).send()
 }
 
-async function measurementLogError (category: string, action: string, label: string, value?: number) {
-  const tid = 'UA-4646421-14'
-  const cid = process.env.NOW_REGION || 'unknown-region'
-  ua(tid, cid).event(category, action, label, value).send()
+async function measurementLogError (category: string, action: string, label?: string, value?: number) {
+  visitor && visitor.event(category, action, label, value).send()
 }
 
 function getBadgeStyle (req: http.IncomingMessage): string | undefined {
