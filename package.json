@@ -40,7 +40,6 @@
     "semver": "^7.1.1",
     "serve-handler": "^6.1.2",
     "serve-marked": "^2.0.2",
-    "universal-analytics": "^0.4.20",
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
