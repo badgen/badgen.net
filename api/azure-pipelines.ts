@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import cheerio from 'cheerio'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -45,8 +45,10 @@ const getApiVersion = (preview: boolean) => preview ? '5.1-preview' : '5.1'
 
 const azureDevOpsApiResponse = async (org: string, project: string, path: string, release: boolean = false) => {
   const prefix = release ? 'vsrm.' : ''
-  const res = await got.get(`https://${prefix}dev.azure.com/${org}/${project}/_apis/${path}`, getOptions())
-  return res.body
+  const endpoint = `https://${prefix}dev.azure.com/${org}/${project}/_apis/${path}`
+  return await ky.get(endpoint, {
+    searchParams: getOptions()
+  }).then(res => res.json())
 }
 
 async function getLatestBuild ({ org, project, definition, branch = 'master'}: PathArgs) {

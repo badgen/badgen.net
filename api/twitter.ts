@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -15,7 +15,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, user }: PathArgs) {
   const endpoint = `http://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=${user}`
-  const [info] = await got(endpoint).then(res => res.body)
+  const [info] = await ky(endpoint).then(res => res.json())
 
   switch (topic) {
     case 'follow':

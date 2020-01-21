@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -30,7 +30,7 @@ async function handler ({ topic, platform, pkg }: PathArgs) {
 
 const stats = async (metric, type, name) => {
   const endpoint = `https://data.jsdelivr.com/v1/package/${type}/${name}/stats`
-  const { total, rank } = await got(endpoint).then(res => res.body)
+  const { total, rank } = await ky(endpoint).then(res => res.json())
 
   switch (metric) {
     case 'hits':
@@ -50,7 +50,7 @@ const stats = async (metric, type, name) => {
 
 const version = async (name) => {
   const endpoint = `https://cdn.jsdelivr.net/npm/${name}/package.json`
-  const { version } = await got(endpoint).then(res => res.body)
+  const { version } = await ky(endpoint).then(res => res.json())
   return {
     subject: 'jsDelivr',
     status: `v${version}`,

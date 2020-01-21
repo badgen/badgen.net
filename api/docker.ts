@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -29,7 +29,7 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
 
   /* eslint-disable camelcase */
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}`
-  const { pull_count, star_count } = await got(endpoint).then(res => res.body)
+  const { pull_count, star_count } = await ky(endpoint).then(res => res.json())
 
   switch (topic) {
     case 'stars':
@@ -52,11 +52,11 @@ async function sizeHandler ({ scope, name, tag, architecture }: PathArgs) {
   architecture = architecture ? architecture : 'amd64'
   /* eslint-disable camelcase */
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
-  let body = await got(endpoint).then(res => res.body)
+  let body = await ky(endpoint).then(res => res.json())
 
   let results = [...body.results]
   while (body.next) {
-    body = await got(body.next).then(res => res.body)
+    body = await ky(body.next).then(res => res.json())
     results = [...results, ...body.results]
   }
 

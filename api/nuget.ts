@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -20,7 +20,7 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 async function handler ({ project, channel }: PathArgs) {
   const endpoint = `https://api.nuget.org/v3-flatcontainer/${project}/index.json`
-  const { versions } = await got(endpoint).then(res => res.body)
+  const { versions } = await ky(endpoint).then(res => res.json())
 
   let ver = ''
 

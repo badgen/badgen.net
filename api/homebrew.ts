@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -15,7 +15,7 @@ export default createBadgenHandler({
 
 async function handler ({ pkg }: PathArgs) {
   const endpoint = `https://formulae.brew.sh/api/formula/${pkg}.json`
-  const { versions } = await got(endpoint).then(res => res.body)
+  const { versions } = await ky(endpoint).then(res => res.json())
 
   return {
     subject: 'homebrew',

@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -25,11 +25,11 @@ async function handler ({ topic, path }: PathArgs) {
     path = path.slice(0, 6) + '/' + path.slice(6)
   }
   const endpoint = `https://img.badgesize.io/${path}.json`
-  const { prettySize, color } = await got(endpoint, {
-    query: {
+  const { prettySize, color } = await ky(endpoint, {
+    searchParams: {
       compression: topic === 'normal' ? '' : topic
     }
-  }).then(res => res.body)
+  }).then(res => res.json())
 
   return {
     subject: topic === 'normal' ? 'size' : `${topic} size`,

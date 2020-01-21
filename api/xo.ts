@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -25,7 +25,7 @@ const getIndent = space => {
 async function handler ({ topic, scope, name }: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}/package.json`
-  const data = await got(endpoint).then(res => res.body)
+  const data = await ky(endpoint).then(res => res.json())
 
   if (!data.devDependencies || !('xo' in data.devDependencies)) {
     return {

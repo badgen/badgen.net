@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -16,10 +16,8 @@ async function handler ({ user, repo, branch = 'master' }: PathArgs) {
   const com = `https://api.travis-ci.com/${user}/${repo}.svg?branch=${branch}`
   const org = `https://api.travis-ci.org/${user}/${repo}.svg?branch=${branch}`
   const [svg1, svg2] = await Promise.all([
-    // @ts-ignore
-    got(com, { json: false }).then(({ body }) => body),
-    // @ts-ignore
-    got(org, { json: false }).then(({ body }) => body)
+    ky(com).then(res => res.json()),
+    ky(org).then(res => res.json())
   ])
 
   const result = statuses.find(st => {

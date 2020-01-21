@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { version as v, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -16,8 +16,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pkg }: PathArgs) {
   const endpoint = `https://hackage.haskell.org/package/${pkg}/${pkg}.cabal`
-  // @ts-ignore
-  const cabal = await got(endpoint, { json: false }).then(res => res.body)
+  const cabal = await ky(endpoint).then(res => res.text())
   const { version, license } = parseCabalFile(cabal)
 
   switch (topic) {

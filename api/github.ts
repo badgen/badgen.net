@@ -1,7 +1,7 @@
 import cheerio from 'cheerio'
 import distanceToNow from 'date-fns/formatDistanceToNow'
 
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { version, millify } from '../libs/utils'
 import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badgen-handler'
 
@@ -79,22 +79,22 @@ const pickGithubToken = () => {
 }
 
 // request github api v3 (rest)
-const restGithub = (path, preview = 'hellcat') => got.get(`https://api.github.com/${path}`, {
+const restGithub = (path, preview = 'hellcat') => ky(`https://api.github.com/${path}`, {
   headers: {
     Authorization: `token ${pickGithubToken()}`,
     Accept: `application/vnd.github.${preview}-preview+json`
   }
-}).then(res => res.body)
+}).then(res => res.json())
 
 // request github api v4 (graphql)
 const queryGithub = query => {
-  return got.post('https://api.github.com/graphql', {
-    body: { query },
+  return ky.post('https://api.github.com/graphql', {
+    json: { query },
     headers: {
       Authorization: `token ${pickGithubToken()}`,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
-  }).then(res => res.body)
+  }).then(res => res.json())
 }
 
 // https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
@@ -291,7 +291,7 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
       }
     `
 
-    return queryGithub(query).then(res => res.data!.repository)
+    return queryGithub(query).then(res => res?.data?.repository)
   }
 }
 
@@ -412,13 +412,11 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
 
 function dependents (type: string) {
   return async function ({ owner, repo }: PathArgs) {
-    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`, {
-      // @ts-ignore
-      json: false,
+    const html = await ky(`https://github.com/${owner}/${repo}/network/dependents`, {
       headers: {
         Accept: 'text/html,application/xhtml+xml,application/xml'
       }
-    }).then(res => res.body)
+    }).then(res => res.text())
 
     return {
       subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',

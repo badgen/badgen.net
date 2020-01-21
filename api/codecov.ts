@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { coverage, coverageColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -30,7 +30,7 @@ async function handler ({ vcs, owner, repo, branch }: PathArgs) {
   }
 
   const endpoint = `https://codecov.io/api/${args.join('/')}`
-  const data = await got(endpoint).then(res => res.body)
+  const data = await ky(endpoint).then(res => res.json())
 
   if (!data.commit) {
     return {

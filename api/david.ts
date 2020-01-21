@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -32,11 +32,9 @@ async function handler ({ topic, user, repo, path }: PathArgs) {
   }[topic]
 
   const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json`
-  const { status } = await got(endpoint, {
-    query: {
-      path: path ? path : ''
-    }
-  }).then(res => res.body)
+  const { status } = await ky(endpoint, {
+    searchParams: { path: path ? path : '' }
+  }).json()
 
   switch (topic) {
     case 'dep':

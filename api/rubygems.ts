@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { version as v, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -46,7 +46,7 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 async function versionHandler ({ gem, channel = 'stable' }: PathArgs) {
   const endpoint = `https://rubygems.org/api/v1/versions/${gem}.json`
-  const response = await got(endpoint).then(res => res.body)
+  const response = await ky(endpoint).then(res => res.json())
 
   // @ts-ignore
   const versions = Object.values(response).map(value => value.number).reverse()
@@ -75,7 +75,7 @@ async function versionHandler ({ gem, channel = 'stable' }: PathArgs) {
 
 async function handler ({ topic, gem }: PathArgs) {
   const endpoint = `https://rubygems.org/api/v1/gems/${gem}.json`
-  const response = await got(endpoint).then(res => res.body)
+  const response = await ky(endpoint).then(res => res.json())
 
   switch (topic) {
     case 'dt':

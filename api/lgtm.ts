@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -21,7 +21,7 @@ export default createBadgenHandler({
 async function handler ({ topic, owner, name, lang }: PathArgs) {
   // https://lgtm.com/help/lgtm/api/api-v1#LGTM-API-specification-Projects
   const endpoint = `https://lgtm.com/api/v1.0/projects/g/${owner}/${name}`
-  const data = await got(endpoint).then(res => res.body)
+  const data = await ky(endpoint).then(res => res.json())
   const { language, alerts, lines, grade } = detailsByLang(data, lang)
   const langLabel = langLabelOverrides[language] || language
 

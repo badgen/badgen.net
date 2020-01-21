@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { version as v, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -61,13 +61,13 @@ async function handler ({ topic, pkg }: PathArgs) {
 
 const queryVSM = async pkgName => {
   const endpoint = 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery'
-  return got.post(endpoint, {
-    query: { 'api-version': '3.0-preview.1' },
-    body: {
+  return ky.post(endpoint, {
+    searchParams: { 'api-version': '3.0-preview.1' },
+    json: {
       filters: [{ criteria: [{ filterType: 7, value: pkgName }] }],
       flags: 914
     }
-  }).then(res => res.body)
+  }).then(res => res.json())
 }
 
 const parseStatistics = extension => {

@@ -1,5 +1,5 @@
 import byteSize from 'byte-size'
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -20,7 +20,7 @@ export default createBadgenHandler({
 async function handler ({ topic, scope, name }: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://bundlephobia.com/api/size?package=${pkg}`
-  const resp = await got(endpoint).then(res => res.body)
+  const resp = await ky(endpoint).then(res => res.json())
 
   if (!resp) {
     return {

@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -19,7 +19,7 @@ export default createBadgenHandler({
 async function handler ({ topic, slug }: PathArgs) {
   const endpoint = `https://opencollective.com/${slug}.json`
 
-  const details = await got(endpoint).then(res => res.body)
+  const details = await ky(endpoint).then(res => res.json())
   const localeOptions = {
     style: 'currency',
     currency: details.currency

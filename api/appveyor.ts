@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -15,7 +15,7 @@ export default createBadgenHandler({
 async function handler ({ account, project, branch }: PathArgs) {
   branch = branch ? `/branch/${branch}` : ''
   const endpoint = `https://ci.appveyor.com/api/projects/${account}/${project}${branch}`
-  const { build } = await got(endpoint).then(res => res.body)
+  const { build } = await ky(endpoint).then(res => res.json())
 
   return {
     subject: 'appveyor',

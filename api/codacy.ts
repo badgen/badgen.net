@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { coverage as cov, coverageColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -36,16 +36,15 @@ const SUBJECT_BY_TYPE = {
 
 async function handler ({ type, projectId, branch }: PathArgs) {
   if (projectId) {
-    const svg = await got(`${uriBase}/${type}/${projectId}`,
-      // @ts-ignore
-      { query: { branch: branch && branch.replace('-', '--') }, json: false })
-      .then(({ body }) => body)
+    const svg = await ky(`${uriBase}/${type}/${projectId}`, {
+      searchParams: { branch: branch && branch.replace('-', '--') }
+    }).then(res => res.text())
 
     const subject = SUBJECT_BY_TYPE[type] || 'codacy'
 
     if (svg) {
       if (type === 'coverage') {
-        const percentage = svg.match(COVERAGE_PERCENTAGE_REGEX)[1] || null
+        const percentage = svg.match(COVERAGE_PERCENTAGE_REGEX)?.[1] || null
 
         if (percentage !== null) {
           return {
@@ -55,12 +54,12 @@ async function handler ({ type, projectId, branch }: PathArgs) {
           }
         }
       } else if (type === 'grade') {
-        const grade = svg.match(GRADE_REGEX)[1] || null
+        const grade = svg.match(GRADE_REGEX)?.[1] || ''
 
         return {
           subject,
           status: grade,
-          color: COLORS_BY_GRADE[grade]
+          color: COLORS_BY_GRADE[grade] || 'grey'
         }
       }
     }

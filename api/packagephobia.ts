@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -17,7 +17,7 @@ export default createBadgenHandler({
 async function handler ({ topic, scope, name}: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://packagephobia.now.sh/v2/api.json?p=${pkg}`
-  const { install, publish } = await got(endpoint).then(res => res.body)
+  const { install, publish } = await ky(endpoint).then(res => res.json())
 
   switch (topic) {
     case 'publish':

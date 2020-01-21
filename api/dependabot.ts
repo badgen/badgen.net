@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const help = `
@@ -50,7 +50,7 @@ async function handler ({ owner, repo, identifier }: PathArgs) {
   if (identifier) {
     endpoint += `&identifier=${identifier}`
   }
-  const { status, colour } = await got(endpoint).then(res => res.body)
+  const { status, colour } = await ky(endpoint).then(res => res.json())
 
   return {
     subject: 'Dependabot',

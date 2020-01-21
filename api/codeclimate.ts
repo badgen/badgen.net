@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { coverage as cov, scale } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -20,7 +20,8 @@ export default createBadgenHandler({
 
 async function handler ({ topic, owner, repo }: PathArgs) {
   const api = `https://api.codeclimate.com/v1/repos?github_slug=${owner}/${repo}`
-  const meta = await got(api).then(res => res.body.data[0])
+  const result = await ky(api).then(res => res.json())
+  const meta = result.data[0]
 
   if (!meta) {
     return {
@@ -58,8 +59,8 @@ async function handler ({ topic, owner, repo }: PathArgs) {
 }
 
 const getReport = async (repoId, reportId, type, topic) => {
-  const api = `https://api.codeclimate.com/v1/repos/${repoId}/${type}/${reportId}`
-  const { meta, attributes } = await got(api).then(res => res.body.data)
+  const endpoint = `https://api.codeclimate.com/v1/repos/${repoId}/${type}/${reportId}`
+  const { data: { meta, attributes } } = await ky(endpoint).then(res => res.json())
 
   switch (topic) {
     case 'issues':

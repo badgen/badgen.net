@@ -1,4 +1,4 @@
-import got from 'got'
+import ky from '../libs/ky'
 
 type HitType = 'pageview' | 'screenview' | 'event' | 'transaction' | 'item' | 'social' | 'exception' | 'timing'
 type Boolean = '0' | '1'
@@ -86,7 +86,7 @@ class Measure {
 
   send (this: Measure): void {
     const body = buildPayload(this.config)
-    got.post('https://www.google-analytics.com/collect', { body }).catch(console.error)
+    ky.post('https://www.google-analytics.com/collect', { body }).catch(console.error)
   }
 
   pageview (this: Measure, url: string | { dh: string, dp: string }): Measure {
@@ -132,5 +132,5 @@ function buildPayload (params: Partial<MeasurementParams>): string {
 // https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide#batch
 export function batchSend (measurements: Measure[]) {
   const body = measurements.map(m => buildPayload(m.config)).join('\n')
-  got.post('https://www.google-analytics.com/batch', { body }).catch(console.error)
+  ky.post('https://www.google-analytics.com/batch', { body }).catch(console.error)
 }

@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { millify, stars, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -18,7 +18,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, name }: PathArgs) {
   const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
-  const addon = await got(endpoint).then(res => res.body)
+  const addon = await ky(endpoint).then(res => res.json())
 
   switch (topic) {
     case 'v':

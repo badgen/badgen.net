@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -13,14 +13,14 @@ export default createBadgenHandler({
 
 async function handler ({ topic, username }: PathArgs) {
   const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json`
-  const { body } = await got(endpoint, {
-    query: {
+  const result = await ky(endpoint, {
+    searchParams: {
       usernames: username,
       fields: 'public_keys'
     }
-  })
+  }).then(res => res.json())
 
-  const fingerprint = body.them[0].public_keys.primary.key_fingerprint
+  const fingerprint = result.them[0].public_keys.primary.key_fingerprint
 
   switch (topic) {
     case 'pgp':

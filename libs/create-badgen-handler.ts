@@ -2,6 +2,7 @@ import http from 'http'
 import matchRoute from 'my-way'
 import urlParse from 'url-parse'
 import { measure } from './measurement-protocol'
+import { HTTPError, TimeoutError } from 'ky-universal'
 
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
@@ -104,7 +105,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
       return serveBadge(req, res, { params, query: query as any })
     } catch (error) {
-      measurementLogError('error', error.code || error.statusCode , req.url || '/')
+      measurementLogError('error', error.code || error.status , req.url || '/')
 
       if (error instanceof BadgenError) {
         console.error(`BGE${error.code} "${error.status}" ${req.url}`)
@@ -119,9 +120,9 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
         })
       }
 
-      // Handle timeout for `got` requests
-      if (error.code === 'ETIMEDOUT') {
-        console.error(`APIE504 ${req.url}`)
+      // Handle request timeout from `ky`
+      if (error instanceof TimeoutError) {
+        console.error(`APIE504 ${req.url}` )
         return serveBadge(req, res, {
           code: 504,
           sMaxAge: 5,
@@ -133,16 +134,16 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
         })
       }
 
-      // Handle requests errors from `got`
-      if (error.statusCode) {
-        const errorInfo = `${error.url} ${error.statusMessage}`
-        console.error(`APIE${error.statusCode} ${url} ${errorInfo}`)
+      // Handle request errors from `ky`
+      if (error instanceof HTTPError) {
+        const { url: url3rd, status, statusText } = error.response
+        console.error(`APIE${status} ${url} => ${url3rd} (${statusText})`)
         return serveBadge(req, res, {
           code: 502,
           sMaxAge: 5,
           params: {
-            subject: defaultLabel,
-            status: error.statusCode,
+            subject: defaultLabel + ' / err',
+            status: String(status),
             color: 'grey'
           }
         })
@@ -155,7 +156,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
       sentry.captureException(error)
 
       // uncatched error
-      console.error(`UCE ${url}`, error.message, error)
+      console.error(`UCE ${url}`, error)
       return serveBadge(req, res, {
         code: 500,
         sMaxAge: 5,

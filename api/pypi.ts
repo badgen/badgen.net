@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -16,7 +16,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, project }: PathArgs) {
   const endpoint = `https://pypi.org/pypi/${project}/json`
-  const { info } = await got(endpoint).then(res => res.body)
+  const { info } = await ky(endpoint).then(res => res.json())
 
   switch (topic) {
     case 'v':

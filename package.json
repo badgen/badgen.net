@@ -10,7 +10,7 @@
     "build:web": "next build && next export -o dist",
     "build": "npm run tools && npm run build:web && npm run build:api",
     "dev": "npm run build && npm run dev:api",
-    "dev:api": "nodemon --config nodemon.json index.ts",
+    "dev:api": "npm run build:api -- -w & nodemon dist/index.js",
     "dev:web": "next",
     "tools": "ts-node -TP server.tsconfig.json tools/gen-examples.ts",
     "start": "node dist/index.js"
@@ -31,6 +31,8 @@
     "chrome-webstore": "^1.3.0",
     "date-fns": "^2.9.0",
     "got": "^9.6.0",
+    "ky": "^0.16.2",
+    "ky-universal": "^0.3.0",
     "lodash.debounce": "^4.0.8",
     "micro": "^9.3.4",
     "millify": "^3.1.3",

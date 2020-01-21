@@ -1,4 +1,4 @@
-import got from '../libs/got'
+import ky from '../libs/ky'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const help = `
@@ -60,5 +60,5 @@ export default createBadgenHandler({
 
 async function handler ({ hostname, path }: PathArgs) {
   const endpoint = `https://${hostname}/${path || ''}`
-  return await got(endpoint).then(res => res.body)
+  return await ky(endpoint).then(res => res.json())
 }
