@@ -135,8 +135,7 @@ async function deployedReleaseVersion ({ org, project, definition, environment}:
 }
 
 async function handler ({ org, project, definition, branch = 'master'}: PathArgs) {
-  // @ts-ignore
-  const response = await got(`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}?branchName=${branch}`, { json: false })
+  const response = await ky(`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}?branchName=${branch}`)
   const contentType = response.headers['content-type']
 
   if (!contentType.includes('image/svg+xml')) {
@@ -147,7 +146,7 @@ async function handler ({ org, project, definition, branch = 'master'}: PathArgs
     }
   }
 
-  const $ = cheerio.load(response.body)
+  const $ = cheerio.load(await response.text())
   const status = $('g[font-family] > text:nth-child(3)').text()
   const color = {
     'succeeded': 'green',
