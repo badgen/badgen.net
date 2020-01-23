@@ -30,7 +30,6 @@
     "cheerio": "^1.0.0-rc.3",
     "chrome-webstore": "^1.3.0",
     "date-fns": "^2.9.0",
-    "got": "^9.6.0",
     "ky": "^0.16.2",
     "ky-universal": "^0.3.0",
     "lodash.debounce": "^4.0.8",
