@@ -17,7 +17,7 @@ async function handler ({ vcs, user, project, branch }: PathArgs) {
   // https://circleci.com/docs/api/v1-reference/
   branch = branch ? `/tree/${qs.escape(branch)}` : ''
   const endpoint = `https://circleci.com/api/v1.1/project/${vcs}/${user}/${project}${branch}?filter=completed&limit=1`
-  const [latest] = await got(endpoint).then(res => res.body)
+  const [latest] = await got(endpoint).json<any>()
 
   return {
     subject: 'circleci',

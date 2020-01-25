@@ -18,7 +18,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pkg }: PathArgs) {
   const endpoint = `https://atom.io/api/packages/${pkg}`
-  const data = await got(endpoint).then(res => res.body)
+  const data = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'v':

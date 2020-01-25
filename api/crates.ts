@@ -16,7 +16,7 @@ export default createBadgenHandler({
 
 async function handler ({topic, pkg}: PathArgs) {
   const endpoint = `https://crates.io/api/v1/crates/${pkg}`
-  const { crate } = await got(endpoint).then(res => res.body)
+  const { crate } = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'v':

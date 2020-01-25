@@ -69,7 +69,7 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
 async function unpkg (topic, pkg, tag = 'latest') {
   // const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
   const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
-  const meta = await got(endpoint).then(res => res.body)
+  const meta = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'version': {
@@ -116,10 +116,7 @@ const download = async (period, npmName, tag = 'latest') => {
   endpoint.push(npmName)
   // endpoint.push(tag)
 
-  const { downloads } = await got(endpoint.join('/')).then(
-    res => res.body,
-    err => err.response && err.response.statusCode === 404 && { downloads: 0 }
-  )
+  const { downloads } = await got(endpoint.join('/')).json<any>()
 
   const count = typeof downloads === 'number'
     ? downloads
@@ -138,10 +135,7 @@ const download = async (period, npmName, tag = 'latest') => {
 
 // https://github.com/astur/check-npm-dependents/blob/master/index.js
 async function dependents (name) {
-  const html = await got(`https://www.npmjs.com/package/${name}`, {
-    // @ts-ignore
-    json: false
-  }).then(res => res.body)
+  const html = await got(`https://www.npmjs.com/package/${name}`,).text()
 
   return {
     subject: 'dependents',
@@ -159,7 +153,7 @@ const parseDependents = html => {
 
 async function typesDefinition(pkg: string, tag: string = 'latest') {
     const endpoint = `https://cdn.jsdelivr.net/npm/${ pkg }@${ tag }/package.json`
-    let meta = await got(endpoint).then(res => res.body)
+    let meta = await got(endpoint).json<any>()
 
     if (typeof meta.types === 'string' || typeof meta.typings === "string") {
         return {
@@ -171,7 +165,7 @@ async function typesDefinition(pkg: string, tag: string = 'latest') {
 
     const typesPkg = '@types/' + (pkg.charAt(0) === "@" ? pkg.slice(1).replace('/', '__') : pkg)
     const typesEndpoint = `https://cdn.jsdelivr.net/npm/${ typesPkg }@latest/package.json`
-    meta = await got(typesEndpoint).then(res => res.body).catch(err => false)
+    meta = await got(typesEndpoint).json<any>().catch(err => false)
 
     return meta && meta.name === typesPkg ? {
         subject: 'types',

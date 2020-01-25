@@ -45,8 +45,7 @@ const getApiVersion = (preview: boolean) => preview ? '5.1-preview' : '5.1'
 
 const azureDevOpsApiResponse = async (org: string, project: string, path: string, release: boolean = false) => {
   const prefix = release ? 'vsrm.' : ''
-  const res = await got.get(`https://${prefix}dev.azure.com/${org}/${project}/_apis/${path}`, getOptions())
-  return res.body
+  return await got.get(`https://${prefix}dev.azure.com/${org}/${project}/_apis/${path}`, getOptions()).json<any>()
 }
 
 async function getLatestBuild ({ org, project, definition, branch = 'master'}: PathArgs) {
@@ -133,9 +132,8 @@ async function deployedReleaseVersion ({ org, project, definition, environment}:
 }
 
 async function handler ({ org, project, definition, branch = 'master'}: PathArgs) {
-  // @ts-ignore
-  const response = await got(`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}?branchName=${branch}`, { json: false })
-  const contentType = response.headers['content-type']
+  const response = await got(`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}?branchName=${branch}`)
+  const contentType = response.headers['content-type'] || ''
 
   if (!contentType.includes('image/svg+xml')) {
     return {

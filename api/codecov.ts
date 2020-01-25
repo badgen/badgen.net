@@ -30,7 +30,7 @@ async function handler ({ vcs, owner, repo, branch }: PathArgs) {
   }
 
   const endpoint = `https://codecov.io/api/${args.join('/')}`
-  const data = await got(endpoint).then(res => res.body)
+  const data = await got(endpoint).json<any>()
 
   if (!data.commit) {
     return {

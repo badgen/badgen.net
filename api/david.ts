@@ -23,7 +23,7 @@ const statusInfo = {
   none: ['none', 'green']
 }
 
-async function handler ({ topic, user, repo, path }: PathArgs) {
+async function handler ({ topic, user, repo, path = '' }: PathArgs) {
   const prefix = {
     dep: '',
     dev: 'dev-',
@@ -33,10 +33,8 @@ async function handler ({ topic, user, repo, path }: PathArgs) {
 
   const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json`
   const { status } = await got(endpoint, {
-    query: {
-      path: path ? path : ''
-    }
-  }).then(res => res.body)
+    searchParams: { path }
+  }).json<any>()
 
   switch (topic) {
     case 'dep':

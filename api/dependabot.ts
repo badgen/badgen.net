@@ -50,7 +50,7 @@ async function handler ({ owner, repo, identifier }: PathArgs) {
   if (identifier) {
     endpoint += `&identifier=${identifier}`
   }
-  const { status, colour } = await got(endpoint).then(res => res.body)
+  const { status, colour } = await got(endpoint).json<any>()
 
   return {
     subject: 'Dependabot',

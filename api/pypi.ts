@@ -16,7 +16,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, project }: PathArgs) {
   const endpoint = `https://pypi.org/pypi/${project}/json`
-  const { info } = await got(endpoint).then(res => res.body)
+  const { info } = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'v':

@@ -75,5 +75,5 @@ export default createBadgenHandler({
 
 async function handler ({ 'endpoint-id': id, path }: PathArgs) {
   const endpoint = `https://${id}.runkit.sh/${path || ''}`
-  return await got(endpoint).then(res => res.body)
+  return await got(endpoint).json<any>()
 }

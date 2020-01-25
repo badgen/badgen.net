@@ -60,5 +60,5 @@ export default createBadgenHandler({
 
 async function handler ({ hostname, path }: PathArgs) {
   const endpoint = `https://${hostname}/${path || ''}`
-  return await got(endpoint).then(res => res.body)
+  return await got(endpoint).json<any>()
 }

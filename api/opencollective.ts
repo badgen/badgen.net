@@ -19,7 +19,7 @@ export default createBadgenHandler({
 async function handler ({ topic, slug }: PathArgs) {
   const endpoint = `https://opencollective.com/${slug}.json`
 
-  const details = await got(endpoint).then(res => res.body)
+  const details = await got(endpoint).json<any>()
   const localeOptions = {
     style: 'currency',
     currency: details.currency

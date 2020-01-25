@@ -16,8 +16,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pkg }: PathArgs) {
   const endpoint = `https://hackage.haskell.org/package/${pkg}/${pkg}.cabal`
-  // @ts-ignore
-  const cabal = await got(endpoint, { json: false }).then(res => res.body)
+  const cabal = await got(endpoint).json<any>()
   const { version, license } = parseCabalFile(cabal)
 
   switch (topic) {

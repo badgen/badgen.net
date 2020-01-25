@@ -104,7 +104,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
       return serveBadge(req, res, { params, query: query as any })
     } catch (error) {
-      measurementLogError('error', error.code || error.statusCode , req.url || '/')
+      measurementLogError('error', error.code || error?.response?.statusCode , req.url || '/')
 
       if (error instanceof BadgenError) {
         console.error(`BGE${error.code} "${error.status}" ${req.url}`)
@@ -118,6 +118,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
           }
         })
       }
+      console.log(3, error)
 
       // Handle timeout for `got` requests
       if (error.code === 'ETIMEDOUT') {
@@ -128,6 +129,18 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
           params: {
             subject: defaultLabel,
             status: 'timeout',
+            color: 'grey'
+          }
+        })
+      }
+
+      if (error.name === 'HTTPError') {
+        return serveBadge(req, res, {
+          code: 500,
+          sMaxAge: 5,
+          params: {
+            subject: defaultLabel,
+            status: error.response.statusCode,
             color: 'grey'
           }
         })

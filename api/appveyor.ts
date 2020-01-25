@@ -15,7 +15,7 @@ export default createBadgenHandler({
 async function handler ({ account, project, branch }: PathArgs) {
   branch = branch ? `/branch/${branch}` : ''
   const endpoint = `https://ci.appveyor.com/api/projects/${account}/${project}${branch}`
-  const { build } = await got(endpoint).then(res => res.body)
+  const { build } = await got(endpoint).json<any>()
 
   return {
     subject: 'appveyor',
