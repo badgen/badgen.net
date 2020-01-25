@@ -142,7 +142,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
           code: 502,
           sMaxAge: 5,
           params: {
-            subject: defaultLabel + ' / err',
+            subject: defaultLabel,
             status: String(status),
             color: 'grey'
           }

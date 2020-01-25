@@ -3,6 +3,8 @@ import ky from '../libs/ky'
 import { version as v, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
+import got from 'got'
+
 export default createBadgenHandler({
   title: 'Visual Studio Marketplace',
   examples: {
@@ -59,18 +61,28 @@ async function handler ({ topic, pkg }: PathArgs) {
   }
 }
 
-const queryVSM = async pkgName => {
+const queryVSM = async (pkgName: string) => {
   const endpoint = 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery'
-  return ky.post(endpoint, {
+
+  // TODO: figure out why this dont work
+  // return ky.post(endpoint, {
+  //   searchParams: { 'api-version': '3.0-preview.1' },
+  //   json: {
+  //     filters: [{ criteria: [{ filterType: 7, value: pkgName }] }],
+  //     flags: 914
+  //   }
+  // }).json() as any
+
+  return got.post(endpoint, {
     searchParams: { 'api-version': '3.0-preview.1' },
     json: {
       filters: [{ criteria: [{ filterType: 7, value: pkgName }] }],
       flags: 914
-    }
-  }).then(res => res.json())
+    },
+  }).json() as any
 }
 
-const parseStatistics = extension => {
+const parseStatistics = (extension: { statistics: any[] }) => {
   return extension.statistics.reduce((accu, curr) => {
     accu[curr.statisticName] = curr.value
     return accu
