@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - deploy-flat
 
 jobs:
   deploy:
