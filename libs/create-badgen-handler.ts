@@ -1,6 +1,7 @@
 import http from 'http'
 import matchRoute from 'my-way'
 import urlParse from 'url-parse'
+import ua from 'universal-analytics'
 import { measure } from './measurement-protocol'
 
 import fetchIcon from './fetch-icon'
@@ -184,18 +185,21 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
   return badgenHandler
 }
 
-const { TRACKING_GA, NOW_REGION = Date.now().toString() + Math.random() } = process.env
-const visitor = TRACKING_GA && measure(TRACKING_GA, { uid: NOW_REGION })
+const { TRACKING_GA, NOW_REGION } = process.env
+const visitor = ua(TRACKING_GA, NOW_REGION || 'unknown-region')
+const visitor13 = measure('UA-4646421-13')
 
 async function measurementLogInvocation (host: string, urlPath: string) {
-  visitor && visitor.pageview({
+  visitor && visitor.pageview(urlPath, host).send()
+  visitor13 && visitor13.pageview({
     dh: host,
     dp: urlPath,
   }).send()
 }
 
 async function measurementLogError (category: string, action: string, label?: string, value?: number) {
-  visitor && visitor.event(category, action, label, value).send()
+  visitor.event(category, action, label, value).send()
+  visitor13 && visitor13.event(category, action, label, value).send()
 }
 
 function getBadgeStyle (req: http.IncomingMessage): string | undefined {
