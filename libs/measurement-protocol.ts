@@ -84,10 +84,7 @@ class Measure {
     return this.set(config)
   }
 
-  send (this: Measure): void {
-    const body = buildPayload(this.config)
-    got.post('https://www.google-analytics.com/collect', { body }).catch(console.error)
-  }
+  send (this: Measure): void { send(this) }
 
   pageview (this: Measure, url: string | { dh: string, dp: string }): Measure {
     const config: MeasurementConfig = { t: 'pageview' }
@@ -126,10 +123,19 @@ function buildPayload (params: Partial<MeasurementParams>): string {
     formated[key] = params[key]
   })
 
+  // Create a random User ID if no cid & uid presented
+  if (formated.uid === undefined && formated.cid === undefined) {
+    formated.uid = Date.now().toString()
+  }
+
   return new URLSearchParams(formated).toString()
 }
 
-// https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide#batch
+export function send (measurement: Measure) {
+  const body = buildPayload(measurement.config)
+  got.post('https://www.google-analytics.com/collect', { body }).catch(console.error)
+}
+
 export function batchSend (measurements: Measure[]) {
   const body = measurements.map(m => buildPayload(m.config)).join('\n')
   got.post('https://www.google-analytics.com/batch', { body }).catch(console.error)

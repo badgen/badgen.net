@@ -184,8 +184,8 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
   return badgenHandler
 }
 
-const { TRACKING_GA, NOW_REGION = Date.now().toString() + Math.random() } = process.env
-const visitor = TRACKING_GA && measure(TRACKING_GA, { uid: NOW_REGION })
+const { TRACKING_GA } = process.env
+const visitor = TRACKING_GA && measure(TRACKING_GA)
 
 async function measurementLogInvocation (host: string, urlPath: string) {
   visitor && visitor.pageview({
