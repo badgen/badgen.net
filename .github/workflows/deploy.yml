@@ -1,0 +1,18 @@
+name: deploy to flat.badgen.net
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: echo $GITHUB_SHA > static/sha
+      - run: now --version
+      - run: now -S badgen alias $(now -S badgen --token ${{ secrets.ZEIT_TOKEN }}) flat.badgen.net --token ${{ secrets.ZEIT_TOKEN }}
