@@ -416,7 +416,7 @@ function dependents (type: string) {
       headers: {
         Accept: 'text/html,application/xhtml+xml,application/xml'
       }
-    }).json<any>()
+    }).text()
 
     return {
       subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',

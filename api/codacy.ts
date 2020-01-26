@@ -34,7 +34,7 @@ const SUBJECT_BY_TYPE = {
   grade: 'code quality'
 }
 
-async function handler ({ type, projectId, branch }: PathArgs) {
+async function handler ({ type, projectId, branch = 'master' }: PathArgs) {
   if (projectId) {
     const svg = await got(`${uriBase}/${type}/${projectId}`,{
       searchParams: { branch: branch && branch.replace('-', '--') }

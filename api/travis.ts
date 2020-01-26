@@ -16,8 +16,8 @@ async function handler ({ user, repo, branch = 'master' }: PathArgs) {
   const com = `https://api.travis-ci.com/${user}/${repo}.svg?branch=${branch}`
   const org = `https://api.travis-ci.org/${user}/${repo}.svg?branch=${branch}`
   const [svg1, svg2] = await Promise.all([
-    got(com).json<any>(),
-    got(org).json<any>()
+    got(com).text(),
+    got(org).text()
   ])
 
   const result = statuses.find(st => {

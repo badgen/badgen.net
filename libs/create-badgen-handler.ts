@@ -118,7 +118,6 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
           }
         })
       }
-      console.log(3, error)
 
       // Handle timeout for `got` requests
       if (error.code === 'ETIMEDOUT') {
