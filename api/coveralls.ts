@@ -17,17 +17,15 @@ export default createBadgenHandler({
 
 // Detect coveralls.io's badge redirection instead of using it's api
 // See https://github.com/badgen/badgen.net/issues/96
-async function handler ({ vcs, owner, repo, branch }: PathArgs) {
+async function handler ({ vcs, owner, repo, branch = 'master' }: PathArgs) {
   const endpoint = `https://coveralls.io/repos/${vcs}/${owner}/${repo}/badge.svg`
   const badgeURL = await got.head(endpoint, {
-    // @ts-ignore
-    json: false,
-    query: { branch },
+    searchParams: { branch },
     followRedirect: false // Expecting 302 redirection to "coveralls_xxx.svg"
-  }).then(res => res.headers.location)
+  }).then(res => res.headers.location) || ''
 
   try {
-    const percentage = badgeURL.match(/_(\d+)\.svg/)[1]
+    const percentage = badgeURL.match(/_(\d+)\.svg/)?.[1]
     return {
       subject: 'coverage',
       status: cov(percentage),

@@ -25,7 +25,7 @@ const getIndent = space => {
 async function handler ({ topic, scope, name }: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}/package.json`
-  const data = await got(endpoint).then(res => res.body)
+  const data = await got(endpoint).json<any>()
 
   if (!data.devDependencies || !('xo' in data.devDependencies)) {
     return {

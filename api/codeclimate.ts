@@ -20,7 +20,8 @@ export default createBadgenHandler({
 
 async function handler ({ topic, owner, repo }: PathArgs) {
   const api = `https://api.codeclimate.com/v1/repos?github_slug=${owner}/${repo}`
-  const meta = await got(api).then(res => res.body.data[0])
+  const result = await got(api).json<any>()
+  const meta = result.data[0]
 
   if (!meta) {
     return {
@@ -59,7 +60,7 @@ async function handler ({ topic, owner, repo }: PathArgs) {
 
 const getReport = async (repoId, reportId, type, topic) => {
   const api = `https://api.codeclimate.com/v1/repos/${repoId}/${type}/${reportId}`
-  const { meta, attributes } = await got(api).then(res => res.body.data)
+  const { data: { meta, attributes } } = await got(api).json<any>()
 
   switch (topic) {
     case 'issues':

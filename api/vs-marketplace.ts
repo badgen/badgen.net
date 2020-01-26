@@ -62,12 +62,12 @@ async function handler ({ topic, pkg }: PathArgs) {
 const queryVSM = async pkgName => {
   const endpoint = 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery'
   return got.post(endpoint, {
-    query: { 'api-version': '3.0-preview.1' },
-    body: {
+    searchParams: { 'api-version': '3.0-preview.1' },
+    json: {
       filters: [{ criteria: [{ filterType: 7, value: pkgName }] }],
       flags: 914
     }
-  }).then(res => res.body)
+  }).json<any>()
 }
 
 const parseStatistics = extension => {

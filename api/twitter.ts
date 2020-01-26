@@ -15,7 +15,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, user }: PathArgs) {
   const endpoint = `http://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=${user}`
-  const [info] = await got(endpoint).then(res => res.body)
+  const [info] = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'follow':

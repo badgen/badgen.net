@@ -59,7 +59,7 @@ const getVersion = (packageMeta, channel) => {
 
 async function handler ({ topic, vendor, pkg, channel = 'latest' }: PathArgs) {
   const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
-  const { package: packageMeta } = await got(endpoint).then(res => res.body)
+  const { package: packageMeta } = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'v':

@@ -26,10 +26,10 @@ async function handler ({ topic, path }: PathArgs) {
   }
   const endpoint = `https://img.badgesize.io/${path}.json`
   const { prettySize, color } = await got(endpoint, {
-    query: {
+    searchParams: {
       compression: topic === 'normal' ? '' : topic
     }
-  }).then(res => res.body)
+  }).json<any>()
 
   return {
     subject: topic === 'normal' ? 'size' : `${topic} size`,

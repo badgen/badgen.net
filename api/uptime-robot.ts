@@ -43,13 +43,13 @@ export default createBadgenHandler({
 async function handler ({ topic, apikey }: PathArgs) {
   const endpoint = `https://api.uptimerobot.com/v2/getMonitors`
   const { monitors } = await got.post(endpoint, {
-    body: {
+    json: {
       api_key: apikey,
       custom_uptime_ratios: '1-7-30',
       response_times: 1,
       response_times_limit: 12
     }
-  }).then(res => res.body)
+  }).json<any>()
 
   /* eslint-disable camelcase */
   const { status, custom_uptime_ratio, average_response_time } = monitors[0]

@@ -18,7 +18,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, name }: PathArgs) {
   const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
-  const addon = await got(endpoint).then(res => res.body)
+  const addon = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'v':

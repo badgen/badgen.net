@@ -84,17 +84,17 @@ const restGithub = (path, preview = 'hellcat') => got.get(`https://api.github.co
     Authorization: `token ${pickGithubToken()}`,
     Accept: `application/vnd.github.${preview}-preview+json`
   }
-}).then(res => res.body)
+}).json<any>()
 
 // request github api v4 (graphql)
 const queryGithub = query => {
   return got.post('https://api.github.com/graphql', {
-    body: { query },
+    json: { query },
     headers: {
       Authorization: `token ${pickGithubToken()}`,
       Accept: 'application/vnd.github.hawkgirl-preview+json'
     }
-  }).then(res => res.body)
+  }).json<any>()
 }
 
 // https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
@@ -413,12 +413,10 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
 function dependents (type: string) {
   return async function ({ owner, repo }: PathArgs) {
     const html = await got(`https://github.com/${owner}/${repo}/network/dependents`, {
-      // @ts-ignore
-      json: false,
       headers: {
         Accept: 'text/html,application/xhtml+xml,application/xml'
       }
-    }).then(res => res.body)
+    }).text()
 
     return {
       subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',

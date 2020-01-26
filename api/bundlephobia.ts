@@ -20,7 +20,7 @@ export default createBadgenHandler({
 async function handler ({ topic, scope, name }: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://bundlephobia.com/api/size?package=${pkg}`
-  const resp = await got(endpoint).then(res => res.body)
+  const resp = await got(endpoint).json<any>()
 
   if (!resp) {
     return {

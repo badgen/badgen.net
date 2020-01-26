@@ -15,7 +15,7 @@ export default createBadgenHandler({
 
 async function handler ({ pkg }: PathArgs) {
   const endpoint = `https://formulae.brew.sh/api/formula/${pkg}.json`
-  const { versions } = await got(endpoint).then(res => res.body)
+  const { versions } = await got(endpoint).json<any>()
 
   return {
     subject: 'homebrew',

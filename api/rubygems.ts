@@ -46,7 +46,7 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 async function versionHandler ({ gem, channel = 'stable' }: PathArgs) {
   const endpoint = `https://rubygems.org/api/v1/versions/${gem}.json`
-  const response = await got(endpoint).then(res => res.body)
+  const response = await got(endpoint).json<any>()
 
   // @ts-ignore
   const versions = Object.values(response).map(value => value.number).reverse()
@@ -75,7 +75,7 @@ async function versionHandler ({ gem, channel = 'stable' }: PathArgs) {
 
 async function handler ({ topic, gem }: PathArgs) {
   const endpoint = `https://rubygems.org/api/v1/gems/${gem}.json`
-  const response = await got(endpoint).then(res => res.body)
+  const response = await got(endpoint).json<any>()
 
   switch (topic) {
     case 'dt':
