@@ -7,9 +7,9 @@ export default createBadgenHandler({
   title: 'npm',
   examples: {
     '/npm/v/express': 'version',
-    '/npm/v/ava': 'version',
-    '/npm/v/ava/next': 'version (tag)',
-    '/npm/v/react/next': 'version (tag)',
+    '/npm/v/yarn': 'version',
+    '/npm/v/yarn/berry': 'version (tag)',
+    '/npm/v/yarn/legacy': 'version (tag)',
     '/npm/v/@babel/core': 'version (scoped package)',
     '/npm/v/@nestjs/core/beta': 'version (scoped & tag)',
     '/npm/dw/express': 'weekly downloads',
