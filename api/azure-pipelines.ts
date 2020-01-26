@@ -6,9 +6,9 @@ export default createBadgenHandler({
   title: 'Azure Piplines',
   examples: {
     '/azure-pipelines/build/status/yarnpkg/yarn/1': 'build status',
-    '/azure-pipelines/build/status/yarnpkg/yarn/1/1.21-stable': 'build status (branch)',
     '/azure-pipelines/build/version/yarnpkg/yarn/1': 'build version',
-    '/azure-pipelines/build/version/yarnpkg/yarn/1/1.21-stable': 'build version (branch)'
+    '/azure-pipelines/yarnpkg/yarn/1': 'build status (def-id)',
+    '/azure-pipelines/yarnpkg/yarn/Yarn%20Acceptance%20Tests': 'build status (def-name)'
   },
   handlers: {
     '/azure-pipelines/build/status/:org/:project/:definition/:branch?': buildStatus,
@@ -17,10 +17,18 @@ export default createBadgenHandler({
     '/azure-pipelines/release/version/:org/:project/:definition?': releaseVersion,
     '/azure-pipelines/deployment/version/:org/:project/:definition/:environment?': deployedReleaseVersion,
     '/azure-pipelines/:org/:project/:definition/:branch?': handler,
-  }
-})
+  },
+  help: `
+  ## Find Azure Pipeline config
 
-const AZURE_DEVOPS_TOKEN = process.env.AZURE_DEVOPS_TOKEN
+  Take [https://dev.azure.com/yarnpkg/yarn/_build](https://dev.azure.com/yarnpkg/yarn/_build) as an example:
+
+  - organization: \`yarnpkg\`
+  - project: \`yarn\`
+  - definition-id: \`1\`
+  - definition-name: \`Yarn Acceptance Tests\`
+  `
+})
 
 const colors = {
   'succeeded': 'green',
@@ -34,23 +42,16 @@ const statuses = {
   'failed': 'failed'
 }
 
-const getOptions = () => {
-  const options = {}
-  if (AZURE_DEVOPS_TOKEN) options['auth'] = `:${AZURE_DEVOPS_TOKEN}`
-
-  return options
-}
-
 const getApiVersion = (preview: boolean) => preview ? '5.1-preview' : '5.1'
 
 const azureDevOpsApiResponse = async (org: string, project: string, path: string, release: boolean = false) => {
   const prefix = release ? 'vsrm.' : ''
-  return await got.get(`https://${prefix}dev.azure.com/${org}/${project}/_apis/${path}`, getOptions()).json<any>()
+  return await got.get(`https://${prefix}dev.azure.com/${org}/${project}/_apis/${path}`).json<any>()
 }
 
 async function getLatestBuild ({ org, project, definition, branch = 'master'}: PathArgs) {
-  const build = await azureDevOpsApiResponse(org, project, `build/builds?api-version=${getApiVersion(false)}&branchName=refs/heads/${branch}&definitions=${definition}&$top=1`)
-  return build.value[0]
+  const builds = await azureDevOpsApiResponse(org, project, `build/builds?api-version=${getApiVersion(false)}&branchName=refs/heads/${branch}&definitions=${definition}&$top=1`)
+  return builds.value[0] || {}
 }
 
 async function getLatestRelease ({ org, project, definition}: PathArgs) {
@@ -67,8 +68,8 @@ async function getTestResultByBuild ({ org, project, build, minLastUpdatedDate, 
 
 async function buildStatus ({ org, project, definition, branch = 'master'}: PathArgs) {
   const response = await getLatestBuild({org, project, definition, branch})
-  const status = statuses[response.result]
-  const color = colors[response.result]
+  const status = statuses[response.result] || 'not found'
+  const color = colors[response.result] || 'grey'
   return {
     subject: 'Build',
     status,
@@ -78,8 +79,8 @@ async function buildStatus ({ org, project, definition, branch = 'master'}: Path
 
 async function buildVersion ({ org, project, definition, branch = 'master'}: PathArgs) {
   const response = await getLatestBuild({org, project, definition, branch})
-  const version = response.buildNumber
-  const color = colors[response.result]
+  const version = response.buildNumber || 'not found'
+  const color = colors[response.result] || 'grey'
   return {
     subject: 'Build Version',
     status: version,
