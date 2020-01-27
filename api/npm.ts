@@ -3,6 +3,11 @@ import got from '../libs/got'
 import { millify, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
+// https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
+// https://github.com/npm/registry/blob/master/docs/download-counts.md
+// https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md
+// https://unpkg.com/
+
 export default createBadgenHandler({
   title: 'npm',
   examples: {
@@ -29,20 +34,16 @@ export default createBadgenHandler({
   }
 })
 
-// https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
-// https://github.com/npm/registry/blob/master/docs/download-counts.md
-// https://unpkg.com/
-
 async function handler ({ topic, scope, pkg, tag }: PathArgs) {
   const npmName = scope ? `${scope}/${pkg}` : pkg
 
   switch (topic) {
     case 'v':
-      return unpkg('version', npmName, tag)
+      return info('version', npmName, tag)
     case 'license':
-      return unpkg('license', npmName, tag)
+      return info('license', npmName, tag)
     case 'node':
-      return unpkg('node', npmName, tag)
+      return info('node', npmName, tag)
     case 'dt':
       return download('total', npmName)
     case 'dd':
@@ -66,17 +67,26 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
   }
 }
 
-async function unpkg (topic, pkg, tag = 'latest') {
-  // const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
-  const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
-  const meta = await got(endpoint).json<any>()
+async function npmMetadata (pkg: string, ver = 'latest'): Promise<any> {
+  const endpoint = `https://registry.npmjs.org/${pkg}/${ver}`
+  return got(endpoint).json<any>()
+}
+
+async function pkgJson (pkg: string, tag = 'latest'): Promise<any> {
+  // const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
+  const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
+  return got(endpoint).json<any>()
+}
+
+async function info (topic: string, pkg: string, tag = 'latest') {
+  const meta = await (tag === 'latest' ? npmMetadata(pkg) : pkgJson(pkg, tag))
 
   switch (topic) {
     case 'version': {
       return {
-        subject: `npm${tag === 'latest' ? '' : '@' + tag}`,
+        subject: tag === 'latest' ? 'npm' : `npm@${tag}`,
         status: version(meta.version),
-        color: tag === 'latest' ? versionColor(meta.version) : 'cyan'
+        color: tag === 'latest' ? versionColor(meta.version) : 'blue'
       }
     }
     case 'license': {
@@ -103,7 +113,7 @@ async function unpkg (topic, pkg, tag = 'latest') {
   }
 }
 
-const download = async (period, npmName, tag = 'latest') => {
+const download = async (period: string, npmName: string, tag = 'latest') => {
   const endpoint = ['https://api.npmjs.org/downloads']
   const isTotal = period === 'total'
 
@@ -134,7 +144,7 @@ const download = async (period, npmName, tag = 'latest') => {
 }
 
 // https://github.com/astur/check-npm-dependents/blob/master/index.js
-async function dependents (name) {
+async function dependents (name: string) {
   const html = await got(`https://www.npmjs.com/package/${name}`,).text()
 
   return {
@@ -144,16 +154,15 @@ async function dependents (name) {
   }
 }
 
-const parseDependents = html => {
+const parseDependents = (html: string) => {
   const $ = cheerio.load(html)
   const depLink = $('a[href="?activeTab=dependents"]')
   if (depLink.length !== 1) return -1
   return depLink.text().replace(/[^0-9]/g, '')
 }
 
-async function typesDefinition(pkg: string, tag: string = 'latest') {
-    const endpoint = `https://cdn.jsdelivr.net/npm/${ pkg }@${ tag }/package.json`
-    let meta = await got(endpoint).json<any>()
+async function typesDefinition(pkg: string, tag = 'latest') {
+    let meta = await pkgJson(pkg, tag)
 
     if (typeof meta.types === 'string' || typeof meta.typings === "string") {
         return {
@@ -164,16 +173,19 @@ async function typesDefinition(pkg: string, tag: string = 'latest') {
     }
 
     const typesPkg = '@types/' + (pkg.charAt(0) === "@" ? pkg.slice(1).replace('/', '__') : pkg)
-    const typesEndpoint = `https://cdn.jsdelivr.net/npm/${ typesPkg }@latest/package.json`
-    meta = await got(typesEndpoint).json<any>().catch(err => false)
+    meta = await pkgJson(typesPkg).catch(err => false)
 
-    return meta && meta.name === typesPkg ? {
+    if (meta && meta.name === typesPkg) {
+      return {
         subject: 'types',
         status: meta.name,
         color: 'cyan',
-    } : {
-        subject: 'types',
-        status: 'missing',
-        color: 'orange',
+      }
+    }
+
+    return {
+      subject: 'types',
+      status: 'missing',
+      color: 'orange',
     }
 }
