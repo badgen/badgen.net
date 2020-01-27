@@ -68,6 +68,7 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
 }
 
 async function npmMetadata (pkg: string, ver = 'latest'): Promise<any> {
+  // only works for ver === 'latest', none-scoped package
   const endpoint = `https://registry.npmjs.org/${pkg}/${ver}`
   return got(endpoint).json<any>()
 }
@@ -79,7 +80,7 @@ async function pkgJson (pkg: string, tag = 'latest'): Promise<any> {
 }
 
 async function info (topic: string, pkg: string, tag = 'latest') {
-  const meta = await (tag === 'latest' ? npmMetadata(pkg) : pkgJson(pkg, tag))
+  const meta = await (tag === 'latest' && pkg[0] !== '@' ? npmMetadata(pkg) : pkgJson(pkg, tag))
 
   switch (topic) {
     case 'version': {
