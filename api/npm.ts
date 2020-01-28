@@ -87,7 +87,7 @@ async function info (topic: string, pkg: string, tag = 'latest') {
       return {
         subject: tag === 'latest' ? 'npm' : `npm@${tag}`,
         status: version(meta.version),
-        color: tag === 'latest' ? versionColor(meta.version) : 'blue'
+        color: versionColor(meta.version)
       }
     }
     case 'license': {
