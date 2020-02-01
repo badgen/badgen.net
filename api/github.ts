@@ -117,14 +117,34 @@ function combined (states: Array<any>, stateKey: string = 'state') {
   throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
 }
 
-async function checks ({ owner, repo, ref = 'master'}: PathArgs) {
+async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`, 'antiope')
-  const status = combined(resp.check_runs, 'conclusion')
 
-  return {
-    subject: 'checks',
-    status: status,
-    color: statesColor[status]
+  let state = typeof context === 'string'
+    ? resp!.check_runs.filter(check => {
+      const checkName = check.name.includes(context.toLowerCase());
+      const appName = check.app.slug.includes(context.toLowerCase())
+
+      return checkName || appName
+    })
+    : resp!.state
+
+  if (Array.isArray(state)) {
+    state = combined(state, 'conclusion')
+  }
+
+  if (state) {
+    return {
+      subject: context || 'checks',
+      status: state,
+      color: statesColor[state]
+    }
+  } else {
+    return {
+      subject: 'checks',
+      status: 'unknown',
+      color: 'grey'
+    }
   }
 }
 
