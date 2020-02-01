@@ -122,7 +122,7 @@ async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
 
   let state = typeof context === 'string'
     ? resp!.check_runs.filter(check => {
-      const checkName = check.name.includes(context.toLowerCase());
+      const checkName = check.name.includes(context.toLowerCase())
       const appName = check.app.slug.includes(context.toLowerCase())
 
       return checkName || appName
