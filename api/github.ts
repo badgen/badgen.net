@@ -127,7 +127,7 @@ async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
 
       return checkName || appName
     })
-    : resp.check_runs
+    : resp!.check_runs
 
   if (Array.isArray(state)) {
     state = combined(state, 'conclusion')
