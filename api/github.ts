@@ -13,6 +13,8 @@ export default createBadgenHandler({
     '/github/tag/micromatch/micromatch': 'latest tag',
     '/github/watchers/micromatch/micromatch': 'watchers',
     '/github/checks/tunnckoCore/opensource': 'combined checks (default branch)',
+    '/github/checks/node-formidable/node-formidable': 'combined checks (default branch)',
+    '/github/checks/node-formidable/node-formidable/master/lint': 'single checks (github actions job)',
     '/github/status/micromatch/micromatch': 'combined statuses (default branch)',
     '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
     '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
@@ -58,6 +60,7 @@ export default createBadgenHandler({
     '/github/:topic<dt|assets-dl>/:owner/:repo/:tag?': downloads, // `dt` is deprecated
     '/github/release/:owner/:repo/:channel?': release,
     '/github/checks/:owner/:repo/:ref?': checks,
+    '/github/checks/:owner/:repo/:ref/:context+': checks,
     '/github/status/:owner/:repo/:ref?': status,
     '/github/status/:owner/:repo/:ref/:context+': status,
     '/github/contributors/:owner/:repo': contributors,
@@ -122,8 +125,8 @@ async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
 
   let state = typeof context === 'string'
     ? resp!.check_runs.filter(check => {
-      const checkName = check.name.includes(context.toLowerCase())
-      const appName = check.app.slug.includes(context.toLowerCase())
+      const checkName = check.name.toLowerCase().includes(context.toLowerCase())
+      const appName = check.app.slug.toLowerCase().includes(context.toLowerCase())
 
       return checkName || appName
     })
