@@ -2,7 +2,7 @@ import cheerio from 'cheerio'
 import distanceToNow from 'date-fns/formatDistanceToNow'
 
 import got from '../libs/got'
-import { version, millify } from '../libs/utils'
+import { version, millify, coverageColor } from '../libs/utils'
 import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -33,6 +33,7 @@ export default createBadgenHandler({
     '/github/open-prs/micromatch/micromatch': 'open PRs',
     '/github/closed-prs/micromatch/micromatch': 'closed PRs',
     '/github/merged-prs/micromatch/micromatch': 'merged PRs',
+    '/github/milestones/chrislgarry/Apollo-11/1': 'milestone percentage',
     '/github/commits/micromatch/micromatch': 'commits count',
     '/github/commits/micromatch/micromatch/gh-pages': 'commits count (branch ref)',
     '/github/commits/micromatch/micromatch/4.0.1': 'commits count (tag ref)',
@@ -61,6 +62,7 @@ export default createBadgenHandler({
     '/github/status/:owner/:repo/:ref?': status,
     '/github/status/:owner/:repo/:ref/:context+': status,
     '/github/contributors/:owner/:repo': contributors,
+    '/github/milestones/:owner/:repo/:milestone_number': milestones,
     '/github/dependents-repo/:owner/:repo': dependents('REPOSITORY'),
     '/github/dependents-pkg/:owner/:repo': dependents('PACKAGE'),
   }
@@ -215,6 +217,28 @@ async function downloads ({ owner, repo, tag }: PathArgs) {
     subject: 'downloads',
     status: millify(downloadCount),
     color: 'green'
+  }
+}
+
+async function milestones ({ owner, repo, milestone_number }: PathArgs) {
+  const milestone = await restGithub(`repos/${owner}/${repo}/milestones/${milestone_number}`)
+
+  if (!milestone) {
+    return {
+      subject: 'milestones',
+      status: 'no milestone',
+      color: 'grey'
+    }
+  }
+
+  const openIssues = milestone.open_issues
+  const totalIssues = openIssues + milestone.closed_issues
+  const percentage = totalIssues === 0 ? 0 : 100 - ((openIssues / totalIssues) * 100)
+
+  return {
+    subject: milestone.title,
+    status: `${Math.floor(percentage)}%`,
+    color: coverageColor(percentage)
   }
 }
 
