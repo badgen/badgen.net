@@ -132,7 +132,7 @@ async function status ({ owner, repo, ref = 'master', context }: PathArgs) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
   let state = typeof context === 'string'
-    ? resp!.statuses.filter(st => st.context.includes(context.toLowerCase()))
+    ? resp!.statuses.filter(st => st.context.toLowerCase().includes(context.toLowerCase()))
     : resp!.state
 
   if (Array.isArray(state)) {
