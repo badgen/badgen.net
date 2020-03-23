@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  deploy:
+  deploy-flat:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,4 +15,4 @@ jobs:
           node-version: 12.x
       - run: echo $GITHUB_SHA > static/sha
       - run: now --version
-      - run: now -S badgen alias $(now -S badgen --token ${{ secrets.ZEIT_TOKEN }}) flat.badgen.net --token ${{ secrets.ZEIT_TOKEN }}
+      - run: now -S badgen alias $(now -S badgen --token ${{ secrets.ZEIT_TOKEN }} -c) flat.badgen.net --token ${{ secrets.ZEIT_TOKEN }}
