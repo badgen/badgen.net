@@ -173,9 +173,13 @@ async function typesDefinition(pkg: string, tag = 'latest') {
     }
   }
 
-  const indexDTSFile = await got(`https://unpkg.com/${pkg}/index.d.ts?meta`).catch()
+  const hasIndexDTSFile = await got.head(`https://unpkg.com/${pkg}/index.d.ts`)
+    .then(res => res.statusCode === 200)
+    .catch(e => false)
 
-  if (indexDTSFile) {
+  console.log(hasIndexDTSFile)
+
+  if (hasIndexDTSFile) {
     return {
       subject: 'types',
       status: 'included',
@@ -184,7 +188,7 @@ async function typesDefinition(pkg: string, tag = 'latest') {
   }
 
   const typesPkg = '@types/' + (pkg.charAt(0) === "@" ? pkg.slice(1).replace('/', '__') : pkg)
-  meta = await pkgJson(typesPkg).catch()
+  meta = await pkgJson(typesPkg).catch(e => false)
 
   if (meta?.name === typesPkg) {
     return {
