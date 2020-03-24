@@ -177,8 +177,6 @@ async function typesDefinition(pkg: string, tag = 'latest') {
     .then(res => res.statusCode === 200)
     .catch(e => false)
 
-  console.log(hasIndexDTSFile)
-
   if (hasIndexDTSFile) {
     return {
       subject: 'types',
