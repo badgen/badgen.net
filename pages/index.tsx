@@ -8,7 +8,7 @@ import examples from '../static/.meta/badges.json'
 
 const Index = () => {
   const [tab, setTab] = useState('live')
-  const [host, setHost] = useState()
+  const [host, setHost] = useState('')
   const badges = examples[tab]
 
   useEffect(() => {
