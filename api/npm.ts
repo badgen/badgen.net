@@ -163,30 +163,40 @@ const parseDependents = (html: string) => {
 }
 
 async function typesDefinition(pkg: string, tag = 'latest') {
-    let meta = await pkgJson(pkg, tag)
+  let meta = await pkgJson(pkg, tag)
 
-    if (typeof meta.types === 'string' || typeof meta.typings === "string") {
-        return {
-            subject: 'types',
-            status: 'included',
-            color: '0074c1'
-        }
-    }
-
-    const typesPkg = '@types/' + (pkg.charAt(0) === "@" ? pkg.slice(1).replace('/', '__') : pkg)
-    meta = await pkgJson(typesPkg).catch(err => false)
-
-    if (meta && meta.name === typesPkg) {
-      return {
-        subject: 'types',
-        status: meta.name,
-        color: 'cyan',
-      }
-    }
-
+  if (typeof meta.types === 'string' || typeof meta.typings === "string") {
     return {
       subject: 'types',
-      status: 'missing',
-      color: 'orange',
+      status: 'included',
+      color: '0074c1'
     }
+  }
+
+  const indexDTSFile = await got(`https://unpkg.com/${pkg}/index.d.ts?meta`).catch()
+
+  if (indexDTSFile) {
+    return {
+      subject: 'types',
+      status: 'included',
+      color: '0074c1'
+    }
+  }
+
+  const typesPkg = '@types/' + (pkg.charAt(0) === "@" ? pkg.slice(1).replace('/', '__') : pkg)
+  meta = await pkgJson(typesPkg).catch()
+
+  if (meta?.name === typesPkg) {
+    return {
+      subject: 'types',
+      status: meta.name,
+      color: 'cyan',
+    }
+  }
+
+  return {
+    subject: 'types',
+    status: 'missing',
+    color: 'orange',
+  }
 }
