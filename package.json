@@ -61,7 +61,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "fs-extra": "^8.1.0",
-    "next": "^9.3.1",
+    "next": "^9.3.2",
     "nodemon": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
