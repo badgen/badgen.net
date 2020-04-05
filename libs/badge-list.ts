@@ -24,6 +24,7 @@ export const liveBadgeList = [
   'apm',
   'hackage',
   'vs-marketplace',
+  'maven',
   // CI
   'travis',
   'circleci',
