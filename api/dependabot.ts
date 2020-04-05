@@ -2,6 +2,15 @@ import got from '../libs/got'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const help = `
+## Public repositories
+
+To enable dependabot on a public repo (for the badge to working), you need to either
+
+- login at https://app.dependabot.com/ then add it manually,
+- or add a [\`.dependabot/config.yml\`](https://dependabot.com/docs/config-file/) file to the repo.
+
+Then you may include the badge in your repo like [this PR](https://github.com/thepracticaldev/dev.to/pull/3268).
+
 ## Private repositories
 In order to use the dependabot badge with a private GitHub repository you will need to get its id. You can use the [GitHub API](https://developer.github.com/v3/) and [curl](https://curl.haxx.se/docs/manual.html) to do this like so:
 <pre>
@@ -37,7 +46,8 @@ export default createBadgenHandler({
   title: 'Dependabot',
   help,
   examples: {
-    '/dependabot/dependabot/dependabot-core/?icon=dependabot': 'status'
+    '/dependabot/thepracticaldev/dev.to?icon=dependabot': 'status',
+    '/dependabot/dependabot/dependabot-core?icon=dependabot': 'status'
   },
   handlers: {
     '/dependabot/:owner/:repo/:identifier?': handler
