@@ -76,7 +76,7 @@ const pickGithubToken = () => {
     })
   }
 
-  const tokens = GH_TOKENS.split(',')
+  const tokens = GH_TOKENS.split(',').filter(function(el) {return el.length != 0})
   return tokens[Math.floor(Math.random() * tokens.length)]
 }
 
