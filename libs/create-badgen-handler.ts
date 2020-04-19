@@ -185,10 +185,10 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 }
 
 const { TRACKING_GA, NOW_REGION } = process.env
-const tracker = TRACKING_GA && measure(TRACKING_GA).setCustomDimension([NOW_REGION || 'unknown'])
+const tracker = TRACKING_GA && measure(TRACKING_GA).setCustomDimensions([NOW_REGION || 'unknown'])
 
 async function measurementLogInvocation (host: string, urlPath: string) {
-  tracker && tracker.pageview({ dh: host, dp: urlPath}).send()
+  tracker && tracker.pageview({ host, path: urlPath}).send()
 }
 
 async function measurementLogError (category: string, action: string, label?: string, value?: number) {
