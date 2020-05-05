@@ -52,10 +52,10 @@
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@types/semver": "^7.1.0",
-    "@types/supertest": "^2.0.8",
+    "@types/supertest": "^2.0.9",
     "@types/url-parse": "^1.4.3",
-    "@typescript-eslint/eslint-plugin": "^2.28.0",
-    "@typescript-eslint/parser": "^2.28.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
     "@zeit/next-typescript": "^1.1.1",
     "csstype": "^2.6.10",
     "eslint": "^6.8.0",
@@ -66,7 +66,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "supertest": "^4.0.2",
-    "ts-node": "^8.8.2",
+    "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
   },
   "engines": {
