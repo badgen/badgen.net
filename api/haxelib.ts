@@ -1,6 +1,6 @@
 import RpcClient from 'haxe-rpc-client'
 import { millify, version, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { createBadgenHandler, PathArgs, BadgenError } from '../libs/create-badgen-handler'
 
 const HAXELIB_RPC_URL = 'https://lib.haxe.org/api/3.0/index.n'
 
@@ -9,8 +9,15 @@ class HaxelibClient extends RpcClient {
     super(HAXELIB_RPC_URL)
   }
 
-  info(project) {
-    return this.call<any>('api.infos', [project])
+  async info(project) {
+    try {
+      return await this.call<any>('api.infos', [project])
+    } catch (err) {
+      if (err.message.startsWith('No such Project')) {
+        throw new BadgenError({ status: 404 })
+      }
+      throw err
+    }
   }
 }
 
