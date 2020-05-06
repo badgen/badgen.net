@@ -26,6 +26,7 @@ export const liveBadgeList = [
   'vs-marketplace',
   'maven',
   'cocoapods',
+  'haxelib',
   // CI
   'travis',
   'circleci',
