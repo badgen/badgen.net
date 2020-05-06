@@ -20,6 +20,7 @@ export default createBadgenHandler({
     '/haxelib/v/tink_http': 'version',
     '/haxelib/v/nme': 'version',
     '/haxelib/d/hxnodejs': 'downloads',
+    '/haxelib/dl/hxnodejs': 'downloads (latest version)',
     '/haxelib/license/openfl': 'license'
   },
   handlers: {
@@ -29,7 +30,12 @@ export default createBadgenHandler({
 
 async function handler ({ topic, project }: PathArgs) {
   const client = new HaxelibClient()
-  const { curversion: ver, downloads, license } = await client.info(project)
+  const {
+    downloads,
+    license,
+    curversion: ver,
+    versions
+  } = await client.info(project)
 
   switch (topic) {
     case 'v': {
@@ -50,6 +56,14 @@ async function handler ({ topic, project }: PathArgs) {
       return {
         subject: 'downloads',
         status: millify(downloads),
+        color: 'green'
+      }
+    }
+    case 'dl': {
+      const latestVersion = versions.find(it => it.name === ver)
+      return {
+        subject: 'downloads',
+        status: millify(latestVersion.downloads) + ' latest version',
         color: 'green'
       }
     }
