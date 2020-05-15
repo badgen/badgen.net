@@ -27,6 +27,7 @@ export const liveBadgeList = [
   'maven',
   'cocoapods',
   'haxelib',
+  'opam',
   // CI
   'travis',
   'circleci',
