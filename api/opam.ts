@@ -12,7 +12,7 @@ type PackageInfo = {
 }
 
 export default createBadgenHandler({
-  title: 'opam',
+  title: 'OCaml Package Manager',
   examples: {
     '/opam/v/merlin': 'version',
     '/opam/v/ocamlformat': 'version',
