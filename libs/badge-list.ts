@@ -28,6 +28,7 @@ export const liveBadgeList = [
   'cocoapods',
   'haxelib',
   'opam',
+  'scoop',
   // CI
   'travis',
   'circleci',
