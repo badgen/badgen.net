@@ -29,6 +29,7 @@ export const liveBadgeList = [
   'haxelib',
   'opam',
   'scoop',
+  'f-droid',
   // CI
   'travis',
   'circleci',
