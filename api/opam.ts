@@ -58,20 +58,21 @@ async function handler ({ topic, pkg }: PathArgs) {
 }
 
 function getPackageInfo(html: string): PackageInfo {
+  const info: PackageInfo = { version: '', license: '', downloads: NaN }
+  
   const $ = cheerio.load(html)
-  const info: PackageInfo = { version: '', license: '', downloads: 0 }
-  info.version = $('.package-version').first().text()
-  return $('.package-info th').get().reduce((acc, el) => {
+  const text = (selector: any) => $(selector).text().trim()
+
+  info.version = text($('.package-version').first())
+  $('.package-info th').filter((_, el) => {
     const $el = $(el)
-    const text = $el.text().toLowerCase()
-    if (text === 'license') {
-      acc.license = $el.next().text()
-      return acc
+    const label = text($el).toLowerCase()
+    if (label === 'license') {
+      info.license = text($el.next())
+    } else if (label === 'statistics') {
+      info.downloads = parseInt(text($el.next().find('strong')), 0)
     }
-    if (text === 'statistics') {
-      acc.downloads = parseInt($el.next().find('strong').text(), 0)
-      return acc
-    }
-    return acc
-  }, info)
+    return !info.license && isNaN(info.downloads)
+  })
+  return info
 }
