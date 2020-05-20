@@ -11,7 +11,7 @@ import sentry from './sentry'
 import { BadgenParams } from './types'
 
 export type PathArgs = NonNullable<ReturnType<typeof matchRoute>>
-export type Query = { [key: string]: string | undefined }
+export type Query = NonNullable<Record<string, string | undefined>>
 
 export interface BadgeMaker {
   (pathArgs: PathArgs, query: Query) : Promise<BadgenParams | undefined>;
