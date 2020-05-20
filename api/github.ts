@@ -2,8 +2,9 @@ import cheerio from 'cheerio'
 import distanceToNow from 'date-fns/formatDistanceToNow'
 
 import got from '../libs/got'
+import { restGithub, queryGithub } from '../libs/github'
+import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 import { version, millify, coverageColor } from '../libs/utils'
-import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
   title: 'GitHub',
@@ -67,37 +68,6 @@ export default createBadgenHandler({
     '/github/dependents-pkg/:owner/:repo': dependents('PACKAGE'),
   }
 })
-
-const pickGithubToken = () => {
-  const { GH_TOKENS } = process.env
-  if (!GH_TOKENS) {
-    throw new BadgenError({
-      status: 'token required'
-    })
-  }
-
-  const tokens = GH_TOKENS.split(',')
-  return tokens[Math.floor(Math.random() * tokens.length)]
-}
-
-// request github api v3 (rest)
-const restGithub = (path, preview = 'hellcat') => got.get(`https://api.github.com/${path}`, {
-  headers: {
-    Authorization: `token ${pickGithubToken()}`,
-    Accept: `application/vnd.github.${preview}-preview+json`
-  }
-}).json<any>()
-
-// request github api v4 (graphql)
-const queryGithub = query => {
-  return got.post('https://api.github.com/graphql', {
-    json: { query },
-    headers: {
-      Authorization: `token ${pickGithubToken()}`,
-      Accept: 'application/vnd.github.hawkgirl-preview+json'
-    }
-  }).json<any>()
-}
 
 // https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
 const statesColor = {

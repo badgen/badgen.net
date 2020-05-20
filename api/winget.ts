@@ -1,11 +1,11 @@
 import got from '../libs/got'
+import { restGithub } from '../libs/github'
 import { parseDocument } from 'yaml'
 import { basename, extname } from 'path'
 import { version, versionColor } from '../libs/utils'
-import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badgen-handler'
+import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const last = <T>(arr: T[]): T => arr[arr.length - 1]
-const rand = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
 
 interface Part {
   number: number
@@ -147,22 +147,4 @@ async function fetchVersions(appId: string): Promise<Version[]> {
   })
   versions.sort(Version.comparator)
   return versions
-}
-
-function restGithub<T>(path: string, preview = 'hellcat') {
-  const headers = {
-    authorization: `token ${pickGithubToken()}`,
-    accept: `application/vnd.github.${preview}-preview+json`
-  }
-  const prefixUrl = 'https://api.github.com/'
-  return got.extend({ prefixUrl, headers }).get(path).json<T>()
-}
-
-function pickGithubToken() {
-  const { GH_TOKENS } = process.env
-  if (!GH_TOKENS) {
-    throw new BadgenError({ status: 'token required' })
-  }
-  const tokens = GH_TOKENS.split(',').map(segment => segment.trim())
-  return rand(tokens)
 }
