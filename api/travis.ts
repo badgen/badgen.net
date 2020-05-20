@@ -20,8 +20,8 @@ async function handler ({ user, repo, branch = 'master' }: PathArgs) {
     got(org).text()
   ])
 
-  const result = statuses.find(st => {
-    return (svg1 && svg1.includes(st[0])) || (svg2 && svg2.includes(st[0]))
+  const result = statuses.find(([status]) => {
+    return svg1?.includes(status) || svg2?.includes(status)
   })
 
   if (result) {
