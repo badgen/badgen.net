@@ -30,6 +30,7 @@ export const liveBadgeList = [
   'opam',
   'scoop',
   'f-droid',
+  'pub',
   // CI
   'travis',
   'circleci',
@@ -50,6 +51,7 @@ export const liveBadgeList = [
   'opencollective',
   'keybase',
   'twitter',
+  'tidelift',
   'runkit',
   'https',
 ]

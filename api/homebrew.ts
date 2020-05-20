@@ -2,6 +2,10 @@ import got from '../libs/got'
 import { millify, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
+const HOMEBREW_API_URL = 'https://formulae.brew.sh/api/'
+
+const client = got.extend({ prefixUrl: HOMEBREW_API_URL })
+
 export default createBadgenHandler({
   title: 'Homebrew',
   examples: {
@@ -22,12 +26,11 @@ export default createBadgenHandler({
 })
 
 async function handler ({ type = 'formula', topic, pkg }: PathArgs) {
-  const endpoint = `https://formulae.brew.sh/api/${type}/${pkg}.json`
   const {
     analytics,
     versions,
     version:ver = versions.stable
-  } = await got(endpoint).json<any>()
+  } = await client.get(`${type}/${pkg}.json`).json<any>()
 
   switch (topic) {
     case 'v':
