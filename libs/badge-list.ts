@@ -51,6 +51,7 @@ export const liveBadgeList = [
   'opencollective',
   'keybase',
   'twitter',
+  'mastodon',
   'tidelift',
   'runkit',
   'https',
