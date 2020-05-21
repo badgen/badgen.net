@@ -5,9 +5,9 @@ import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 export default createBadgenHandler({
   title: 'Mastodon/Pleroma',
   examples: {
-    '/mastodon/follow/1': 'followers count (mastodon.social)',
-    '/mastodon/follow/1/mas.to': 'followers count (custom Mastodon instance)',
-    '/mastodon/follow/1/pleroma.site': 'followers count (custom Pleroma instance)',
+    '/mastodon/follow/1': 'followers (mastodon.social)',
+    '/mastodon/follow/1/mas.to': 'followers (other Mastodon instance)',
+    '/mastodon/follow/1/pleroma.site': 'followers (Pleroma instance)',
   },
   handlers: {
     '/mastodon/follow/:userId/:instance?': handler
