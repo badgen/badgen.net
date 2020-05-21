@@ -30,7 +30,7 @@ async function handler ({ platform, name }: PathArgs) {
 
   return {
     subject: 'tidelift',
-    status,
+    status: status?.replace(/!$/, ''),
     color
   }
 }
