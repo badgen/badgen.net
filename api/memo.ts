@@ -40,9 +40,10 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({ name, path }: PathArgs) {
+async function handler ({ name }: PathArgs) {
   const endpoint = `https://badgen-store.amio.workers.dev/${name}`
   const data = await got(endpoint).json<any>()
   data.subject = data.subject || data.label
+
   return data
 }
