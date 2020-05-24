@@ -11,10 +11,9 @@ import sentry from './sentry'
 import { BadgenParams } from './types'
 
 export type PathArgs = NonNullable<ReturnType<typeof matchRoute>>
-export type Query = NonNullable<Record<string, string | undefined>>
 
 export interface BadgeMaker {
-  (pathArgs: PathArgs, query: Query) : Promise<BadgenParams | undefined>;
+  (pathArgs: PathArgs) : Promise<BadgenParams | undefined>;
 }
 
 export interface BadgenServeConfig {
@@ -76,7 +75,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
     // Serve badge
     try {
-      const badgeParamsPromise = conf.handlers[matchedScheme](matchedArgs || {}, query || {})
+      const badgeParamsPromise = conf.handlers[matchedScheme](matchedArgs || {})
 
       let iconPromise: Promise<string | undefined> = Promise.resolve(undefined)
       if (typeof query.icon === 'string') {
