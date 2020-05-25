@@ -16,16 +16,22 @@ export default createBadgenHandler({
     '/lgtm/grade/g/apache/cloudstack/java': 'grade (java)',
     '/lgtm/grade/g/apache/cloudstack': 'grade (auto)',
     '/lgtm/grade/g/systemd/systemd': 'grade (auto)',
-    '/lgtm/grade/b/wegtam/bitbucket-youtrack-broker': 'grade (auto)',
-    '/lgtm/grade/gl/nekokatt/hikari': 'grade (auto)',
+    '/lgtm/grade/bitbucket/wegtam/bitbucket-youtrack-broker': 'grade (auto)',
+    '/lgtm/grade/gitlab/nekokatt/hikari': 'grade (auto)',
   },
   handlers: {
-    '/lgtm/:topic<alerts|grade|lines|langs>/:provider<g|b|gl>/:owner/:name/:lang?': handler,
-    '/lgtm/:topic<grade>/:lang/:provider<g|b|gl>/:owner/:name': handler, // deprecated
+    '/lgtm/:topic<alerts|grade|lines|langs>/:provider<g|github|bitbucket|gitlab>/:owner/:name/:lang?': handler,
+    '/lgtm/:topic<grade>/:lang/:provider<g|github|bitbucket|gitlab>/:owner/:name': handler, // deprecated
   }
 })
 
 async function handler ({ topic, provider, owner, name, lang }: PathArgs) {
+  provider = {
+    github: 'g',
+    bitbucket: 'b',
+    gitlab: 'gl'
+  }[provider] || provider
+
   // https://lgtm.com/help/lgtm/api/api-v1#LGTM-API-specification-Projects
   const data = await client.get(`projects/${provider}/${owner}/${name}`).json<any>()
   const { language, alerts, lines, grade } = detailsByLang(data, lang)
