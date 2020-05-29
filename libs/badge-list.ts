@@ -44,6 +44,7 @@ export const liveBadgeList = [
   // quality & metrics
   'snyk',
   'lgtm',
+  'deepscan',
   'uptime-robot',
   'xo',
   'badgesize',
