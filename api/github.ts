@@ -6,6 +6,8 @@ import { restGithub, queryGithub } from '../libs/github'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 import { version, millify, coverageColor } from '../libs/utils'
 
+type DependentsType = 'REPOSITORY' | 'PACKAGE'
+
 export default createBadgenHandler({
   title: 'GitHub',
   examples: {
@@ -404,14 +406,17 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
   }
 }
 
-function dependents (type: string) {
-  return async function ({ owner, repo }: PathArgs) {
-    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`, {
-      headers: {
-        Accept: 'text/html,application/xhtml+xml,application/xml'
-      }
-    }).text()
+function dependents (type: DependentsType) {
+  const accept = [
+    'text/html',
+    'application/xhtml+xml',
+    'application/xml'
+  ].join(',')
+  const headers = { accept }
 
+  return async function ({ owner, repo }: PathArgs) {
+    const url = `https://github.com/${owner}/${repo}/network/dependents`
+    const html = await got(url, { headers }).text()
     return {
       subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',
       status: parseDependents(html, type),
@@ -420,13 +425,9 @@ function dependents (type: string) {
   }
 }
 
-const parseDependents = (html, type) => {
+function parseDependents(html: string, type: string) {
   const $ = cheerio.load(html)
-  const depLink = $(`a[href$="?dependent_type=${type}"]`)
-
-  if (depLink.length !== 1) {
-    return 'unknown'
-  }
-
-  return depLink.text().replace(/[^0-9,]/g, '')
+  const $depLink = $(`a[href$="?dependent_type=${type}"]`)
+  const count = parseInt($depLink.text().replace(/,/g, ''), 10)
+  return count ? millify(count) : 'unknown'
 }
