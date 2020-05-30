@@ -1,7 +1,7 @@
 import cheerio from 'cheerio'
 import got from '../libs/got'
-import { millify, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { millify, parseDependents, version, versionColor } from '../libs/utils'
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
@@ -147,19 +147,14 @@ const download = async (period: string, npmName: string, tag = 'latest') => {
 // https://github.com/astur/check-npm-dependents/blob/master/index.js
 async function dependents (name: string) {
   const html = await got(`https://www.npmjs.com/package/${name}`,).text()
+  const $ = cheerio.load(html)
+  const $depLink = $('a[href="?activeTab=dependents"]')
 
   return {
     subject: 'dependents',
-    status: parseDependents(html),
+    status: parseDependents($depLink),
     color: 'green'
   }
-}
-
-const parseDependents = (html: string) => {
-  const $ = cheerio.load(html)
-  const depLink = $('a[href="?activeTab=dependents"]')
-  if (depLink.length !== 1) return -1
-  return depLink.text().replace(/[^0-9]/g, '')
 }
 
 async function typesDefinition(pkg: string, tag = 'latest') {

@@ -4,7 +4,7 @@ import distanceToNow from 'date-fns/formatDistanceToNow'
 import got from '../libs/got'
 import { restGithub, queryGithub } from '../libs/github'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
-import { version, millify, coverageColor } from '../libs/utils'
+import { coverageColor, millify, parseDependents, version } from '../libs/utils'
 
 type DependentsType = 'REPOSITORY' | 'PACKAGE'
 
@@ -417,17 +417,13 @@ function dependents (type: DependentsType) {
   return async function ({ owner, repo }: PathArgs) {
     const url = `https://github.com/${owner}/${repo}/network/dependents`
     const html = await got(url, { headers }).text()
+    const $ = cheerio.load(html)
+    const $depLink = $(`a[href$="?dependent_type=${type}"]`)
+
     return {
       subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',
-      status: parseDependents(html, type),
+      status: parseDependents($depLink),
       color: 'blue'
     }
   }
-}
-
-function parseDependents(html: string, type: string) {
-  const $ = cheerio.load(html)
-  const $depLink = $(`a[href$="?dependent_type=${type}"]`)
-  const count = parseInt($depLink.text().replace(/,/g, ''), 10)
-  return count ? millify(count) : 'unknown'
 }
