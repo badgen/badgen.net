@@ -7,7 +7,7 @@ export default createBadgenHandler({
   examples: {
     '/snyk/badgen/badgen.net': 'vulnerability scan',
     '/snyk/babel/babel/6.x': 'vulnerability scan (branch)',
-    '/snyk/tunnckoCore/opensource/master/@tunnckocore%2Futils%2Fpackage.json': 'vulnerability scan (custom path)'
+    '/snyk/rollup/plugins/master/packages%2Falias%2Fpackage.json': 'vulnerability scan (custom path)'
   },
   handlers: {
     '/snyk/:user/:repo/:branch?/:targetFile?': handler
