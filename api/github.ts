@@ -407,16 +407,12 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
 }
 
 function dependents (type: DependentsType) {
-  const accept = [
-    'text/html',
-    'application/xhtml+xml',
-    'application/xml'
-  ].join(',')
-  const headers = { accept }
-
   return async function ({ owner, repo }: PathArgs) {
-    const url = `https://github.com/${owner}/${repo}/network/dependents`
-    const html = await got(url, { headers }).text()
+    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`, {
+      headers: {
+        accept: 'text/html,application/xhtml+xml,application/xml'
+      }
+    }).text()
     const $ = cheerio.load(html)
     const $depLink = $(`a[href$="?dependent_type=${type}"]`)
 
