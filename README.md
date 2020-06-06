@@ -21,7 +21,7 @@
 
 > Epic work on Badgen! Porting the @dependabot badges over to it now. ⚡️ - [@greybaker](https://twitter.com/greybaker/status/1023253585021333504)
 
-The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge SVG markup directly with JavaScript (without using pdfkit/canvas/puppeteer to measure text length)?". The result is better than I expected, Verdana (the de-facto font for badges) text width can be calculated precisely with a prebuilt [char-width-table](https://github.com/amio/badgen/blob/master/lib/widths-verdana-110.json), even no need to worry about kerning 🤯
+The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge SVG markup directly (without using pdfkit/canvas/puppeteer to measure text width)?". The result is better than I expected, Width of Verdana (the de-facto font for badges) text can be calculated precisely with a prebuilt [char-width-table](https://github.com/badgen/badgen/blob/master/src/widths-verdana-110.json), even no need to worry about kerning 🤯
 
 Then, logically, [Badgen Service](https://badgen.net) was born. I had a good time with [shields.io](https://shields.io), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative with simplicity and flexibility. Its codebase is simple (<b title="cloc . --exclude-dir node_modules --match-f '.js$'">2K LoCs</b> vs Shields' 22K LoCs), well structured and fun to develop - it is pretty easy to add badge(s) for new service(s).
 
@@ -105,8 +105,8 @@ Support this project by donation, help Badgen continue and evolving!
 
 ## Sponsors
 
-<a href="https://vercel.com"><img src="https://sponsors.badgen.now.sh/zeit.svg" height="60px" /></a>
-<a href="https://sentry.io"><img src="https://sponsors.badgen.now.sh/sentry.svg" height="67px" /></a>
+<a href="https://vercel.com"><img src="https://badgen-sponsors.now.sh/vercel.svg" height="220px" /></a>
+<a href="https://sentry.io"><img src="https://badgen-sponsors.now.sh/sentry.svg" height="220px" /></a>
 
 [dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
