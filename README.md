@@ -105,8 +105,8 @@ Support this project by donation, help Badgen continue and evolving!
 
 ## Sponsors
 
-<a href="https://vercel.com"><img src="https://badgen-sponsors.now.sh/vercel.svg" height="225px" /></a>
-<a href="https://sentry.io"><img src="https://badgen-sponsors.now.sh/sentry.svg" height="225px" /></a>
+<a href="https://vercel.com"><img src="https://badgen-sponsors.now.sh/vercel.svg" height="220px" /></a>
+<a href="https://sentry.io"><img src="https://badgen-sponsors.now.sh/sentry.svg" height="220px" /></a>
 
 [dependencies-src]: https://badgen.net/david/dep/badgen/badgen.net?label=deps
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
