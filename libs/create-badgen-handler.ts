@@ -75,9 +75,9 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
         // handle PUT requests
         if (req.method === 'PUT') {
-          const memoArgs = matchRoute('/memo/:paths+', url)
+          const memoArgs = matchRoute('/memo/:name/:label/:status/:color?', url)
           if (memoArgs) {
-            const memoApi = `https://badgen-store.amio.workers.dev/${memoArgs.paths}`
+            const memoApi = `https://badgen-store.amio.workers.dev/${url.substr(6)}`
             const putResult = await got.put(memoApi).text()
             return res.end(putResult)
           }
