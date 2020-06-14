@@ -11,8 +11,8 @@
   },
   "watch": [
     "index.ts",
-    "endpoints",
-    "libs"
+    "libs",
+    "api"
   ],
   "env": {
     "PUB_DIR": "dist"
