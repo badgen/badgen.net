@@ -2,6 +2,11 @@ import millify from 'millify'
 import got from '../libs/got'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
+// https://lgtm.com/help/lgtm/api/api-v1
+const LGTM_API_URL = 'https://lgtm.com/api/v1.0/'
+
+const client = got.extend({ prefixUrl: LGTM_API_URL })
+
 export default createBadgenHandler({
   title: 'LGTM',
   examples: {
@@ -11,17 +16,24 @@ export default createBadgenHandler({
     '/lgtm/grade/g/apache/cloudstack/java': 'grade (java)',
     '/lgtm/grade/g/apache/cloudstack': 'grade (auto)',
     '/lgtm/grade/g/systemd/systemd': 'grade (auto)',
+    '/lgtm/grade/bitbucket/wegtam/bitbucket-youtrack-broker': 'grade (auto)',
+    '/lgtm/grade/gitlab/nekokatt/hikari': 'grade (auto)',
   },
   handlers: {
-    '/lgtm/:topic<alerts|grade|lines|langs>/g/:owner/:name/:lang?': handler,
-    '/lgtm/:topic<grade>/:lang/g/:owner/:name': handler, // deprecated
+    '/lgtm/:topic<alerts|grade|lines|langs>/:provider<g|github|bitbucket|gitlab>/:owner/:name/:lang?': handler,
+    '/lgtm/:topic<grade>/:lang/:provider<g|github|bitbucket|gitlab>/:owner/:name': handler, // deprecated
   }
 })
 
-async function handler ({ topic, owner, name, lang }: PathArgs) {
+async function handler ({ topic, provider, owner, name, lang }: PathArgs) {
+  provider = {
+    github: 'g',
+    bitbucket: 'b',
+    gitlab: 'gl'
+  }[provider] || provider
+
   // https://lgtm.com/help/lgtm/api/api-v1#LGTM-API-specification-Projects
-  const endpoint = `https://lgtm.com/api/v1.0/projects/g/${owner}/${name}`
-  const data = await got(endpoint).json<any>()
+  const data = await client.get(`projects/${provider}/${owner}/${name}`).json<any>()
   const { language, alerts, lines, grade } = detailsByLang(data, lang)
   const langLabel = langLabelOverrides[language] || language
 

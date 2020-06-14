@@ -42,7 +42,9 @@ export const liveBadgeList = [
   'codeclimate',
   'azure-pipelines',
   // quality & metrics
+  'snyk',
   'lgtm',
+  'deepscan',
   'uptime-robot',
   'xo',
   'badgesize',
