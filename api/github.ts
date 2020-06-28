@@ -80,13 +80,19 @@ const statesColor = {
 
 function combined (states: Array<any>, stateKey: string = 'state') {
   if (states.length === 0) return 'unknown'
+
   if (states.find(x => x[stateKey] === 'error')) return 'error'
   if (states.find(x => x[stateKey] === 'failure')) return 'failure'
   if (states.find(x => x[stateKey] === 'pending')) return 'pending'
-  if (states.every(x => x[stateKey] === 'success')) return 'success'
+
+  const succeeded = states
+    .filter(x => x[stateKey] !== 'cancelled')
+    .every(x => x[stateKey] === 'success')
+
+  if (succeeded) return 'success'
 
   // this shouldn't happen, but in case it happens
-  throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
+  throw new Error(`Unknown states: ${states.map(x => x[stateKey]).join()}`)
 }
 
 async function checks ({ owner, repo, ref = 'master'}: PathArgs) {
