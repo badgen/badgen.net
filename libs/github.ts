@@ -9,7 +9,7 @@ export function restGithub<T = any>(path: string, preview = 'hellcat') {
     authorization: `token ${pickGithubToken()}`,
     accept: `application/vnd.github.${preview}-preview+json`
   }
-  const prefixUrl = 'https://api.github.com/'
+  const prefixUrl = process.env.GITHUB_URL || 'https://api.github.com/'
   return got.get(path, { prefixUrl, headers }).json<T>()
 }
 
@@ -20,7 +20,8 @@ export function queryGithub<T = any>(query) {
     accept: 'application/vnd.github.hawkgirl-preview+json'
   }
   const json = { query }
-  return got.post('https://api.github.com/graphql', { json, headers }).json<T>()
+  const endpoint = process.env.GITHUB_URL_GRAPHQL || 'https://api.github.com/graphql'
+  return got.post(endpoint, { json, headers }).json<T>()
 }
 
 function pickGithubToken() {
