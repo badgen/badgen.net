@@ -1,7 +1,7 @@
 import cheerio from 'cheerio'
 import got from '../libs/got'
 import { millify, version, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { createBadgenHandler, PathArgs, BadgenError } from '../libs/create-badgen-handler'
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
@@ -68,10 +68,19 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
 }
 
 async function npmMetadata (pkg: string, ver = 'latest'): Promise<any> {
-  // only works for ver === 'latest', none-scoped package
-  const host = process.env.NPM_URL || 'https://registry.npmjs.org'
-  const endpoint = `${host}/${pkg}/${ver}`
-  return got(endpoint).json<any>()
+  const host = process.env.NPM_REGISTRY || "https://registry.npmjs.org"
+  if (pkg[0] === "@") {
+    const meta = await got(`${host}/${pkg}`).json<any>()
+    if (meta["dist-tags"][ver]) {
+      return meta.versions[meta["dist-tags"][ver]]
+    } else {
+      throw new BadgenError({ status: '404', color: 'grey', code: 404 })
+    }
+  } else {
+    const endpoint = `${host}/${pkg}/${ver}`
+    return got(endpoint).json<any>()
+  }
+  
 }
 
 async function pkgJson (pkg: string, tag = 'latest'): Promise<any> {
@@ -81,8 +90,13 @@ async function pkgJson (pkg: string, tag = 'latest'): Promise<any> {
 }
 
 async function info (topic: string, pkg: string, tag = 'latest') {
-  // when a custom registry is defined, tag=latest or package is scoped use npmMetadata
-  const meta = await (process.env.NPM_URL || (tag === 'latest' && pkg[0] !== '@') ? npmMetadata(pkg) : pkgJson(pkg, tag))
+  // ver === 'latest', non-scoped package use npmMetadata (npm), all others use unpkg
+  // optionally disable unpkg to request all info from NPM
+  const meta = await(
+    process.env.DISABLE_UNPKG === 'true' || (tag === "latest" && pkg[0] !== "@")
+      ? npmMetadata(pkg, tag)
+      : pkgJson(pkg, tag)
+  )
 
   switch (topic) {
     case 'version': {
