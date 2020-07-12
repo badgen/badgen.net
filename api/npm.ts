@@ -69,17 +69,15 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
 
 async function npmMetadata (pkg: string, ver = 'latest'): Promise<any> {
   const host = process.env.NPM_REGISTRY || "https://registry.npmjs.org"
-  if (pkg[0] === "@") {
+  if (pkg[0] === "@" || ver !== 'latest') {
     const meta = await got(`${host}/${pkg}`).json<any>()
     if (meta["dist-tags"][ver]) {
       return meta.versions[meta["dist-tags"][ver]]
-    } else {
-      throw new BadgenError({ status: '404', color: 'grey', code: 404 })
     }
-  } else {
-    const endpoint = `${host}/${pkg}/${ver}`
-    return got(endpoint).json<any>()
+    throw new BadgenError({ status: '404', color: 'grey', code: 404 })
   }
+  const endpoint = `${host}/${pkg}/${ver}`
+  return got(endpoint).json<any>()
   
 }
 
