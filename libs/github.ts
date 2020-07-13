@@ -9,7 +9,7 @@ export function restGithub<T = any>(path: string, preview = 'hellcat') {
     authorization: `token ${pickGithubToken()}`,
     accept: `application/vnd.github.${preview}-preview+json`
   }
-  const prefixUrl = process.env.GITHUB_API || "https://api.github.com/"
+  const prefixUrl = process.env.GITHUB_API || 'https://api.github.com/'
   return got.get(path, { prefixUrl, headers }).json<T>()
 }
 
@@ -21,15 +21,16 @@ export function queryGithub<T = any>(query) {
   }
   const json = { query }
   const endpoint =
-    process.env.GITHUB_API_GRAPHQL || "https://api.github.com/graphql"
+    process.env.GITHUB_API_GRAPHQL || 'https://api.github.com/graphql'
   return got.post(endpoint, { json, headers }).json<T>()
 }
 
 function pickGithubToken() {
-  const { GH_TOKENS } = process.env
-  if (!GH_TOKENS) {
+  const { GH_TOKENS, GITHUB_TOKENS } = process.env
+  const githubTokens = GITHUB_TOKENS || GH_TOKENS
+  if (!githubTokens) {
     throw new BadgenError({ status: 'token required' })
   }
-  const tokens = GH_TOKENS.split(',').map(segment => segment.trim())
+  const tokens = githubTokens.split(',').map(segment => segment.trim())
   return rand(tokens)
 }

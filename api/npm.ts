@@ -68,9 +68,14 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
 }
 
 async function npmMetadata (pkg: string, ver = 'latest'): Promise<any> {
-  const host = process.env.NPM_REGISTRY || "https://registry.npmjs.org"
-  if (pkg[0] === "@" || ver !== 'latest') {
-    const meta = await got(`${host}/${pkg}`).json<any>()
+  const host = process.env.NPM_REGISTRY || 'https://registry.npmjs.org'
+  if (pkg.startsWith('@') || ver !== 'latest') {
+    const meta = await got(`${host}/${pkg}`, {
+      // support querying abbreviated metadata https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md
+      headers: {
+        accept: 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*'
+      }
+    }).json<any>()
     if (meta["dist-tags"][ver]) {
       return meta.versions[meta["dist-tags"][ver]]
     }
@@ -91,7 +96,7 @@ async function info (topic: string, pkg: string, tag = 'latest') {
   // ver === 'latest', non-scoped package use npmMetadata (npm), all others use unpkg
   // optionally disable unpkg to request all info from NPM
   const meta = await(
-    process.env.DISABLE_UNPKG === 'true' || (tag === "latest" && pkg[0] !== "@")
+    process.env.NPM_REGISTRY || (tag === "latest" && pkg.startsWith('@'))
       ? npmMetadata(pkg, tag)
       : pkgJson(pkg, tag)
   )
