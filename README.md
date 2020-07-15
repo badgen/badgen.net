@@ -88,6 +88,17 @@ Badgen use [Sentry](https://sentry.io) to collect errors for improving service, 
 
 Badgen do not collect any identifying information.
 
+## Environments
+
+Supported environment variables for managing a Badgen instance.
+
+- `GITHUB_TOKENS` - Comma delimited list of Github Tokens. Required for Github Badges
+- `GITHUB_API` - Custom Github API endpoint. e.g., `https://github.mycompany.com/api/v3`
+- `GITHUB_API_GRAPHQL` - Custom Github GraphQL API endpoint. e.g., `https://github.mycompany.com/api/graphql`
+- `NPM_REGISTRY` - Custom NPM registry endpoint
+- `SENTRY_DSN` - Sentry Error Monitoring Data Source Name
+- `TRACKING_GA` - Google Analytics Tracking ID
+
 ## Contributors
 
 Thanks to our [contributors][contributors-href] 🎉👏
