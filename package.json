@@ -22,14 +22,14 @@
     ]
   },
   "dependencies": {
-    "@sentry/integrations": "^5.16.1",
-    "@sentry/node": "^5.16.1",
-    "badgen": "^3.1.0",
+    "@sentry/integrations": "^5.19.2",
+    "@sentry/node": "^5.19.2",
+    "badgen": "^3.2.1",
     "badgen-icons": "^0.16.0",
     "byte-size": "^6.2.0",
     "cheerio": "^1.0.0-rc.3",
     "chrome-webstore": "^1.4.0",
-    "date-fns": "^2.14.0",
+    "date-fns": "^2.15.0",
     "got": "^10.7.0",
     "haxe-rpc-client": "^1.0.0",
     "lodash.debounce": "^4.0.8",
@@ -46,22 +46,22 @@
     "yaml": "^1.10.0"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.18",
+    "@types/cheerio": "^0.22.21",
     "@types/fs-extra": "^8.1.1",
     "@types/lodash.debounce": "^4.0.6",
     "@types/micro": "^7.3.3",
-    "@types/node": "^12.12.44",
-    "@types/react": "^16.9.35",
+    "@types/node": "^12.12.50",
+    "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
-    "@types/semver": "^7.2.0",
-    "@types/supertest": "^2.0.9",
+    "@types/semver": "^7.3.1",
+    "@types/supertest": "^2.0.10",
     "@types/url-parse": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "@zeit/next-typescript": "^1.1.1",
-    "csstype": "^2.6.10",
+    "csstype": "^2.6.11",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react": "^7.20.3",
     "fs-extra": "^9.0.1",
     "next": "^9.4.4",
     "nodemon": "^2.0.4",
@@ -69,7 +69,7 @@
     "react-dom": "^16.13.1",
     "supertest": "^4.0.2",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.7"
   },
   "engines": {
     "node": "12.x"
