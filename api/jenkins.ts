@@ -38,7 +38,7 @@ const shortEnglishHumanizer = humanizeDuration.humanizer({
 });
 
 const statusToColor = (status: string) => {
-  return status.toUpperCase() == "SUCCESS" ? "green" : "red";
+  return status.toUpperCase() === "SUCCESS" ? "green" : "red";
 };
 
 const brokenBuildsToColor = (count: number) => {
