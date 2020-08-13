@@ -58,6 +58,7 @@ export const liveBadgeList = [
   'tidelift',
   'runkit',
   'https',
+  'jenkins',
 ]
 
 export async function loadBadgeMeta () {

@@ -32,6 +32,7 @@
     "date-fns": "^2.15.0",
     "got": "^10.7.0",
     "haxe-rpc-client": "^1.0.0",
+    "humanize-duration": "^3.23.1",
     "lodash.debounce": "^4.0.8",
     "measurement-protocol": "^0.1.1",
     "micro": "^9.3.4",
