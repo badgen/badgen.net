@@ -51,6 +51,7 @@ export default createBadgenHandler({
     '/github/assets-dl/electron/electron/v7.0.0': 'assets downloads for a tag',
     '/github/dependents-repo/micromatch/micromatch': 'repository dependents',
     '/github/dependents-pkg/micromatch/micromatch': 'package dependents',
+    '/github/dependabot/ubuntu/yaru': 'dependabot status',
   },
   handlers: {
     '/github/:topic<watchers|stars|forks|branches|releases|tags|tag|license>/:owner/:repo': repoStats,
@@ -67,6 +68,7 @@ export default createBadgenHandler({
     '/github/milestones/:owner/:repo/:milestone_number': milestones,
     '/github/dependents-repo/:owner/:repo': dependents('REPOSITORY'),
     '/github/dependents-pkg/:owner/:repo': dependents('PACKAGE'),
+    '/github/dependabot/:owner/:repo': dependabotStatus,
   }
 })
 
@@ -216,6 +218,19 @@ async function milestones ({ owner, repo, milestone_number }: PathArgs) {
     subject: milestone.title,
     status: `${Math.floor(percentage)}%`,
     color: coverageColor(percentage)
+  }
+}
+
+async function dependabotStatus({ owner, repo }: PathArgs) {
+  // Since there is no API to get dependabot status, for now check if file exists
+  const status = await restGithub(`repos/${owner}/${repo}/contents/.github/dependabot.yml`)
+
+  if (status) {
+    return {
+      subject: 'dependabot',
+      status: 'Active',
+      color: 'green'
+    }
   }
 }
 
