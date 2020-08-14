@@ -1,6 +1,6 @@
-import got from "../libs/got";
-import { createBadgenHandler, PathArgs } from "../libs/create-badgen-handler";
-import humanizeDuration from "humanize-duration";
+import got from "../libs/got"
+import { createBadgenHandler, PathArgs } from "../libs/create-badgen-handler"
+import humanizeDuration from "humanize-duration"
 
 export default createBadgenHandler({
   title: "Jenkins",
@@ -17,7 +17,7 @@ export default createBadgenHandler({
     "/jenkins/fix-time/:hostname/:job*": buildFixTimeHandler,
     "/jenkins/broken-build/:hostname/:job*": brokenBuildsHandler,
   },
-});
+})
 
 const shortEnglishHumanizer = humanizeDuration.humanizer({
   language: "shortEn",
@@ -35,68 +35,68 @@ const shortEnglishHumanizer = humanizeDuration.humanizer({
       ms: () => "ms",
     },
   },
-});
+})
 
 const statusToColor = (status: string) => {
-  return status.toUpperCase() === "SUCCESS" ? "green" : "red";
-};
+  return status.toUpperCase() === "SUCCESS" ? "green" : "red"
+}
 
 const brokenBuildsToColor = (count: number) => {
-  return count < 10 ? "green" : count < 20 ? "orange" : "red";
-};
+  return count < 10 ? "green" : count < 20 ? "orange" : "red"
+}
 const buildFixTimeToColor = (hours: number) => {
-  return hours < 2 ? "green" : hours < 6 ? "orange" : "red";
-};
+  return hours < 2 ? "green" : hours < 6 ? "orange" : "red"
+}
 
 async function jenkinsLastBuild({ hostname, job }: PathArgs) {
-  const endpoint = `https://${hostname}/${job}/lastBuild/api/json?tree=result,timestamp,estimatedDuration`;
-  return await got(endpoint).json<any>();
+  const endpoint = `https://${hostname}/${job}/lastBuild/api/json?tree=result,timestamp,estimatedDuration`
+  return await got(endpoint).json<any>()
 }
 
 async function jenkinsBuilds({ hostname, job }: PathArgs) {
-  const endpoint = `https://${hostname}/${job}/api/json?tree=builds[number,status,timestamp,id,result]`;
-  return await got(endpoint).json<any>();
+  const endpoint = `https://${hostname}/${job}/api/json?tree=builds[number,status,timestamp,id,result]`
+  return await got(endpoint).json<any>()
 }
 
 async function lastJobStatusHandler({ hostname, job }: PathArgs) {
-  const response = await jenkinsLastBuild({ hostname, job });
+  const response = await jenkinsLastBuild({ hostname, job })
   return {
     subject: "Last Build",
     status: response.result,
     color: statusToColor(response.result),
-  };
+  }
 }
 
 async function brokenBuildsHandler({ hostname, job }: PathArgs) {
-  const response = await jenkinsBuilds({ hostname, job });
+  const response = await jenkinsBuilds({ hostname, job })
   const brokenBuilds = response.builds.filter(function (build) {
-    return build.result.toUpperCase() !== "SUCCESS";
-  });
+    return build.result.toUpperCase() !== "SUCCESS"
+  })
   return {
     subject: "Broken Builds",
     status: brokenBuilds.length,
     color: brokenBuildsToColor(brokenBuilds.length),
-  };
+  }
 }
 
 async function buildFixTimeHandler({ hostname, job }: PathArgs) {
-  const response = await jenkinsBuilds({ hostname, job });
+  const response = await jenkinsBuilds({ hostname, job })
 
-  var lastSuccessTime = 0;
-  var lastFailTime = 0;
+  var lastSuccessTime = 0
+  var lastFailTime = 0
 
   for (let index = 0; index < response.builds.length; index++) {
-    const element = response.builds[index];
+    const element = response.builds[index]
     if (element.result.toUpperCase() == "SUCCESS") {
-      lastSuccessTime = element.timestamp;
-      lastFailTime = lastSuccessTime;
+      lastSuccessTime = element.timestamp
+      lastFailTime = lastSuccessTime
     } else {
-      lastFailTime = element.timestamp;
-      break;
+      lastFailTime = element.timestamp
+      break
     }
   }
-  if (lastSuccessTime == 0) lastSuccessTime = new Date().getTime();
-  if (lastFailTime == 0) lastFailTime = lastSuccessTime;
+  if (lastSuccessTime == 0) lastSuccessTime = new Date().getTime()
+  if (lastFailTime == 0) lastFailTime = lastSuccessTime
 
   return {
     subject: "Fix Time",
@@ -104,5 +104,5 @@ async function buildFixTimeHandler({ hostname, job }: PathArgs) {
     color: buildFixTimeToColor(
       ((lastSuccessTime - lastFailTime) / 3600000) | 0
     ),
-  };
+  }
 }
