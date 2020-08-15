@@ -1,6 +1,5 @@
 import millify from 'millify'
 import distanceToNow from 'date-fns/formatDistanceToNow'
-import got from '../libs/got'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 import { queryGitlab, restGitlab } from '../libs/gitlab'
 import { version } from '../libs/utils'
@@ -10,12 +9,30 @@ const removeNoSignFromHexColor = (hexColor: string) => hexColor.replace('#', '')
 export default createBadgenHandler({
   title: 'Gitlab',
   examples: {
-    '/gitlab/stars/fdroid/fdroidclient': 'stars (library)',
-    // '/docker/stars/library/ubuntu': 'stars (library)',
-    // '/docker/size/library/ubuntu': 'size (library)',
-    // '/docker/pulls/amio/node-chrome': 'pulls (scoped)',
-    // '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
-    // '/docker/size/lukechilds/bitcoind/latest/amd64': 'size (scoped/tag/architecture)',
+    '/gitlab/stars/fdroid/fdroidclient': 'stars',
+    '/gitlab/forks/inkscape/inkscape': 'forks',
+    '/gitlab/issues/gitlab-org/gitlab-runner': 'issues',
+    '/gitlab/open-issues/gitlab-org/gitlab-runner': 'issues',
+    '/gitlab/closed-issues/gitlab-org/gitlab-runner': 'issues',
+    '/gitlab/label-issues/NickBusey/HomelabOS/Bug': 'issues by label',
+    '/gitlab/label-issues/NickBusey/HomelabOS/Enhancement/opened': 'open issues by label',
+    '/gitlab/label-issues/NickBusey/HomelabOS/Help%20wanted/closed': 'closed issues by label',
+    '/gitlab/mrs/edouardklein/falsisign': 'MRs',
+    '/gitlab/open-mrs/edouardklein/falsisign': 'open MRs',
+    '/gitlab/closed-mrs/edouardklein/falsisign': 'closed MRs',
+    '/gitlab/merged-mrs/edouardklein/falsisign': 'merged MRs',
+    '/gitlab/branches/gitlab-org%2fgitter/webapp': 'branches',
+    '/gitlab/releases/AuroraOSS/AuroraStore': 'release',
+    '/gitlab/release/veloren/veloren': 'latest release',
+    '/gitlab/tags/commento/commento': 'tags',
+    '/gitlab/contributors/graphviz/graphviz': 'contributors',
+    '/gitlab/license/gitlab-org/omnibus-gitlab': 'license',
+    '/gitlab/commits/cryptsetup/cryptsetup': 'commits count',
+    '/gitlab/commits/cryptsetup/cryptsetup/coverity_scan': 'commits count (branch ref)',
+    '/gitlab/commits/cryptsetup/cryptsetup/v2.2.2': 'commits count (tag ref)',
+    '/gitlab/last-commit/gitlab-org/gitlab-development-kit': 'last commit',
+    '/gitlab/last-commit/gitlab-org/gitlab-development-kit/updating-chromedriver-install-v2': 'last commit (branch ref)',
+    '/gitlab/last-commit/gitlab-org/gitlab-development-kit/v0.2.5': 'last commit (tag ref)',
   },
   handlers: {
     '/gitlab/:topic<stars|forks|issues|open-issues|closed-issues>/:owner/:repo': queryHandler,
@@ -123,10 +140,7 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
 
 
 async function queryHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
-  console.log(topic, owner, repo)
-
   const result = await makeQueryCall({ topic, owner, repo, ...restArgs })
-  console.log(result)
 
   if (!result) {
     return {
@@ -135,8 +149,6 @@ async function queryHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
       color: 'grey'
     }
   }
-
-  console.log(result)
 
   switch (topic) {
     case 'stars':
@@ -161,13 +173,13 @@ async function queryHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
       return {
         subject: 'open issues',
         status: millify(result.openIssuesCount),
-        color: 'orange'
+        color: result.openIssuesCount === 0 ? 'green' : 'orange'
       }
     case 'closed-issues':
       return {
         subject: 'closed issues',
         status: millify(result.issues.count),
-        color: 'orange'
+        color: 'blue'
       }
     case 'label-issues':
       return {
@@ -214,8 +226,6 @@ const makeQueryCall = async ({ topic, owner, repo, ...restArgs }) => {
     }
   }
 `
-
-  console.log(query)
   return queryGitlab(query).then(res => res.data!.project)
 }
 
@@ -241,9 +251,19 @@ const makeRestCall = async ({ topic, owner, repo, ...restArgs }) => {
       restPath = restPaths[topic]
   }
 
-  console.log("wow", restPath)
   return restGitlab(restPath, fullResponsePaths.includes(topic))
 }
 
-const fullResponsePaths = ['mrs', 'open-mrs', 'closed-mrs', 'merged-mrs', 'commits', 'branches', 'releases', 'tags', 'contributors']
+const fullResponsePaths =
+  [
+    'mrs',
+    'open-mrs',
+    'closed-mrs',
+    'merged-mrs',
+    'commits',
+    'branches',
+    'releases',
+    'tags',
+    'contributors'
+  ]
 
