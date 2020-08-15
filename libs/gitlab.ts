@@ -24,7 +24,7 @@ export function restGitlab<T = any>(path: string, fullResponse = false) {
 }
 
 function pickGitlabToken() {
-  const { GITLAB_TOKENS = 'yB_tPPg9V2rNsB1URT4J' } = process.env
+  const { GITLAB_TOKENS } = process.env
   if (!GITLAB_TOKENS) {
     throw new BadgenError({ status: 'token late required' })
   }
