@@ -26,7 +26,7 @@ export function restGitlab<T = any>(path: string, fullResponse = false) {
 function pickGitlabToken() {
   const { GITLAB_TOKENS } = process.env
   if (!GITLAB_TOKENS) {
-    throw new BadgenError({ status: 'token late required' })
+    throw new BadgenError({ status: 'token required' })
   }
   const tokens = GITLAB_TOKENS.split(',').map(segment => segment.trim())
   return rand(tokens)
