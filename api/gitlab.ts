@@ -245,11 +245,7 @@ const makeRestCall = async ({ topic, owner, repo, ...restArgs }) => {
     'license': `/projects/${encodeURIComponent(`${owner}/${repo}`)}?license=true`,
   }
 
-  let restPath
-  switch (topic) {
-    default:
-      restPath = restPaths[topic]
-  }
+  let restPath = restPaths[topic]
 
   return restGitlab(restPath, fullResponsePaths.includes(topic))
 }

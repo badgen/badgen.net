@@ -13,6 +13,7 @@
   "env": {
     "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_DSN": "@badgen-sentry-dsn",
-    "TRACKING_GA": "@badgen-tracking-ga"
+    "TRACKING_GA": "@badgen-tracking-ga",
+    "GITLAB_TOKENS": "@badgen-gl-tokens"
   }
 }
