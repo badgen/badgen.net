@@ -60,6 +60,7 @@ export const liveBadgeList = [
   'runkit',
   'https',
   'jenkins',
+  'liberapay'
 ]
 
 export async function loadBadgeMeta () {
