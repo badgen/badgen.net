@@ -14,5 +14,5 @@ jobs:
         with:
           node-version: 12.x
       - run: echo $GITHUB_SHA > static/sha
-      - run: now --version
-      - run: now -S badgen alias $(now -S badgen --token ${{ secrets.VERCEL_TOKEN }} -c) flat.badgen.net --token ${{ secrets.VERCEL_TOKEN }}
+      - run: vercel --version
+      - run: vercel -S badgen alias $(vercel -S badgen --token ${{ secrets.VERCEL_TOKEN }} -c) flat.badgen.net --token ${{ secrets.VERCEL_TOKEN }}
