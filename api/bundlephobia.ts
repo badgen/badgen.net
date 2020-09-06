@@ -32,7 +32,11 @@ async function handler ({ topic, scope, name }: PathArgs) {
     }
   }
 
-  const { size, gzip, dependencyCount, hasSideEffects } = resp
+  const { size, gzip, dependencyCount, hasJSModule, hasJSNext } = resp
+
+  // Tree-shaking detection condition is copied from bundlephobia.com website. See:
+  // https://github.com/pastelsky/bundlephobia/blob/bundlephobia/pages/result/ResultPage.js
+  const isTreeShakeable = hasJSModule || hasJSNext
 
   switch (topic) {
     case 'min':
@@ -56,8 +60,8 @@ async function handler ({ topic, scope, name }: PathArgs) {
     case 'tree-shaking':
       return {
         subject: 'tree-shaking',
-        status: hasSideEffects ? 'not supported' : 'supported',
-        color: hasSideEffects ? 'red' : 'green'
+        status: isTreeShakeable ? 'supported' : 'not supported',
+        color: isTreeShakeable ? 'green' : 'red'
       }
     default:
       return {
