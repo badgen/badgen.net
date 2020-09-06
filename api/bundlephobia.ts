@@ -49,7 +49,7 @@ async function handler ({ topic, scope, name }: PathArgs) {
       }
     case 'dependency-count':
       return {
-        subject: 'dependency-count',
+        subject: 'dependency count',
         status: dependencyCount,
         color: 'blue'
       }
