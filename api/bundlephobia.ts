@@ -8,6 +8,8 @@ export default createBadgenHandler({
     '/bundlephobia/min/react': 'minified',
     '/bundlephobia/minzip/react': 'minified + gzip',
     '/bundlephobia/minzip/@material-ui/core': '(scoped pkg) minified + gzip',
+    '/bundlephobia/dependency-count/react': 'dependency count',
+    '/bundlephobia/tree-shaking/react-colorful': 'tree-shaking support',
   },
   handlers: {
     '/bundlephobia/:topic/:scope<@.*>/:name': handler,
@@ -30,7 +32,7 @@ async function handler ({ topic, scope, name }: PathArgs) {
     }
   }
 
-  const { size, gzip } = resp
+  const { size, gzip, dependencyCount, hasSideEffects } = resp
 
   switch (topic) {
     case 'min':
@@ -44,6 +46,18 @@ async function handler ({ topic, scope, name }: PathArgs) {
         subject: 'minzipped size',
         status: byteSize(gzip, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
         color: 'blue'
+      }
+    case 'dependency-count':
+      return {
+        subject: 'dependency-count',
+        status: dependencyCount,
+        color: 'blue'
+      }
+    case 'tree-shaking':
+      return {
+        subject: 'tree-shaking',
+        status: hasSideEffects ? 'not supported' : 'supported',
+        color: hasSideEffects ? 'red' : 'green'
       }
     default:
       return {
