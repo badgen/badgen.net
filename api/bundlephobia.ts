@@ -59,7 +59,7 @@ async function handler ({ topic, scope, name }: PathArgs) {
       }
     case 'tree-shaking':
       return {
-        subject: 'tree-shaking',
+        subject: 'tree shaking',
         status: isTreeShakeable ? 'supported' : 'not supported',
         color: isTreeShakeable ? 'green' : 'red'
       }
