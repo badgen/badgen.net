@@ -25,7 +25,7 @@
     "@sentry/integrations": "^5.23.0",
     "@sentry/node": "^5.23.0",
     "badgen": "^3.2.1",
-    "badgen-icons": "^0.16.0",
+    "badgen-icons": "^0.17.0",
     "byte-size": "^6.2.0",
     "cheerio": "^1.0.0-rc.3",
     "chrome-webstore": "^1.4.1",
