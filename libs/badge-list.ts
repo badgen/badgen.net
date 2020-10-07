@@ -50,17 +50,16 @@ export const liveBadgeList = [
   'xo',
   'badgesize',
   'jsdelivr',
-  'dependabot',
   // utilities
   'opencollective',
   'keybase',
   'twitter',
   'mastodon',
   'tidelift',
+  'jenkins',
+  'liberapay',
   'runkit',
   'https',
-  'jenkins',
-  'liberapay'
 ]
 
 export async function loadBadgeMeta () {
