@@ -19,7 +19,8 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, id }: PathArgs) {
-  const meta = await webstore.detail({ id })
+  const apiVersion = '20200914'
+  const meta = await webstore.detail({ id, version: apiVersion })
   switch (topic) {
     case 'v':
       return {
