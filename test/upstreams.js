@@ -17,7 +17,7 @@ async function testUpstreams (tests) {
 }
 
 async function chromeWebStoreVersion () {
-  const expected = '20200420'
+  const expected = '20200924'
   const actual = await chromeWebStore.version()
 
   assert.equal(actual, expected, 'Chrome Web Store api version is bumped')
