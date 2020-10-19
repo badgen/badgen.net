@@ -11,10 +11,11 @@ export default createBadgenHandler({
     '/docker/pulls/amio/node-chrome': 'pulls (scoped)',
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
     '/docker/size/lukechilds/bitcoind/latest/amd64': 'size (scoped/tag/architecture)',
+    '/docker/size/lucashalbert/curl/latest/arm/v6': 'size (scoped/tag/architecture/variant)',
   },
   handlers: {
     '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
-    '/docker/size/:scope/:name/:tag?/:architecture?': sizeHandler
+    '/docker/size/:scope/:name/:tag?/:architecture?/:variant?': sizeHandler
   }
 })
 
@@ -47,9 +48,10 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
   }
 }
 
-async function sizeHandler ({ scope, name, tag, architecture }: PathArgs) {
+async function sizeHandler ({ scope, name, tag, architecture, variant }: PathArgs) {
   tag = tag ? tag : 'latest'
   architecture = architecture ? architecture : 'amd64'
+  variant = variant ? variant : ''
   /* eslint-disable camelcase */
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
   let body = await got(endpoint).json<any>()
@@ -70,13 +72,25 @@ async function sizeHandler ({ scope, name, tag, architecture }: PathArgs) {
     }
   }
 
-  const imageData = tagData.images.find(image => image.architecture === architecture)
+  let imageData = tagData.images.find(image => image.architecture === architecture)
 
   if (!imageData) {
     return {
       subject: 'docker',
       status: 'unknown architecture',
       color: 'grey'
+    }
+  }
+
+  if (variant) {
+    imageData = tagData.images.filter(image => image.architecture === architecture).find(image => image.variant === variant)
+
+    if (!imageData) {
+      return {
+        subject: 'docker',
+        status: 'unknown variant',
+        color: 'grey'
+      }
     }
   }
 
