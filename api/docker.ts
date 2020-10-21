@@ -1,5 +1,6 @@
 import millify from 'millify'
 import got from '../libs/got'
+import { getDockerAuthToken, getDockerFatManifest, getDockerImageManifest } from '../libs/docker'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -12,10 +13,12 @@ export default createBadgenHandler({
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
     '/docker/size/lukechilds/bitcoind/latest/amd64': 'size (scoped/tag/architecture)',
     '/docker/size/lucashalbert/curl/latest/arm/v6': 'size (scoped/tag/architecture/variant)',
+    '/docker/layers/lucashalbert/curl/latest/arm/v6': 'layers (scoped/tag/architecture/variant)',
   },
   handlers: {
     '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
-    '/docker/size/:scope/:name/:tag?/:architecture?/:variant?': sizeHandler
+    '/docker/size/:scope/:name/:tag?/:architecture?/:variant?': sizeHandler,
+    '/docker/layers/:scope/:name/:tag?/:architecture?/:variant?': layersHandler,
   }
 })
 
@@ -99,6 +102,71 @@ async function sizeHandler ({ scope, name, tag, architecture, variant }: PathArg
   return {
     subject: 'docker image size',
     status: `${sizeInMegabytes} MB`,
+    color: 'blue'
+  }
+}
+
+async function layersHandler ({ scope, name, tag, architecture, variant }: PathArgs) {
+  tag = tag ? tag : 'latest'
+  architecture = architecture ? architecture : 'amd64'
+  variant = variant ? variant : ''
+
+  const token = (await getDockerAuthToken(scope, name)).token
+  if (! token) {
+    return {
+      subject: 'docker layers',
+      status: 'unknown image',
+      color: 'grey'
+    }
+  }
+
+  const manifests = (await getDockerFatManifest(scope, name, tag, token)).manifests
+  
+  if (! manifests) {
+    return {
+      subject: 'docker layers',
+      status: 'unknown tag',
+      color: 'grey'
+    }
+  }
+
+  let manifest = manifests.find(manifests => manifests.platform.architecture === architecture)
+
+  if (! manifest) {
+    return {
+      subject: 'docker layers',
+      status: 'unknown architecture',
+      color: 'grey'
+    }
+  }
+
+  if (variant) {
+    manifest = manifests.filter(manifests => manifests.platform.architecture === architecture).find(manifests => manifests.platform.variant === variant)
+
+    if (! manifest) {
+      return {
+        subject: 'docker layers',
+        status: 'unknown variant',
+        color: 'grey'
+      }
+    }
+  }
+
+  const digest = manifest.digest
+
+  const layers = (await getDockerImageManifest(scope, name, digest, token)).layers
+
+  if (! layers) {
+    return {
+      subject: 'docker layers',
+      status: 'error getting layers',
+      color: 'grey'
+    }
+  }
+
+  return {
+    subject: 'docker layers',
+    status: `${layers.length}`,
     color: 'blue'
   }
 }
