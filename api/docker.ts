@@ -1,6 +1,6 @@
 import millify from 'millify'
 import got from '../libs/got'
-import { getDockerAuthToken, getDockerFatManifest, getDockerImageManifest } from '../libs/docker'
+import { getDockerAuthToken, queryDockerRegistry } from '../libs/docker'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -13,12 +13,19 @@ export default createBadgenHandler({
     '/docker/stars/library/mongo?icon=docker&label=stars': 'stars (icon & label)',
     '/docker/size/lukechilds/bitcoind/latest/amd64': 'size (scoped/tag/architecture)',
     '/docker/size/lucashalbert/curl/latest/arm/v6': 'size (scoped/tag/architecture/variant)',
-    '/docker/layers/lucashalbert/curl/latest/arm/v6': 'layers (scoped/tag/architecture/variant)',
+    '/docker/metadata/size/lucashalbert/curl/latest/arm/v6': 'metadata (size)',
+    '/docker/metadata/layers/lucashalbert/curl/latest/arm/v7': 'metadata (layers and size)',
+    '/docker/metadata/layers/lucashalbert/curl/latest/arm/v7?icon=docker&label=layers': 'metadata (layers) [icon & label]',
+    '/docker/metadata/layers/lucashalbert/curl/latest/arm/v7?label=docker%20layers': 'metadata (layers) [label]',
+    '/docker/metadata/version/lucashalbert/curl/latest/arm64/v8': 'metadata (version)',
+    '/docker/metadata/architecture/lucashalbert/curl/latest/arm64/v8': 'metadata (architecture)',
+    '/docker/metadata/build-date/lucashalbert/curl/latest/arm64/v8': 'metadata (build-date)',
+    '/docker/metadata/maintainer/lucashalbert/curl/latest/arm64/v8': 'metadata (maintainer)',
   },
   handlers: {
     '/docker/:topic<stars|pulls>/:scope/:name': starPullHandler,
     '/docker/size/:scope/:name/:tag?/:architecture?/:variant?': sizeHandler,
-    '/docker/layers/:scope/:name/:tag?/:architecture?/:variant?': layersHandler,
+    '/docker/metadata/:type<size|layers|version|architecture|build-date|maintainer>/:scope/:name/:tag?/:architecture?/:variant?': metadataHandler,
   }
 })
 
@@ -106,67 +113,191 @@ async function sizeHandler ({ scope, name, tag, architecture, variant }: PathArg
   }
 }
 
-async function layersHandler ({ scope, name, tag, architecture, variant }: PathArgs) {
+async function metadataHandler ({ type, scope, name, tag, architecture, variant }: PathArgs) {
+  if (!['size', 'layers', 'version', 'architecture', 'build-date', 'maintainer'].includes(type)) {
+    return {
+      subject: 'docker metadata',
+      status: `unknown type: ${type}`,
+      color: 'grey'
+    }
+  }
+
   tag = tag ? tag : 'latest'
   architecture = architecture ? architecture : 'amd64'
   variant = variant ? variant : ''
 
   const token = (await getDockerAuthToken(scope, name)).token
+  
   if (! token) {
     return {
-      subject: 'docker layers',
-      status: 'unknown image',
+      subject: 'docker metadata',
+      status: `unknown image: ${scope}/${name}`,
       color: 'grey'
     }
   }
 
-  const manifests = (await getDockerFatManifest(scope, name, tag, token)).manifests
+  let headers = {
+    authorization: `Bearer ${token}`,
+    accept: `application/vnd.docker.distribution.manifest.list.v2+json`
+  }
+  let path = `v2/${scope}/${name}/manifests/${tag}`
   
-  if (! manifests) {
+  const manifest_list = (await queryDockerRegistry(path, headers)).manifests
+  
+  if (! manifest_list) {
     return {
-      subject: 'docker layers',
-      status: 'unknown tag',
+      subject: `docker image ${type}`,
+      status: `unknown tag: ${tag}`,
       color: 'grey'
     }
   }
 
-  let manifest = manifests.find(manifests => manifests.platform.architecture === architecture)
+  let manifest = manifest_list.find(manifest_list => manifest_list.platform.architecture === architecture)
 
   if (! manifest) {
     return {
-      subject: 'docker layers',
-      status: 'unknown architecture',
+      subject: `docker image ${type}`,
+      status: `unknown architecture: ${architecture}`,
       color: 'grey'
     }
   }
 
   if (variant) {
-    manifest = manifests.filter(manifests => manifests.platform.architecture === architecture).find(manifests => manifests.platform.variant === variant)
+    manifest = manifest_list.filter(manifest_list => manifest_list.platform.architecture === architecture).find(manifest_list => manifest_list.platform.variant === variant)
 
     if (! manifest) {
       return {
-        subject: 'docker layers',
-        status: 'unknown variant',
+        subject: `docker image ${type}`,
+        status: `unknown variant: ${variant}`,
         color: 'grey'
       }
     }
   }
 
-  const digest = manifest.digest
-
-  const layers = (await getDockerImageManifest(scope, name, digest, token)).layers
-
-  if (! layers) {
+  if (! manifest.digest) {
     return {
-      subject: 'docker layers',
-      status: 'error getting layers',
+      subject: `docker image ${type}`,
+      status: 'error getting image digest',
       color: 'grey'
     }
   }
 
-  return {
-    subject: 'docker layers',
-    status: `${layers.length}`,
-    color: 'blue'
+  path = `v2/${scope}/${name}/manifests/${manifest.digest}`
+  const image_manifest = await queryDockerRegistry(path, headers)
+
+  if (! image_manifest) {
+    return {
+      subject: `docker image ${type}`,
+      status: 'error getting image manifest',
+      color: 'grey'
+    }
+  }
+
+  const size = image_manifest.layers.map(layer => layer.size).reduce((accumulator, current) => accumulator + current, 0)
+  const sizeInMegabytes = (size / 1024 / 1024).toFixed(2)
+
+  headers = {
+    authorization: `Bearer ${token}`,
+    accept: `application/vnd.docker.image.config+json`
+  }
+  path = `v2/${scope}/${name}/blobs/${image_manifest.config.digest}`
+  const image_config = await queryDockerRegistry(path, headers)
+
+  if (! image_config) {
+    return {
+      subject: `docker image ${type}`,
+      status: 'error getting image config',
+      color: 'grey'
+    }
+  }
+
+
+  switch (type) {
+    case 'size':
+      return {
+        subject: `docker image ${type}`,
+        status: `${sizeInMegabytes} MB`,
+        color: 'blue'
+      }
+    
+    case 'layers':
+      const layers = image_config.history
+      if (! layers) {
+        return {
+          subject: `docker image ${type}`,
+          status: 'error getting layers',
+          color: 'grey'
+        }
+      }
+
+      return {
+        subject: `${sizeInMegabytes} MB`,
+        status: `${layers.length}`,
+        color: 'blue'
+      }
+
+    case 'version':
+      const version = image_config.container_config.Labels["org.label-schema.version"]
+      if (! version) {
+        return {
+          subject: `docker image ${type}`,
+          status: 'error getting version',
+          color: 'grey'
+        }
+      }
+
+      return {
+        subject: `docker image ${type}`,
+        status: `${version}`,
+        color: 'blue'
+      }
+
+    case 'architecture':
+      const arch = image_config.container_config.Labels["org.label-schema.architecture"]
+      if (! arch) {
+        return {
+          subject: `docker image ${type}`,
+          status: 'error getting architecture',
+          color: 'grey'
+        }
+      }
+
+      return {
+        subject: `docker image ${type}`,
+        status: `${arch}`,
+        color: 'blue'
+      }
+
+    case 'build-date':
+      const build_date = image_config.container_config.Labels["org.label-schema.build-date"]
+      if (! build_date) {
+        return {
+          subject: `docker image ${type}`,
+          status: 'error getting build-date',
+          color: 'grey'
+        }
+      }
+
+      return {
+        subject: `docker image ${type}`,
+        status: `${build_date}`,
+        color: 'blue'
+      }
+
+    case 'maintainer':
+      const maintainer = image_config.container_config.Labels["org.label-schema.maintainer"]
+      if (! maintainer) {
+        return {
+          subject: `docker image ${type}`,
+          status: 'error getting maintainer',
+          color: 'grey'
+        }
+      }
+
+      return {
+        subject: `docker image ${type}`,
+        status: `${maintainer}`,
+        color: 'blue'
+      }
   }
 }
