@@ -1,7 +1,7 @@
 import millify from 'millify'
 import got from '../libs/got'
-import { getDockerAuthToken, queryDockerRegistry } from '../libs/docker'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { getDockerAuthToken, getManifestList, getImageManifest, getImageConfig } from '../libs/docker'
+import { createBadgenHandler, PathArgs, BadgenError } from '../libs/create-badgen-handler'
 
 const help = `## Usage
 
@@ -131,99 +131,18 @@ async function layersHandler ({ scope, name, tag, architecture, variant }: PathA
   tag = tag ? tag : 'latest'
   architecture = architecture ? architecture : 'amd64'
   variant = variant ? variant : ''
-
+  
   const token = (await getDockerAuthToken(scope, name)).token
-  
-  if (! token) {
-    return {
-      subject: 'docker metadata',
-      status: `unknown image: ${scope}/${name}`,
-      color: 'grey'
-    }
-  }
 
-  let headers = {
-    authorization: `Bearer ${token}`,
-    accept: `application/vnd.docker.distribution.manifest.list.v2+json`
-  }
-  let path = `v2/${scope}/${name}/manifests/${tag}`
-  
-  const manifest_list = (await queryDockerRegistry(path, headers)).manifests
-  
-  if (! manifest_list) {
-    return {
-      subject: 'docker layers',
-      status: `unknown tag: ${tag}`,
-      color: 'grey'
-    }
-  }
+  const manifest_list = await getManifestList(scope, name, tag, architecture, variant, token)
 
-  let manifest = manifest_list.find(manifest_list => manifest_list.platform.architecture === architecture)
+  const image_manifest = await getImageManifest(scope, name, manifest_list.digest, token)
 
-  if (! manifest) {
-    return {
-      subject: 'docker layers',
-      status: `unknown architecture: ${architecture}`,
-      color: 'grey'
-    }
-  }
-
-  if (variant) {
-    manifest = manifest_list.filter(manifest_list => manifest_list.platform.architecture === architecture).find(manifest_list => manifest_list.platform.variant === variant)
-
-    if (! manifest) {
-      return {
-        subject: 'docker layers',
-        status: `unknown variant: ${variant}`,
-        color: 'grey'
-      }
-    }
-  }
-
-  if (! manifest.digest) {
-    return {
-      subject: 'docker layers',
-      status: 'error getting image digest',
-      color: 'grey'
-    }
-  }
-
-  path = `v2/${scope}/${name}/manifests/${manifest.digest}`
-  const image_manifest = await queryDockerRegistry(path, headers)
-
-  if (! image_manifest) {
-    return {
-      subject: 'docker layers',
-      status: 'error getting image manifest',
-      color: 'grey'
-    }
-  }
-
-  const size = image_manifest.layers.map(layer => layer.size).reduce((accumulator, current) => accumulator + current, 0)
-  const sizeInMegabytes = (size / 1024 / 1024).toFixed(2)
-
-  headers = {
-    authorization: `Bearer ${token}`,
-    accept: `application/vnd.docker.image.config+json`
-  }
-  path = `v2/${scope}/${name}/blobs/${image_manifest.config.digest}`
-  const image_config = await queryDockerRegistry(path, headers)
-
-  if (! image_config) {
-    return {
-      subject: 'docker layers',
-      status: 'error getting image config',
-      color: 'grey'
-    }
-  }
+  const image_config = await getImageConfig(scope, name, image_manifest.config.digest, token)
 
   const layers = image_config.history
   if (! layers) {
-    return {
-      subject: 'docker layers',
-      status: 'error getting layers',
-      color: 'grey'
-    }
+    throw new BadgenError({ status: `error getting layers` })
   }
 
   return {
@@ -237,96 +156,18 @@ async function metadataHandler ({ type, scope, name, tag, architecture, variant 
   tag = tag ? tag : 'latest'
   architecture = architecture ? architecture : 'amd64'
   variant = variant ? variant : ''
-
+  
   const token = (await getDockerAuthToken(scope, name)).token
-  
-  if (! token) {
-    return {
-      subject: 'docker metadata',
-      status: `unknown image: ${scope}/${name}`,
-      color: 'grey'
-    }
-  }
 
-  let headers = {
-    authorization: `Bearer ${token}`,
-    accept: `application/vnd.docker.distribution.manifest.list.v2+json`
-  }
-  let path = `v2/${scope}/${name}/manifests/${tag}`
-  
-  const manifest_list = (await queryDockerRegistry(path, headers)).manifests
-  
-  if (! manifest_list) {
-    return {
-      subject: `docker ${type}`,
-      status: `unknown tag: ${tag}`,
-      color: 'grey'
-    }
-  }
+  const manifest_list = await getManifestList(scope, name, tag, architecture, variant, token)
 
-  let manifest = manifest_list.find(manifest_list => manifest_list.platform.architecture === architecture)
+  const image_manifest = await getImageManifest(scope, name, manifest_list.digest, token)
 
-  if (! manifest) {
-    return {
-      subject: `docker ${type}`,
-      status: `unknown architecture: ${architecture}`,
-      color: 'grey'
-    }
-  }
-
-  if (variant) {
-    manifest = manifest_list.filter(manifest_list => manifest_list.platform.architecture === architecture).find(manifest_list => manifest_list.platform.variant === variant)
-
-    if (! manifest) {
-      return {
-        subject: `docker ${type}`,
-        status: `unknown variant: ${variant}`,
-        color: 'grey'
-      }
-    }
-  }
-
-  if (! manifest.digest) {
-    return {
-      subject: `docker ${type}`,
-      status: 'error getting image digest',
-      color: 'grey'
-    }
-  }
-
-  path = `v2/${scope}/${name}/manifests/${manifest.digest}`
-  const image_manifest = await queryDockerRegistry(path, headers)
-
-  if (! image_manifest) {
-    return {
-      subject: `docker ${type}`,
-      status: 'error getting image manifest',
-      color: 'grey'
-    }
-  }
-
-  headers = {
-    authorization: `Bearer ${token}`,
-    accept: `application/vnd.docker.image.config+json`
-  }
-  path = `v2/${scope}/${name}/blobs/${image_manifest.config.digest}`
-  const image_config = await queryDockerRegistry(path, headers)
-
-  if (! image_config) {
-    return {
-      subject: `docker ${type}`,
-      status: 'error getting image config',
-      color: 'grey'
-    }
-  }
+  const image_config = await getImageConfig(scope, name, image_manifest.config.digest, token)
 
   const metadata = image_config.container_config.Labels[`org.label-schema.${type}`]
   if (! metadata) {
-    return {
-      subject: `metadata ${type}`,
-      status: `error getting ${type}`,
-      color: 'grey'
-    }
+    throw new BadgenError({ status: `error getting ${type}` })
   }
 
   return {
