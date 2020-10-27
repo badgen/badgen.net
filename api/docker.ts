@@ -227,7 +227,7 @@ async function layersHandler ({ scope, name, tag, architecture, variant }: PathA
   }
 
   return {
-    subject: `${sizeInMegabytes} MB`,
+    subject: 'docker layers',
     status: `${layers.length}`,
     color: 'blue'
   }
