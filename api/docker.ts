@@ -1,7 +1,7 @@
 import millify from 'millify'
 import got from '../libs/got'
 import { getDockerAuthToken, getManifestList, getImageManifest, getImageConfig } from '../libs/docker'
-import { createBadgenHandler, PathArgs, BadgenError } from '../libs/create-badgen-handler'
+import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const help = `## Usage
 
@@ -142,7 +142,11 @@ async function layersHandler ({ scope, name, tag, architecture, variant }: PathA
 
   const layers = image_config.history
   if (! layers) {
-    throw new BadgenError({ status: `error getting layers` })
+    return {
+      subject: 'docker layers',
+      status: 'error getting layers',
+      color: 'grey'
+    }
   }
 
   return {
@@ -167,7 +171,11 @@ async function metadataHandler ({ type, scope, name, tag, architecture, variant 
 
   const metadata = image_config.container_config.Labels[`org.label-schema.${type}`]
   if (! metadata) {
-    throw new BadgenError({ status: `error getting ${type}` })
+    return {
+      subject: 'docker metadata',
+      status: `error getting ${type}`,
+      color: 'grey'
+    }
   }
 
   return {
