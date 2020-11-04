@@ -131,7 +131,7 @@ async function layersHandler ({ scope, name, tag, architecture, variant }: PathA
   tag = tag ? tag : 'latest'
   architecture = architecture ? architecture : 'amd64'
   variant = variant ? variant : ''
-  
+
   const token = (await getDockerAuthToken(scope, name)).token
 
   const manifest_list = await getManifestList(scope, name, tag, architecture, variant, token)
@@ -160,7 +160,7 @@ async function metadataHandler ({ type, scope, name, tag, architecture, variant 
   tag = tag ? tag : 'latest'
   architecture = architecture ? architecture : 'amd64'
   variant = variant ? variant : ''
-  
+
   const token = (await getDockerAuthToken(scope, name)).token
 
   const manifest_list = await getManifestList(scope, name, tag, architecture, variant, token)

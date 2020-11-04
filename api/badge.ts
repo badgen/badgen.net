@@ -36,4 +36,3 @@ async function handler ({ label, status, color }: PathArgs) {
 //       '/badge/platform/ios,macos,tvos?list=|': 'list (custom seprator)'
 //     }
 //   }
-

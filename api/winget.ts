@@ -110,7 +110,7 @@ async function handler ({ topic, appId }: PathArgs) {
     case 'v': {
       const versions = await fetchVersions(appId)
       const ver = last(versions).toString()
-      
+
       return {
         subject: 'winget',
         status: version(ver),
