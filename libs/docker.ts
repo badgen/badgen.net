@@ -9,7 +9,7 @@ export function getDockerAuthToken<T = any>(scope: string, name: string) {
     service: service,
     scope: `repository:${scope}/${name}:pull`
   }
-  
+
   const resp = got.get("token", { prefixUrl, searchParams }).json<T>()
 
   if (! resp) {

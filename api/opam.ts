@@ -59,7 +59,7 @@ async function handler ({ topic, pkg }: PathArgs) {
 
 function getPackageInfo(html: string): PackageInfo {
   const info: PackageInfo = { version: '', license: '', downloads: NaN }
-  
+
   const $ = cheerio.load(html)
   const text = (selector: any) => $(selector).text().trim()
 

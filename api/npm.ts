@@ -83,7 +83,7 @@ async function npmMetadata (pkg: string, ver = 'latest'): Promise<any> {
   }
   const endpoint = `${host}/${pkg}/${ver}`
   return got(endpoint).json<any>()
-  
+
 }
 
 async function pkgJson (pkg: string, tag = 'latest'): Promise<any> {
