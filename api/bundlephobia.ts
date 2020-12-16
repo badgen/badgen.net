@@ -1,5 +1,6 @@
-import byteSize from 'byte-size'
 import got from '../libs/got'
+import { size } from '../libs/utils'
+
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -32,7 +33,13 @@ async function handler ({ topic, scope, name }: PathArgs) {
     }
   }
 
-  const { size, gzip, dependencyCount, hasJSModule, hasJSNext } = resp
+  const {
+    size: bundleSize,
+    gzip: gzipBundleSize,
+    dependencyCount,
+    hasJSModule,
+    hasJSNext
+  } = resp
 
   // Tree-shaking detection condition is copied from bundlephobia.com website. See:
   // https://github.com/pastelsky/bundlephobia/blob/bundlephobia/pages/result/ResultPage.js
@@ -42,13 +49,13 @@ async function handler ({ topic, scope, name }: PathArgs) {
     case 'min':
       return {
         subject: 'minified size',
-        status: byteSize(size, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
+        status: size(bundleSize),
         color: 'blue'
       }
     case 'minzip':
       return {
         subject: 'minzipped size',
-        status: byteSize(gzip, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
+        status: size(gzipBundleSize),
         color: 'blue'
       }
     case 'dependency-count':
