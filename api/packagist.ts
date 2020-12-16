@@ -41,6 +41,10 @@ const license = versions => Object.values(versions).find(v => v.license.length).
 const getVersion = (packageMeta, channel) => {
   const versions = Object.keys(packageMeta.versions).sort(versionCompare)
 
+  if (versions.includes(channel)) {
+    return channel
+  }
+
   let version = ''
 
   switch (channel) {
