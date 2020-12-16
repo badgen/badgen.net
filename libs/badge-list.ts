@@ -29,6 +29,7 @@ export const liveBadgeList = [
   'cocoapods',
   'haxelib',
   'opam',
+  'ctan',
   'scoop',
   'winget',
   'f-droid',
