@@ -7,7 +7,7 @@ export default createBadgenHandler({
   examples: {
     '/mastodon/follow/1': 'followers (mastodon.social)',
     '/mastodon/follow/1/mas.to': 'followers (other Mastodon instance)',
-    '/mastodon/follow/1/pleroma.site': 'followers (Pleroma instance)',
+    '/mastodon/follow/3/anime.website': 'followers (Pleroma instance)',
   },
   handlers: {
     '/mastodon/follow/:userId/:instance?': handler
