@@ -1,5 +1,5 @@
 import got from '../libs/got'
-import { version, versionColor, size } from '../libs/utils'
+import { millify, version, versionColor, size } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const METACPAN_API_URL = 'https://fastapi.metacpan.org/v1/'
@@ -11,10 +11,11 @@ export default createBadgenHandler({
   examples: {
     '/cpan/v/App::cpanminus': 'version',
     '/cpan/license/Perl::Tidy': 'license',
-    '/cpan/size/Moose': 'size'
+    '/cpan/size/Moose': 'size',
+    '/cpan/likes/DBIx::Class': 'likes'
   },
   handlers: {
-    '/cpan/:topic<v|license|size>/:distribution': handler,
+    '/cpan/:topic<v|license|size|likes>/:distribution': handler,
   }
 })
 
@@ -47,5 +48,16 @@ async function handler ({ topic, distribution }: PathArgs) {
         status: size(stat.size),
         color: 'blue'
       }
+    case 'likes': {
+      const url = `https://metacpan.org/release/${distribution}`
+      const html = await got.get(url).text()
+      const likes = Number(html.match(/class="favorite[^"]*?"><span>([^<]+)<\//i)?.[1])
+
+      return {
+        subject: 'likes',
+        status: millify(likes),
+        color: 'green'
+      }
+    }
   }
 }
