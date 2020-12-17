@@ -14,10 +14,9 @@ export default createBadgenHandler({
     '/homebrew/dm/fish': 'monthly downloads',
     '/homebrew/dy/fish': 'yearly downloads',
     '/homebrew/cask/v/atom': 'version',
-    '/homebrew/cask/v/whichspace': 'version'
-    // NOTE: cask analytics are broken
-    // '/homebrew/cask/dm/atom': 'monthly downloads',
-    // '/homebrew/cask/dy/atom': 'yearly downloads'
+    '/homebrew/cask/v/whichspace': 'version',
+    '/homebrew/cask/dm/atom': 'monthly downloads',
+    '/homebrew/cask/dy/atom': 'yearly downloads'
   },
   handlers: {
     '/homebrew/:topic<v|dm|dy>/:pkg': handler,
