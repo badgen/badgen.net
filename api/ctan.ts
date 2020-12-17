@@ -1,5 +1,5 @@
 import got from '../libs/got'
-import { millify, version, versionColor } from '../libs/utils'
+import { stars, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const CTAN_API_URL = 'https://ctan.org/json/2.0/'
@@ -11,10 +11,11 @@ export default createBadgenHandler({
   examples: {
     '/ctan/v/latexindent': 'version',
     '/ctan/license/latexdiff': 'license',
-    '/ctan/rating/pgf-pie': 'rating'
+    '/ctan/rating/pgf-pie': 'rating',
+    '/ctan/stars/pgf-pie': 'stars'
   },
   handlers: {
-    '/ctan/:topic<v|license|rating>/:pkg': handler,
+    '/ctan/:topic<v|license|rating|stars>/:pkg': handler,
   }
 })
 
@@ -39,22 +40,27 @@ async function handler ({ topic, pkg }: PathArgs) {
         color: 'green'
       }
     case 'rating': {
-      const url = 'https://ctan.org/vote/ajaxSummary'
-      const searchParams = { pkg }
-      const html = await got.get(url, { searchParams }).text()
-      const rating = Number(html.match(/<span>.*?([\d.]+)\s/i)?.[1])
-      if (Number.isNaN(rating)) {
-        return {
-          subject: 'rating',
-          status: 'invalid',
-          color: 'grey'
-        }
-      }
+      const rating = await getRating(pkg)
       return {
         subject: 'rating',
-        status: millify(rating),
+        status: `${rating.toFixed(2)}/5`,
+        color: 'green'
+      }
+    }
+    case 'stars': {
+      const rating = await getRating(pkg)
+      return {
+        subject: 'stars',
+        status: stars(rating),
         color: 'green'
       }
     }
   }
+}
+
+async function getRating(pkg: string): Promise<number> {
+  const url = 'https://ctan.org/vote/ajaxSummary'
+  const searchParams = { pkg }
+  const html = await got.get(url, { searchParams }).text()
+  return Number(html.match(/<span>.*?([\d.]+)\s/i)?.[1])
 }
