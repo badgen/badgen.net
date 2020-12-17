@@ -1,6 +1,5 @@
-import byteSize from 'byte-size'
 import got from '../libs/got'
-import { version, versionColor } from '../libs/utils'
+import { version, versionColor, size } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const METACPAN_API_URL = 'https://fastapi.metacpan.org/v1/'
@@ -20,7 +19,7 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, distribution }: PathArgs) {
-  distribution = distribution.replace(/::/g, '-');
+  distribution = distribution.replace(/::/g, '-')
   const {
     license: licenses,
     version: ver,
@@ -35,7 +34,7 @@ async function handler ({ topic, distribution }: PathArgs) {
         color: versionColor(ver)
       }
     case 'license': {
-      const license = licenses.join(' or ');
+      const license = licenses.join(' or ')
       return {
         subject: 'license',
         status: license || 'unknown',
@@ -45,7 +44,7 @@ async function handler ({ topic, distribution }: PathArgs) {
     case 'size':
       return {
         subject: 'distrib size',
-        status: byteSize(stat.size, { units: 'iec' }).toString().replace(/iB\b/, 'B'),
+        status: size(stat.size),
         color: 'blue'
       }
   }
