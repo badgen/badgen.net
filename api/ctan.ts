@@ -15,11 +15,12 @@ export default createBadgenHandler({
     '/ctan/stars/pgf-pie': 'stars'
   },
   handlers: {
-    '/ctan/:topic<v|license|rating|stars>/:pkg': handler,
+    '/ctan/:topic<v|license>/:pkg': apiHandler,
+    '/ctan/:topic<rating|stars>/:pkg': webHandler
   }
 })
 
-async function handler ({ topic, pkg }: PathArgs) {
+async function apiHandler ({ topic, pkg }: PathArgs) {
   const {
     license,
     version: versionInfo,
@@ -39,28 +40,27 @@ async function handler ({ topic, pkg }: PathArgs) {
         status: license || 'unknown',
         color: 'green'
       }
-    case 'rating': {
-      const rating = await getRating(pkg)
+  }
+}
+
+async function webHandler ({ topic, pkg }: PathArgs) {
+  const url = 'https://ctan.org/vote/ajaxSummary'
+  const searchParams = { pkg }
+  const html = await got.get(url, { searchParams }).text()
+  const rating = Number(html.match(/<span>.*?([\d.]+)\s/i)?.[1])
+
+  switch (topic) {
+    case 'rating':
       return {
         subject: 'rating',
         status: `${rating.toFixed(2)}/5`,
         color: 'green'
       }
-    }
-    case 'stars': {
-      const rating = await getRating(pkg)
+    case 'stars':
       return {
         subject: 'stars',
         status: stars(rating),
         color: 'green'
       }
-    }
   }
-}
-
-async function getRating(pkg: string): Promise<number> {
-  const url = 'https://ctan.org/vote/ajaxSummary'
-  const searchParams = { pkg }
-  const html = await got.get(url, { searchParams }).text()
-  return Number(html.match(/<span>.*?([\d.]+)\s/i)?.[1])
 }
