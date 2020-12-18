@@ -2,6 +2,10 @@ import got from '../libs/got'
 import { coverage as cov, coverageColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
+const CODACY_API_URL = 'https://api.codacy.com/'
+
+const client = got.extend({ prefixUrl: CODACY_API_URL })
+
 export default createBadgenHandler({
   title: 'Codacy',
   examples: {
@@ -14,11 +18,6 @@ export default createBadgenHandler({
     '/codacy/:type<coverage|grade>/:projectId/:branch?': handler
   }
 })
-
-const uriBase = 'https://api.codacy.com/project/badge'
-
-const COVERAGE_PERCENTAGE_REGEX = />\s*([\d]+(?:\.[\d]+)?)%\s*<\/text>/
-const GRADE_REGEX = />\s*([ABCDEF])\s*<\/text>/
 
 const COLORS_BY_GRADE = {
   A: '4ac41c',
@@ -34,40 +33,39 @@ const SUBJECT_BY_TYPE = {
   grade: 'code quality'
 }
 
-async function handler ({ type, projectId, branch = 'master' }: PathArgs) {
-  if (projectId) {
-    const svg = await got(`${uriBase}/${type}/${projectId}`,{
-      searchParams: { branch: branch && branch.replace('-', '--') }
-    }).text() || ''
+async function handler ({ type, projectId, branch }: PathArgs) {
+  const searchParams = new URLSearchParams()
+  if (branch) searchParams.append('branch', branch.replace(/-/g, '--'))
+  const endpoint = `project/badge/${type}/${projectId}`
+  const svg = await client.get(endpoint, { searchParams }).text()
 
-    const subject = SUBJECT_BY_TYPE[type] || 'codacy'
+  const subject = SUBJECT_BY_TYPE[type] || 'codacy'
+  const status = svg.match(/\/>\s*<text.*?>([^<]+)<\//i)?.[1].trim() ?? ''
 
-    if (svg) {
-      if (type === 'coverage') {
-        const percentage = svg.match(COVERAGE_PERCENTAGE_REGEX)?.[1]
-
-        if (percentage !== null) {
-          return {
-            subject,
-            status: cov(percentage),
-            color: coverageColor(Number(percentage))
-          }
-        }
-      } else if (type === 'grade') {
-        const grade = svg.match(GRADE_REGEX)?.[1] ?? ''
-
-        return {
-          subject,
-          status: grade,
-          color: COLORS_BY_GRADE[grade] || 'grey'
-        }
+  switch (type) {
+    case 'coverage': {
+      const percentage = parseFloat(status)
+      if (Number.isNaN(percentage)) break
+      return {
+        subject,
+        status: cov(percentage),
+        color: coverageColor(percentage)
       }
     }
-
-    return {
-      subject,
-      status: 'invalid',
-      color: 'grey'
+    case 'grade': {
+      const color = COLORS_BY_GRADE[status]
+      if (!color) break
+      return {
+        subject,
+        status,
+        color
+      }
     }
+  }
+
+  return {
+    subject,
+    status: 'invalid',
+    color: 'grey'
   }
 }
