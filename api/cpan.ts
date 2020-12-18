@@ -11,15 +11,17 @@ export default createBadgenHandler({
   examples: {
     '/cpan/v/App::cpanminus': 'version',
     '/cpan/license/Perl::Tidy': 'license',
+    '/cpan/perl/Plack': 'perl version',
     '/cpan/size/Moose': 'size',
     '/cpan/likes/DBIx::Class': 'likes'
   },
   handlers: {
-    '/cpan/:topic<v|license|size|likes>/:distribution': handler,
+    '/cpan/:topic<v|license|size>/:distribution': apiHandler,
+    '/cpan/:topic<perl|likes>/:distribution': webHandler
   }
 })
 
-async function handler ({ topic, distribution }: PathArgs) {
+async function apiHandler ({ topic, distribution }: PathArgs) {
   distribution = distribution.replace(/::/g, '-')
   const {
     license: licenses,
@@ -48,11 +50,25 @@ async function handler ({ topic, distribution }: PathArgs) {
         status: size(stat.size),
         color: 'blue'
       }
-    case 'likes': {
-      const url = `https://metacpan.org/release/${distribution}`
-      const html = await got.get(url).text()
-      const likes = Number(html.match(/class="favorite[^"]*?"><span>([^<]+)<\//i)?.[1])
+  }
+}
 
+async function webHandler ({ topic, distribution }: PathArgs) {
+  distribution = distribution.replace(/::/g, '-')
+  const url = `https://metacpan.org/release/${distribution}`
+  const html = await got.get(url).text()
+
+  switch (topic) {
+    case 'perl': {
+      const perlVersion = html.match(/>Perl:\s*([^<]+?)\s*<\//i)?.[1] ?? ''
+      return {
+        subject: 'perl',
+        status: version(perlVersion),
+        color: versionColor(perlVersion)
+      }
+    }
+    case 'likes': {
+      const likes = Number(html.match(/class="favorite[^"]*?"><span>([^<]+)<\//i)?.[1])
       return {
         subject: 'likes',
         status: millify(likes),
