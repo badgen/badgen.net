@@ -1,5 +1,5 @@
 import got from '../libs/got'
-import { version, versionColor } from '../libs/utils'
+import { stars, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const CTAN_API_URL = 'https://ctan.org/json/2.0/'
@@ -10,19 +10,22 @@ export default createBadgenHandler({
   title: 'CTAN',
   examples: {
     '/ctan/v/latexindent': 'version',
-    '/ctan/license/latexdiff': 'license'
+    '/ctan/license/latexdiff': 'license',
+    '/ctan/rating/pgf-pie': 'rating',
+    '/ctan/stars/pgf-pie': 'stars'
   },
   handlers: {
-    '/ctan/:topic<v|license>/:pkg': handler,
+    '/ctan/:topic<v|license>/:pkg': apiHandler,
+    '/ctan/:topic<rating|stars>/:pkg': webHandler
   }
 })
 
-async function handler ({ topic, pkg }: PathArgs) {
+async function apiHandler ({ topic, pkg }: PathArgs) {
   const {
     license,
     version: versionInfo,
   } = await client.get(`pkg/${pkg}`).json<any>()
-  const { number: ver } = versionInfo;
+  const { number: ver } = versionInfo
 
   switch (topic) {
     case 'v':
@@ -35,6 +38,28 @@ async function handler ({ topic, pkg }: PathArgs) {
       return {
         subject: 'license',
         status: license || 'unknown',
+        color: 'green'
+      }
+  }
+}
+
+async function webHandler ({ topic, pkg }: PathArgs) {
+  const url = 'https://ctan.org/vote/ajaxSummary'
+  const searchParams = { pkg }
+  const html = await got.get(url, { searchParams }).text()
+  const rating = Number(html.match(/<span>.*?([\d.]+)\s/i)?.[1])
+
+  switch (topic) {
+    case 'rating':
+      return {
+        subject: 'rating',
+        status: `${rating.toFixed(2)}/5`,
+        color: 'green'
+      }
+    case 'stars':
+      return {
+        subject: 'stars',
+        status: stars(rating),
         color: 'green'
       }
   }
