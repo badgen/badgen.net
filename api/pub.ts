@@ -1,6 +1,5 @@
-import cheerio from 'cheerio'
 import got from '../libs/got'
-import { millify, version, versionColor } from '../libs/utils'
+import { version, versionColor } from '../libs/utils'
 import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badgen-handler'
 
 const PUB_REPO_URL = 'https://pub.dev/'
@@ -48,24 +47,19 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
 
 async function webHandler({ topic, pkg }: PathArgs) {
   const html = await fetchPage(pkg)
-  const $ = cheerio.load(html)
-
-  const text = (el: any) => $(el).text().trim()
 
   switch (topic) {
     case 'likes': {
-      const likes = parseInt(text('#likes-count'), 10)
+      const likes = html.match(/id="likes-count">([^<]+)</i)?.[1].trim() ?? ''
       return {
         subject: 'likes',
-        status: millify(likes),
+        status: likes,
         color: 'green'
       }
     }
     case 'dart-platform': {
-      const platforms = $('.-pub-tag-badge .tag-badge-main')
-        .filter((_, el) => text(el).toLowerCase() === 'dart')
-        .nextAll('.tag-badge-sub')
-        .map((_, el) => text(el)).get()
+      const platforms = [...html.matchAll(/class="tag-badge-sub" title=".*?\bDart\b.*?">([^<]+)<\//ig)]
+        .map(match => match[1].trim())
         .join(' | ')
 
       return {
@@ -75,10 +69,8 @@ async function webHandler({ topic, pkg }: PathArgs) {
       }
     }
     case 'flutter-platform': {
-      const platforms = $('.-pub-tag-badge .tag-badge-main')
-        .filter((_, el) => text(el).toLowerCase() === 'flutter')
-        .nextAll('.tag-badge-sub')
-        .map((_, el) => text(el)).get()
+      const platforms = [...html.matchAll(/class="tag-badge-sub" title=".*?\bFlutter\b.*?">([^<]+)<\//ig)]
+        .map(match => match[1].trim())
         .join(' | ')
 
       return {
@@ -88,12 +80,7 @@ async function webHandler({ topic, pkg }: PathArgs) {
       }
     }
     case 'license': {
-      const $license = $('.title')
-        .filter((_, el) => text(el).toLowerCase() === 'license')
-        .next('p')
-
-      const [license] = text($license).split(/\s+\(LICENSE/)
-
+      const license = html.match(/License<\/h3>\s*<p>([^(]+)\(/i)?.[1].trim()
       return {
         subject: 'license',
         status: license || 'unknown',
