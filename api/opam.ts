@@ -1,15 +1,8 @@
-import cheerio from 'cheerio'
 import got from '../libs/got'
 import { millify, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const OPAM_REPO_URL = 'https://opam.ocaml.org/packages/'
-
-type PackageInfo = {
-  version: string,
-  license: string,
-  downloads: number
-}
 
 export default createBadgenHandler({
   title: 'OCaml Package Manager',
@@ -26,14 +19,10 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pkg }: PathArgs) {
   const html = await got(pkg, { prefixUrl: OPAM_REPO_URL }).text()
-  const {
-    downloads,
-    license,
-    version: ver
-  } = await getPackageInfo(html)
 
   switch (topic) {
     case 'v': {
+      const ver = html.match(/class="package-version">([^<]+)<\//i)?.[1] ?? ''
       return {
         subject: 'opam',
         status: version(ver),
@@ -41,6 +30,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'license': {
+      const license = html.match(/<th>license<\/th>\s*<td>([^<]+)<\//i)?.[1] ?? ''
       return {
         subject: 'license',
         status: license || 'unknown',
@@ -48,6 +38,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dm': {
+      const downloads = Number(html.match(/<th>statistics<\/th>\s*<td>installed\s*<strong>([^<]+)<\//i)?.[1])
       return {
         subject: 'downloads',
         status: millify(downloads) + '/month',
@@ -55,24 +46,4 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
   }
-}
-
-function getPackageInfo(html: string): PackageInfo {
-  const info: PackageInfo = { version: '', license: '', downloads: NaN }
-
-  const $ = cheerio.load(html)
-  const text = (selector: any) => $(selector).text().trim()
-
-  info.version = text($('.package-version').first())
-  $('.package-info th').filter((_, el) => {
-    const $el = $(el)
-    const label = text($el).toLowerCase()
-    if (label === 'license') {
-      info.license = text($el.next())
-    } else if (label === 'statistics') {
-      info.downloads = parseInt(text($el.next().find('strong')), 0)
-    }
-    return !info.license && isNaN(info.downloads)
-  })
-  return info
 }
