@@ -1,10 +1,6 @@
 name: lint and build
 
-on:
-  push:
-  pull_request:
-    branches:
-    - '**:**'
+on: pull_request
 
 jobs:
   build:
