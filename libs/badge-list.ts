@@ -25,6 +25,7 @@ export const liveBadgeList = [
   'apm',
   'hackage',
   'vs-marketplace',
+  'melpa',
   'maven',
   'cocoapods',
   'haxelib',
