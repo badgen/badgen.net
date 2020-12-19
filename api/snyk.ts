@@ -1,4 +1,3 @@
-import cheerio from 'cheerio'
 import got from '../libs/got'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -14,28 +13,16 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({ user, repo, branch = 'master', targetFile }: PathArgs) {
-  const badgeUrl = `https://snyk.io/test/github/${user}/${repo}/${branch}/badge.svg`
+async function handler ({ user, repo, branch, targetFile }: PathArgs) {
+  const path = [user, repo, branch].filter(Boolean).join('/')
+  const badgeUrl = `https://snyk.io/test/github/${path}/badge.svg`
   const searchParams = new URLSearchParams()
   if (targetFile) searchParams.set('targetFile', targetFile)
-  const svg = await got(badgeUrl, { searchParams }).text()
-  const $ = cheerio.load(svg, { xmlMode: true })
+  const svg = await got(badgeUrl, { searchParams, timeout: 3500 }).text()
 
-  const $color = $('g[mask] path')
-    .filter((_, el) => el.attribs.d?.startsWith('M90'))
-    .first()
-
-  const $subject = $('g text')
-    .filter((_, el) => parseInt(el.attribs.x, 10) === 45)
-    .first()
-
-  const $status = $('g text')
-    .filter((_, el) => parseInt(el.attribs.x, 10) === 100)
-    .first()
-
-  const subject = $subject.text().trim() || 'vulnerabilities'
-  const status = $status.text().trim()
-  const color = ($color.attr('fill')?.trim() || '').replace(/^#/, '')
+  const subject = svg.match(/<text x="45"[^>]*?>([^<]+)<\//i)?.[1].trim()
+  const status = svg.match(/<text x="100"[^>]*?>([^<]+)<\//i)?.[1].trim()
+  const color = svg.match(/<path fill="([^"]+)" d="M90/i)?.[1].trim()
 
   if (!status || !color) {
     const context = [
@@ -45,5 +32,9 @@ async function handler ({ user, repo, branch = 'master', targetFile }: PathArgs)
     throw new Error(`Unknown Synk status: ${context}`)
   }
 
-  return { subject, status, color }
+  return {
+    subject: subject || 'vulnerabilities',
+    status,
+    color: color.replace(/^#/, '')
+  }
 }
