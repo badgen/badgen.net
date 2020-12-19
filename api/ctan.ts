@@ -22,7 +22,7 @@ async function handler ({ topic, pkg }: PathArgs) {
     license,
     version: versionInfo,
   } = await client.get(`pkg/${pkg}`).json<any>()
-  const { number: ver } = versionInfo;
+  const { number: ver } = versionInfo
 
   switch (topic) {
     case 'v':
