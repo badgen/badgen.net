@@ -36,6 +36,7 @@ export const liveBadgeList = [
   'winget',
   'f-droid',
   'pub',
+  'wapm',
   // CI
   'travis',
   'circleci',
