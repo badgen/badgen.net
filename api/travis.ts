@@ -12,16 +12,17 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({ user, repo, branch = 'master' }: PathArgs) {
-  const com = `https://api.travis-ci.com/${user}/${repo}.svg?branch=${branch}`
-  const org = `https://api.travis-ci.org/${user}/${repo}.svg?branch=${branch}`
+async function handler ({ user, repo, branch }: PathArgs) {
+  const badgePath = `${user}/${repo}.svg`
+  const searchParams = new URLSearchParams()
+  if (branch) searchParams.append('branch', branch)
   const [svg1, svg2] = await Promise.all([
-    got(com).text(),
-    got(org).text()
+    got(badgePath, { prefixUrl: 'https://api.travis-ci.com', searchParams }).text(),
+    got(badgePath, { prefixUrl: 'https://api.travis-ci.org', searchParams }).text()
   ])
 
-  const result = statuses.find(st => {
-    return (svg1 && svg1.includes(st[0])) || (svg2 && svg2.includes(st[0]))
+  const result = statuses.find(([status]) => {
+    return svg1?.includes(status) || svg2?.includes(status)
   })
 
   if (result) {

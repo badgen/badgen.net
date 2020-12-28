@@ -2,3 +2,4 @@
 .github
 node_modules
 dist
+.git

@@ -1,5 +1,5 @@
 import millify from 'millify'
-import webstore from 'chrome-webstore'
+import ChromeWebStore from 'webextension-store-meta/lib/chrome-web-store'
 import { version, versionColor, stars } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
@@ -19,42 +19,44 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, id }: PathArgs) {
-  const meta = await webstore.detail({ id })
+  const chromeWebStore = await ChromeWebStore.load({ id })
   switch (topic) {
-    case 'v':
+    case 'v': {
+      const v = chromeWebStore.version()
       return {
         subject: 'chrome web store',
-        status: version(meta.version),
-        color: versionColor(meta.version)
+        status: version(v),
+        color: versionColor(v)
       }
+    }
     case 'users':
       return {
         subject: 'users',
-        status: millify(parseInt(meta.users.replace(/,/g, ''))),
+        status: millify(chromeWebStore.users()),
         color: 'green'
       }
     case 'price':
       return {
         subject: 'price',
-        status: meta.price,
+        status: `${chromeWebStore.price()} ${chromeWebStore.priceCurrency()}`,
         color: 'green'
       }
     case 'rating':
       return {
         subject: 'rating',
-        status: `${Number(meta.rating.average).toFixed(2)}/5`,
+        status: `${chromeWebStore.ratingValue().toFixed(2)}/5`,
         color: 'green'
       }
     case 'stars':
       return {
         subject: 'stars',
-        status: stars(meta.rating.average),
+        status: stars(chromeWebStore.ratingValue()),
         color: 'green'
       }
     case 'rating-count':
       return {
         subject: 'rating count',
-        status: `${meta.rating.count} total`,
+        status: `${chromeWebStore.ratingCount()} total`,
         color: 'green'
       }
     default:

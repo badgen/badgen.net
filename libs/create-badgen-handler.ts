@@ -3,6 +3,7 @@ import matchRoute from 'my-way'
 import urlParse from 'url-parse'
 import { measure } from 'measurement-protocol'
 
+import got from './got'
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
 import serveDoc from './serve-doc'
@@ -51,30 +52,41 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
       return res.end()
     }
 
-    // Match handler
-    let matchedArgs: ReturnType<typeof matchRoute> = null
-    const matchedScheme = Object.keys(conf.handlers).find(scheme => {
-      return matchedArgs = matchRoute(scheme, decodeURI(pathname))
-    })
-
-    // Serve docs
-    if (!matchedScheme) {
-      if (matchRoute('/:name', url)) {
-        return serveDoc(conf)(req, res)
-      } else {
-        return serve404(req, res)
-      }
-    }
-
     const defaultLabel = pathname.split('/')[1]
+
     const defaultParams = {
       subject: defaultLabel,
       status: 'unknown',
       color: 'grey'
     }
 
-    // Serve badge
     try {
+      // Match handler
+      let matchedArgs: ReturnType<typeof matchRoute> = null
+      const matchedScheme = Object.keys(conf.handlers).find(scheme => {
+        return matchedArgs = matchRoute(scheme, decodeURI(pathname))
+      })
+
+      if (!matchedScheme) {
+        // Serve docs
+        if (matchRoute('/:name', url)) {
+          return serveDoc(conf)(req, res)
+        }
+
+        // handle PUT requests
+        if (req.method === 'PUT') {
+          const memoArgs = matchRoute('/memo/:name/:label/:status/:color?', url)
+          if (memoArgs) {
+            const memoApi = `https://badgen-store.amio.workers.dev/${url.substr(6)}`
+            const putResult = await got.put(memoApi).text()
+            return res.end(putResult)
+          }
+        }
+
+        return serve404(req, res)
+      }
+
+      // Invoke badge handler
       const badgeParamsPromise = conf.handlers[matchedScheme](matchedArgs || {})
 
       let iconPromise: Promise<string | undefined> = Promise.resolve(undefined)
@@ -185,10 +197,10 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 }
 
 const { TRACKING_GA, NOW_REGION } = process.env
-const tracker = TRACKING_GA && measure(TRACKING_GA).setCustomDimension([NOW_REGION || 'unknown'])
+const tracker = TRACKING_GA && measure(TRACKING_GA).setCustomDimensions([NOW_REGION || 'unknown'])
 
 async function measurementLogInvocation (host: string, urlPath: string) {
-  tracker && tracker.pageview({ dh: host, dp: urlPath}).send()
+  tracker && tracker.pageview({ host, path: urlPath}).send()
 }
 
 async function measurementLogError (category: string, action: string, label?: string, value?: number) {

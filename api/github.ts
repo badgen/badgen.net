@@ -2,8 +2,9 @@ import cheerio from 'cheerio'
 import distanceToNow from 'date-fns/formatDistanceToNow'
 
 import got from '../libs/got'
-import { version, millify } from '../libs/utils'
-import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badgen-handler'
+import { restGithub, queryGithub } from '../libs/github'
+import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { version, millify, coverageColor } from '../libs/utils'
 
 export default createBadgenHandler({
   title: 'GitHub',
@@ -19,11 +20,12 @@ export default createBadgenHandler({
     '/github/checks/node-formidable/node-formidable/master/ubuntu?label=linux': 'single checks (linux)',
     '/github/checks/node-formidable/node-formidable/master/windows': 'single checks (windows)',
     '/github/checks/node-formidable/node-formidable/master/macos': 'single checks (macos)',
-    '/github/status/micromatch/micromatch': 'combined statuses (default branch)',
+    '/github/checks/styfle/packagephobia/main': 'combined checks (branch)',
+    '/github/status/micromatch/micromatch': 'combined statuses (master branch)',
     '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
     '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
     '/github/status/micromatch/micromatch/4.0.1': 'combined statuses (tag)',
-    '/github/status/facebook/react/master/ci/circleci:%20lint': 'single status',
+    '/github/status/facebook/react/master/ci/circleci:%20yarn_test': 'single status',
     '/github/status/zeit/hyper/master/ci': 'combined statuses (ci*)',
     '/github/status/zeit/hyper/master/ci/circleci': 'combined statuses (ci/circleci*)',
     '/github/status/zeit/hyper/master/ci/circleci:%20build': 'single status',
@@ -39,6 +41,7 @@ export default createBadgenHandler({
     '/github/open-prs/micromatch/micromatch': 'open PRs',
     '/github/closed-prs/micromatch/micromatch': 'closed PRs',
     '/github/merged-prs/micromatch/micromatch': 'merged PRs',
+    '/github/milestones/chrislgarry/Apollo-11/1': 'milestone percentage',
     '/github/commits/micromatch/micromatch': 'commits count',
     '/github/commits/micromatch/micromatch/gh-pages': 'commits count (branch ref)',
     '/github/commits/micromatch/micromatch/4.0.1': 'commits count (tag ref)',
@@ -49,11 +52,12 @@ export default createBadgenHandler({
     '/github/releases/micromatch/micromatch': 'releases',
     '/github/tags/micromatch/micromatch': 'tags',
     '/github/license/micromatch/micromatch': 'license',
-    '/github/contributors/micromatch/micromatch': 'contributers',
+    '/github/contributors/micromatch/micromatch': 'contributors',
     '/github/assets-dl/electron/electron': 'assets downloads for latest release',
     '/github/assets-dl/electron/electron/v7.0.0': 'assets downloads for a tag',
     '/github/dependents-repo/micromatch/micromatch': 'repository dependents',
     '/github/dependents-pkg/micromatch/micromatch': 'package dependents',
+    '/github/dependabot/ubuntu/yaru': 'dependabot status',
   },
   handlers: {
     '/github/:topic<watchers|stars|forks|branches|releases|tags|tag|license>/:owner/:repo': repoStats,
@@ -68,41 +72,12 @@ export default createBadgenHandler({
     '/github/status/:owner/:repo/:ref?': status,
     '/github/status/:owner/:repo/:ref/:context+': status,
     '/github/contributors/:owner/:repo': contributors,
+    '/github/milestones/:owner/:repo/:milestone_number': milestones,
     '/github/dependents-repo/:owner/:repo': dependents('REPOSITORY'),
     '/github/dependents-pkg/:owner/:repo': dependents('PACKAGE'),
+    '/github/dependabot/:owner/:repo': dependabotStatus,
   }
 })
-
-const pickGithubToken = () => {
-  const { GH_TOKENS } = process.env
-  if (!GH_TOKENS) {
-    throw new BadgenError({
-      status: 'token required'
-    })
-  }
-
-  const tokens = GH_TOKENS.split(',')
-  return tokens[Math.floor(Math.random() * tokens.length)]
-}
-
-// request github api v3 (rest)
-const restGithub = (path, preview = 'hellcat') => got.get(`https://api.github.com/${path}`, {
-  headers: {
-    Authorization: `token ${pickGithubToken()}`,
-    Accept: `application/vnd.github.${preview}-preview+json`
-  }
-}).json<any>()
-
-// request github api v4 (graphql)
-const queryGithub = query => {
-  return got.post('https://api.github.com/graphql', {
-    json: { query },
-    headers: {
-      Authorization: `token ${pickGithubToken()}`,
-      Accept: 'application/vnd.github.hawkgirl-preview+json'
-    }
-  }).json<any>()
-}
 
 // https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
 const statesColor = {
@@ -115,13 +90,19 @@ const statesColor = {
 
 function combined (states: Array<any>, stateKey: string = 'state') {
   if (states.length === 0) return 'unknown'
+
   if (states.find(x => x[stateKey] === 'error')) return 'error'
   if (states.find(x => x[stateKey] === 'failure')) return 'failure'
   if (states.find(x => x[stateKey] === 'pending')) return 'pending'
-  if (states.every(x => x[stateKey] === 'success')) return 'success'
+
+  const succeeded = states
+    .filter(x => x[stateKey] !== 'cancelled')
+    .every(x => x[stateKey] === 'success')
+
+  if (succeeded) return 'success'
 
   // this shouldn't happen, but in case it happens
-  throw new Error(`Unknown states: ${states.map(x => x.state).join()}`)
+  throw new Error(`Unknown states: ${states.map(x => x[stateKey]).join()}`)
 }
 
 async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
@@ -159,7 +140,7 @@ async function status ({ owner, repo, ref = 'master', context }: PathArgs) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
   let state = typeof context === 'string'
-    ? resp!.statuses.filter(st => st.context.startsWith(context))
+    ? resp!.statuses.filter(st => st.context.toLowerCase().includes(context.toLowerCase()))
     : resp!.state
 
   if (Array.isArray(state)) {
@@ -242,6 +223,41 @@ async function downloads ({ owner, repo, tag }: PathArgs) {
     subject: 'downloads',
     status: millify(downloadCount),
     color: 'green'
+  }
+}
+
+async function milestones ({ owner, repo, milestone_number }: PathArgs) {
+  const milestone = await restGithub(`repos/${owner}/${repo}/milestones/${milestone_number}`)
+
+  if (!milestone) {
+    return {
+      subject: 'milestones',
+      status: 'no milestone',
+      color: 'grey'
+    }
+  }
+
+  const openIssues = milestone.open_issues
+  const totalIssues = openIssues + milestone.closed_issues
+  const percentage = totalIssues === 0 ? 0 : 100 - ((openIssues / totalIssues) * 100)
+
+  return {
+    subject: milestone.title,
+    status: `${Math.floor(percentage)}%`,
+    color: coverageColor(percentage)
+  }
+}
+
+async function dependabotStatus({ owner, repo }: PathArgs) {
+  // Since there is no API to get dependabot status, for now check if file exists
+  const status = await restGithub(`repos/${owner}/${repo}/contents/.github/dependabot.yml`)
+
+  if (status) {
+    return {
+      subject: 'dependabot',
+      status: 'Active',
+      color: 'green'
+    }
   }
 }
 

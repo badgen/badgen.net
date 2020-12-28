@@ -7,6 +7,7 @@ const rel = (...args) => path.resolve(__dirname, ...args)
 export const liveBadgeList = [
   // source control
   'github',
+  'gitlab',
   // release registries
   'npm',
   'david',
@@ -24,6 +25,17 @@ export const liveBadgeList = [
   'apm',
   'hackage',
   'vs-marketplace',
+  'melpa',
+  'maven',
+  'cocoapods',
+  'haxelib',
+  'opam',
+  'cpan',
+  'ctan',
+  'scoop',
+  'winget',
+  'f-droid',
+  'pub',
   // CI
   'travis',
   'circleci',
@@ -34,16 +46,21 @@ export const liveBadgeList = [
   'codeclimate',
   'azure-pipelines',
   // quality & metrics
+  'snyk',
   'lgtm',
+  'deepscan',
   'uptime-robot',
   'xo',
   'badgesize',
   'jsdelivr',
-  'dependabot',
   // utilities
   'opencollective',
   'keybase',
   'twitter',
+  'mastodon',
+  'tidelift',
+  'jenkins',
+  'liberapay',
   'runkit',
   'https',
 ]
