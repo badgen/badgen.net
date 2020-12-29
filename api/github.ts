@@ -13,7 +13,13 @@ export default createBadgenHandler({
     '/github/release/babel/babel/stable': 'latest stable release',
     '/github/tag/micromatch/micromatch': 'latest tag',
     '/github/watchers/micromatch/micromatch': 'watchers',
-    '/github/checks/tunnckoCore/opensource': 'combined checks (master branch)',
+    '/github/checks/tunnckoCore/opensource': 'combined checks (default branch)',
+    '/github/checks/node-formidable/node-formidable': 'combined checks (default branch)',
+    '/github/checks/node-formidable/node-formidable/master/lint': 'single checks (lint job)',
+    '/github/checks/node-formidable/node-formidable/master/test': 'single checks (test job)',
+    '/github/checks/node-formidable/node-formidable/master/ubuntu?label=linux': 'single checks (linux)',
+    '/github/checks/node-formidable/node-formidable/master/windows': 'single checks (windows)',
+    '/github/checks/node-formidable/node-formidable/master/macos': 'single checks (macos)',
     '/github/checks/styfle/packagephobia/main': 'combined checks (branch)',
     '/github/status/micromatch/micromatch': 'combined statuses (master branch)',
     '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
@@ -62,6 +68,7 @@ export default createBadgenHandler({
     '/github/:topic<dt|assets-dl>/:owner/:repo/:tag?': downloads, // `dt` is deprecated
     '/github/release/:owner/:repo/:channel?': release,
     '/github/checks/:owner/:repo/:ref?': checks,
+    '/github/checks/:owner/:repo/:ref/:context+': checks,
     '/github/status/:owner/:repo/:ref?': status,
     '/github/status/:owner/:repo/:ref/:context+': status,
     '/github/contributors/:owner/:repo': contributors,
@@ -98,14 +105,34 @@ function combined (states: Array<any>, stateKey: string = 'state') {
   throw new Error(`Unknown states: ${states.map(x => x[stateKey]).join()}`)
 }
 
-async function checks ({ owner, repo, ref = 'master'}: PathArgs) {
+async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`, 'antiope')
-  const status = combined(resp.check_runs, 'conclusion')
 
-  return {
-    subject: 'checks',
-    status: status,
-    color: statesColor[status]
+  let state = typeof context === 'string'
+    ? resp!.check_runs.filter(check => {
+      const checkName = check.name.toLowerCase().includes(context.toLowerCase())
+      const appName = check.app.slug.toLowerCase().includes(context.toLowerCase())
+
+      return checkName || appName
+    })
+    : resp!.check_runs
+
+  if (Array.isArray(state)) {
+    state = combined(state, 'conclusion')
+  }
+
+  if (state) {
+    return {
+      subject: context || 'checks',
+      status: state,
+      color: statesColor[state]
+    }
+  } else {
+    return {
+      subject: 'checks',
+      status: 'unknown',
+      color: 'grey'
+    }
   }
 }
 
