@@ -50,7 +50,7 @@ async function webHandler({ topic, pkg }: PathArgs) {
 
   switch (topic) {
     case 'likes': {
-      const likes = html.match(/id="likes-count">([^<]+)</i)?.[1].trim() ?? ''
+      const likes = html.match(/id="likes-count">([^<]+)<\//i)?.[1].trim() ?? ''
       return {
         subject: 'likes',
         status: likes,
