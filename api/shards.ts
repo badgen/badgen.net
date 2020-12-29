@@ -10,7 +10,6 @@ export default createBadgenHandler({
   title: 'Crystal shards',
   examples: {
     '/shards/v/kemal': 'version',
-    '/shards/v/crinja': 'version',
     '/shards/license/clear': 'license',
     '/shards/crystal/amber': 'crystal version',
     '/shards/dependents/lucky': 'dependents'
