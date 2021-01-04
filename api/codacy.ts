@@ -36,7 +36,7 @@ const SUBJECT_BY_TYPE = {
 
 async function handler ({ type, projectId, branch }: PathArgs) {
   const searchParams = new URLSearchParams()
-  if (branch) searchParams.append('branch', branch.replace(/-/g, '--'))
+  if (branch) searchParams.append('branch', branch)
   const endpoint = `project/badge/${type}/${projectId}`
   const svg = await client.get(endpoint, { searchParams }).text()
 
