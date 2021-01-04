@@ -64,16 +64,18 @@ export default createBadgenHandler({
   title: 'With RunKit Endpoint',
   help,
   examples: {
-    '/runkit/satisfaction-flq08o9mm3ka/102909/topic': 'satisfaction (topic)',
-    '/runkit/satisfaction-flq08o9mm3ka/102909/people': 'satisfaction (people)',
-    '/runkit/satisfaction-flq08o9mm3ka/102909/employee': 'satisfaction (employ)',
+    // https://metaweather-s9grean9ustv.runkit.sh → https://runkit.com/vladimyr/metaweather
+    '/runkit/metaweather-s9grean9ustv/44418/state': 'metaweather (state)',
+    '/runkit/metaweather-s9grean9ustv/44418/temperature': 'metaweather (temperature)',
+    '/runkit/metaweather-s9grean9ustv/44418/wind': 'metaweather (wind)',
+    '/runkit/metaweather-s9grean9ustv/44418/humidity': 'metaweather (humidity)',
   },
   handlers: {
     '/runkit/:endpoint-id/:path*': handler
   }
 })
 
-async function handler ({ 'endpoint-id': id, path }: PathArgs) {
-  const endpoint = `https://${id}.runkit.sh/${path || ''}`
+async function handler ({ 'endpoint-id': id, path = '' }: PathArgs) {
+  const endpoint = `https://${id}.runkit.sh/${path}`
   return await got(endpoint).json<any>()
 }
