@@ -2,9 +2,12 @@ import got from '../libs/got'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const help = `
-    https://badgen.net/runkit/cal-badge-icd0onfvrxx6/Asia/Shanghai
-                              ──┬─────────────────── ──┬──────────
-                                └─ endpoint-id         └─ path-args (optional)
+    https://badgen.net/runkit/amio/cal-badge/Asia/Shanghai
+                              ──┬─ ────┬──── ──┬──────────
+                                │      │       └─ path-args (optional)
+                                │  notebook
+                                │
+                              owner
 
 
 ## RunKit Endpoint
@@ -18,7 +21,7 @@ If you are not familiar with RunKit endpoint, [this guide](https://runkit.com/do
 1. Create a RunKit notebook (e.g. https://runkit.com/amio/cal-badge), which gives you an endpoint:
 
     \`\`\`
-    https://cal-badge-icd0onfvrxx6.runkit.sh
+    https://runkit.io/amio/cal-badge/branches/master
     \`\`\`
 
   it returns a JSON like:
@@ -31,32 +34,28 @@ If you are not familiar with RunKit endpoint, [this guide](https://runkit.com/do
     }
     \`\`\`
 
-2. Click <kbd>endpoint</kbd> on notebook page for the endpoint address, then you have \`endpoint-id\` from it's subdomain:
+3. Construct badgen url using \`owner\` and \`notebook\` params:
 
     \`\`\`
-    cal-badge-icd0onfvrxx6
-    \`\`\`
-
-3. Use \`endpoint-id\` within badgen url:
-
-    \`\`\`
-    https://badgen.net/runkit/cal-badge-icd0onfvrxx6
+    https://badgen.net/runkit/amio/cal-badge
     \`\`\`
 
   That's it:
 
-  ![](https://badgen.net/runkit/cal-badge-icd0onfvrxx6)
+  ![](/runkit/amio/cal-badge)
 
 Furthermore, you can append arbitrary path args (e.g. \`/Asia/Shanghai\`) to the end of badgen url, Badgen will request RunKit endpoint with that. This badge:
 
 \`\`\`
-https://badgen.net/runkit/cal-badge-icd0onfvrxx6/Asia/Shanghai
+https://badgen.net/runkit/amio/cal-badge/Asia/Shanghai
 \`\`\`
+
+![](/runkit/amio/cal-badge/Asia/Shanghai)
 
 represents data from:
 
 \`\`\`
-https://cal-badge-icd0onfvrxx6.runkit.sh/Asia/Shanghai
+https://runkit.io/amio/cal-badge/branches/master/Asia/Shanghai
 \`\`\`
 `
 
@@ -64,18 +63,20 @@ export default createBadgenHandler({
   title: 'With RunKit Endpoint',
   help,
   examples: {
-    // https://metaweather-s9grean9ustv.runkit.sh → https://runkit.com/vladimyr/metaweather
-    '/runkit/metaweather-s9grean9ustv/44418/state': 'metaweather (state)',
-    '/runkit/metaweather-s9grean9ustv/44418/temperature': 'metaweather (temperature)',
-    '/runkit/metaweather-s9grean9ustv/44418/wind': 'metaweather (wind)',
-    '/runkit/metaweather-s9grean9ustv/44418/humidity': 'metaweather (humidity)',
+    '/runkit/vladimyr/metaweather/44418/state': 'metaweather (state)',
+    '/runkit/vladimyr/metaweather/44418/temperature': 'metaweather (temperature)',
+    '/runkit/vladimyr/metaweather/44418/wind': 'metaweather (wind)',
+    '/runkit/vladimyr/metaweather/44418/humidity': 'metaweather (humidity)',
   },
   handlers: {
-    '/runkit/:endpoint-id/:path*': handler
+    '/runkit/:endpoint-id<.+-[a-z0-9]{12}>/:path*': handler, // legacy handler
+    '/runkit/:owner/:notebook/:path*': handler
   }
 })
 
-async function handler ({ 'endpoint-id': id, path = '' }: PathArgs) {
-  const endpoint = `https://${id}.runkit.sh/${path}`
+async function handler ({ 'endpoint-id': id, owner, notebook, path = '' }: PathArgs) {
+  const endpoint = id
+    ? `https://${id}.runkit.sh/${path}`
+    : `https://runkit.io/${owner}/${notebook}/branches/master/${path}`
   return await got(endpoint).json<any>()
 }
