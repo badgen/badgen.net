@@ -9,6 +9,7 @@ const client = got.extend({ prefixUrl: CODACY_API_URL })
 export default createBadgenHandler({
   title: 'Codacy',
   examples: {
+    // f0875490cea1497a9eca9c25f3f7774e → https://github.com/xobotyi/react-scrollbars-custom
     '/codacy/coverage/f0875490cea1497a9eca9c25f3f7774e': 'coverage',
     '/codacy/coverage/f0875490cea1497a9eca9c25f3f7774e/dev-master': 'branch coverage',
     '/codacy/grade/f0875490cea1497a9eca9c25f3f7774e': 'code quality',
