@@ -2,8 +2,8 @@
   "version": 2,
   "regions": ["all"],
   "builds": [
-    { "src": "package.json", "use": "@now/static-build" },
-    { "src": "api/*.ts", "use": "@now/node" }
+    { "src": "package.json", "use": "@vercel/static-build" },
+    { "src": "api/*.ts", "use": "@vercel/node" }
   ],
   "routes": [
     { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } },
