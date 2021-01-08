@@ -97,6 +97,7 @@ function combined (states: Array<any>, stateKey: string = 'state') {
 
   const succeeded = states
     .filter(x => x[stateKey] !== 'cancelled')
+    .filter(x => x[stateKey] !== 'skipped')
     .every(x => x[stateKey] === 'success')
 
   if (succeeded) return 'success'
