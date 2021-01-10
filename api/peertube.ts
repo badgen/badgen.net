@@ -2,18 +2,18 @@ import got from '../libs/got'
 import { millify } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
-const BRAND_COLOR = 'F16805'
+const BRAND_COLOR = 'F1680D'
 
 export default createBadgenHandler({
   title: 'PeerTube',
   examples: {
-    '/peertube/framatube.org/comments/9c9de5e8-0a1e-484a-b099-e80766180a6d': 'comments',
-    '/peertube/framatube.org/votes/9c9de5e8-0a1e-484a-b099-e80766180a6d': 'votes (combined)',
-    '/peertube/framatube.org/votes/9c9de5e8-0a1e-484a-b099-e80766180a6d/likes': 'votes (likes)',
-    '/peertube/framatube.org/votes/9c9de5e8-0a1e-484a-b099-e80766180a6d/dislikes': 'votes (dislikes)',
-    '/peertube/framatube.org/views/9c9de5e8-0a1e-484a-b099-e80766180a6d': 'views',
-    '/peertube/framatube.org/followers/framasoft': 'followers (account)',
-    '/peertube/framatube.org/followers/framasoft/framablog.audio': 'followers (channel)',
+    '/peertube/framatube.org/comments/9c9de5e8-0a1e-484a-b099-e80766180a6d?icon=peertube': 'comments',
+    '/peertube/framatube.org/votes/9c9de5e8-0a1e-484a-b099-e80766180a6d?icon=peertube': 'votes (combined)',
+    '/peertube/framatube.org/votes/9c9de5e8-0a1e-484a-b099-e80766180a6d/likes?icon=peertube': 'votes (likes)',
+    '/peertube/framatube.org/votes/9c9de5e8-0a1e-484a-b099-e80766180a6d/dislikes?icon=peertube': 'votes (dislikes)',
+    '/peertube/framatube.org/views/9c9de5e8-0a1e-484a-b099-e80766180a6d?icon=peertube': 'views',
+    '/peertube/framatube.org/followers/framasoft?icon=peertube': 'followers (account)',
+    '/peertube/framatube.org/followers/framasoft/framablog.audio?icon=peertube': 'followers (channel)',
   },
   handlers: {
     '/peertube/:instance/:topic<comments|views>/:video-id': handler,
