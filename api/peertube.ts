@@ -16,18 +16,18 @@ export default createBadgenHandler({
     '/peertube/framatube.org/followers/framasoft/framablog.audio?icon=peertube': 'followers (channel)',
   },
   handlers: {
-    '/peertube/:instance/:topic<comments|views>/:video-id': handler,
-    '/peertube/:instance/:topic<votes>/:video-id/:format?<likes|dislikes>': votesHandler,
+    '/peertube/:instance/:topic<comments|views>/:video-uuid': handler,
+    '/peertube/:instance/:topic<votes>/:video-uuid/:format?<likes|dislikes>': votesHandler,
     '/peertube/:instance/:topic<followers>/:account/:channel?': followersHandler
   }
 })
 
-async function handler ({ instance, topic, 'video-id': videoId }: PathArgs) {
+async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) {
   const client = createClient(instance)
 
   switch (topic) {
     case 'comments': {
-      const { total } = await client.get(`/videos/${videoId}/comment-threads`).json()
+      const { total } = await client.get(`/videos/${videoUUID}/comment-threads`).json()
       return {
         subject: 'comments',
         status: millify(total),
@@ -35,7 +35,7 @@ async function handler ({ instance, topic, 'video-id': videoId }: PathArgs) {
       }
     }
     case 'views': {
-      const { views } = await client.get(`/videos/${videoId}`).json()
+      const { views } = await client.get(`/videos/${videoUUID}`).json()
       return {
         subject: 'views',
         status: millify(views),
@@ -45,9 +45,9 @@ async function handler ({ instance, topic, 'video-id': videoId }: PathArgs) {
   }
 }
 
-async function votesHandler ({ instance, 'video-id': videoId, format }: PathArgs) {
+async function votesHandler ({ instance, 'video-uuid': videoUUID, format }: PathArgs) {
   const client = createClient(instance)
-  const { likes, dislikes } = await client.get(`/videos/${videoId}`).json()
+  const { likes, dislikes } = await client.get(`/videos/${videoUUID}`).json()
 
   switch (format) {
     case 'likes': {
