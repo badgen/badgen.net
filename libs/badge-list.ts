@@ -32,6 +32,7 @@ export const liveBadgeList = [
   'opam',
   'cpan',
   'ctan',
+  'elm-package',
   'scoop',
   'winget',
   'f-droid',
