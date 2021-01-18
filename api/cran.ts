@@ -31,7 +31,7 @@ async function cranHandler ({ topic, pkg }: PathArgs) {
     case 'version': {
       const data = await client.get(pkg).json<any>()
       return {
-        subject: 'version',
+        subject: 'cran',
         status: version(data.Version),
         color: versionColor(data.Version)
       }
