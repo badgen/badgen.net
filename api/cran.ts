@@ -11,30 +11,33 @@ export default createBadgenHandler({
     '/cran/v/dplyr': 'version',
     '/cran/license/ggplot2': 'license',
     '/cran/r/data.table': 'r version',
+    '/cran/dependents/R6': 'dependents',
     '/cran/dt/Rcpp': 'total downloads',
     '/cran/dd/Rcpp': 'daily downloads',
     '/cran/dw/Rcpp': 'weekly downloads',
     '/cran/dm/Rcpp': 'monthly downloads'
   },
   handlers: {
-    '/cran/:topic<v|version|license|r>/:pkg': cranHandler,
+    '/cran/:topic<v|version|license|r|dependents>/:pkg': cranHandler,
     '/cran/:topic<dd|dw|dm|dt>/:pkg': cranlogsHandler
   }
 })
 
 async function cranHandler ({ topic, pkg }: PathArgs) {
   const client = got.extend({ prefixUrl: CRAN_API_URL })
-  const data = await client.get(pkg).json<any>()
 
   switch (topic) {
     case 'v':
-    case 'version':
+    case 'version': {
+      const data = await client.get(pkg).json<any>()
       return {
         subject: 'version',
         status: version(data.Version),
         color: versionColor(data.Version)
       }
+    }
     case 'license': {
+      const data = await client.get(pkg).json<any>()
       const license = data.License?.replace(/\s*\S\s+file\s+LICEN[CS]E$/i, '')
       return {
         subject: 'license',
@@ -43,11 +46,21 @@ async function cranHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'r': {
+      const data = await client.get(pkg).json<any>()
       const rVersion = data.Depends?.R?.replace(/([<>=]+)\s+/, '$1') || '*'
       return {
         subject: 'R',
         status: version(rVersion),
         color: versionColor(rVersion)
+      }
+    }
+    case 'dependents': {
+      const data = await client.get(`/-/revdeps/${pkg}`).json<any>()
+      const dependents = Object.keys(data[pkg].Depends).length
+      return {
+        subject: 'dependents',
+        status: millify(dependents),
+        color: 'green'
       }
     }
   }
