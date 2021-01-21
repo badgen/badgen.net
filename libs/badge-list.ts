@@ -31,6 +31,7 @@ export const liveBadgeList = [
   'haxelib',
   'opam',
   'cpan',
+  'cran',
   'ctan',
   'elm-package',
   'scoop',
