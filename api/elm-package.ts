@@ -29,7 +29,7 @@ async function handler ({ topic, owner, name }: PathArgs) {
     case 'v':
     case 'version':
       return {
-        subject: 'version',
+        subject: 'elm package',
         status: version(ver),
         color: versionColor(ver)
       }
