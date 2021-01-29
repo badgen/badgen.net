@@ -58,6 +58,7 @@ export const liveBadgeList = [
   'badgesize',
   'jsdelivr',
   // social
+  'devrant',
   'peertube',
   // utilities
   'opencollective',
