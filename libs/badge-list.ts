@@ -33,6 +33,7 @@ export const liveBadgeList = [
   'cpan',
   'cran',
   'ctan',
+  'dub',
   'elm-package',
   'scoop',
   'winget',
