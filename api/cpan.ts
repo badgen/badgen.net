@@ -16,51 +16,44 @@ export default createBadgenHandler({
     '/cpan/likes/DBIx::Class': 'likes'
   },
   handlers: {
-    '/cpan/:topic<v|license|size>/:distribution': apiHandler,
-    '/cpan/:topic<perl|likes>/:distribution': webHandler
+    '/cpan/:topic<v|version|license|size|perl|likes>/:distribution': handler
   }
 })
 
-async function apiHandler ({ topic, distribution }: PathArgs) {
+async function handler ({ topic, distribution }: PathArgs) {
   distribution = distribution.replace(/::/g, '-')
-  const {
-    license: licenses,
-    version: ver,
-    stat
-  } = await client.get(`release/${distribution}`).json<any>()
 
   switch (topic) {
     case 'v':
+    case 'version': {
+      const release = await client.get(`release/${distribution}`).json<any>()
+      const ver = normalizeVersion(release.version)
       return {
         subject: 'cpan',
         status: version(ver),
         color: versionColor(ver)
       }
+    }
     case 'license': {
-      const license = licenses.join(' or ')
+      const release = await client.get(`release/${distribution}`).json<any>()
+      const license = release.license?.join(' or ')
       return {
         subject: 'license',
         status: license || 'unknown',
         color: 'green'
       }
     }
-    case 'size':
+    case 'size': {
+      const { stat } = await client.get(`release/${distribution}`).json<any>()
       return {
         subject: 'distrib size',
         status: size(stat.size),
         color: 'blue'
       }
-  }
-}
-
-async function webHandler ({ topic, distribution }: PathArgs) {
-  distribution = distribution.replace(/::/g, '-')
-  const url = `https://metacpan.org/release/${distribution}`
-  const html = await got.get(url).text()
-
-  switch (topic) {
+    }
     case 'perl': {
-      const perlVersion = html.match(/>Perl:\s*([^<]+?)\s*<\//i)?.[1] ?? ''
+      const { metadata } = await client.get(`release/${distribution}`).json<any>()
+      const perlVersion = normalizeVersion(metadata.prereqs?.runtime?.requires?.perl)
       return {
         subject: 'perl',
         status: version(perlVersion),
@@ -68,7 +61,9 @@ async function webHandler ({ topic, distribution }: PathArgs) {
       }
     }
     case 'likes': {
-      const likes = Number(html.match(/class="favorite[^"]*?"><span>([^<]+)<\//i)?.[1])
+      const searchParams = { distribution }
+      const { favorites } = await client.get('favorite/agg_by_distributions', { searchParams }).json<any>()
+      const likes = favorites[distribution]
       return {
         subject: 'likes',
         status: millify(likes),
@@ -76,4 +71,16 @@ async function webHandler ({ topic, distribution }: PathArgs) {
       }
     }
   }
+}
+
+// https://metacpan.org/pod/version
+function normalizeVersion(version: string): string {
+  version = version.replace(/_/g, '')
+  if (!version || version.startsWith('v')) {
+    return version
+  }
+  const [major, rest] = version.split('.')
+  const minor = rest.slice(0, 3)
+  const patch = rest.slice(3).padEnd(3, '0')
+  return [major, minor, patch].map(Number).join('.')
 }
