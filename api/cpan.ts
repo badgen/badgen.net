@@ -13,10 +13,11 @@ export default createBadgenHandler({
     '/cpan/license/Perl::Tidy': 'license',
     '/cpan/perl/Plack': 'perl version',
     '/cpan/size/Moose': 'size',
+    '/cpan/dependents/DateTime': 'dependents',
     '/cpan/likes/DBIx::Class': 'likes'
   },
   handlers: {
-    '/cpan/:topic<v|version|license|size|perl|likes>/:distribution': handler
+    '/cpan/:topic<v|version|license|size|perl|dependents|likes>/:distribution': handler
   }
 })
 
@@ -58,6 +59,15 @@ async function handler ({ topic, distribution }: PathArgs) {
         subject: 'perl',
         status: version(perlVersion),
         color: versionColor(perlVersion)
+      }
+    }
+    case 'dependents': {
+      const searchParams = { page_size: 1 }
+      const data = await client.get(`reverse_dependencies/dist/${distribution}`, { searchParams }).json<any>()
+      return {
+        subject: 'dependents',
+        status: millify(data.total),
+        color: 'green'
       }
     }
     case 'likes': {
