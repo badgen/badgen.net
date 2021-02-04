@@ -5,6 +5,8 @@ import { basename, extname } from 'path'
 import { version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
+const WINGET_GITHUB_REPO = 'microsoft/winget-pkgs'
+
 const last = <T>(arr: T[]): T => arr[arr.length - 1]
 
 interface Part {
@@ -135,12 +137,12 @@ async function fetchManifest(appId: string) {
   const versions = await fetchVersions(appId)
   const version = last(versions)
   const path = [...appId.split('.'), `${version}.yaml`].join('/')
-  return got(`https://github.com/microsoft/winget-pkgs/raw/master/manifests/${path}`).text()
+  return got(`https://github.com/${WINGET_GITHUB_REPO}/raw/master/manifests/${path}`).text()
 }
 
 async function fetchVersions(appId: string): Promise<Version[]> {
-  const path = appId.replace(/\./, '/')
-  const files = await restGithub<any[]>(`repos/microsoft/winget-pkgs/contents/manifests/${path}`)
+  const path = appId.replace(/\./g, '/')
+  const files = await restGithub<any[]>(`repos/${WINGET_GITHUB_REPO}/contents/manifests/${path}`)
   const versions = files.map(file => {
     const name = basename(file.name, extname(file.name))
     return new Version(name)
