@@ -47,7 +47,7 @@ async function cranHandler ({ topic, pkg }: PathArgs) {
     }
     case 'r': {
       const data = await client.get(pkg).json<any>()
-      const rVersion = data.Depends?.R?.replace(/([<>=]+)\s+/, '$1') || '*'
+      const rVersion = data.Depends?.R?.replace(/([<>=]+)\s+/g, '$1') || '*'
       return {
         subject: 'R',
         status: version(rVersion),
