@@ -278,7 +278,7 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
     'branches': 'refs(first: 0, refPrefix: "refs/heads/") { totalCount }',
     'releases': 'releases { totalCount }',
     'tags': 'refs(first: 0, refPrefix: "refs/tags/") { totalCount }',
-    'tag': `refs(last: 1, refPrefix: "refs/tags/") {
+    'tag': `refs(last: 1, refPrefix: "refs/tags/", orderBy: { field: TAG_COMMIT_DATE, direction: ASC }) {
       edges {
         node {
           name
