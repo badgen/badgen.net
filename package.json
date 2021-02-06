@@ -47,6 +47,7 @@
     "yaml": "^1.10.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.13",
     "@types/cheerio": "^0.22.22",
     "@types/fs-extra": "^9.0.2",
     "@types/lodash.debounce": "^4.0.6",
