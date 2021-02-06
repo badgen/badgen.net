@@ -1,10 +1,11 @@
-import cheerio from 'cheerio'
 import distanceToNow from 'date-fns/formatDistanceToNow'
 
 import got from '../libs/got'
 import { restGithub, queryGithub } from '../libs/github'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
-import { version, millify, coverageColor } from '../libs/utils'
+import { coverageColor, millify, version } from '../libs/utils'
+
+type DependentsType = 'REPOSITORY' | 'PACKAGE'
 
 export default createBadgenHandler({
   title: 'GitHub',
@@ -454,29 +455,24 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
   }
 }
 
-function dependents (type: string) {
+function dependents (type: DependentsType) {
   return async function ({ owner, repo }: PathArgs) {
-    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`, {
-      headers: {
-        Accept: 'text/html,application/xhtml+xml,application/xml'
-      }
-    }).text()
+    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`).text()
+    const reDependents = new RegExp(`\\?dependent_type=${type}">(?:\\s*<svg.*<\\/svg>)?\\s*([\\d,]+)`)
+    const count = Number(html.match(reDependents)?.[1].replace(/,/g, ''))
+    const subject = type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents'
 
+    if (Number.isNaN(count)) {
+      return {
+        subject,
+        status: 'invalid',
+        color: 'grey'
+      }
+    }
     return {
-      subject: type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents',
-      status: parseDependents(html, type),
+      subject,
+      status: millify(count),
       color: 'blue'
     }
   }
-}
-
-const parseDependents = (html, type) => {
-  const $ = cheerio.load(html)
-  const depLink = $(`a[href$="?dependent_type=${type}"]`)
-
-  if (depLink.length !== 1) {
-    return 'unknown'
-  }
-
-  return depLink.text().replace(/[^0-9,]/g, '')
 }
