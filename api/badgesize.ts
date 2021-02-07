@@ -7,29 +7,32 @@ export default createBadgenHandler({
     '/badgesize/normal/amio/emoji.json/master/emoji-compact.json': 'normal size',
     '/badgesize/brotli/amio/emoji.json/master/emoji-compact.json': 'brotli size',
     '/badgesize/gzip/amio/emoji.json/master/emoji-compact.json': 'gzip size',
-    '/badgesize/normal/https/unpkg.com/snarkdown/dist/snarkdown.js': 'arbitrary url',
+    '/badgesize/normal/file-url/https/unpkg.com/snarkdown/dist/snarkdown.js': 'arbitrary url',
+    '/badgesize/normal/file-url/unpkg.com/snarkdown/dist/snarkdown.js': 'arbitrary url',
   },
   handlers: {
-    '/badgesize/:topic/:path+': handler
+    '/badgesize/:topic/file-url/:protocol<https?:?>/:hostname/:pathname+': urlHandler,
+    '/badgesize/:topic/file-url/:hostname/:pathname+': urlHandler,
+    '/badgesize/:topic/:protocol<https?:?>/:hostname/:pathname+': urlHandler,
+    '/badgesize/:topic/:owner/:repo/:path+': githubHandler
   }
 })
 
-async function handler ({ topic, path }: PathArgs) {
-  if (path.startsWith('http/')) {
-    path = path.slice(0, 4) + ':/' + path.slice(4)
-  } else if (path.startsWith('https/')) {
-    path = path.slice(0, 5) + ':/' + path.slice(5)
-  } else if (path.startsWith('http:/')) {
-    path = path.slice(0, 5) + '/' + path.slice(5)
-  } else if (path.startsWith('https:/')) {
-    path = path.slice(0, 6) + '/' + path.slice(6)
-  }
+function githubHandler ({ topic, owner, repo, path }: PathArgs) {
+  path = [owner, repo, path].join('/')
+  return badgesize({ path, topic })
+}
+
+function urlHandler ({ topic, protocol = 'https:', hostname, pathname }: PathArgs) {
+  const url = protocol.replace(/:?$/, `://${hostname}/${pathname}`)
+  return badgesize({ path: url, topic })
+}
+
+async function badgesize ({ path, topic }) {
   const endpoint = `https://img.badgesize.io/${path}.json`
-  const { prettySize, color } = await got(endpoint, {
-    searchParams: {
-      compression: topic === 'normal' ? '' : topic
-    }
-  }).json<any>()
+  const searchParams = new URLSearchParams()
+  if (topic !== 'normal') searchParams.set('topic', topic)
+  const { prettySize, color } = await got(endpoint, { searchParams }).json<any>()
 
   return {
     subject: topic === 'normal' ? 'size' : `${topic} size`,
