@@ -1,4 +1,5 @@
 import got from '../libs/got'
+import { isBadge } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -25,11 +26,6 @@ async function handler ({ user, repo, branch, targetFile }: PathArgs) {
     status: 'unknown',
     color: 'grey'
   }
-}
-
-function isBadge(response: import('got').Response) {
-  const contentType = response.headers['content-type'] || ''
-  return contentType.includes('image/svg+xml')
 }
 
 function parseBadge(svg: string) {
