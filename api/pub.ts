@@ -82,24 +82,12 @@ async function webHandler({ topic, pkg }: PathArgs) {
   const html = await fetchPage(pkg)
 
   switch (topic) {
-    case 'dart-platform': {
-      const platforms = [...html.matchAll(/class="tag-badge-sub" title=".*?\bDart\b.*?">([^<]+)<\//ig)]
-        .map(match => match[1].trim())
-        .join(' | ')
-
-      return {
-        subject: 'dart',
-        status: platforms || 'not supported',
-        color: platforms ? 'blue' : 'grey'
-      }
-    }
+    case 'dart-platform':
     case 'flutter-platform': {
-      const platforms = [...html.matchAll(/class="tag-badge-sub" title=".*?\bFlutter\b.*?">([^<]+)<\//ig)]
-        .map(match => match[1].trim())
-        .join(' | ')
-
+      const [subject] = topic.split('-')
+      const platforms = parseBadgeGroup(subject, html).join(' | ')
       return {
-        subject: 'flutter',
+        subject,
         status: platforms || 'not supported',
         color: platforms ? 'blue' : 'grey'
       }
@@ -113,6 +101,11 @@ async function webHandler({ topic, pkg }: PathArgs) {
       }
     }
   }
+}
+
+function parseBadgeGroup(title: string, html: string) {
+  const reBadge = new RegExp(`class="tag-badge-sub" title="[^"]*?\\b${title}\\b[^"]*?">([^<]+)<\\/`, 'ig')
+  return [...html.matchAll(reBadge)].map(match => match[1].trim())
 }
 
 async function fetchPage(pkg: string) {
