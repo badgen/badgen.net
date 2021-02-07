@@ -15,7 +15,7 @@ export default createBadgenHandler({
 async function handler ({ user, repo, branch }: PathArgs) {
   const badgePath = `${user}/${repo}.svg`
   const searchParams = new URLSearchParams()
-  if (branch) searchParams.append('branch', branch)
+  if (branch) searchParams.set('branch', branch)
   const [svg1, svg2] = await Promise.all([
     got(badgePath, { prefixUrl: 'https://api.travis-ci.com', searchParams }).text(),
     got(badgePath, { prefixUrl: 'https://api.travis-ci.org', searchParams }).text()
