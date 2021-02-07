@@ -8,12 +8,12 @@ export default createBadgenHandler({
     '/travis/babel/babel/6.x': 'build (branch)',
   },
   handlers: {
-    '/travis/:user/:repo/:branch?': handler
+    '/travis/:owner/:repo/:branch?': handler
   }
 })
 
-async function handler ({ user, repo, branch }: PathArgs) {
-  const badgePath = `${user}/${repo}.svg`
+async function handler ({ owner, repo, branch }: PathArgs) {
+  const badgePath = `${owner}/${repo}.svg`
   const searchParams = new URLSearchParams()
   if (branch) searchParams.append('branch', branch)
   const [svg1, svg2] = await Promise.all([

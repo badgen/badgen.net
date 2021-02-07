@@ -9,12 +9,12 @@ export default createBadgenHandler({
     '/snyk/rollup/plugins/master/packages%2Falias%2Fpackage.json': 'vulnerability scan (custom path)'
   },
   handlers: {
-    '/snyk/:user/:repo/:branch?/:targetFile?': handler
+    '/snyk/:owner/:repo/:branch?/:targetFile?': handler
   }
 })
 
-async function handler ({ user, repo, branch, targetFile }: PathArgs) {
-  const path = [user, repo, branch].filter(Boolean).join('/')
+async function handler ({ owner, repo, branch, targetFile }: PathArgs) {
+  const path = [owner, repo, branch].filter(Boolean).join('/')
   const badgeUrl = `https://snyk.io/test/github/${path}/badge.svg`
   const searchParams = new URLSearchParams()
   if (targetFile) searchParams.set('targetFile', targetFile)
@@ -26,7 +26,7 @@ async function handler ({ user, repo, branch, targetFile }: PathArgs) {
 
   if (!status || !color) {
     const context = [
-      `${user}/${repo}/${branch}`,
+      `${owner}/${repo}/${branch}`,
       targetFile && `targetFile=${targetFile}`
     ].filter(Boolean).join(' ')
     throw new Error(`Unknown Synk status: ${context}`)
