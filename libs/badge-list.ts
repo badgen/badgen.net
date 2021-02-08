@@ -61,6 +61,8 @@ export const liveBadgeList = [
   // social
   'devrant',
   'peertube',
+  // chat
+  'gitter',
   // utilities
   'opencollective',
   'keybase',
