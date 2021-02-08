@@ -63,6 +63,7 @@ export const liveBadgeList = [
   'peertube',
   // chat
   'gitter',
+  'matrix',
   // utilities
   'opencollective',
   'keybase',
