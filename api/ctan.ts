@@ -47,7 +47,7 @@ async function webHandler ({ topic, pkg }: PathArgs) {
   const url = 'https://ctan.org/vote/ajaxSummary'
   const searchParams = { pkg }
   const html = await got.get(url, { searchParams }).text()
-  const rating = Number(html.match(/<span>.*?([\d.]+)\s/i)?.[1])
+  const rating = Number(html.match(/<span>[^<]*?([\d.]+)\s/i)?.[1])
 
   switch (topic) {
     case 'rating':

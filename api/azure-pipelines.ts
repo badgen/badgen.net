@@ -1,159 +1,201 @@
 import got from '../libs/got'
-import cheerio from 'cheerio'
+import { millify } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
   title: 'Azure Piplines',
   examples: {
-    '/azure-pipelines/build/status/yarnpkg/yarn/1': 'build status',
-    '/azure-pipelines/build/version/yarnpkg/yarn/1': 'build version',
-    '/azure-pipelines/yarnpkg/yarn/1': 'build status (def-id)',
-    '/azure-pipelines/yarnpkg/yarn/Yarn%20Acceptance%20Tests': 'build status (def-name)'
+    '/azure-pipelines/dnceng/public/efcore-ci': 'pipeline status (definition name)',
+    '/azure-pipelines/dnceng/public/51': 'pipeline status (definition id)',
+    '/azure-pipelines/build/status/dnceng/public/51': 'build status',
+    '/azure-pipelines/build/version/dnceng/public/51': 'build version',
+    '/azure-pipelines/build/test/dnceng/public/51': 'test results',
+    '/azure-pipelines/build/test/azuredevops-powershell/azuredevops-powershell/1': 'test results',
+    '/azure-pipelines/release/version/azuredevops-powershell/azuredevops-powershell/1': 'release version',
+    '/azure-pipelines/deployment/version/azuredevops-powershell/azuredevops-powershell/1': 'deployment version',
   },
   handlers: {
-    '/azure-pipelines/build/status/:org/:project/:definition/:branch?': buildStatus,
-    '/azure-pipelines/build/version/:org/:project/:definition/:branch?': buildVersion,
-    '/azure-pipelines/build/test/:org/:project/:definition/:branch?': buildTestResult,
-    '/azure-pipelines/release/version/:org/:project/:definition?': releaseVersion,
-    '/azure-pipelines/deployment/version/:org/:project/:definition/:environment?': deployedReleaseVersion,
+    '/azure-pipelines/build/status/:org/:project/:definition-id<\\d+>/:branch?': buildStatus,
+    '/azure-pipelines/build/version/:org/:project/:definition-id<\\d+>/:branch?': buildVersion,
+    '/azure-pipelines/build/test/:org/:project/:definition-id<\\d+>/:branch?': buildTestResult,
+    '/azure-pipelines/release/version/:org/:project/:definition-id<\\d+>/:environment-id?<\\d+>': releaseVersion,
+    '/azure-pipelines/deployment/version/:org/:project/:definition-id<\\d+>/:environment-id?<\\d+>': deploymentVersion,
     '/azure-pipelines/:org/:project/:definition/:branch?': handler,
   },
   help: `
   ## Find Azure Pipeline config
 
-  Take [https://dev.azure.com/yarnpkg/yarn/_build](https://dev.azure.com/yarnpkg/yarn/_build) as an example:
+  Take [Entity Framework Core](https://dev.azure.com/dnceng/public/_build?definitionId=51) as an example:
 
-  - organization: \`yarnpkg\`
-  - project: \`yarn\`
-  - definition-id: \`1\`
-  - definition-name: \`Yarn Acceptance Tests\`
+  - organization: \`dnceng\`
+  - project: \`public\`
+  - definition-id: \`51\`
+  - definition-name: \`efcore-ci\`
   `
 })
 
 const colors = {
-  'succeeded': 'green',
-  'partially succeeded': 'yellow',
-  'partiallySucceeded': 'yellow',
-  'failed': 'red'
+  succeeded: 'green',
+  partiallySucceeded: 'yellow',
+  failed: 'red'
 }
 const statuses = {
-  'succeeded': 'succeeded',
-  'partiallySucceeded': 'partially succeeded',
-  'failed': 'failed'
+  succeeded: 'succeeded',
+  partiallySucceeded: 'partially succeeded',
+  failed: 'failed'
 }
 
-const getApiVersion = (preview: boolean) => preview ? '5.1-preview' : '5.1'
-
-const azureDevOpsApiResponse = async (org: string, project: string, path: string, release: boolean = false) => {
+function createClient(org: string, project: string, { release = false } = {}) {
   const prefix = release ? 'vsrm.' : ''
-  return await got.get(`https://${prefix}dev.azure.com/${org}/${project}/_apis/${path}`).json<any>()
+  const prefixUrl = `https://${prefix}dev.azure.com/${org}/${project}/_apis/`
+  return got.extend({ prefixUrl })
 }
 
-async function getLatestBuild ({ org, project, definition, branch = 'master'}: PathArgs) {
-  const builds = await azureDevOpsApiResponse(org, project, `build/builds?api-version=${getApiVersion(false)}&branchName=refs/heads/${branch}&definitions=${definition}&$top=1`)
+// https://docs.microsoft.com/en-us/rest/api/azure/devops/build/builds/list
+// https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Build/BuildClient.ts#L436-L516
+async function getLatestBuild ({ org, project, 'definition-id': definition, branch }: PathArgs) {
+  const client = createClient(org, project)
+  const searchParams = new URLSearchParams({
+    'api-version': '6.0',
+    '$top': '1',
+    definitions: definition,
+    statusFilter: 'completed'
+  })
+  if (branch) searchParams.set('branchName', `refs/heads/${branch}`)
+  const builds = await client.get('build/builds', { searchParams }).json<any>()
   return builds.value[0] || {}
 }
 
-async function getLatestRelease ({ org, project, definition}: PathArgs) {
-  return await azureDevOpsApiResponse(org, project, `release/releases?api-version=${getApiVersion(true)}&definitionId=${definition}&$top=1`, true)
+// https://docs.microsoft.com/en-us/rest/api/azure/devops/release/releases/list
+// https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Release/ReleaseClient.ts#L1511-L1594
+async function getLatestRelease ({ org, project, 'definition-id': definition, 'environment-id': environment }: PathArgs) {
+  const client = createClient(org, project, { release: true })
+  const searchParams = new URLSearchParams({
+    'api-version': '6.0',
+    '$top': '1',
+    definitionId: definition
+  })
+  if (environment) searchParams.set('definitionEnvironmentId', environment)
+  const releases = await client.get('release/releases', { searchParams }).json<any>()
+  return releases.value[0] || {}
 }
 
-async function getDeployedRelease ({ org, project, definition, environment}: PathArgs) {
-  return await azureDevOpsApiResponse(org, project, `release/deployments?api-version=${getApiVersion(true)}&definitionId=${definition}&$top=1&deploymentStatus=succeeded&definitionEnvironmentId=${environment}`, true)
+// https://docs.microsoft.com/en-us/rest/api/azure/devops/release/deployments/list
+// https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Release/ReleaseClient.ts#L666-L729
+async function getLatestDeployment ({ org, project, 'definition-id': definition, 'environment-id': environment }: PathArgs) {
+  const client = createClient(org, project, { release: true })
+  const searchParams = new URLSearchParams({
+    'api-version': '6.0',
+    '$top': '1',
+    definitionId: definition,
+    deploymentStatus: 'succedeed'
+  })
+  if (environment) searchParams.set('definitionEnvironmentId', 'environment')
+  const deployments = await client.get('release/deployments', { searchParams }).json<any>()
+  return deployments.value[0] || {}
 }
 
-async function getTestResultByBuild ({ org, project, build, minLastUpdatedDate, maxLastUpdatedDate}: PathArgs) {
-  return await azureDevOpsApiResponse(org, project, `test/runs?api-version=${getApiVersion(true)}&$top=1&buildIds=${build}&minLastUpdatedDate=${minLastUpdatedDate}&maxLastUpdatedDate=${maxLastUpdatedDate}`)
+// https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Test/TestClient.ts#L1360-L1390
+async function getTestResultByBuild ({ org, project, build }: PathArgs) {
+  const client = createClient(org, project)
+  const searchParams = {
+    'api-version': '6.0-preview',
+    buildId: build
+  }
+  const result = await client.get('test/ResultSummaryByBuild', { searchParams }).json<any>()
+  return result.aggregatedResultsAnalysis || {}
 }
 
-async function buildStatus ({ org, project, definition, branch = 'master'}: PathArgs) {
-  const response = await getLatestBuild({org, project, definition, branch})
-  const status = statuses[response.result] || 'not found'
-  const color = colors[response.result] || 'grey'
+async function buildStatus (args: PathArgs) {
+  const { result: status } = await getLatestBuild(args)
   return {
     subject: 'Build',
-    status,
-    color
+    status: statuses[status] || 'not found',
+    color: colors[status] || 'grey'
   }
 }
 
-async function buildVersion ({ org, project, definition, branch = 'master'}: PathArgs) {
-  const response = await getLatestBuild({org, project, definition, branch})
-  const version = response.buildNumber || 'not found'
-  const color = colors[response.result] || 'grey'
+async function buildVersion (args: PathArgs) {
+  const { buildNumber, result: status } = await getLatestBuild(args)
   return {
     subject: 'Build Version',
-    status: version,
-    color
+    status: buildNumber || 'not found',
+    color: colors[status] || 'grey'
   }
 }
 
-async function buildTestResult ({ org, project, definition, branch = 'master'}: PathArgs) {
-  const build = await getLatestBuild({org, project, definition, branch})
-  const testResult = await getTestResultByBuild({org, project, build: build.id, minLastUpdatedDate: build.startTime, maxLastUpdatedDate: build.finishTime})
-  const runStatistics = testResult.value[0].runStatistics
-  const total: number = testResult.value[0].totalTests
-  const passed: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'Passed')
-  const notExecuted: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'NotExecuted')
-  const failed: {outcome: string, count: number} = runStatistics.find( (value: { outcome: string; }) => value.outcome === 'Failed')
+async function buildTestResult (args: PathArgs) {
+  const { org, project, build = await getLatestBuild(args) } = args
+  const { resultsByOutcome, totalTests } = await getTestResultByBuild({ org, project, build: build.id })
 
-  const passedCount = passed?.count ?? 0
-  const notExecutedCount = notExecuted?.count ?? 0
-  const failedCount =  failed?.count ?? total - passedCount - notExecutedCount
+  const passed = resultsByOutcome.Passed?.count ?? 0
+  const failed = resultsByOutcome.Failed?.count ?? 0
+  const ignored = resultsByOutcome.NotExecuted?.count ?? totalTests - passed - failed
 
-  const status = total == passedCount ? 'succeeded' : total == failedCount ? 'failed' : 'partially succeeded'
-  const color = colors[status]
+  const status = [
+    passed && `${millify(passed)} passed`,
+    failed && `${millify(failed)} failed`,
+    ignored && `${millify(ignored)} skipped`
+  ].filter(Boolean).join(', ')
+
+  const color = totalTests === passed
+    ? colors.succeeded
+    : totalTests === failed
+    ? colors.failed
+    : colors.partiallySucceeded
+
   return {
     subject: 'Test',
-    status: `passed: ${passedCount}, failed: ${failedCount}, ignored: ${notExecutedCount}`,
+    status,
     color
   }
 }
 
-async function releaseVersion ({ org, project, definition}: PathArgs) {
-  const response = await getLatestRelease({org, project, definition})
-  const status = response.value[0].name
-  const color = colors['succeeded']
+async function releaseVersion (args: PathArgs) {
+  const release = await getLatestRelease(args)
   return {
     subject: 'Release Version',
-    status,
-    color
+    status: release.name || 'not found',
+    color: release.name ? 'green' : 'grey'
   }
 }
 
-async function deployedReleaseVersion ({ org, project, definition, environment}: PathArgs) {
-  const response = await getDeployedRelease({org, project, definition, environment})
-  const status = response.value[0].release.name
-  const color = colors['succeeded']
+async function deploymentVersion (args: PathArgs) {
+  const { release, deploymentStatus: status } = await getLatestDeployment(args)
   return {
-    subject: 'Deployed Version',
-    status,
-    color
+    subject: 'Deployment Version',
+    status: release?.name || 'not found',
+    color: colors[status] || 'grey'
   }
 }
 
-async function handler ({ org, project, definition, branch = 'master'}: PathArgs) {
-  const response = await got(`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}?branchName=${branch}`)
-  const contentType = response.headers['content-type'] || ''
-
-  if (!contentType.includes('image/svg+xml')) {
-    return {
-      subject: 'Azure Pipelines',
-      status: 'unknown',
-      color: 'grey'
-    }
-  }
-
-  const $ = cheerio.load(response.body)
-  const status = $('g[font-family] > text:nth-child(3)').text()
-  const color = {
-    'succeeded': 'green',
-    'partially succeeded': 'yellow',
-    'failed': 'red'
-  }[status]
-
-  return {
+async function handler ({ org, project, definition, branch }: PathArgs) {
+  const searchParams = new URLSearchParams()
+  if (branch) searchParams.set('branchName', branch)
+  const endpoint =`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}`
+  const resp = await got(endpoint, { searchParams })
+  const params = isBadge(resp) && parseBadge(resp.body)
+  return params || {
     subject: 'Azure Pipelines',
+    status: 'unknown',
+    color: 'grey'
+  }
+}
+
+function isBadge(response: import('got').Response) {
+  const contentType = response.headers['content-type'] || ''
+  return contentType.includes('image/svg+xml')
+}
+
+function parseBadge(svg: string) {
+  const [subject, status] = [...svg.matchAll(/fill-opacity=[^>]*?>([^<]+)<\//ig)]
+    .map(match => match[1].trim())
+  const color = svg.match(/<rect[^>]*?fill="([^"]+)"[^>]*?x=/i)?.[1]
+    .trim().replace(/^#/, '')
+
+  if (!status || !color) return
+  return {
+    subject: subject || 'Azure Pipelines',
     status,
     color
   }

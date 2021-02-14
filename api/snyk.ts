@@ -1,4 +1,5 @@
 import got from '../libs/got'
+import { isBadge } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -18,23 +19,24 @@ async function handler ({ user, repo, branch, targetFile }: PathArgs) {
   const badgeUrl = `https://snyk.io/test/github/${path}/badge.svg`
   const searchParams = new URLSearchParams()
   if (targetFile) searchParams.set('targetFile', targetFile)
-  const svg = await got(badgeUrl, { searchParams, timeout: 3500 }).text()
-
-  const subject = svg.match(/<text x="45"[^>]*?>([^<]+)<\//i)?.[1].trim()
-  const status = svg.match(/<text x="100"[^>]*?>([^<]+)<\//i)?.[1].trim()
-  const color = svg.match(/<path fill="([^"]+)" d="M90/i)?.[1].trim()
-
-  if (!status || !color) {
-    const context = [
-      `${user}/${repo}/${branch}`,
-      targetFile && `targetFile=${targetFile}`
-    ].filter(Boolean).join(' ')
-    throw new Error(`Unknown Synk status: ${context}`)
+  const resp = await got(badgeUrl, { searchParams, timeout: 3500 })
+  const params = isBadge(resp) && parseBadge(resp.body)
+  return params || {
+    subject: 'snyk',
+    status: 'unknown',
+    color: 'grey'
   }
+}
 
+function parseBadge(svg: string) {
+  const [subject, status] = [...svg.matchAll(/fill-opacity=[^>]*?>([^<]+)<\//ig)]
+    .map(match => match[1].trim())
+  const color = svg.match(/<path[^>]*?fill="([^"]+)"[^>]*?d="M[^0]/i)?.[1]
+    .trim().replace(/^#/, '')
+  if (!status || !color) return
   return {
     subject: subject || 'vulnerabilities',
     status,
-    color: color.replace(/^#/, '')
+    color
   }
 }
