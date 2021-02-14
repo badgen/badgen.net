@@ -1,5 +1,5 @@
 import got from '../libs/got'
-import { coverage as cov, coverageColor } from '../libs/utils'
+import { isBadge, coverage as cov, coverageColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const CODACY_API_URL = 'https://api.codacy.com/'
@@ -38,35 +38,37 @@ async function handler ({ type, projectId, branch }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (branch) searchParams.append('branch', branch)
   const endpoint = `project/badge/${type}/${projectId}`
-  const svg = await client.get(endpoint, { searchParams }).text()
+  const resp = await client.get(endpoint, { searchParams })
+  const params = isBadge(resp) && parseBadge(resp.body, type)
+  return params || {
+    subject: 'codacy',
+    status: 'unknown',
+    color: 'grey'
+  }
+}
 
-  const subject = SUBJECT_BY_TYPE[type] || 'codacy'
-  const status = svg.match(/\/>\s*<text.*?>([^<]+)<\//i)?.[1].trim() ?? ''
-
+function parseBadge(svg: string, type: string) {
+  const subject = SUBJECT_BY_TYPE[type]
   switch (type) {
     case 'coverage': {
+      const status = svg.match(/text-anchor=[^>]*?>([^<]+)<\//i)?.[1].trim() ?? ''
       const percentage = parseFloat(status)
-      if (Number.isNaN(percentage)) break
+      if (Number.isNaN(percentage)) return
       return {
-        subject,
+        subject: subject || 'codacy',
         status: cov(percentage),
         color: coverageColor(percentage)
       }
     }
     case 'grade': {
+      const status = svg.match(/visibility=[^>]*?>([^<]+)<\//i)?.[1].trim() ?? ''
       const color = COLORS_BY_GRADE[status]
-      if (!color) break
+      if (!status || !color) return
       return {
-        subject,
+        subject: subject || 'codacy',
         status,
         color
       }
     }
-  }
-
-  return {
-    subject,
-    status: 'invalid',
-    color: 'grey'
   }
 }
