@@ -83,7 +83,7 @@ async function webHandler({ topic, pkg }: PathArgs) {
 
   switch (topic) {
     case 'dart-platform': {
-      const platforms = [...html.matchAll(/class="tag-badge-sub" title=".*?\bDart\b.*?">([^<]+)<\//ig)]
+      const platforms = [...html.matchAll(/class="tag-badge-sub" title="[^"]*?\bDart\b[^"]*?">([^<]+)<\//ig)]
         .map(match => match[1].trim())
         .join(' | ')
 
@@ -94,7 +94,7 @@ async function webHandler({ topic, pkg }: PathArgs) {
       }
     }
     case 'flutter-platform': {
-      const platforms = [...html.matchAll(/class="tag-badge-sub" title=".*?\bFlutter\b.*?">([^<]+)<\//ig)]
+      const platforms = [...html.matchAll(/class="tag-badge-sub" title="[^"]*?\bFlutter\b[^"]*?">([^<]+)<\//ig)]
         .map(match => match[1].trim())
         .join(' | ')
 
