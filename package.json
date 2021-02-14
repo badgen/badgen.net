@@ -25,7 +25,7 @@
     "@sentry/integrations": "^5.26.0",
     "@sentry/node": "^5.26.0",
     "badgen": "^3.2.2",
-    "badgen-icons": "^0.18.0",
+    "badgen-icons": "^0.20.0",
     "byte-size": "^6.2.0",
     "cheerio": "^1.0.0-rc.3",
     "date-fns": "^2.16.1",
@@ -47,11 +47,12 @@
     "yaml": "^1.10.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.13",
     "@types/cheerio": "^0.22.22",
     "@types/fs-extra": "^9.0.2",
     "@types/lodash.debounce": "^4.0.6",
     "@types/micro": "^7.3.3",
-    "@types/node": "^14.11.10",
+    "@types/node": "^12.19.16",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "@types/semver": "^7.3.4",

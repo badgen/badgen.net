@@ -24,7 +24,7 @@ export default createBadgenHandler({
 async function handler ({ vcs, owner, repo, branch }: PathArgs) {
   const endpoint = `${vcs}/${owner}/${repo}/badge.svg`
   const searchParams = new URLSearchParams()
-  if (branch) searchParams.append('branch', branch)
+  if (branch) searchParams.set('branch', branch)
 
   const badgeURL = await client.head(endpoint, {
     searchParams,

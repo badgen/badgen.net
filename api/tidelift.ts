@@ -19,18 +19,31 @@ export default createBadgenHandler({
 
 async function handler ({ platform, name }: PathArgs) {
   const resp = await client.get(`${platform}/${name}`, { followRedirect: false })
-  // this shouldn't happen, but in case it happens
-  if (!resp.headers.location) {
-    throw new Error(`Unknown Tidelift status: ${platform}/${name}`)
+  const params = parseRedirectUrl(resp.headers.location)
+  return params || {
+    subject: 'tidelift',
+    status: 'unknown',
+    color: 'grey'
   }
-  const { pathname } = new URL(resp.headers.location)
-  const [status, color] = decodeURIComponent(basename(pathname, extname(pathname)))
-    .split('-')
-    .filter(Boolean)
+}
 
+function parseRedirectUrl(input?: string) {
+  const redirectUrl = safeURL(input)
+  if (!redirectUrl) return
+  const path = decodeURIComponent(redirectUrl.pathname)
+  const route = basename(path, extname(path))
+  const [status, color] = route.split('-').filter(Boolean)
+  if (!status || !color) return
   return {
     subject: 'tidelift',
     status: status?.replace(/!$/, ''),
     color
   }
+}
+
+function safeURL(input?: string) {
+  if (!input) return
+  try {
+    return new URL(input)
+  } catch { /* ignore */ }
 }

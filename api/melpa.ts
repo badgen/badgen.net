@@ -1,5 +1,5 @@
 import got from '../libs/got'
-import { version, versionColor } from '../libs/utils'
+import { isBadge, version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 export default createBadgenHandler({
@@ -8,18 +8,29 @@ export default createBadgenHandler({
     '/melpa/v/magit': 'version'
   },
   handlers: {
-    '/melpa/:topic<v>/:pkg': handler
+    '/melpa/:topic<v|version>/:pkg': handler
   }
 })
 
 async function handler ({ topic, pkg }: PathArgs) {
   const badgeUrl = `https://melpa.org/packages/${pkg}-badge.svg`
-  const svg = await got(badgeUrl).text()
-  const title = svg.match(/<title>([^<]+)<\//i)?.[1].trim()
-  const ver = title?.split(':')?.[1]
+  const resp = await got(badgeUrl)
+  const params = isBadge(resp) && parseBadge(resp.body, topic)
+  return params || {
+    subject: 'melpa',
+    status: 'unknown',
+    color: 'grey'
+  }
+}
+
+function parseBadge(svg: string, topic: string) {
+  const title = svg.match(/<title>([^<]+)<\//i)?.[1].trim() ?? ''
+  const [_, ver] = title.split(':')
+  if (!ver) return
 
   switch (topic) {
     case 'v':
+    case 'version':
       return {
         subject: 'melpa',
         status: version(ver),
