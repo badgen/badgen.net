@@ -27,7 +27,6 @@
     "badgen": "^3.2.2",
     "badgen-icons": "^0.20.0",
     "byte-size": "^6.2.0",
-    "cheerio": "^1.0.0-rc.3",
     "date-fns": "^2.16.1",
     "got": "^10.7.0",
     "haxe-rpc-client": "^1.0.0",
