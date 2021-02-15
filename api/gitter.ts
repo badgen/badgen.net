@@ -35,5 +35,5 @@ async function handler ({ org, room }: PathArgs) {
 
 export async function fetchMembersCount(org: string, room: string) {
   const html = await got(`https://gitter.im/${org}/${room}`).text()
-  return Number(html.match(/"userCount"\s*:\s*([^,]+)/)?.[1])
+  return Number(html.match(/"userCount"\s*:\s*(\d+)/)?.[1])
 }
