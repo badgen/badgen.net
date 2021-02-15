@@ -10,17 +10,21 @@ export default createBadgenHandler({
     '/snyk/rollup/plugins/master/packages%2Falias%2Fpackage.json': 'vulnerability scan (custom path)'
   },
   handlers: {
-    '/snyk/:user/:repo/:branch?/:targetFile?': handler
+    '/snyk/:owner/:repo/:branch?/:targetFile?': handler
   }
 })
 
-async function handler ({ user, repo, branch, targetFile }: PathArgs) {
-  const path = [user, repo, branch].filter(Boolean).join('/')
+async function handler ({ owner, repo, branch, targetFile }: PathArgs) {
+  const path = [owner, repo, branch].filter(Boolean).join('/')
+
   const badgeUrl = `https://snyk.io/test/github/${path}/badge.svg`
+
   const searchParams = new URLSearchParams()
   if (targetFile) searchParams.set('targetFile', targetFile)
+
   const resp = await got(badgeUrl, { searchParams, timeout: 3500 })
   const params = isBadge(resp) && parseBadge(resp.body)
+
   return params || {
     subject: 'snyk',
     status: 'unknown',

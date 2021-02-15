@@ -11,7 +11,7 @@ export default createBadgenHandler({
     '/david/dep/babel/babel/packages/babel-cli': 'dependencies (sub path)',
   },
   handlers: {
-    '/david/:topic/:user/:repo/:path*': handler
+    '/david/:topic/:owner/:repo/:path*': handler
   }
 })
 
@@ -23,7 +23,7 @@ const statusInfo = {
   none: ['none', 'green']
 }
 
-async function handler ({ topic, user, repo, path = '' }: PathArgs) {
+async function handler ({ topic, owner, repo, path = '' }: PathArgs) {
   const prefix = {
     dep: '',
     dev: 'dev-',
@@ -31,7 +31,7 @@ async function handler ({ topic, user, repo, path = '' }: PathArgs) {
     optional: 'optional-'
   }[topic]
 
-  const endpoint = `https://david-dm.org/${user}/${repo}/${prefix}info.json`
+  const endpoint = `https://david-dm.org/${owner}/${repo}/${prefix}info.json`
   const { status } = await got(endpoint, {
     searchParams: { path }
   }).json<any>()

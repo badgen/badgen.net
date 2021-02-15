@@ -54,11 +54,11 @@ export default createBadgenHandler({
     '/https/cal-badge-icd0onfvrxx6.runkit.sh/America/Los_Angeles': 'https endpoint (with path args)',
   },
   handlers: {
-    '/https/:hostname/:path*': handler
+    '/https/:hostname/:pathname*': handler
   }
 })
 
-async function handler ({ hostname, path }: PathArgs) {
-  const endpoint = `https://${hostname}/${path || ''}`
+async function handler ({ hostname, pathname }: PathArgs) {
+  const endpoint = `https://${hostname}/${pathname || ''}`
   return await got(endpoint).json<any>()
 }
