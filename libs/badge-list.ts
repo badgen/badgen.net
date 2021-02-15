@@ -62,6 +62,7 @@ export const liveBadgeList = [
   'devrant',
   'peertube',
   // chat
+  'discord',
   'gitter',
   'matrix',
   // utilities
