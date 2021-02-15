@@ -8,8 +8,7 @@ const BRAND_COLOR = 'black'
 export default createBadgenHandler({
   title: 'Matrix',
   examples: {
-    '/matrix/members/%23rust/matrix.org': 'members',
-    '/matrix/members/Manjaro/matrix.org': 'members',
+    '/matrix/members/rust/matrix.org': 'members',
     '/matrix/members/thisweekinmatrix': 'members',
     '/matrix/members/archlinux/archlinux.org': 'members',
     '/matrix/members/redom_redom/gitter.im': 'members'
