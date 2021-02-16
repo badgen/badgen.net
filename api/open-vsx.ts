@@ -55,7 +55,7 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
     }
     default: {
       return {
-        subject: 'apm',
+        subject: 'Open VSX',
         status: 'unknown topic',
         color: 'grey'
       }
