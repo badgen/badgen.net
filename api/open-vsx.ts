@@ -22,43 +22,38 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
 
   switch (topic) {
     case 'v':
-    case 'version': {
+    case 'version':
       return {
         subject: `version`,
         status: version(data.version),
         color: versionColor(data.version)
       }
-    }
     case 'd':
-    case 'downloads': {
+    case 'downloads':
       return {
         subject: 'downloads',
         status: millify(data.downloadCount),
         color: 'green'
       }
-    }
     case 'l':
-    case 'license': {
+    case 'license':
       return {
         subject: 'license',
         status: data.license || 'unknown',
         color: 'blue'
       }
-    }
     case 'r':
-    case 'reviews': {
+    case 'reviews':
       return {
         subject: 'reviews',
         status: millify(data.reviewCount),
         color: 'green'
       }
-    }
-    default: {
+    default:
       return {
         subject: 'Open VSX',
         status: 'unknown topic',
         color: 'grey'
       }
-    }
   }
 }
