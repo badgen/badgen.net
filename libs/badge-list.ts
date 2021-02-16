@@ -41,6 +41,7 @@ export const liveBadgeList = [
   'pub',
   'shards',
   'wapm',
+  'open-vsx',
   // CI
   'travis',
   'circleci',
@@ -74,7 +75,6 @@ export const liveBadgeList = [
   'liberapay',
   'runkit',
   'https',
-  'open-vsx',
 ]
 
 export async function loadBadgeMeta () {
