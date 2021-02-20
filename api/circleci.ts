@@ -1,6 +1,9 @@
-import qs from 'querystring'
 import got from '../libs/got'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+
+const CIRCLECI_API_URL = 'https://circleci.com/api/v1.1/'
+
+const client = got.extend({ prefixUrl: CIRCLECI_API_URL })
 
 export default createBadgenHandler({
   title: 'CircleCI',
@@ -9,32 +12,25 @@ export default createBadgenHandler({
     '/circleci/github/nuxt/nuxt.js/master': 'build (branch)',
   },
   handlers: {
-    '/circleci/:vcs<github|gitlab>/:user/:project/:branch?': handler
+    '/circleci/:vcs<github|gitlab>/:owner/:repo/:branch?': handler
   }
 })
 
-async function handler ({ vcs, user, project, branch }: PathArgs) {
-  // https://circleci.com/docs/api/v1-reference/
-  branch = branch ? `/tree/${qs.escape(branch)}` : ''
-  const endpoint = `https://circleci.com/api/v1.1/project/${vcs}/${user}/${project}${branch}?filter=completed&limit=1`
-  const [latest] = await got(endpoint).json<any>()
+async function handler ({ vcs, owner, repo, branch }: PathArgs) {
+  // https://circleci.com/docs/api/#recent-builds-for-a-single-project
+  branch = branch ? `/tree/${encodeURIComponent(branch)}` : ''
+  const path = `project/${vcs}/${owner}/${repo}${branch}`
+  const searchParams = { filter: 'completed', limit: 1, shallow: true }
+  const [latest] = await client.get(path, { searchParams }).json<any>()
+
+  const color = {
+    failed: 'red',
+    success: 'green'
+  }[latest.status] || 'grey'
 
   return {
     subject: 'circleci',
     status: latest.status.replace(/_/g, ' '),
-    color: getStatusColor(latest.status)
-  }
-}
-
-const getStatusColor = status => {
-  switch (status) {
-    case 'failed':
-      return 'red'
-
-    case 'success':
-      return 'green'
-
-    default:
-      return 'grey'
+    color
   }
 }
