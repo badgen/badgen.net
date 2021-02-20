@@ -5,8 +5,8 @@ export default createBadgenHandler({
   title: 'Badgesize',
   examples: {
     '/badgesize/normal/amio/emoji.json/master/emoji-compact.json': 'normal size',
-    '/badgesize/brotli/amio/emoji.json/master/emoji-compact.json': 'brotli size',
     '/badgesize/gzip/amio/emoji.json/master/emoji-compact.json': 'gzip size',
+    '/badgesize/brotli/amio/emoji.json/master/emoji-compact.json': 'brotli size',
     '/badgesize/normal/file-url/https/unpkg.com/snarkdown/dist/snarkdown.js': 'arbitrary url',
     '/badgesize/normal/file-url/unpkg.com/snarkdown/dist/snarkdown.js': 'arbitrary url',
   },
@@ -31,7 +31,7 @@ function urlHandler ({ topic, protocol = 'https:', hostname, pathname }: PathArg
 async function badgesize ({ path, topic }) {
   const endpoint = `https://img.badgesize.io/${path}.json`
   const searchParams = new URLSearchParams()
-  if (topic !== 'normal') searchParams.set('topic', topic)
+  if (topic !== 'normal') searchParams.set('compression', topic)
   const { prettySize, color } = await got(endpoint, { searchParams }).json<any>()
 
   return {
