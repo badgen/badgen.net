@@ -42,6 +42,12 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
         status: data.license || 'unknown',
         color: 'blue'
       }
+    case 'rating':
+      return {
+        subject: 'rating',
+        status: `${data.averageRating}/5`,
+        color: 'green'
+      }
     case 'r':
     case 'reviews':
       return {
