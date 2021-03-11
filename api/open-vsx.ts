@@ -6,11 +6,11 @@ import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 export default createBadgenHandler({
   title: 'Open VSX',
   examples: {
-    '/open-vsx/version/idleberg/electron-builder': 'version',
+    '/open-vsx/downloads/idleberg/electron-builder': 'downloads',
+    '/open-vsx/license/idleberg/electron-builder': 'license',
     '/open-vsx/rating/idleberg/electron-builder': 'rating',
     '/open-vsx/reviews/idleberg/electron-builder': 'reviews',
-    '/open-vsx/license/idleberg/electron-builder': 'license',
-    '/open-vsx/downloads/idleberg/electron-builder': 'downloads'
+    '/open-vsx/version/idleberg/electron-builder': 'version'
   },
   handlers: {
     '/open-vsx/:topic<downloads|license|rating|reviews|version>/:namespace/:pkg': handler
