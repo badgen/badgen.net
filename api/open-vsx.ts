@@ -7,6 +7,7 @@ export default createBadgenHandler({
   title: 'Open VSX',
   examples: {
     '/open-vsx/downloads/idleberg/electron-builder': 'downloads',
+    '/open-vsx/d/idleberg/electron-builder': 'downloads',
     '/open-vsx/license/idleberg/electron-builder': 'license',
     '/open-vsx/rating/idleberg/electron-builder': 'rating',
     '/open-vsx/reviews/idleberg/electron-builder': 'reviews',
