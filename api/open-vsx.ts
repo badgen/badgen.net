@@ -22,18 +22,21 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
   const data = await got(endpoint).json<any>()
 
   switch (topic) {
+    case 'v':
     case 'version':
       return {
         subject: `version`,
         status: version(data.version),
         color: versionColor(data.version)
       }
+    case 'd':
     case 'downloads':
       return {
         subject: 'downloads',
         status: millify(data.downloadCount),
         color: 'green'
       }
+    case 'l':
     case 'license':
       return {
         subject: 'license',
