@@ -13,7 +13,7 @@ export default createBadgenHandler({
     '/open-vsx/version/idleberg/electron-builder': 'version'
   },
   handlers: {
-    '/open-vsx/:topic<downloads|license|rating|reviews|version>/:namespace/:pkg': handler
+    '/open-vsx/:topic<d|l|license|rating|reviews|v|version>/:namespace/:pkg': handler
   }
 })
 
