@@ -56,11 +56,5 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
         status: millify(data.reviewCount),
         color: 'green'
       }
-    default:
-      return {
-        subject: 'Open VSX',
-        status: 'unknown',
-        color: 'grey'
-      }
   }
 }
