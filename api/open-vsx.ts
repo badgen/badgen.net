@@ -6,7 +6,6 @@ import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 export default createBadgenHandler({
   title: 'Open VSX',
   examples: {
-    '/open-vsx/downloads/idleberg/electron-builder': 'downloads',
     '/open-vsx/d/idleberg/electron-builder': 'downloads',
     '/open-vsx/license/idleberg/electron-builder': 'license',
     '/open-vsx/rating/idleberg/electron-builder': 'rating',
@@ -31,7 +30,6 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
         color: versionColor(data.version)
       }
     case 'd':
-    case 'downloads':
       return {
         subject: 'downloads',
         status: millify(data.downloadCount),
