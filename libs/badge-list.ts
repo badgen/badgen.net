@@ -42,6 +42,7 @@ export const liveBadgeList = [
   'shards',
   'wapm',
   'open-vsx',
+  'snapcraft',
   // CI
   'travis',
   'circleci',
