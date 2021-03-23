@@ -6,13 +6,14 @@ import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 export default createBadgenHandler({
   title: 'Open VSX',
   examples: {
-    '/open-vsx/v/idleberg/electron-builder': 'version',
-    '/open-vsx/r/idleberg/electron-builder': 'reviews',
-    '/open-vsx/l/idleberg/electron-builder': 'license',
-    '/open-vsx/d/idleberg/electron-builder': 'downloads'
+    '/open-vsx/d/idleberg/electron-builder': 'downloads',
+    '/open-vsx/license/idleberg/electron-builder': 'license',
+    '/open-vsx/rating/idleberg/electron-builder': 'rating',
+    '/open-vsx/reviews/idleberg/electron-builder': 'reviews',
+    '/open-vsx/version/idleberg/electron-builder': 'version'
   },
   handlers: {
-    '/open-vsx/:topic/:namespace/:pkg': handler
+    '/open-vsx/:topic<d|l|license|rating|reviews|v|version>/:namespace/:pkg': handler
   }
 })
 
@@ -29,7 +30,6 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
         color: versionColor(data.version)
       }
     case 'd':
-    case 'downloads':
       return {
         subject: 'downloads',
         status: millify(data.downloadCount),
@@ -42,18 +42,17 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
         status: data.license || 'unknown',
         color: 'blue'
       }
-    case 'r':
+    case 'rating':
+      return {
+        subject: 'rating',
+        status: `${data.averageRating}/5`,
+        color: 'green'
+      }
     case 'reviews':
       return {
         subject: 'reviews',
         status: millify(data.reviewCount),
         color: 'green'
-      }
-    default:
-      return {
-        subject: 'Open VSX',
-        status: 'unknown topic',
-        color: 'grey'
       }
   }
 }
