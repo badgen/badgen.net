@@ -5,7 +5,6 @@ import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badge
 const PUB_API_URL = 'https://pub.dev/api/'
 const PUB_REPO_URL = 'https://pub.dev/'
 
-const uniq = <T = any>(arr: T[]) => [...new Set(arr)]
 
 export default createBadgenHandler({
   title: 'Dart pub',
