@@ -5,6 +5,8 @@ import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badge
 const PUB_API_URL = 'https://pub.dev/api/'
 const PUB_REPO_URL = 'https://pub.dev/'
 
+const uniq = <T = any>(arr: T[]) => [...new Set(arr)]
+
 export default createBadgenHandler({
   title: 'Dart pub',
   examples: {
@@ -20,8 +22,8 @@ export default createBadgenHandler({
     '/pub/flutter-platform/xml': 'flutter-platform'
   },
   handlers: {
-    '/pub/:topic<v|version|sdk-version|likes|points|popularity>/:pkg': apiHandler,
-    '/pub/:topic<dart-platform|flutter-platform|license>/:pkg': webHandler
+    '/pub/:topic<v|version|sdk-version|likes|points|popularity|dart-platform|flutter-platform>/:pkg': apiHandler,
+    '/pub/:topic<license>/:pkg': webHandler
   }
 })
 
@@ -75,6 +77,24 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
         color: 'green'
       }
     }
+    case 'dart-platform': {
+      const { scorecard: pubScores } = await client.get(`packages/${pkg}/metrics`).json<any>()
+      const runtimes = parseTags(pubScores.derivedTags, 'runtime').join(' | ')
+      return {
+        subject: 'dart',
+        status: runtimes || 'not supported',
+        color: runtimes ? 'blue' : 'grey'
+      }
+    }
+    case 'flutter-platform': {
+      const { scorecard: pubScores } = await client.get(`packages/${pkg}/metrics`).json<any>()
+      const platforms = parseTags(pubScores.derivedTags, 'platform').join(' | ')
+      return {
+        subject: 'flutter',
+        status: platforms || 'not supported',
+        color: platforms ? 'blue' : 'grey'
+      }
+    }
   }
 }
 
@@ -82,16 +102,6 @@ async function webHandler({ topic, pkg }: PathArgs) {
   const html = await fetchPage(pkg)
 
   switch (topic) {
-    case 'dart-platform':
-    case 'flutter-platform': {
-      const [subject] = topic.split('-')
-      const platforms = parseBadgeGroup(subject, html).join(' | ')
-      return {
-        subject,
-        status: platforms || 'not supported',
-        color: platforms ? 'blue' : 'grey'
-      }
-    }
     case 'license': {
       const license = html.match(/License<\/h3>\s*<p>([^(]+)\(/i)?.[1].trim()
       return {
@@ -103,9 +113,14 @@ async function webHandler({ topic, pkg }: PathArgs) {
   }
 }
 
-function parseBadgeGroup(title: string, html: string) {
-  const reBadge = new RegExp(`class="tag-badge-sub" title="[^"]*?\\b${title}\\b[^"]*?">([^<]+)<\\/`, 'ig')
-  return [...html.matchAll(reBadge)].map(match => match[1].trim())
+function parseTags(tags, group)  {
+  return Array.from(tags.reduce((acc, tag) => {
+    if (!tag.startsWith(`${group}:`)) return acc
+    const [, name] = tag.split(':')
+    const [type] = name.split('-')
+    acc.add(type)
+    return acc
+  }, new Set()))
 }
 
 async function fetchPage(pkg: string) {
