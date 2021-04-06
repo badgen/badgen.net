@@ -21,7 +21,7 @@ or any platform, which returns a JSON in this format:
    https://some-endpoint.example.com/what/ever/args
    \`\`\`
 
-   then then the corresponding badge url on Badgen is:
+   then the corresponding badge url on Badgen is:
 
    \`\`\`
    /https/some-endpoint.example.com/what/ever/args
