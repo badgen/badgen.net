@@ -92,10 +92,10 @@ async function pkgJson (pkg: string, tag = 'latest'): Promise<any> {
 }
 
 async function info (topic: string, pkg: string, tag = 'latest') {
-  // ver === 'latest', non-scoped package use npmMetadata (npm), all others use unpkg
+  // private package use npmMetadata (npm), all others use unpkg
   // optionally disable unpkg to request all info from NPM
   const meta = await(
-    process.env.NPM_REGISTRY || (tag === "latest" && pkg.startsWith('@'))
+    process.env.NPM_REGISTRY
       ? npmMetadata(pkg, tag)
       : pkgJson(pkg, tag)
   )
