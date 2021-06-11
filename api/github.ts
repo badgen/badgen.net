@@ -465,10 +465,13 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
 
 function dependents (type: DependentsType) {
   return async function ({ owner, repo }: PathArgs) {
-    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`).text()
-    const reDependents = new RegExp(`\\?dependent_type=${type}">(?:\\s*<svg.*<\\/svg>)?\\s*([\\d,]+)`)
-    const count = Number(html.match(reDependents)?.[1].replace(/,/g, ''))
     const subject = type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents'
+    const keyword = type === 'PACKAGE' ? 'Packages' : 'Repositories'
+
+    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`).text()
+    const reDependents = new RegExp(`svg>\\s*[\\d,]+\\s*${keyword}`, 'g')
+    const countText = html.match(reDependents)?.[0].replace(/[^\d]/g, '')
+    const count = Number(countText)
 
     if (Number.isNaN(count)) {
       return {
