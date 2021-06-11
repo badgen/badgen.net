@@ -14,15 +14,15 @@ export default createBadgenHandler({
     '/github/release/babel/babel/stable': 'latest stable release',
     '/github/tag/micromatch/micromatch': 'latest tag',
     '/github/watchers/micromatch/micromatch': 'watchers',
-    '/github/checks/tunnckoCore/opensource': 'combined checks (master branch)',
-    '/github/checks/node-formidable/node-formidable': 'combined checks (master branch)',
+    '/github/checks/tunnckoCore/opensource': 'combined checks (default branch)',
+    '/github/checks/node-formidable/node-formidable': 'combined checks (default branch)',
     '/github/checks/node-formidable/node-formidable/master/lint': 'single checks (lint job)',
     '/github/checks/node-formidable/node-formidable/master/test': 'single checks (test job)',
     '/github/checks/node-formidable/node-formidable/master/ubuntu?label=linux': 'single checks (linux)',
     '/github/checks/node-formidable/node-formidable/master/windows': 'single checks (windows)',
     '/github/checks/node-formidable/node-formidable/master/macos': 'single checks (macos)',
     '/github/checks/styfle/packagephobia/main': 'combined checks (branch)',
-    '/github/status/micromatch/micromatch': 'combined statuses (master branch)',
+    '/github/status/micromatch/micromatch': 'combined statuses (default branch)',
     '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
     '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
     '/github/status/micromatch/micromatch/4.0.1': 'combined statuses (tag)',
@@ -107,7 +107,11 @@ function combined (states: Array<any>, stateKey: string = 'state') {
   throw new Error(`Unknown states: ${states.map(x => x[stateKey]).join()}`)
 }
 
-async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
+async function checks ({ owner, repo, ref, context}: PathArgs) {
+  if (!ref) {
+    const resp = await restGithub(`repos/${owner}/${repo}`)
+    ref = resp!.default_branch
+  }
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`, 'antiope')
 
   let state = typeof context === 'string'
@@ -138,7 +142,11 @@ async function checks ({ owner, repo, ref = 'master', context}: PathArgs) {
   }
 }
 
-async function status ({ owner, repo, ref = 'master', context }: PathArgs) {
+async function status ({ owner, repo, ref, context }: PathArgs) {
+  if (!ref) {
+    const resp = await restGithub(`repos/${owner}/${repo}`)
+    ref = resp!.default_branch
+  }
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
   let state = typeof context === 'string'
