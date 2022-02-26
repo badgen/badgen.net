@@ -41,7 +41,7 @@
     "semver": "^7.3.5",
     "serve-handler": "^6.1.3",
     "serve-marked": "^2.0.3",
-    "url-parse": "^1.5.2",
+    "url-parse": "^1.5.8",
     "webextension-store-meta": "^1.0.3",
     "yaml": "^1.10.2"
   },
