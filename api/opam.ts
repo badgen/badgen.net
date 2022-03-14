@@ -1,5 +1,5 @@
 import got from '../libs/got'
-import { millify, version, versionColor } from '../libs/utils'
+import { version, versionColor } from '../libs/utils'
 import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const OPAM_REPO_URL = 'https://opam.ocaml.org/packages/'
@@ -9,7 +9,6 @@ export default createBadgenHandler({
   examples: {
     '/opam/v/merlin': 'version',
     '/opam/v/ocamlformat': 'version',
-    '/opam/dm/lwt': 'monthly downloads',
     '/opam/license/cohttp': 'license'
   },
   handlers: {
@@ -35,14 +34,6 @@ async function handler ({ topic, pkg }: PathArgs) {
         subject: 'license',
         status: license || 'unknown',
         color: 'blue'
-      }
-    }
-    case 'dm': {
-      const downloads = Number(html.match(/<th>statistics<\/th>\s*<td>installed\s*<strong>([^<]+)<\//i)?.[1])
-      return {
-        subject: 'downloads',
-        status: millify(downloads) + '/month',
-        color: 'green'
       }
     }
   }
