@@ -12,7 +12,7 @@ class HaxelibClient extends RpcClient {
   async info(project) {
     try {
       return await this.call<any>('api.infos', [project])
-    } catch (err) {
+    } catch (err: any) {
       if (err.message.startsWith('No such Project')) {
         throw new BadgenError({ status: 404 })
       }

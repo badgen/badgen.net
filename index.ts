@@ -65,7 +65,7 @@ const server = http.createServer(async (req, res) => {
       const { default: handler } = await import(handlerPath)
       return handler(req, res, handlerName)
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error(error)
     return sendError(res, error)
   }
