@@ -26,7 +26,7 @@
     "@sentry/node": "^6.6.0",
     "badgen": "^3.2.2",
     "badgen-icons": "^0.22.0",
-    "byte-size": "^6.2.0",
+    "byte-size": "^8.1.0",
     "date-fns": "^2.21.1",
     "got": "^10.7.0",
     "haxe-rpc-client": "^1.0.0",
