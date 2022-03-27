@@ -115,7 +115,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
       }
 
       return serveBadge(req, res, { params, query: query as any })
-    } catch (error) {
+    } catch (error: any) {
       measurementLogError('error', error.code || error?.response?.statusCode , req.url || '/')
 
       if (error instanceof BadgenError) {
