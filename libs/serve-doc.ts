@@ -1,6 +1,6 @@
 import http from 'http'
 import matchRoute from 'my-way'
-import serveMarked from 'serve-marked'
+import { serveMarked } from 'serve-marked'
 import serve404 from '../libs/serve-404'
 import { BadgenServeConfig } from '../libs/create-badgen-handler'
 
