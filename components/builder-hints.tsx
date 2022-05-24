@@ -48,7 +48,7 @@ const Hint = ({ left, width, height, children, align = 'left' }) => {
     left: `calc(50% + ${left}px)`,
     height: `${height * 54}px`,
     width: `${width}px`,
-    textAlign: align as CSS.TextAlignProperty
+    textAlign: align as CSS.Property.TextAlign
   }
   return (
     <div className='hint' style={wrapperPos}>
