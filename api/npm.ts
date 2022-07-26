@@ -188,10 +188,10 @@ async function typesDefinition(pkg: string, tag = 'latest') {
       return true
     }
     const hasNestedTypes = (exports: any) =>
-      typeof exports.types === 'string' ||
-      Object.values(exports ?? {})
-        .filter((nestedExport: any) => typeof nestedExport === 'object')
-        .some(hasNestedTypes)
+      typeof exports === 'object' &&
+      (typeof exports.types === 'string' ||
+      Object.values(exports)
+        .some(hasNestedTypes))
 
     if (hasNestedTypes(meta.exports)) {
       return true
