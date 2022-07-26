@@ -183,17 +183,35 @@ async function dependents (name: string) {
 async function typesDefinition(pkg: string, tag = 'latest') {
   let meta = await pkgJson(pkg, tag)
 
-  if (typeof meta.types === 'string' || typeof meta.typings === "string") {
+  const hasExportTypes = (meta: any) => {
+    if (typeof meta.types === 'string' || typeof meta.typings === 'string') {
+      return true
+    }
+    const hasNestedTypes = (exports: any) =>
+      typeof exports.types === 'string' ||
+      Object.values(exports ?? {})
+        .filter((nestedExport: any) => typeof nestedExport === 'object')
+        .some(hasNestedTypes)
+
+    if (hasNestedTypes(meta.exports)) {
+      return true
+    }
+
+    return false
+  }
+
+  if (hasExportTypes(meta)) {
     return {
       subject: 'types',
       status: 'included',
-      color: '0074c1'
+      color: '0074c1',
     }
   }
 
-  const hasIndexDTSFile = await got.head(`https://unpkg.com/${pkg}/index.d.ts`)
-    .then(res => res.statusCode === 200)
-    .catch(e => false)
+  const hasIndexDTSFile = await got
+    .head(`https://unpkg.com/${pkg}/index.d.ts`)
+    .then((res) => res.statusCode === 200)
+    .catch((e) => false)
 
   if (hasIndexDTSFile) {
     return {
