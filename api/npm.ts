@@ -192,8 +192,8 @@ async function typesDefinition(pkg: string, tag = 'latest') {
   		if (typeof exports !== 'object') return false
   		if (typeof exports.types === 'string') return true
   		if (Object.values(exports).some(hasNestedTypes)) return true
-  		return false
-		}
+      return false
+    }
 
     if (hasNestedTypes(meta.exports)) {
       return true
