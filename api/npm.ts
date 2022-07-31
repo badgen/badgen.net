@@ -183,15 +183,17 @@ async function dependents (name: string) {
 async function typesDefinition(pkg: string, tag = 'latest') {
   let meta = await pkgJson(pkg, tag)
 
-  const hasExportTypes = (meta: any) => {
+  const hasTypes = (meta: any) => {
     if (typeof meta.types === 'string' || typeof meta.typings === 'string') {
       return true
     }
-    const hasNestedTypes = (exports: any) =>
-      typeof exports === 'object' &&
-      (typeof exports.types === 'string' ||
-      Object.values(exports)
-        .some(hasNestedTypes))
+
+    const hasNestedTypes = (exports: any) => {
+  		if (typeof exports !== 'object') return false
+  		if (typeof exports.types === 'string') return true
+  		if (Object.values(exports).some(hasNestedTypes)) return true
+  		return false
+		}
 
     if (hasNestedTypes(meta.exports)) {
       return true
@@ -200,7 +202,7 @@ async function typesDefinition(pkg: string, tag = 'latest') {
     return false
   }
 
-  if (hasExportTypes(meta)) {
+  if (hasTypes(meta)) {
     return {
       subject: 'types',
       status: 'included',
