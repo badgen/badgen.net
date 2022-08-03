@@ -189,9 +189,9 @@ async function typesDefinition(pkg: string, tag = 'latest') {
     }
 
     const hasNestedTypes = (exports: any) => {
-  		if (typeof exports !== 'object') return false
-  		if (typeof exports.types === 'string') return true
-  		if (Object.values(exports).some(hasNestedTypes)) return true
+      if (typeof exports !== 'object') return false
+      if (typeof exports.types === 'string') return true
+      if (Object.values(exports).some(hasNestedTypes)) return true
       return false
     }
 
