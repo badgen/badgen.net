@@ -169,7 +169,7 @@ async function metadataHandler ({ type, scope, name, tag, architecture, variant 
 
   const image_config = await getImageConfig(scope, name, image_manifest.config.digest, token)
 
-  const metadata = image_config.container_config.Labels[`org.label-schema.${type}`]
+  const metadata = image_config.container_config.Labels[`org.label-schema.${type}`] || image_config.container_config.Labels[`org.opencontainers.image.${type}`]
   if (! metadata) {
     return {
       subject: 'docker metadata',
