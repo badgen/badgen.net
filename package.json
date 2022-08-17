@@ -28,7 +28,7 @@
     "badgen-icons": "^0.22.0",
     "byte-size": "^8.1.0",
     "date-fns": "^2.21.1",
-    "got": "^10.7.0",
+    "got": "^11.8.5",
     "haxe-rpc-client": "^1.0.0",
     "humanize-duration": "^3.24.0",
     "lodash.debounce": "^4.0.8",
