@@ -309,8 +309,8 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
       queryBody = `
         ${
           restArgs.ref
-            ? `branch: ref(qualifiedName: "${restArgs.ref || "master"}")`
-            : `defaultBranchRef`
+            ? `branch: ref(qualifiedName: "${restArgs.ref}")`
+            : 'defaultBranchRef'
         } {          
           target {
             ... on Commit {
@@ -326,8 +326,8 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
       queryBody = `
         ${
           restArgs.ref ? 
-            `branch: ref(qualifiedName: "${restArgs.ref || 'master'}")` :
-            `defaultBranchRef`
+            `branch: ref(qualifiedName: "${restArgs.ref}")` :
+            'defaultBranchRef'
         } {
           target {
             ... on Commit {
