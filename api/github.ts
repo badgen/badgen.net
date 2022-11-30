@@ -307,7 +307,11 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
       break
     case 'commits':
       queryBody = `
-        branch: ref(qualifiedName: "${restArgs.ref || 'master'}") {
+        ${
+          restArgs.ref
+            ? `branch: ref(qualifiedName: "${restArgs.ref || "master"}")`
+            : `defaultBranchRef`
+        } {          
           target {
             ... on Commit {
               history(first: 0) {
@@ -320,7 +324,11 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
       break
     case 'last-commit':
       queryBody = `
-        branch: ref(qualifiedName: "${restArgs.ref || 'master'}") {
+        ${
+          restArgs.ref ? 
+            `branch: ref(qualifiedName: "${restArgs.ref || 'master'}")` :
+            `defaultBranchRef`
+        } {
           target {
             ... on Commit {
               history(first: 1) {
@@ -429,7 +437,11 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
     case 'commits':
       return {
         subject: topic,
-        status: millify(result.branch.target.history.totalCount),
+        status: millify(
+          result.branch ? 
+            result.branch.target.history.totalCount :
+            result.defaultBranchRef.target.history.totalCount
+        ),
         color: 'blue'
       }
     case 'tag':
@@ -448,7 +460,8 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         color: li ? 'blue' : 'grey'
       }
     case 'last-commit':
-      const commits = result.branch.target.history.nodes
+      const branch = result.branch || result.defaultBranchRef
+      const commits = branch.target.history.nodes
       const lastDate = commits.length && new Date(commits[0].committedDate)
       const fromNow = lastDate && distanceToNow(lastDate, { addSuffix: true })
       return {
