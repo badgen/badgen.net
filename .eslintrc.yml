@@ -7,6 +7,7 @@ extends:
   # https://github.com/yannickcr/eslint-plugin-react
   - plugin:react/recommended
   - eslint:recommended
+  - plugin:@next/next/recommended
 
 plugins:
   - react

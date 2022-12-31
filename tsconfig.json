@@ -20,14 +20,21 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false
+    "noEmit": false,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "api",
     "libs",
     "index.ts",
     "components",
-    "pages"
+    "pages",
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules"
