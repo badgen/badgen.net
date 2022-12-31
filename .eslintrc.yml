@@ -12,6 +12,10 @@ extends:
 plugins:
   - react
 
+settings:
+  react:
+    version: detect
+
 env:
   es6: true
   browser: true
@@ -40,6 +44,6 @@ rules:
   no-unused-vars: off # TODO: warn later
   react/no-unescaped-entities: off
   react/no-unused-prop-types: warn
-  react/no-unknown-property: [2, { ignore: jsx }]
+  react/no-unknown-property: [2, { ignore: [ jsx ] }]
   react/react-in-jsx-scope: off
   react/prop-types: off # TODO: open later
