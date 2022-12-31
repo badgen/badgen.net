@@ -16,7 +16,7 @@ export default function BadgenTitle ({ host }) {
         </h1>
         <div>Fast badge generating service</div>
       </div>
-      <style>{`
+      <style jsx>{`
         .title-block {
           width: 100%;
           height: 260px;
@@ -73,7 +73,7 @@ const StyleSwitch = ({ host }) => {
   if (!host) return null
 
   return (
-    <span className='style-switch'>
+    <div className='style-switch'>
       {host.includes('https://flat.') ? [
         <Link key='2' href='https://flat.badgen.net'>FLAT</Link>,
         <Link key='1' href='https://badgen.net'>CLASSIC</Link>
@@ -91,25 +91,25 @@ const StyleSwitch = ({ host }) => {
           font: 16px/26px sans-serif;
           overflow: hidden;
         }
-        a {
+        .style-switch a {
           color: #999;
           display: block;
           line-height: 26px;
           padding: 1px 3px;
         }
-        a:first-child {
+        .style-switch a:first-child {
           margin-top: 0;
           transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
         }
         .style-switch:hover a:first-child {
           margin-top: -26px;
         }
-        a:focus {
+        .style-switch a:focus {
           outline: none;
           color: #08C;
         }
       `}
       </style>
-    </span>
+    </div>
   )
 }

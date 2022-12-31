@@ -43,7 +43,7 @@ export default function Footer () {
         </div>
       </div>
     </div>
-    <style>{`
+    <style jsx>{`
       footer {
         margin-top: 8rem;
         background-color: #222;

@@ -9,7 +9,7 @@
     "build:api": "tsc -p server.tsconfig.json",
     "build:web": "next build && next export -o dist",
     "build-0": "npm run tools && npm run build:web && npm run build:api",
-    "build": "next build",
+    "build": "npm run tools && next build",
     "dev": "next dev",
     "dev:api": "nodemon --config nodemon.json index.ts",
     "dev:web": "next",

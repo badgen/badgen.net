@@ -23,9 +23,7 @@ const merriweather = Inter({ subsets: ['latin'] })
 // }
 
 import { useState, useEffect } from 'react'
-import BadgeExamples from '../components/badge-examples'
 import BadgenTitle from '../components/badgen-title'
-// import TopBar from '../components/top-bar'
 import Intro from '../components/home-intro'
 import Footer from '../components/footer'
 import examples from '../static/.meta/badges.json'
@@ -41,12 +39,18 @@ export default function Index () {
   })
 
   return <>
+    <Head>
+      <title>Badgen: fast badge generating service</title>
+      <meta name="description" content="fast badge generating service" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
     <BadgenTitle host={host} />
     <div className='body-wrapper'>
       <Intro />
     </div>
     <Footer />
-    <style>{`
+    <style jsx>{`
       .docs {
         margin: 0 auto;
         padding-bottom: 6em;

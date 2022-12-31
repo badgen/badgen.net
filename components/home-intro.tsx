@@ -59,7 +59,7 @@ export default function HomeIntro ({ isFlat = false }) {
         turn an api endpoint into a svg live badge.
       </li>
     </ul>
-    <style>{`
+    <style jsx>{`
       pre {
         font-size: 15px;
         font-family: Menlo, Courier New, monospace;
@@ -73,12 +73,13 @@ export default function HomeIntro ({ isFlat = false }) {
       .home-intro h3 {
         font-family: Merriweather, serif;
         margin: 2rem 0;
+        font-weight: 400;
       }
 
       ul { padding-left: 2em; }
-      li { vertical-align: top; font-size: 14px; color: #777 }
+      li { vertical-align: top; font-size: 14px; line-height: 24px; color: #777; margin: 5px 0 }
       li code { padding: 0.3em 0.5em; display: pre; color: #333; background: #EEF2F8 }
-      li a { display: inline }
+      li a { display: inline; margin-left: 0.3em; text-decoration: underline }
       a code { color: #06D }
     `}
     </style>
