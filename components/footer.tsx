@@ -1,23 +1,27 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer () {
   return (
   <footer>
     <div className='footer-content'>
       <div>
-        <h3><img src='/static/badgen-logo-w.svg' />Badgen Service</h3>
+        <h3>
+          <img alt='badgen logo' src='/static/badgen-logo-w.svg' />
+          Badgen Service
+        </h3>
         <div className='sitemap'>
-          <Link href='https://badgen.net'><a>Classic</a></Link>
+          <Link href='https://badgen.net'>Classic</Link>
           <em>/</em>
-          <Link href='https://flat.badgen.net'><a>Flat</a></Link>
+          <Link href='https://flat.badgen.net'>Flat</Link>
           <em>/</em>
-          <Link href='/builder'><a>Builder</a></Link>
+          <Link href='/builder'>Builder</Link>
           <em>/</em>
-          <Link href='https://github.com/badgen/badgen.net'><a>GitHub</a></Link>
+          <Link href='https://github.com/badgen/badgen.net'>GitHub</Link>
           <em>/</em>
-          <Link href='https://twitter.com/badgen_net'><a>Twitter</a></Link>
+          <Link href='https://twitter.com/badgen_net'>Twitter</Link>
           <em>/</em>
-          <Link href='https://opencollective.com/badgen'><a>OpenCollective</a></Link>
+          <Link href='https://opencollective.com/badgen'>OpenCollective</Link>
           <br />
         </div>
       </div>
@@ -28,17 +32,20 @@ export default function Footer () {
           Powered by <a href='https://vercel.com'>Vercel</a>.
         </div>
         <div className='links'>
-          <a href='https://twitter.com/badgen_net'>
-            <img src='https://simpleicons.now.sh/twitter/fff' />
+          <a title='badgen twitter link' href='https://twitter.com/badgen_net'>
+            <img alt='badgen twitter link' src='https://simpleicons.now.sh/twitter/fff' width='30' height='30' />
           </a>
+
           <a href='https://github.com/badgen/badgen.net'>
-            <img src='https://simpleicons.now.sh/github/fff' />
+            <img alt='badgen github link' src='https://simpleicons.now.sh/github/fff' width='30' height='30' />
           </a>
+
         </div>
       </div>
     </div>
-    <style jsx>{`
+    <style>{`
       footer {
+        margin-top: 8rem;
         background-color: #222;
         padding: 2rem 2rem;
         color: #777;
@@ -46,12 +53,13 @@ export default function Footer () {
       .footer-content {
         margin: 0 auto;
       }
-      h3 {
-        font: 24px/32px Merriweather, serif;
+      footer h3 {
+        font: 22px/32px Merriweather, Georgia, serif;
         letter-spacing: 0.5px;
         color: #DDD;
+        margin-bottom: 1em;
       }
-      h3 img {
+      footer h3 img {
         height: 21px;
         opacity: 0.8;
         margin-right: 8px;
@@ -60,12 +68,12 @@ export default function Footer () {
       }
       .sitemap {
         line-height: 26px;
-        padding-bottom: 2em;
       }
       .sitemap a {
         color: #999;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        display: inline;
       }
       a:hover {
         color: #EEE;
@@ -84,13 +92,14 @@ export default function Footer () {
       }
       .bottom a {
         color: #999;
+        display: inline;
       }
       .links {
         text-align: right;
       }
       .links a {
-        margin-left: 1em;
         opacity: 0.7;
+        display: inline;
       }
       .links a:hover {
         opacity: 1;

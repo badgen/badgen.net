@@ -4,7 +4,7 @@ import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
 
 const CTAN_API_URL = 'https://ctan.org/json/2.0/'
 
-const client = got.extend({ prefixUrl: CTAN_API_URL, timeout: 3500 })
+const client = got.extend({ prefixUrl: CTAN_API_URL, timeout: { request: 3500 } })
 
 export default createBadgenHandler({
   title: 'CTAN',

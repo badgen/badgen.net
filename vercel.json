@@ -1,13 +1,8 @@
 {
   "version": 2,
   "regions": ["all"],
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" },
-    { "src": "api/*.ts", "use": "@vercel/node" }
-  ],
   "routes": [
     { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } },
-    { "src": "/builder", "dest": "/builder.html" },
     { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" }
   ],
   "env": {

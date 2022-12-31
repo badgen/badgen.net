@@ -34,7 +34,8 @@
     "index.ts",
     "components",
     "pages",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -41,7 +41,7 @@ export default class BuilderBar extends React.Component<BuilderBarProps> {
           onBlur={this.props.onBlur}
           value={badgeURL}
         />
-        <style jsx>{`
+        <style>{`
           label {
             height: 100px;
             width: 100%;

@@ -21,7 +21,7 @@ export default function BuilderHints ({ focus, badgeURL }) {
       <Hint left={290} width={110} height={1}>
         <a href='/#options'>OPTIONS (icon, label, etc.)</a>
       </Hint>
-      <style jsx>{`
+      <style>{`
         .hints {
           height: 0;
           position: relative;
@@ -54,7 +54,7 @@ const Hint = ({ left, width, height, children, align = 'left' }) => {
     <div className='hint' style={wrapperPos}>
       <div className='line' />
       <div className='content'>{children}</div>
-      <style jsx>{`
+      <style>{`
         .hint {
           border-top: 2px solid #666;
           position: absolute;

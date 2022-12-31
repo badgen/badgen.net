@@ -110,6 +110,6 @@ async function fetchDownloads (pkg: string, period: string) {
     const end = 'last-day'
     period = [start, end].join(':')
   }
-  const [stats] = await client.get(`downloads/total/${period}/${pkg}`).json()
+  const [stats] = await client.get(`downloads/total/${period}/${pkg}`).json() as any
   return stats.downloads
 }

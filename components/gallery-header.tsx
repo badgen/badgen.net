@@ -12,7 +12,7 @@ export default function GalleryHeader ({ current }) {
           <a className='static'>Static Badges</a>
         </Link>
       </div>
-      <style jsx>{`
+      <style>{`
         header {
           background-color: #F7F7F7;
           text-align: center;

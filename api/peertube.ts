@@ -27,7 +27,7 @@ async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) 
 
   switch (topic) {
     case 'comments': {
-      const { total } = await client.get(`/videos/${videoUUID}/comment-threads`).json()
+      const { total } = await client.get(`/videos/${videoUUID}/comment-threads`).json<any>()
       return {
         subject: 'comments',
         status: millify(total),
@@ -35,7 +35,7 @@ async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) 
       }
     }
     case 'views': {
-      const { views } = await client.get(`/videos/${videoUUID}`).json()
+      const { views } = await client.get(`/videos/${videoUUID}`).json<any>()
       return {
         subject: 'views',
         status: millify(views),
@@ -47,7 +47,7 @@ async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) 
 
 async function votesHandler ({ instance, 'video-uuid': videoUUID, format }: PathArgs) {
   const client = createClient(instance)
-  const { likes, dislikes } = await client.get(`/videos/${videoUUID}`).json()
+  const { likes, dislikes } = await client.get(`/videos/${videoUUID}`).json<any>()
 
   switch (format) {
     case 'likes': {
@@ -76,7 +76,7 @@ async function followersHandler ({ instance, account, channel }: PathArgs) {
   const client = createClient(instance)
 
   if (channel) {
-    const { followersCount } = await client.get(`/video-channels/${channel}`).json()
+    const { followersCount } = await client.get(`/video-channels/${channel}`).json<any>()
     return {
       subject: 'followers',
       status: millify(followersCount),
@@ -84,7 +84,7 @@ async function followersHandler ({ instance, account, channel }: PathArgs) {
     }
   }
 
-  const { followersCount } = await client.get(`/accounts/${account}`).json()
+  const { followersCount } = await client.get(`/accounts/${account}`).json<any>()
   return {
     subject: 'followers',
     status: millify(followersCount),

@@ -1,4 +1,4 @@
-import debounceRender from 'react-debounce-render'
+// import debounceRender from 'react-debounce-render'
 import BadgenTitle from './badgen-title'
 
 const BadgePreview = ({ host, badgeURL, focus }) => {
@@ -11,7 +11,7 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
       <div className={'preview ' + (showPreview ? 'show' : 'none')}>
         <PreviewBadge host={host} url={badgeURL} />
       </div>
-      <style jsx>{`
+      <style>{`
         .header-preview {
           height: calc(50vh - 100px);
           width: 100%;
@@ -54,9 +54,13 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
   )
 }
 
-const PreviewBadge = debounceRender(({ host, url }) => {
+/* const PreviewBadge = debounceRender(({ host, url }) => {
   return <img style={{ height: '30px' }} src={genBadgeSrc(host, url)} />
-}, 300)
+}, 300) */
+
+const PreviewBadge = ({ host, url }) => {
+  return <img alt={url} style={{ height: '30px' }} src={genBadgeSrc(host, url)} />
+}
 
 const genBadgeSrc = (host, url) => {
   if (!url) {

@@ -36,7 +36,7 @@ export default function BuilderHelper ({ badgeURL, onSelect }: BuilderHelperProp
   return (
     <div className='helper'>
       {hints}
-      <style jsx>{`
+      <style>{`
         .helper {
           height: 50vh;
           width: 100%;
@@ -59,7 +59,7 @@ const Hint = ({ info, onSelect }) => (
   <tr onClick={onSelect}>
     <th>{info[1]}</th>
     <td>{info[0]}</td>
-    <style jsx>{`
+    <style>{`
       tr {
         font-size: 15px;
         line-height: 36px;

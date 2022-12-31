@@ -1,17 +1,22 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
-const BadgenTitle = ({ host }) => {
+import { Merriweather } from '@next/font/google'
+
+const merriweather = Merriweather({ subsets: ['latin'], weight: ["300", "700"] })
+
+export default function BadgenTitle ({ host }) {
   return (
     <div className='title-block'>
-      <div className='title'>
+      <div className={`title ${merriweather.className}`}>
         <h1>
-          <img src='/static/badgen-logo.svg' />
+          <Image alt='badgen logo' src='/static/badgen-logo.svg' width='42' height='42' />
           Badgen
           <StyleSwitch host={host} />
         </h1>
-        <p>Fast badge generating service</p>
+        <div>Fast badge generating service</div>
       </div>
-      <style jsx>{`
+      <style>{`
         .title-block {
           width: 100%;
           height: 260px;
@@ -36,27 +41,27 @@ const BadgenTitle = ({ host }) => {
         .title.show {
           transition-delay: 100ms;
         }
-        .title img {
-          height: 42px;
-          width: 42px;
-          vertical-align: top;
-          margin-top: -1px;
-          margin-right: 10px;
-        }
         .title h1 {
-          margin: 1.5rem 0 0 0;
-          font: 46px/48px Merriweather, serif;
+          font: 46px/42px Merriweather, Georgia, serif;
           font-weight: 700;
           color: #333;
           height: 52px;
           width: 235px;
           position: relative;
         }
-        .title p {
-          font: 20px/32px Merriweather, serif;
+        .title h1 img {
+          height: 42px;
+          width: 42px;
+          vertical-align: top;
+          margin-top: -1px;
+          margin-right: 10px;
+        }
+        .title div {
+          font: 20px/32px Merriweather, Georgia, serif;
           font-weight: 300;
           letter-spacing: 0.3px;
           color: #333;
+          margin-top: 10px;
         }
       `}
       </style>
@@ -70,13 +75,13 @@ const StyleSwitch = ({ host }) => {
   return (
     <span className='style-switch'>
       {host.includes('https://flat.') ? [
-        <Link key='2' href='https://flat.badgen.net'><a>FLAT</a></Link>,
-        <Link key='1' href='https://badgen.net'><a>CLASSIC</a></Link>
+        <Link key='2' href='https://flat.badgen.net'>FLAT</Link>,
+        <Link key='1' href='https://badgen.net'>CLASSIC</Link>
       ] : [
-        <Link key='1' href='https://badgen.net'><a>CLASSIC</a></Link>,
-        <Link key='2' href='https://flat.badgen.net'><a>FLAT</a></Link>
+        <Link key='1' href='https://badgen.net'>CLASSIC</Link>,
+        <Link key='2' href='https://flat.badgen.net'>FLAT</Link>
       ]}
-      <style jsx>{`
+      <style>{`
         .style-switch {
           position: absolute;
           box-sizing: border-box;
@@ -108,5 +113,3 @@ const StyleSwitch = ({ host }) => {
     </span>
   )
 }
-
-export default BadgenTitle
