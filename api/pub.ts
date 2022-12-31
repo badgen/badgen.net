@@ -78,16 +78,16 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
     }
     case 'dart-platform': {
       const { scorecard: pubScores } = await client.get(`packages/${pkg}/metrics`).json<any>()
-      const runtimes = parseTags(pubScores.derivedTags, 'runtime').join(' | ')
+      const sdk = parseTags(pubScores.panaReport.derivedTags, 'sdk').join(' | ')
       return {
         subject: 'dart',
-        status: runtimes || 'not supported',
-        color: runtimes ? 'blue' : 'grey'
+        status: sdk || 'not supported',
+        color: sdk ? 'blue' : 'grey'
       }
     }
     case 'flutter-platform': {
       const { scorecard: pubScores } = await client.get(`packages/${pkg}/metrics`).json<any>()
-      const platforms = parseTags(pubScores.derivedTags, 'platform').join(' | ')
+      const platforms = parseTags(pubScores.panaReport.derivedTags, 'platform').join(' | ')
       return {
         subject: 'flutter',
         status: platforms || 'not supported',

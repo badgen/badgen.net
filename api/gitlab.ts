@@ -231,18 +231,18 @@ const makeQueryCall = async ({ topic, owner, repo, ...restArgs }) => {
 
 const makeRestCall = async ({ topic, owner, repo, ...restArgs }) => {
   const restPaths = {
-    'mrs': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests`,
-    'open-mrs': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=opened`,
-    'closed-mrs': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=closed`,
-    'merged-mrs': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=merged`,
-    'commits': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + restArgs.ref : ''}`,
-    'last-commit': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + restArgs.ref : ''}`,
-    'branches': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/branches`,
-    'tags': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/tags`,
-    'contributors': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/contributors`,
-    'releases': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/releases`,
-    'release': `/projects/${encodeURIComponent(`${owner}/${repo}`)}/releases`,
-    'license': `/projects/${encodeURIComponent(`${owner}/${repo}`)}?license=true`,
+    'mrs': `projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests`,
+    'open-mrs': `projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=opened`,
+    'closed-mrs': `projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=closed`,
+    'merged-mrs': `projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=merged`,
+    'commits': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + restArgs.ref : ''}`,
+    'last-commit': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + restArgs.ref : ''}`,
+    'branches': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/branches`,
+    'tags': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/tags`,
+    'contributors': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/contributors`,
+    'releases': `projects/${encodeURIComponent(`${owner}/${repo}`)}/releases`,
+    'release': `projects/${encodeURIComponent(`${owner}/${repo}`)}/releases`,
+    'license': `projects/${encodeURIComponent(`${owner}/${repo}`)}?license=true`,
   }
 
   let restPath = restPaths[topic]

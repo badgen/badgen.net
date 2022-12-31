@@ -89,14 +89,16 @@ const statesColor = {
   unknown: 'grey'
 }
 
+// https://docs.github.com/en/rest/checks/runs#list-check-runs-for-a-git-reference
 function combined (states: Array<any>, stateKey: string = 'state') {
   if (states.length === 0) return 'unknown'
 
-  if (states.find(x => x[stateKey] === 'error')) return 'error'
   if (states.find(x => x[stateKey] === 'failure')) return 'failure'
-  if (states.find(x => x[stateKey] === 'pending')) return 'pending'
+  if (states.find(x => x[stateKey] === 'timed_out')) return 'timed_out'
+  if (states.find(x => x[stateKey] === 'action_required')) return 'action_required'
 
   const succeeded = states
+    .filter(x => x[stateKey] !== 'neutral')
     .filter(x => x[stateKey] !== 'cancelled')
     .filter(x => x[stateKey] !== 'skipped')
     .every(x => x[stateKey] === 'success')
