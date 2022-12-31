@@ -26,7 +26,7 @@ import { useState, useEffect } from 'react'
 import BadgenTitle from '../components/badgen-title'
 import Intro from '../components/home-intro'
 import Footer from '../components/footer'
-import examples from '../static/.meta/badges.json'
+import examples from '../public/.meta/badges.json'
 
 export default function Index () {
   const [tab, setTab] = useState('live')

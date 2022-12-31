@@ -1,7 +1,6 @@
 dist
 yarn.lock
 node_modules
-public
 .vercel
 .firebase
 .next

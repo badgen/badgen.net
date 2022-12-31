@@ -4,7 +4,7 @@ import BadgenTitle from '../components/badgen-title'
 // import TopBar from '../components/top-bar'
 import Intro from '../components/home-intro'
 import Footer from '../components/footer'
-import examples from '../static/.meta/badges.json'
+import examples from '../public/.meta/badges.json'
 
 const Index = () => {
   const [tab, setTab] = useState('live')
