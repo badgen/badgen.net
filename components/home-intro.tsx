@@ -76,7 +76,7 @@ export default function HomeIntro ({ isFlat = false }) {
       }
 
       ul { padding-left: 2em; }
-      li { vertical-align: top; font: 14px/32px menlo, sans-serif; color: #777 }
+      li { vertical-align: top; font-size: 14px; color: #777 }
       li code { padding: 0.3em 0.5em; display: pre; color: #333; background: #EEF2F8 }
       li a { display: inline }
       a code { color: #06D }
