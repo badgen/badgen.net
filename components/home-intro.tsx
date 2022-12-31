@@ -1,12 +1,12 @@
 import icons from 'badgen-icons'
 import Image from 'next/image'
 
-import { Inter } from '@next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import { Open_Sans } from '@next/font/google'
+const openSans = Open_Sans({ subsets: ['latin'], weight: ['400'] })
 
 export default function HomeIntro ({ isFlat = false }) {
   return (
-  <div className={`home-intro ${inter.className}`}>
+  <div className={`home-intro ${openSans.className}`}>
     <pre>{explainCode(isFlat)}</pre>
 
     <h3>Options</h3>
