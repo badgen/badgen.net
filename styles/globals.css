@@ -33,3 +33,69 @@ a {
   width: 980px;
   margin: 0 auto;
 }
+
+/** ============= Footer ============= */
+
+footer {
+  background-color: #222;
+  padding: 2rem 2rem;
+  color: #777;
+}
+footer h3 {
+  font: 22px/32px Merriweather, Georgia, serif;
+  letter-spacing: 0.5px;
+  color: #DDD;
+  margin-bottom: 1em;
+}
+footer h3 img {
+  height: 21px;
+  opacity: 0.8;
+  margin-right: 8px;
+  position: relative;
+  top: 1px;
+}
+footer .sitemap {
+  line-height: 26px;
+}
+footer .sitemap a {
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline;
+}
+footer a:hover {
+  color: #EEE;
+  text-decoration: underline;
+}
+.sitemap em {
+  color: #555;
+  margin: 0 0.6rem;
+}
+.bottom {
+  margin-top: 2rem;
+  border-top: 1px solid #444;
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 100px;
+}
+.bottom a {
+  color: #999;
+  display: inline;
+}
+.links {
+  text-align: right;
+}
+.links a {
+  opacity: 0.6;
+  display: inline;
+  margin-left: 0.5rem;
+}
+.links a:hover {
+  opacity: 1;
+}
+.links img {
+  height: 22px;
+}
+.footer-content {
+
+}

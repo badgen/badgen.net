@@ -18,25 +18,35 @@ export default function BuilderHelper ({ badgeURL, onSelect }: BuilderHelperProp
   const matched = examples.filter(eg => eg[0].includes(badgeURL))
 
   const hints = matched.length === 1 && matched[0][0] === '/' + badgeURL ? null : (
-    <table>
-      <tbody>
+      <div className='suggestions'>
         {
           matched.map(eg => (
-            <Hint
-              key={eg[0]}
-              info={eg}
-              onSelect={e => onSelect(eg[0].replace(/^\//, ''))}
-            />
+            <dl key={eg[0]} onClick={e => onSelect(eg[0].replace(/^\//, ''))}>
+              <dt>{eg[1]}</dt>
+              <dd>{eg[0]}</dd>
+            </dl>
           ))
         }
-      </tbody>
-    </table>
+        <style jsx>{`
+          .suggestions { padding-top: 10px; }
+          dl {
+            font-size: 14px;
+            line-height: 36px;
+            cursor: default;
+            white-space: nowrap;
+            display: flex;
+          }
+          dt { font-weight: bold; width: 300px; overflow: visible; text-align: right }
+          dd { margin-left: 20px; width: 640px; overflow: visible; font-family: menlo, monospace; }
+          dd:hover { cursor: pointer; text-decoration: underline }
+        `}</style>
+      </div>
   )
 
   return (
     <div className='helper'>
       {hints}
-      <style>{`
+      <style jsx>{`
         .helper {
           height: 50vh;
           width: 100%;
@@ -54,32 +64,3 @@ export default function BuilderHelper ({ badgeURL, onSelect }: BuilderHelperProp
     </div>
   )
 }
-
-const Hint = ({ info, onSelect }) => (
-  <tr onClick={onSelect}>
-    <th>{info[1]}</th>
-    <td>{info[0]}</td>
-    <style>{`
-      tr {
-        font-size: 15px;
-        line-height: 36px;
-        cursor: default;
-        white-space: nowrap;
-        padding: 0 1em;
-        vertical-align: baseline;
-      }
-      th {
-        text-align: right;
-        padding: 0 1em;
-      }
-      td {
-        font-family: monospace;
-      }
-      td:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    `}
-    </style>
-  </tr>
-)

@@ -1,17 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { Merriweather } from '@next/font/google'
+// import { Merriweather } from '@next/font/google'
 
-const merriweather = Merriweather({ subsets: ['latin'], weight: ["300", "700"] })
+// const merriweather = Merriweather({ subsets: ['latin'], weight: ["300", "700"] })
 
 export default function BadgenTitle ({ host }) {
   return (
     <div className='title-block'>
-      <div className={`title ${merriweather.className}`}>
+      <div className='title'>
         <h1>
-          <Image alt='badgen logo' src='/static/badgen-logo.svg' width='42' height='42' />
-          Badgen
+          <Image className='badgen-icon' alt='badgen logo' src='/static/badgen-logo.svg' width='42' height='42' />
+          <span className='badgen-name'>Badgen</span>
           <StyleSwitch host={host} />
         </h1>
         <div>Fast badge generating service</div>
@@ -42,19 +42,18 @@ export default function BadgenTitle ({ host }) {
           transition-delay: 100ms;
         }
         .title h1 {
-          font: 46px/42px Merriweather, Georgia, serif;
-          font-weight: 700;
           color: #333;
           height: 52px;
-          width: 235px;
+          width: 240px;
           position: relative;
         }
-        .title h1 img {
-          height: 42px;
-          width: 42px;
-          vertical-align: top;
-          margin-top: -1px;
-          margin-right: 10px;
+        .title .badgen-name {
+          font: 50px/46px Merriweather, Georgia, serif;
+          font-weight: 700;
+          display: inline;
+          margin-left: 5px;
+          position: relative;
+          top: -2px;
         }
         .title div {
           font: 20px/32px Merriweather, Georgia, serif;

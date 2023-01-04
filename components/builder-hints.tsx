@@ -1,4 +1,5 @@
 import * as CSS from 'csstype'
+import Link from 'next/link'
 
 export default function BuilderHints ({ focus, badgeURL }) {
   const visible = !focus && !badgeURL
@@ -9,31 +10,28 @@ export default function BuilderHints ({ focus, badgeURL }) {
   return (
     <div className='hints' style={style}>
       <Hint left={0} width={50} height={3}>
-        <div style={{ textAlign: 'left', marginBottom: '2em' }}>
-          SERVICE_NAME (static badge / live badge)
-        </div>
+        <Link href='/help#generators'>GENERATER (static or live badge)</Link>
       </Hint>
       <Hint left={66} width={70} height={2}>TEXT</Hint>
       <Hint left={153} width={60} height={2}>TEXT</Hint>
       <Hint left={230} width={50} height={2}>
-        &nbsp;RGB / <a href='/#colors'>COLOR_NAME</a> (optional)
+        <Link href='/help#colors'>COLOR</Link> (optional)
       </Hint>
       <Hint left={290} width={110} height={1}>
-        <a href='/#options'>OPTIONS (icon, label, etc.)</a>
+        <Link href='/help#options'>OPTIONS (icon, label, etc.)</Link>
       </Hint>
-      <style>{`
+      <style jsx>{`
         .hints {
-          height: 0;
           position: relative;
           overflow: visible;
           width: 100%;
           left: -147px;
           transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
         }
-        a {
+        .hint a {
           color: #333;
         }
-        a:hover {
+        .hint a:hover {
           border-bottom: 1px dashed #333;
           text-decoration: none;
         }

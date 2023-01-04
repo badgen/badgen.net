@@ -1,12 +1,12 @@
 import icons from 'badgen-icons'
 import Image from 'next/image'
 
-import { Open_Sans } from '@next/font/google'
-const openSans = Open_Sans({ subsets: ['latin'], weight: ['400'] })
+// import { Open_Sans } from '@next/font/google'
+// const openSans = Open_Sans({ subsets: ['latin'], weight: ['400'] })
 
 export default function HomeIntro ({ isFlat = false }) {
   return (
-  <div className={`home-intro ${openSans.className}`}>
+  <div className={`home-intro`}>
     <pre>{explainCode(isFlat)}</pre>
 
     <h3>Options</h3>
@@ -76,7 +76,7 @@ export default function HomeIntro ({ isFlat = false }) {
         font-weight: 400;
       }
 
-      ul { padding-left: 2em; }
+      ul { padding-left: 2em; font-family: "Open Sans", sans-serif }
       li { vertical-align: top; font-size: 14px; line-height: 24px; color: #777; margin: 5px 0 }
       li code { padding: 0.3em 0.5em; display: pre; color: #333; background: #EEF2F8 }
       li a { display: inline; margin-left: 0.3em; text-decoration: underline }

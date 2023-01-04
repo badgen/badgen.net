@@ -4,9 +4,10 @@ const badgeList = require('./public/.meta/badges.json')
 
 const nextConfig = {
   reactStrictMode: true,
+  optimizeFonts: false,
 
   experimental: {
-    appDir: true,
+    appDir: false,
     forceSwcTransforms: true,
   },
 
