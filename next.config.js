@@ -25,7 +25,14 @@ const nextConfig = {
 
     const badgeRedirects = liveBadgeRedirects.concat(staticBadgeRedirects)
 
-    return badgeRedirects
+    // return badgeRedirects
+    return [
+      { source: '/static/:path*', destination: '/api/static' },
+      { source: '/static', destination: '/api/static' },
+
+      { source: '/badge/:path*', destination: '/api/static' },
+      { source: '/badge', destination: '/api/static' }
+    ]
   },
 }
 

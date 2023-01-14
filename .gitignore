@@ -5,3 +5,4 @@ node_modules
 .firebase
 .next
 .meta
+.env

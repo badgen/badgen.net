@@ -2,6 +2,7 @@
   "version": 2,
   "regions": ["all"],
   "routes": [
+    { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" },
     { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } }
   ],
   "env": {

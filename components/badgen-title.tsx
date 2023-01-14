@@ -10,7 +10,7 @@ export default function BadgenTitle ({ host }) {
     <div className='title-block'>
       <div className='title'>
         <h1>
-          <Image className='badgen-icon' alt='badgen logo' src='/static/badgen-logo.svg' width='42' height='42' />
+          <Image className='badgen-icon' alt='badgen logo' src='/statics/badgen-logo.svg' width='42' height='42' />
           <span className='badgen-name'>Badgen</span>
           <StyleSwitch host={host} />
         </h1>

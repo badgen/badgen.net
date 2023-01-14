@@ -8,7 +8,7 @@ export default function Footer () {
     <div className='footer-content'>
       <div>
         <h3>
-          <img alt='badgen logo' src='/static/badgen-logo-w.svg' />
+          <img alt='badgen logo' src='/statics/badgen-logo-w.svg' />
           Badgen Service
         </h3>
         <div className='sitemap'>

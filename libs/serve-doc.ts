@@ -75,7 +75,7 @@ const helpFooter = `
 <footer>
   <div class='footer-content'>
     <div>
-      <h3><img src='/static/badgen-logo-w.svg' />Badgen Service</h3>
+      <h3><img src='/statics/badgen-logo-w.svg' />Badgen Service</h3>
       <div class='sitemap'>
         <a href='https://badgen.net'>Classic</a>
         <em>/</em>
