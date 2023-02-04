@@ -43,6 +43,7 @@ export const liveBadgeList = [
   'wapm',
   'open-vsx',
   'snapcraft',
+  'ppm',
   // CI
   'travis',
   'circleci',
