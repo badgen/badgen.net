@@ -35,6 +35,13 @@ async function handler ({ topic, pkg }: PathArgs) {
         color: 'green'
       }
     }
+    case 'engine': {
+      return {
+        subject: 'pulsar',
+        status: data.metadata.engines.pulsar || data.metadata.engines.atom || 'unknown',
+        color: 'blue'
+      }
+    }
     case 'license': {
       return {
         subject: 'license',
