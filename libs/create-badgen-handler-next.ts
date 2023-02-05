@@ -16,7 +16,7 @@ export interface BadgenServeConfig {
     title: string;
     help?: string;
     examples: { [url: string]: string };
-    handlers: { [pattern: string]: (pathArgs: PathArgs) => Promise<BadgenParams> };
+    handlers: { [pattern: string]: (pathArgs: PathArgs) => BadgenResult };
   }
 
 export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
@@ -58,13 +58,17 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
 }
 
 function onBadgeHandlerError (err: Error, req: NextApiRequest, res: NextApiResponse) {
+  sentry.captureException(err)
+  console.error(err)
+
   // Send user friendly response
   res.status(500).setHeader('error-message', err.message)
+
   return serveBadgeNext(req, res, {
     code: 200,
     params: {
-      subject: 'error',
-      status: '',
+      subject: '',
+      status: 'error',
       color: 'red'
     }
   })

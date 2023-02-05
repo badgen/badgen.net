@@ -23,8 +23,8 @@
     ]
   },
   "dependencies": {
-    "@sentry/integrations": "^6.6.0",
-    "@sentry/node": "^6.6.0",
+    "@sentry/node": "^7.36.0",
+    "@sentry/tracing": "^7.36.0",
     "badgen": "^3.2.2",
     "badgen-icons": "^0.22.0",
     "byte-size": "^8.1.0",
