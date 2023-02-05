@@ -5,6 +5,11 @@
     { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" },
     { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } }
   ],
+  "functions": {
+    "pages/api/**/*": {
+      "memory": 256
+    }
+  },
   "env": {
     "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_DSN": "@badgen-sentry-dsn",
