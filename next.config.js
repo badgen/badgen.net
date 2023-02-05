@@ -31,7 +31,10 @@ const nextConfig = {
       { source: '/static', destination: '/api/static' },
 
       { source: '/badge/:path*', destination: '/api/static' },
-      { source: '/badge', destination: '/api/static' }
+      { source: '/badge', destination: '/api/static' },
+
+      { source: '/xo/:path*', destination: '/api/xo' },
+      { source: '/xo', destination: '/api/xo' },
     ]
   },
 }

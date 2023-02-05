@@ -10,6 +10,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import type { BadgenParams } from './types'
 
 export type PathArgs = NonNullable<ReturnType<typeof matchRoute>>
+export type BadgenResult = Promise<BadgenParams>
 
 export interface BadgenServeConfig {
     title: string;
@@ -19,7 +20,7 @@ export interface BadgenServeConfig {
   }
 
 export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
-  const { handlers } = badgenServerConfig
+  const { handlers, title, help, examples } = badgenServerConfig
 
   async function nextHandler (req: NextApiRequest, res: NextApiResponse) {
     let { pathname } = new URL(req.url || '/', `http://${req.headers.host}`)
@@ -50,6 +51,8 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
 
     return res.status(404).end()
   }
+
+  nextHandler.meta = { title, examples, help, handlers }
 
   return nextHandler
 }
