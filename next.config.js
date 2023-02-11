@@ -23,19 +23,25 @@ const nextConfig = {
       destination: `/api/badge/:path*`,
     }]
 
-    const badgeRedirects = liveBadgeRedirects.concat(staticBadgeRedirects)
-
-    // return badgeRedirects
-    return [
-      { source: '/static/:path*', destination: '/api/static' },
-      { source: '/static', destination: '/api/static' },
-
+    const badgeRedirects = [
       { source: '/badge/:path*', destination: '/api/static' },
       { source: '/badge', destination: '/api/static' },
-
-      { source: '/xo/:path*', destination: '/api/xo' },
-      { source: '/xo', destination: '/api/xo' },
     ]
+
+    const badgeApis = [
+      '/static',
+      '/winget',
+      '/xo',
+    ]
+
+    badgeApis.forEach(b => {
+      badgeRedirects.push({ source: `${b}/:path*`, destination: `/api${b}` }) // badges
+      badgeRedirects.push({ source: b, destination: `/api${b}` }) // doc pages
+    })
+
+    // const badgeRedirects = liveBadgeRedirects.concat(staticBadgeRedirects)
+
+    return badgeRedirects
   },
 }
 
