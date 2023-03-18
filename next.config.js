@@ -42,6 +42,7 @@ const nextConfig = {
 
     const badgeApis = [
       '/static',
+      '/github',
       '/winget',
       '/xo',
     ]

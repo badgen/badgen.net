@@ -1,9 +1,9 @@
 import distanceToNow from 'date-fns/formatDistanceToNow'
 
-import got from '../libs/got'
-import { restGithub, queryGithub } from '../libs/github'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
-import { coverageColor, millify, version } from '../libs/utils'
+import got from 'libs/got'
+import { restGithub, queryGithub } from 'libs/github'
+import { createBadgenHandler, PathArgs } from 'libs/create-badgen-handler-next'
+import { coverageColor, millify, version } from 'libs/utils'
 
 type DependentsType = 'REPOSITORY' | 'PACKAGE'
 
@@ -262,14 +262,24 @@ async function milestones ({ owner, repo, milestone_number }: PathArgs) {
 
 async function dependabotStatus({ owner, repo }: PathArgs) {
   // Since there is no API to get dependabot status, for now check if file exists
-  const status = await restGithub(`repos/${owner}/${repo}/contents/.github/dependabot.yml`)
+  const {status, color} = await restGithub(`repos/${owner}/${repo}/contents/.github/dependabot.yml`)
+    .then(result => {
+      return {
+        status: 'Active',
+        color: 'green',
+      }
+    })
+    .catch(error => {
+      return {
+        status: 'Inactive',
+        color: 'gray',
+      }
+    })
 
-  if (status) {
-    return {
-      subject: 'dependabot',
-      status: 'Active',
-      color: 'green'
-    }
+  return {
+    subject: 'dependabot',
+    status,
+    color,
   }
 }
 
