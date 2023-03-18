@@ -114,7 +114,7 @@ async function checks ({ owner, repo, ref, context}: PathArgs) {
     const resp = await restGithub(`repos/${owner}/${repo}`)
     ref = resp!.default_branch
   }
-  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`, 'antiope')
+  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`)
 
   let state = typeof context === 'string'
     ? resp!.check_runs.filter(check => {
@@ -149,6 +149,7 @@ async function status ({ owner, repo, ref, context }: PathArgs) {
     const resp = await restGithub(`repos/${owner}/${repo}`)
     ref = resp!.default_branch
   }
+
   const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
 
   let state = typeof context === 'string'

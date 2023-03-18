@@ -8,6 +8,7 @@ import sentry from './sentry'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { BadgenParams } from './types'
+import { HTTPError } from 'got'
 
 export type PathArgs = NonNullable<ReturnType<typeof matchRoute>>
 export type BadgenResult = Promise<BadgenParams>
@@ -39,8 +40,9 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
     if (matchedArgs !== null && matchedScheme !== undefined) {
       return await handlers[matchedScheme](matchedArgs).then(params => {
         return serveBadgeNext(req, res, { params })
-      }).catch(e => {
-        return onBadgeHandlerError(e, req, res)
+      }).catch(error => {
+        const meta = { matchedArgs, matchedScheme }
+        return onBadgeHandlerError(meta, error, req, res)
       })
     }
 
@@ -57,20 +59,26 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
   return nextHandler
 }
 
-function onBadgeHandlerError (err: Error, req: NextApiRequest, res: NextApiResponse) {
+function onBadgeHandlerError (meta: any, err: Error | HTTPError, req: NextApiRequest, res: NextApiResponse) {
   sentry.captureException(err)
-  console.error(err)
+
+  console.error('BADGE_HANDLER_ERROR', err.message, meta)
 
   // Send user friendly response
-  res.status(500).setHeader('error-message', err.message)
+  const errorBadgeParams = {
+    subject: 'error',
+    status: '500',
+    color: 'red',
+  }
 
+  if (err instanceof HTTPError) {
+    errorBadgeParams.status = err.response.statusCode.toString()
+  }
+
+  res.setHeader('Error-Message', err.message)
   return serveBadgeNext(req, res, {
     code: 200,
-    params: {
-      subject: '',
-      status: 'error',
-      color: 'red'
-    }
+    params: errorBadgeParams,
   })
 }
 
