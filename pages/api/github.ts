@@ -22,14 +22,6 @@ export default createBadgenHandler({
     '/github/checks/node-formidable/node-formidable/master/windows': 'single checks (windows)',
     '/github/checks/node-formidable/node-formidable/master/macos': 'single checks (macos)',
     '/github/checks/styfle/packagephobia/main': 'combined checks (branch)',
-    '/github/status/micromatch/micromatch': 'combined statuses (default branch)',
-    '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
-    '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
-    '/github/status/micromatch/micromatch/4.0.1': 'combined statuses (tag)',
-    '/github/status/facebook/react/master/ci/circleci:%20yarn_test': 'single status',
-    '/github/status/zeit/hyper/master/ci': 'combined statuses (ci*)',
-    '/github/status/zeit/hyper/master/ci/circleci': 'combined statuses (ci/circleci*)',
-    '/github/status/zeit/hyper/master/ci/circleci:%20build': 'single status',
     '/github/stars/micromatch/micromatch': 'stars',
     '/github/forks/micromatch/micromatch': 'forks',
     '/github/issues/micromatch/micromatch': 'issues',
@@ -70,8 +62,6 @@ export default createBadgenHandler({
     '/github/release/:owner/:repo/:channel?': release,
     '/github/checks/:owner/:repo/:ref?': checks,
     '/github/checks/:owner/:repo/:ref/:context+': checks,
-    '/github/status/:owner/:repo/:ref?': status,
-    '/github/status/:owner/:repo/:ref/:context+': status,
     '/github/contributors/:owner/:repo': contributors,
     '/github/milestones/:owner/:repo/:milestone_number': milestones,
     '/github/dependents-repo/:owner/:repo': dependents('REPOSITORY'),
@@ -138,37 +128,6 @@ async function checks ({ owner, repo, ref, context}: PathArgs) {
   } else {
     return {
       subject: 'checks',
-      status: 'unknown',
-      color: 'grey'
-    }
-  }
-}
-
-async function status ({ owner, repo, ref, context }: PathArgs) {
-  if (!ref) {
-    const resp = await restGithub(`repos/${owner}/${repo}`)
-    ref = resp!.default_branch
-  }
-
-  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
-
-  let state = typeof context === 'string'
-    ? resp!.statuses.filter(st => st.context.toLowerCase().includes(context.toLowerCase()))
-    : resp!.state
-
-  if (Array.isArray(state)) {
-    state = combined(state, 'state')
-  }
-
-  if (state) {
-    return {
-      subject: context || 'status',
-      status: state,
-      color: statesColor[state]
-    }
-  } else {
-    return {
-      subject: 'status',
       status: 'unknown',
       color: 'grey'
     }
