@@ -97,7 +97,7 @@ Supported environment variables for managing a Badgen instance.
 - `GITHUB_API_GRAPHQL` - Custom Github GraphQL API endpoint. e.g., `https://github.mycompany.com/api/graphql`
 - `NPM_REGISTRY` - Custom NPM registry endpoint
 - `SENTRY_DSN` - Sentry Error Monitoring Data Source Name
-- `TRACKING_GA` - Google Analytics Tracking ID
+- `GA_MEASUREMENT_ID` - Google Analytics Measurement ID
 
 ## Contributors
 

@@ -4,7 +4,7 @@ import { serveMarked } from 'serve-marked'
 import serve404 from '../libs/serve-404'
 import { BadgenServeConfig } from '../libs/create-badgen-handler'
 
-const { TRACKING_GA = 'G-PD7EFJDYFV' } = process.env
+const { GA_MEASUREMENT_ID = 'G-PD7EFJDYFV' } = process.env
 
 export default function serveDoc (conf: BadgenServeConfig): http.RequestListener {
   return (req, res) => {
@@ -19,12 +19,12 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
         beforeHeadEnd: `
           <link rel="icon" href="/favicon.png" />
           <!-- Google tag (gtag.js) -->
-          <script async src="https://www.googletagmanager.com/gtag/js?id=${TRACKING_GA}"></script>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"></script>
           <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${TRACKING_GA}');
+            gtag('config', '${GA_MEASUREMENT_ID}');
           </script>
         `,
         beforeBodyEnd: helpFooter,

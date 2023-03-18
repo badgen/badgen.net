@@ -1,5 +1,5 @@
 import http from 'http'
-import { measure } from 'measurement-protocol'
+// import { measure } from 'measurement-protocol'
 import matchRoute from 'my-way'
 
 import { serveBadgeNext } from './serve-badge-next'
@@ -25,6 +25,8 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
 
   async function nextHandler (req: NextApiRequest, res: NextApiResponse) {
     let { pathname } = new URL(req.url || '/', `http://${req.headers.host}`)
+
+    measurementLogInvocation(req.headers?.host ?? 'badgen.net', pathname)
 
     if (pathname === '/favicon.ico') {
       return res.end()
@@ -82,15 +84,38 @@ function onBadgeHandlerError (meta: any, err: Error | HTTPError, req: NextApiReq
   })
 }
 
-const { TRACKING_GA, NOW_REGION } = process.env
-const tracker = TRACKING_GA && measure(TRACKING_GA).setCustomDimensions([NOW_REGION || 'unknown'])
 
-async function measurementLogInvocation (host: string, urlPath: string) {
-  tracker && tracker.pageview({ host, path: urlPath}).send()
+type MeasurementProtocolEvent = {
+  name: string;
+  params: Record<string, any>;
 }
 
-async function measurementLogError (category: string, action: string, label?: string, value?: number) {
-  tracker && tracker.event(category, action, label, value).send()
+function measure (clientId: string, events: MeasurementProtocolEvent[]) {
+  const { GA_MEASUREMENT_ID, GA_API_SECRET } = process.env
+
+  if (!GA_MEASUREMENT_ID || !GA_API_SECRET) return
+
+  const searchParams = `measurement_id=${GA_MEASUREMENT_ID}&api_secret=${GA_API_SECRET}`
+  fetch(`https://www.google-analytics.com/mp/collect?${searchParams}`, {
+    method: "POST",
+    body: JSON.stringify({
+      client_id: clientId,
+      events,
+    })
+  })
+}
+
+function measurementLogInvocation (host: string, pathname: string) {
+  const { VERCEL_REGION = '0000' } = process.env
+
+  measure(VERCEL_REGION, [{
+    name: 'invocation',
+    params: {
+      host,
+      pathname,
+      name: pathname.split('/')[1]
+    }
+  }])
 }
 
 function getBadgeStyle (req: http.IncomingMessage): string | undefined {
