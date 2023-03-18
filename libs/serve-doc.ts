@@ -4,6 +4,8 @@ import { serveMarked } from 'serve-marked'
 import serve404 from '../libs/serve-404'
 import { BadgenServeConfig } from '../libs/create-badgen-handler'
 
+const { TRACKING_GA = 'G-PD7EFJDYFV' } = process.env
+
 export default function serveDoc (conf: BadgenServeConfig): http.RequestListener {
   return (req, res) => {
     const helpMarkdown = generateHelpMarkdown(conf)
@@ -14,9 +16,18 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
       return serveMarked(helpMarkdown, {
         title: `${conf.title} badge | Badgen`,
         inlineCSS,
-        beforeHeadEnd: '<link rel="icon" href="/favicon.png">',
+        beforeHeadEnd: `
+          <link rel="icon" href="/favicon.png" />
+          <!-- Google tag (gtag.js) -->
+          <script async src="https://www.googletagmanager.com/gtag/js?id=${TRACKING_GA}"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${TRACKING_GA}');
+          </script>
+        `,
         beforeBodyEnd: helpFooter,
-        trackingGA: process.env.TRACKING_GA
       })(req, res)
     }
 
@@ -61,7 +72,7 @@ function hashify (str: string) {
 
 const inlineCSS = `
   html, body { scroll-behavior: smooth }
-  .markdown-body { max-width: 850px; min-height: calc(100vh - 348px) }
+  .markdown-body { max-width: 960px; min-height: calc(100vh - 348px) }
   .markdown-body h1 { margin-bottom: 42px }
   li > img { vertical-align: middle; margin: 0.2em 0; font-size: 12px; float: right }
   li > img + a { font-family: monospace; font-size: 0.9em }

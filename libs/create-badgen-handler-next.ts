@@ -62,7 +62,7 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
 function onBadgeHandlerError (meta: any, err: Error | HTTPError, req: NextApiRequest, res: NextApiResponse) {
   sentry.captureException(err)
 
-  console.error('BADGE_HANDLER_ERROR', err.message, meta)
+  console.error('BADGE_HANDLER_ERROR', err.message, req.url)
 
   // Send user friendly response
   const errorBadgeParams = {

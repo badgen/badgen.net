@@ -47,9 +47,9 @@ const nextConfig = {
       '/xo',
     ]
 
-    badgeApis.forEach(b => {
-      badgeRedirects.push({ source: `${b}/:path*`, destination: `/api${b}` }) // badges
-      badgeRedirects.push({ source: b, destination: `/api${b}` }) // doc pages
+    badgeApis.forEach(badge => {
+      badgeRedirects.push({ source: `${badge}/:path*`, destination: `/api${badge}` }) // badges
+      badgeRedirects.push({ source: badge, destination: `/api${badge}` }) // doc pages
     })
 
     // const badgeRedirects = liveBadgeRedirects.concat(staticBadgeRedirects)

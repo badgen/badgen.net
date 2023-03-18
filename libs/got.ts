@@ -2,7 +2,7 @@ import got from 'got'
 
 export default got.extend({
   timeout: {
-    request: 3200,
+    request: 4200,
   },
   retry: {
     limit: 0,
