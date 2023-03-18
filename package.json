@@ -59,7 +59,6 @@
     "@types/url-parse": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
-    "@zeit/next-typescript": "^1.1.1",
     "csstype": "^3.1.0",
     "eslint": "^8.30.0",
     "eslint-plugin-react": "^7.23.2",
