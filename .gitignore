@@ -6,3 +6,12 @@ node_modules
 .next
 .meta
 .env
+
+# Sentry
+.sentryclirc
+
+# Sentry
+next.config.original.js
+
+# Sentry
+next.config.wizardcopy.js

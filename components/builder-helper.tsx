@@ -1,8 +1,21 @@
-import badgeList from '../public/.meta/badges.json'
+import badgeList from '../public/.meta/badge-list.json'
 
-const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) => {
-  return (accu as any).concat(Object.entries(curr.examples))
-}, [] as [string, string][])
+// const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) => {
+//   return (accu as any).concat(Object.entries(curr.examples))
+// }, [] as [string, string][])
+
+type Examples = [string, string][]
+
+function extractExampleList (badgeList): Examples {
+  const examples = []
+
+  Object.entries(badgeList).forEach((x) => {
+    console.log(x)
+    // Object.entries(meta?.examples)
+  })
+
+  return examples
+}
 
 interface BuilderHelperProps {
   host?: string;
@@ -11,10 +24,12 @@ interface BuilderHelperProps {
 }
 
 export default function BuilderHelper ({ badgeURL, onSelect }: BuilderHelperProps) {
+  console.log(2333)
   if (badgeURL.length < 2) {
     return <div className='helper' />
   }
 
+  const examples = extractExampleList(badgeList)
   const matched = examples.filter(eg => eg[0].includes(badgeURL))
 
   const hints = matched.length === 1 && matched[0][0] === '/' + badgeURL ? null : (

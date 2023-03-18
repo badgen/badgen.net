@@ -102,7 +102,7 @@ export default createBadgenHandler({
     '/winget/v/Amazon.AWSCLI': 'version',
   },
   handlers: {
-    '/winget/v/:appId': handler,
+    '/winget/:topic/:appId': handler,
   }
 })
 

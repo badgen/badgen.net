@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 export default ({ data }) => {
   return data.map(({ id, title, examples }) => (
     <dl id={id} key={title}>

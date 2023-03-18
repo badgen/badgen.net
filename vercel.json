@@ -1,10 +1,17 @@
 {
   "version": 2,
   "regions": ["all"],
-  "routes": [
-    { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" },
-    { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } }
-  ],
+  "rewrites": [{
+    "source": "/npm/:match*",
+    "destination": "https://v2022.badgen.net/npm/:match*"
+  }, {
+    "source": "/liberapay/:match*",
+    "destination": "https://v2022.badgen.net/liberapay/:match*"
+  }],
+  "redirects": [{
+    "source": "/docs/:match*",
+    "destination": "/:match*"
+  }],
   "functions": {
     "pages/api/**/*": {
       "memory": 256

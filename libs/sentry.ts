@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/node"
+import * as Sentry from "@sentry/nextjs"
 
 // Importing @sentry/tracing patches the global hub for tracing to work.
 import "@sentry/tracing"
