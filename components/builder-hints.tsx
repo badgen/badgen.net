@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import * as CSS from 'csstype'
 import Link from 'next/link'
 
@@ -10,15 +11,15 @@ export default function BuilderHints ({ focus, badgeURL }) {
   return (
     <div className='hints' style={style}>
       <Hint left={0} width={50} height={3}>
-        <Link href='/help#generators'>GENERATER (static or live badge)</Link>
+        <a href='/help#generators'>GENERATER (static or live badge)</a>
       </Hint>
       <Hint left={66} width={70} height={2}>TEXT</Hint>
       <Hint left={153} width={60} height={2}>TEXT</Hint>
       <Hint left={230} width={50} height={2}>
-        <Link href='/help#colors'>COLOR</Link> (optional)
+        <a href='/help#colors'>COLOR (optional)</a>
       </Hint>
       <Hint left={290} width={110} height={1}>
-        <Link href='/help#options'>OPTIONS (icon, label, etc.)</Link>
+        <a className='sd' href='/help#options'>OPTIONS (icon, label, etc.)</a>
       </Hint>
       <style jsx>{`
         .hints {
@@ -26,13 +27,14 @@ export default function BuilderHints ({ focus, badgeURL }) {
           overflow: visible;
           width: 100%;
           left: -147px;
+          height: 200px;
           transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
         }
         .hint a {
           color: #333;
         }
-        .hint a:hover {
-          border-bottom: 1px dashed #333;
+        a:hover {
+          border-bottom: 1px dashed #333 !important;
           text-decoration: none;
         }
       `}
