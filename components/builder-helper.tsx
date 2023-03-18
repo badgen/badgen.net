@@ -1,17 +1,33 @@
 import badgeList from '../public/.meta/badge-list.json'
+import badgeListLegacy from '../public/.meta/badges.json'
 
 // const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) => {
 //   return (accu as any).concat(Object.entries(curr.examples))
 // }, [] as [string, string][])
 
-type Examples = [string, string][]
+type BadgeExamples = {
+  [pathname: string]: string
+}
+type BadgeList = {
+  [id: string]: {
+    title: string;
+    examples: BadgeExamples;
+  }
+}
 
-function extractExampleList (badgeList): Examples {
-  const examples = []
+
+const examples = extractExampleList(badgeList)
+
+function extractExampleList (badgeList: BadgeList): BadgeExamples {
+  let examples = {}
 
   Object.entries(badgeList).forEach((x) => {
-    console.log(x)
-    // Object.entries(meta?.examples)
+    examples = { ...examples, ...x[1].examples }
+  })
+
+  // Also apply legacy examples
+  badgeListLegacy.live.forEach((x) => {
+    examples = { ...examples, ...x.examples }
   })
 
   return examples
@@ -24,13 +40,11 @@ interface BuilderHelperProps {
 }
 
 export default function BuilderHelper ({ badgeURL, onSelect }: BuilderHelperProps) {
-  console.log(2333)
   if (badgeURL.length < 2) {
     return <div className='helper' />
   }
 
-  const examples = extractExampleList(badgeList)
-  const matched = examples.filter(eg => eg[0].includes(badgeURL))
+  const matched = Object.entries(examples).filter(eg => eg[0].includes(badgeURL))
 
   const hints = matched.length === 1 && matched[0][0] === '/' + badgeURL ? null : (
       <div className='suggestions'>

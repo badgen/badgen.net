@@ -27,7 +27,7 @@ export default function BuilderHints ({ focus, badgeURL }) {
           overflow: visible;
           width: 100%;
           left: -147px;
-          height: 200px;
+          /* height: 200px; */
           transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
         }
         .hint a {
