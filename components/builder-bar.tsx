@@ -30,7 +30,9 @@ export default class BuilderBar extends React.Component<BuilderBarProps> {
 
     return (
       <label>
-        <span>{host}</span>
+        <span className='left-host'>
+          <span>{host}</span>
+        </span>
         <input
           tabIndex={1}
           spellCheck={false}
@@ -41,7 +43,7 @@ export default class BuilderBar extends React.Component<BuilderBarProps> {
           onBlur={this.props.onBlur}
           value={badgeURL}
         />
-        <style>{`
+        <style jsx>{`
           label {
             height: 100px;
             width: 100%;
@@ -55,10 +57,14 @@ export default class BuilderBar extends React.Component<BuilderBarProps> {
           span, input {
             font: 16px/24px monospace;
           }
-          span {
+          .left-host {
             display: inline-block;
             text-align: right;
             width: 234px;
+          }
+          .left-host > span {
+            float: right;
+            white-space: nowrap;
           }
           input {
             height: 24px;
