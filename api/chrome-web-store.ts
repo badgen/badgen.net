@@ -19,7 +19,7 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, id }: PathArgs) {
-  const chromeWebStore = await ChromeWebStore.load({ id })
+  const chromeWebStore = await ChromeWebStore.load({ id, qs: { hl: 'en' } })
   switch (topic) {
     case 'v': {
       const v = chromeWebStore.version()
