@@ -126,3 +126,15 @@ function getBadgeStyle (req: http.IncomingMessage): string | undefined {
 function simpleDecode (str: string): string {
   return String(str).replace(/%2F/g, '/')
 }
+
+export class BadgenError {
+  public status: string // error badge param: status (required)
+  public color: string  // error badge param: color
+  public code: number   // status code for response
+
+  constructor ({ status, color = 'grey', code = 500 }) {
+    this.status = status
+    this.color = color
+    this.code = code
+  }
+}

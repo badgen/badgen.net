@@ -1,6 +1,6 @@
-import got from '../libs/got'
-import { millify, version, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs, BadgenError } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { millify, version, versionColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs, BadgenError } from '../../libs/create-badgen-handler-next'
 
 // https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md
 // https://github.com/npm/registry/blob/master/docs/download-counts.md
