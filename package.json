@@ -20,6 +20,7 @@
   "dependencies": {
     "@sentry/nextjs": "^7.37.1",
     "@sentry/tracing": "^7.36.0",
+    "@vercel/analytics": "^1.0.1",
     "badgen": "^3.2.2",
     "badgen-icons": "^0.22.0",
     "byte-size": "^8.1.0",
