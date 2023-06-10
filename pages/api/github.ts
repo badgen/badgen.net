@@ -2,7 +2,7 @@ import distanceToNow from 'date-fns/formatDistanceToNow'
 
 import got from 'libs/got'
 import { restGithub, queryGithub } from 'libs/github'
-import { createBadgenHandler, PathArgs } from 'libs/create-badgen-handler-next'
+import { createBadgenHandler, PathArgs, BadgenError } from 'libs/create-badgen-handler-next'
 import { coverageColor, millify, version } from 'libs/utils'
 
 type DependentsType = 'REPOSITORY' | 'PACKAGE'
@@ -313,7 +313,17 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
       }
     `
 
-    return queryGithub(query).then(res => res.data!.repository)
+    return queryGithub(query).then(res => {
+      if (res.errors) {
+        console.error(res.errors)
+        throw new BadgenError({
+          status: res.errors[0].type,
+          message: res.errors[0].message
+        })
+      } else {
+        return res.data!.repository
+      }
+    })
   }
 }
 
