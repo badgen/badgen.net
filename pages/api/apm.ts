@@ -1,4 +1,4 @@
-import { createBadgenHandler } from '../libs/create-badgen-handler'
+import { createBadgenHandler } from '../../libs/create-badgen-handler-next'
 
 const help = `
 ## Discontinued
@@ -8,10 +8,16 @@ Read all about GitHub [Sunsetting Atom](https://github.blog/2022-06-08-sunsettin
 
 export default createBadgenHandler({
   title: 'Atom Package',
-  examples: {},
+  examples: {
+    '/apm/v/linter': 'version',
+    '/apm/stars/linter': 'stars',
+    '/apm/license/linter': 'license',
+    '/apm/downloads/linter': 'downloads',
+  },
   handlers: {
     '/apm/:topic/:pkg': handler
-  }
+  },
+  help: help
 })
 
 async function handler () {

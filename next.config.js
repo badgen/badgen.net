@@ -50,6 +50,8 @@ const nextConfig = {
       '/runkit',
       '/winget',
       '/xo',
+      // discontinued
+      '/apm',
     ]
 
     badgeApis.forEach(badge => {

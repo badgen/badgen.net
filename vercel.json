@@ -7,10 +7,6 @@
       "destination": "https://v2022.badgen.net/amo/:match*"
     },
     {
-      "source": "/apm/:match*",
-      "destination": "https://v2022.badgen.net/apm/:match*"
-    },
-    {
       "source": "/appveyor/:match*",
       "destination": "https://v2022.badgen.net/appveyor/:match*"
     },
