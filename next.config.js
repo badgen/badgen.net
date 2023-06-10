@@ -44,6 +44,7 @@ const nextConfig = {
       '/static',
       '/github',
       '/npm',
+      '/chrome-web-store',
       '/winget',
       '/xo',
     ]

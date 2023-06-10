@@ -15,7 +15,6 @@ export const liveBadgeList = [
   'crates',
   'docker',
   'homebrew',
-  'chrome-web-store',
   'amo',
   'pypi',
   'nuget',

@@ -1,7 +1,7 @@
 import millify from 'millify'
 import ChromeWebStore from 'webextension-store-meta/lib/chrome-web-store'
-import { version, versionColor, stars } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { version, versionColor, stars } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Chrome Extensions',
@@ -19,7 +19,7 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, id }: PathArgs) {
-  const chromeWebStore = await ChromeWebStore.load({ id })
+  const chromeWebStore = await ChromeWebStore.load({ id, qs: { hl: 'en' } })
   switch (topic) {
     case 'v': {
       const v = chromeWebStore.version()
