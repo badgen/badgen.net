@@ -43,6 +43,7 @@ async function handler ({ topic, pkg }: PathArgs) {
 
 // Naive implementation (only parse meta blocks)
 const parseCabalFile = raw => {
+  // this regex needs to support both v1 and v2 for cabalfile
   const cabalMeta = raw.match(/[\w-]+:.+\S+$/gm).reduce((accu, line) => {
     const [key, value] = line.split(':')
     accu[key.toLowerCase()] = value.trim()
