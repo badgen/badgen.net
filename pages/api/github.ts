@@ -1,35 +1,31 @@
 import distanceToNow from 'date-fns/formatDistanceToNow'
 
-import got from '../libs/got'
-import { restGithub, queryGithub } from '../libs/github'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
-import { coverageColor, millify, version } from '../libs/utils'
+import got from 'libs/got'
+import { restGithub, queryGithub } from 'libs/github'
+import { createBadgenHandler, PathArgs } from 'libs/create-badgen-handler-next'
+import { coverageColor, millify, version } from 'libs/utils'
 
 type DependentsType = 'REPOSITORY' | 'PACKAGE'
 
 export default createBadgenHandler({
   title: 'GitHub',
   examples: {
+    '/github/license/micromatch/micromatch': 'license',
+    '/github/watchers/micromatch/micromatch': 'watchers',
+    '/github/branches/micromatch/micromatch': 'branches',
+    '/github/releases/micromatch/micromatch': 'releases',
+    '/github/tags/micromatch/micromatch': 'tags',
+    '/github/tag/micromatch/micromatch': 'latest tag',
+    '/github/contributors/micromatch/micromatch': 'contributors',
     '/github/release/babel/babel': 'latest release',
     '/github/release/babel/babel/stable': 'latest stable release',
-    '/github/tag/micromatch/micromatch': 'latest tag',
-    '/github/watchers/micromatch/micromatch': 'watchers',
-    '/github/checks/tunnckoCore/opensource': 'combined checks (default branch)',
-    '/github/checks/node-formidable/node-formidable': 'combined checks (default branch)',
-    '/github/checks/node-formidable/node-formidable/master/lint': 'single checks (lint job)',
-    '/github/checks/node-formidable/node-formidable/master/test': 'single checks (test job)',
-    '/github/checks/node-formidable/node-formidable/master/ubuntu?label=linux': 'single checks (linux)',
-    '/github/checks/node-formidable/node-formidable/master/windows': 'single checks (windows)',
-    '/github/checks/node-formidable/node-formidable/master/macos': 'single checks (macos)',
-    '/github/checks/styfle/packagephobia/main': 'combined checks (branch)',
-    '/github/status/micromatch/micromatch': 'combined statuses (default branch)',
-    '/github/status/micromatch/micromatch/gh-pages': 'combined statuses (branch)',
-    '/github/status/micromatch/micromatch/f4809eb6df80b': 'combined statuses (commit)',
-    '/github/status/micromatch/micromatch/4.0.1': 'combined statuses (tag)',
-    '/github/status/facebook/react/master/ci/circleci:%20yarn_test': 'single status',
-    '/github/status/zeit/hyper/master/ci': 'combined statuses (ci*)',
-    '/github/status/zeit/hyper/master/ci/circleci': 'combined statuses (ci/circleci*)',
-    '/github/status/zeit/hyper/master/ci/circleci:%20build': 'single status',
+    '/github/checks/nodejs/node': 'combined checks conclusion (default branch)',
+    '/github/checks/nodejs/node/canary-base': 'combined checks conclusion (specified branch)',
+    '/github/checks/nodejs/node/v18.0.0': 'combined checks conclusion (specified tag)',
+    '/github/checks/nodejs/node/main/lint-cpp': 'single check (by job name)',
+    '/github/checks/nodejs/node/main/lint-cpp?label=Lint%20CPP': 'single check (lint job)',
+    '/github/checks/nodejs/node/main/test-linux': 'single check (test job)',
+    '/github/checks/nodejs/node/main/build-windows%20(windows-2022)': 'single check (by job name)',
     '/github/stars/micromatch/micromatch': 'stars',
     '/github/forks/micromatch/micromatch': 'forks',
     '/github/issues/micromatch/micromatch': 'issues',
@@ -49,11 +45,6 @@ export default createBadgenHandler({
     '/github/last-commit/micromatch/micromatch': 'last commit',
     '/github/last-commit/micromatch/micromatch/gh-pages': 'last commit (branch ref)',
     '/github/last-commit/micromatch/micromatch/4.0.1': 'last commit (tag ref)',
-    '/github/branches/micromatch/micromatch': 'branches',
-    '/github/releases/micromatch/micromatch': 'releases',
-    '/github/tags/micromatch/micromatch': 'tags',
-    '/github/license/micromatch/micromatch': 'license',
-    '/github/contributors/micromatch/micromatch': 'contributors',
     '/github/assets-dl/electron/electron': 'assets downloads for latest release',
     '/github/assets-dl/electron/electron/v7.0.0': 'assets downloads for a tag',
     '/github/dependents-repo/micromatch/micromatch': 'repository dependents',
@@ -69,9 +60,7 @@ export default createBadgenHandler({
     '/github/:topic<dt|assets-dl>/:owner/:repo/:tag?': downloads, // `dt` is deprecated
     '/github/release/:owner/:repo/:channel?': release,
     '/github/checks/:owner/:repo/:ref?': checks,
-    '/github/checks/:owner/:repo/:ref/:context+': checks,
-    '/github/status/:owner/:repo/:ref?': status,
-    '/github/status/:owner/:repo/:ref/:context+': status,
+    '/github/checks/:owner/:repo/:ref/:check_name+': checks,
     '/github/contributors/:owner/:repo': contributors,
     '/github/milestones/:owner/:repo/:milestone_number': milestones,
     '/github/dependents-repo/:owner/:repo': dependents('REPOSITORY'),
@@ -109,21 +98,19 @@ function combined (states: Array<any>, stateKey: string = 'state') {
   throw new Error(`Unknown states: ${states.map(x => x[stateKey]).join()}`)
 }
 
-async function checks ({ owner, repo, ref, context}: PathArgs) {
+async function checks ({owner, repo, ref, check_name}: PathArgs) {
   if (!ref) {
     const resp = await restGithub(`repos/${owner}/${repo}`)
     ref = resp!.default_branch
   }
-  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/check-runs`, 'antiope')
 
-  let state = typeof context === 'string'
-    ? resp!.check_runs.filter(check => {
-      const checkName = check.name.toLowerCase().includes(context.toLowerCase())
-      const appName = check.app.slug.toLowerCase().includes(context.toLowerCase())
+  const queryUrl = `repos/${owner}/${repo}/commits/${ref}/check-runs`
+  const searchParams = { check_name }
+  const resp = await restGithub(queryUrl, searchParams)
 
-      return checkName || appName
-    })
-    : resp!.check_runs
+  // console.log('check_runs', searchParams, resp.check_runs.length, resp.check_runs)
+
+  let state = resp.check_runs
 
   if (Array.isArray(state)) {
     state = combined(state, 'conclusion')
@@ -131,43 +118,13 @@ async function checks ({ owner, repo, ref, context}: PathArgs) {
 
   if (state) {
     return {
-      subject: context || 'checks',
+      subject: check_name || 'checks',
       status: state,
       color: statesColor[state]
     }
   } else {
     return {
       subject: 'checks',
-      status: 'unknown',
-      color: 'grey'
-    }
-  }
-}
-
-async function status ({ owner, repo, ref, context }: PathArgs) {
-  if (!ref) {
-    const resp = await restGithub(`repos/${owner}/${repo}`)
-    ref = resp!.default_branch
-  }
-  const resp = await restGithub(`repos/${owner}/${repo}/commits/${ref}/status`)
-
-  let state = typeof context === 'string'
-    ? resp!.statuses.filter(st => st.context.toLowerCase().includes(context.toLowerCase()))
-    : resp!.state
-
-  if (Array.isArray(state)) {
-    state = combined(state, 'state')
-  }
-
-  if (state) {
-    return {
-      subject: context || 'status',
-      status: state,
-      color: statesColor[state]
-    }
-  } else {
-    return {
-      subject: 'status',
       status: 'unknown',
       color: 'grey'
     }
@@ -262,14 +219,24 @@ async function milestones ({ owner, repo, milestone_number }: PathArgs) {
 
 async function dependabotStatus({ owner, repo }: PathArgs) {
   // Since there is no API to get dependabot status, for now check if file exists
-  const status = await restGithub(`repos/${owner}/${repo}/contents/.github/dependabot.yml`)
+  const {status, color} = await restGithub(`repos/${owner}/${repo}/contents/.github/dependabot.yml`)
+    .then(result => {
+      return {
+        status: 'Active',
+        color: 'green',
+      }
+    })
+    .catch(error => {
+      return {
+        status: 'Inactive',
+        color: 'gray',
+      }
+    })
 
-  if (status) {
-    return {
-      subject: 'dependabot',
-      status: 'Active',
-      color: 'green'
-    }
+  return {
+    subject: 'dependabot',
+    status,
+    color,
   }
 }
 

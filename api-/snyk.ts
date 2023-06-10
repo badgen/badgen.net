@@ -22,7 +22,7 @@ async function handler ({ owner, repo, branch, targetFile }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (targetFile) searchParams.set('targetFile', targetFile)
 
-  const resp = await got(badgeUrl, { searchParams, timeout: 3500 })
+  const resp = await got(badgeUrl, { searchParams })
   const params = isBadge(resp) && parseBadge(resp.body)
 
   return params || {

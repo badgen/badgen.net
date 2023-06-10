@@ -3,17 +3,18 @@ import { BadgenError } from './create-badgen-handler'
 
 const rand = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
 
-// request github api v3 (rest)
-export function restGithub<T = any>(path: string, preview = 'hellcat') {
+// request github api (rest)
+export function restGithub<T = any>(path: string, searchParams?: Record<string, string>) {
   const headers = {
-    authorization: `token ${pickGithubToken()}`,
-    accept: `application/vnd.github.${preview}-preview+json`
+    authorization: `Bearer ${pickGithubToken()}`,
+    accept: `application/vnd.github+json`,
+    'X-GitHub-Api-Version': '2022-11-28',
   }
   const prefixUrl = process.env.GITHUB_API || 'https://api.github.com/'
-  return got.get(path, { prefixUrl, headers }).json<T>()
+  return got.get(path, { prefixUrl, headers, searchParams }).json<T>()
 }
 
-// request github api v4 (graphql)
+// request github api (graphql)
 export function queryGithub<T = any>(query) {
   const headers = {
     authorization: `token ${pickGithubToken()}`,

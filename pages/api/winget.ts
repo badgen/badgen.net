@@ -1,9 +1,9 @@
-import got from '../libs/got'
-import { restGithub } from '../libs/github'
-import { parseDocument } from 'yaml'
+import { restGithub } from '../../libs/github'
 import { basename, extname } from 'path'
-import { version, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { version, versionColor } from '../../libs/utils'
+import { createBadgenHandler } from '../../libs/create-badgen-handler-next'
+
+import type { PathArgs, BadgenResult } from '../../libs/create-badgen-handler-next'
 
 const WINGET_GITHUB_REPO = 'microsoft/winget-pkgs'
 
@@ -98,16 +98,15 @@ class Version {
 export default createBadgenHandler({
   title: 'winget',
   examples: {
-    '/winget/v/GitHub.cli': 'version',
-    '/winget/v/Balena.Etcher': 'version',
-    '/winget/license/Arduino.Arduino': 'license'
+    '/winget/v/aria2.aria2': 'version',
+    '/winget/v/Amazon.AWSCLI': 'version',
   },
   handlers: {
-    '/winget/:topic<v|license>/:appId': handler
+    '/winget/:topic/:appId': handler,
   }
 })
 
-async function handler ({ topic, appId }: PathArgs) {
+async function handler ({ topic, appId }: PathArgs): BadgenResult {
   switch (topic) {
     case 'v': {
       const versions = await fetchVersions(appId)
@@ -120,29 +119,25 @@ async function handler ({ topic, appId }: PathArgs) {
       }
     }
     case 'license': {
-      const yaml = await fetchManifest(appId)
-      const manifest = parseDocument(yaml)
-      const license = manifest.get('License')
-
       return {
         subject: 'license',
-        status: license || 'unknown',
+        status: 'unknown',
         color: 'blue'
       }
     }
+    default:
+      return {
+        subject: 'winget',
+        status: 'unknown topic',
+        color: 'grey'
+      }
   }
 }
 
-async function fetchManifest(appId: string) {
-  const versions = await fetchVersions(appId)
-  const version = last(versions)
-  const path = [...appId.split('.'), `${version}.yaml`].join('/')
-  return got(`https://github.com/${WINGET_GITHUB_REPO}/raw/master/manifests/${path}`).text()
-}
-
 async function fetchVersions(appId: string): Promise<Version[]> {
-  const path = appId.replace(/\./g, '/')
-  const files = await restGithub<any[]>(`repos/${WINGET_GITHUB_REPO}/contents/manifests/${path}`)
+  const appPath = appId.replace(/\./g, '/')
+  const categoryPath = appPath[0].toLowerCase()
+  const files = await restGithub<any[]>(`repos/${WINGET_GITHUB_REPO}/contents/manifests/${categoryPath}/${appPath}`)
   const versions = files.map(file => {
     const name = basename(file.name, extname(file.name))
     return new Version(name)

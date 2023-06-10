@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 export default ({ data }) => {
   return data.map(({ id, title, examples }) => (
     <dl id={id} key={title}>
@@ -12,7 +14,7 @@ export default ({ data }) => {
           <ExampleItem key={path} desc={desc} url={path} />
         ))
       }
-      <style jsx>{`
+      <style>{`
         dl {
           padding: 0 1em;
           margin: 0 auto;
@@ -63,9 +65,9 @@ export default ({ data }) => {
 const ExampleItem = ({ desc, url }) => (
   <dd>
     <b>{desc}</b>
-    <i><img src={url} /></i>
+    <i><img alt={desc} src={url} /></i>
     <span><a href={url}>{url}</a></span>
-    <style jsx>{`
+    <style>{`
       dd {
         font: 14px/20px sans-serif;
         vertical-align: top;

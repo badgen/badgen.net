@@ -23,7 +23,7 @@ async function handler ({ topic, owner, name }: PathArgs) {
     'elm-version': elmVersion,
     license,
     version: ver
-  } = await client.get(`packages/${owner}/${name}/latest/elm.json`).json()
+  } = await client.get(`packages/${owner}/${name}/latest/elm.json`).json<any>()
 
   switch (topic) {
     case 'v':

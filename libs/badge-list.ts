@@ -1,22 +1,20 @@
 import path from 'path'
-import staticBadges from '../api/badge'
+import staticBadges from '../pages/api/static'
 
 const rel = (...args) => path.resolve(__dirname, ...args)
 
 // sort live badge manually
 export const liveBadgeList = [
-  // source control
-  'github',
+  // // source control
+  // 'github',
   'gitlab',
   // release registries
-  'npm',
   'david',
   'packagephobia',
   'bundlephobia',
   'crates',
   'docker',
   'homebrew',
-  'chrome-web-store',
   'amo',
   'pypi',
   'nuget',
@@ -36,7 +34,6 @@ export const liveBadgeList = [
   'dub',
   'elm-package',
   'scoop',
-  'winget',
   'f-droid',
   'pub',
   'shards',
@@ -57,7 +54,6 @@ export const liveBadgeList = [
   'lgtm',
   'deepscan',
   'uptime-robot',
-  'xo',
   'badgesize',
   'jsdelivr',
   // social
@@ -82,7 +78,7 @@ export const liveBadgeList = [
 
 export async function loadBadgeMeta () {
   const liveBadgeExamples = await Promise.all(liveBadgeList.map(async id => {
-    const mod = await import(rel('../api', id))
+    const mod = await import(rel('../api-', id))
     const { title, examples, handlers } = mod.default.meta
 
     return {

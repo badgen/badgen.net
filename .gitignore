@@ -1,8 +1,17 @@
 dist
 yarn.lock
 node_modules
-public
 .vercel
 .firebase
 .next
 .meta
+.env
+
+# Sentry
+.sentryclirc
+
+# Sentry
+next.config.original.js
+
+# Sentry
+next.config.wizardcopy.js

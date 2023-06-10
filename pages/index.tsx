@@ -1,71 +1,62 @@
-import { useState, useEffect } from 'react'
-import BadgeExamples from '../components/badge-examples'
-import BadgenTitle from '../components/badgen-title'
-// import TopBar from '../components/top-bar'
-import Intro from '../components/home-intro'
+import React from 'react'
+import Preview from '../components/builder-preview'
+import Bar from '../components/builder-bar'
+import Hints from '../components/builder-hints'
+import Helper from '../components/builder-helper'
 import Footer from '../components/footer'
-import examples from '../static/.meta/badges.json'
 
-const Index = () => {
-  const [tab, setTab] = useState('live')
-  const [host, setHost] = useState('')
-  const badges = examples[tab]
+export default class BuilderPage extends React.Component {
+  state = {
+    host: undefined,
+    badgeURL: '',
+    placeholder: '',
+    focus: false
+  }
 
-  useEffect(() => {
+  handleBlur = () => this.setState({ focus: false })
+
+  handleFocus = () => this.setState({ focus: true })
+
+  handleChange = badgeURL => this.setState({ badgeURL })
+
+  handleSelect = exampleURL => this.setState({ badgeURL: exampleURL })
+
+  componentDidMount () {
     const forceHost = new URL(window.location.href).searchParams.get('host')
-    setHost((forceHost || window.location.origin) + '/')
-  })
+    this.setState({
+      host: (forceHost || window.location.origin) + '/',
+      badgeURL: window.location.hash.replace(/^#/, ''),
+      placeholder: 'badge/:subject/:status/:color?icon=github'
+    })
+  }
 
-  return <>
-    <BadgenTitle host={host} />
-    <div className='docs' style={{ width: '980px', margin: '0 auto' }}>
-      <Intro />
-      <h2 style={{ textAlign: 'center' }}>Badge Gallery</h2>
+  render () {
+    const { host, placeholder, badgeURL, focus } = this.state
 
-      <div className='tab-row'>
-        <div className={`tab ${tab}`}>
-          <a onClick={() => setTab('live')} className='live'>Live Badges</a>
-          <a onClick={() => setTab('static')} className='static'>Static Badges</a>
+    return (
+      <div className='home'>
+        <div className='hero'>
+          <Preview host={host} badgeURL={badgeURL} focus={focus} />
+          <Bar
+            host={host}
+            badgeURL={badgeURL}
+            placeholder={placeholder}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+          />
+          <Hints focus={focus} badgeURL={badgeURL} />
+          {badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.handleSelect} />}
         </div>
+        <Footer />
+        <style jsx>{`
+          .hero {
+            min-height: 100vh;
+            position: relative;
+          }
+        `}
+        </style>
       </div>
-      <BadgeExamples data={badges} />
-    </div>
-    <Footer />
-    <style jsx>{`
-      .docs {
-        margin: 0 auto;
-        padding-bottom: 6em;
-      }
-      p {
-        text-align: center
-      }
-
-      .tab-row {
-        text-align: center;
-      }
-      .tab {
-        display: inline-block;
-        border: 1px solid #333;
-        margin-bottom: 2rem;
-      }
-      .tab a {
-        display: inline-block;
-        padding: 0 8px;
-        color: #333;
-        font: 14px/26px sans-serif;
-        text-transform: uppercase;
-      }
-      .tab a:hover {
-        cursor: pointer;
-      }
-      .live a.live,
-      .static a.static {
-        color: #EEE;
-        background-color: #333;
-      }
-    `}
-    </style>
-  </> // eslint-disable-line
+    )
+  }
 }
-
-export default Index

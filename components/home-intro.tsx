@@ -1,17 +1,15 @@
 import icons from 'badgen-icons'
+import Image from 'next/image'
+
+// import { Open_Sans } from '@next/font/google'
+// const openSans = Open_Sans({ subsets: ['latin'], weight: ['400'] })
 
 export default function HomeIntro ({ isFlat = false }) {
   return (
-  <div>
+  <div className={`home-intro`}>
     <pre>{explainCode(isFlat)}</pre>
 
-    <h3 id='colors'>Builtin color names</h3>
-    {colorExamples()}
-
-    <h3 id='icons'>Builtin icons</h3>
-    {iconExamples()}
-
-    <h3 id='options'>Options</h3>
+    <h3>Options</h3>
     <ul>
       <li>
         <code>color</code>
@@ -64,10 +62,25 @@ export default function HomeIntro ({ isFlat = false }) {
     <style jsx>{`
       pre {
         font-size: 15px;
+        font-family: Menlo, Courier New, monospace;
+        font-weight: 300;
+        background-color: #EEF2F8;
+        padding: 20px;
       }
       code {
         margin-right: 6px;
       }
+      .home-intro h3 {
+        font-family: Merriweather, serif;
+        margin: 2rem 0;
+        font-weight: 400;
+      }
+
+      ul { padding-left: 2em; font-family: "Open Sans", sans-serif }
+      li { vertical-align: top; font-size: 14px; line-height: 24px; color: #777; margin: 5px 0 }
+      li code { padding: 0.3em 0.5em; display: pre; color: #333; background: #EEF2F8 }
+      li a { display: inline; margin-left: 0.3em; text-decoration: underline }
+      a code { color: #06D }
     `}
     </style>
   </div>
@@ -77,8 +90,8 @@ const colorExamples = () => {
   const colors = ['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'grey', 'black']
   return colors.map(c => (
     <a href={`/badge/color/${c}/${c}`} key={c}>
-      <img src={`/badge/color/${c}/${c}`} />
-      <style jsx>{`
+      <Image alt={c} src={`/badge/color/${c}/${c}`} width='30' height='20' />
+      <style>{`
         a {
           margin-right: 4px;
         }
@@ -93,8 +106,8 @@ const iconExamples = () => {
     const url = `/badge/icon/${icon}?icon=${icon}&label`
     return (
       <a href={url} key={icon}>
-        <img src={url} />
-        <style jsx>{`
+        <Image alt={icon} src={url} width='30' height='20' />
+        <style>{`
           a {
             margin-right: 4px;
           }
@@ -105,7 +118,7 @@ const iconExamples = () => {
   })
 }
 
-const explainCode = (isFlat) => {
+const explainCode = (isFlat: Boolean) => {
   const text = `
 https://badgen.net/badge/:subject/:status/:color?icon=github
                    ──┬──  ───┬───  ──┬───  ──┬── ────┬──────
@@ -114,12 +127,13 @@ https://badgen.net/badge/:subject/:status/:color?icon=github
                      │      TEXT    TEXT    RGB / COLOR_NAME ( optional )
                      │
                   "badge" - default (static) badge generator`
+
   if (isFlat) {
     return text
       .replace('badgen.net', 'flat.badgen.net')
       .replace(/\n/g, '\n     ')
       .trim()
-  } else {
-    return text.trim()
   }
+
+  return text.trim()
 }

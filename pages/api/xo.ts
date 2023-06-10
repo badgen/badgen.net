@@ -1,5 +1,7 @@
-import got from '../libs/got'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { createBadgenHandler } from '../../libs/create-badgen-handler-next'
+
+import type { PathArgs, BadgenResult } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'XO',
@@ -22,7 +24,7 @@ const getIndent = space => {
   return `${space} spaces`
 }
 
-async function handler ({ topic, scope, name }: PathArgs) {
+async function handler ({ topic, scope, name }: PathArgs): BadgenResult {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}/package.json`
   const data = await got(endpoint).json<any>()
@@ -60,6 +62,13 @@ async function handler ({ topic, scope, name }: PathArgs) {
         subject: 'semicolons',
         status: semicolon ? 'enabled' : 'disabled',
         color: '5ED9C7'
+      }
+
+    default:
+      return {
+        subject: 'XO',
+        status: 'unknown topic',
+        color: 'red'
       }
   }
 }

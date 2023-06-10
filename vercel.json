@@ -1,19 +1,281 @@
 {
   "version": 2,
   "regions": ["all"],
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" },
-    { "src": "api/*.ts", "use": "@vercel/node" }
+  "rewrites": [
+    {
+      "source": "/amo/:match*",
+      "destination": "https://v2022.badgen.net/amo/:match*"
+    },
+    {
+      "source": "/apm/:match*",
+      "destination": "https://v2022.badgen.net/apm/:match*"
+    },
+    {
+      "source": "/appveyor/:match*",
+      "destination": "https://v2022.badgen.net/appveyor/:match*"
+    },
+    {
+      "source": "/azure-pipelines/:match*",
+      "destination": "https://v2022.badgen.net/azure-pipelines/:match*"
+    },
+    {
+      "source": "/badgesize/:match*",
+      "destination": "https://v2022.badgen.net/badgesize/:match*"
+    },
+    {
+      "source": "/bundlephobia/:match*",
+      "destination": "https://v2022.badgen.net/bundlephobia/:match*"
+    },
+    {
+      "source": "/chrome-web-store/:match*",
+      "destination": "https://v2022.badgen.net/chrome-web-store/:match*"
+    },
+    {
+      "source": "/circleci/:match*",
+      "destination": "https://v2022.badgen.net/circleci/:match*"
+    },
+    {
+      "source": "/cocoapods/:match*",
+      "destination": "https://v2022.badgen.net/cocoapods/:match*"
+    },
+    {
+      "source": "/codacy/:match*",
+      "destination": "https://v2022.badgen.net/codacy/:match*"
+    },
+    {
+      "source": "/codeclimate/:match*",
+      "destination": "https://v2022.badgen.net/codeclimate/:match*"
+    },
+    {
+      "source": "/codecov/:match*",
+      "destination": "https://v2022.badgen.net/codecov/:match*"
+    },
+    {
+      "source": "/coveralls/:match*",
+      "destination": "https://v2022.badgen.net/coveralls/:match*"
+    },
+    {
+      "source": "/cpan/:match*",
+      "destination": "https://v2022.badgen.net/cpan/:match*"
+    },
+    {
+      "source": "/cran/:match*",
+      "destination": "https://v2022.badgen.net/cran/:match*"
+    },
+    {
+      "source": "/crates/:match*",
+      "destination": "https://v2022.badgen.net/crates/:match*"
+    },
+    {
+      "source": "/ctan/:match*",
+      "destination": "https://v2022.badgen.net/ctan/:match*"
+    },
+    {
+      "source": "/david/:match*",
+      "destination": "https://v2022.badgen.net/david/:match*"
+    },
+    {
+      "source": "/deepscan/:match*",
+      "destination": "https://v2022.badgen.net/deepscan/:match*"
+    },
+    {
+      "source": "/dependabot/:match*",
+      "destination": "https://v2022.badgen.net/dependabot/:match*"
+    },
+    {
+      "source": "/devrant/:match*",
+      "destination": "https://v2022.badgen.net/devrant/:match*"
+    },
+    {
+      "source": "/discord/:match*",
+      "destination": "https://v2022.badgen.net/discord/:match*"
+    },
+    {
+      "source": "/docker/:match*",
+      "destination": "https://v2022.badgen.net/docker/:match*"
+    },
+    {
+      "source": "/dub/:match*",
+      "destination": "https://v2022.badgen.net/dub/:match*"
+    },
+    {
+      "source": "/elm-package/:match*",
+      "destination": "https://v2022.badgen.net/elm-package/:match*"
+    },
+    {
+      "source": "/f-droid/:match*",
+      "destination": "https://v2022.badgen.net/f-droid/:match*"
+    },
+    {
+      "source": "/gitlab/:match*",
+      "destination": "https://v2022.badgen.net/gitlab/:match*"
+    },
+    {
+      "source": "/gitter/:match*",
+      "destination": "https://v2022.badgen.net/gitter/:match*"
+    },
+    {
+      "source": "/hackage/:match*",
+      "destination": "https://v2022.badgen.net/hackage/:match*"
+    },
+    {
+      "source": "/haxelib/:match*",
+      "destination": "https://v2022.badgen.net/haxelib/:match*"
+    },
+    {
+      "source": "/homebrew/:match*",
+      "destination": "https://v2022.badgen.net/homebrew/:match*"
+    },
+    {
+      "source": "/https/:match*",
+      "destination": "https://v2022.badgen.net/https/:match*"
+    },
+    {
+      "source": "/jenkins/:match*",
+      "destination": "https://v2022.badgen.net/jenkins/:match*"
+    },
+    {
+      "source": "/jsdelivr/:match*",
+      "destination": "https://v2022.badgen.net/jsdelivr/:match*"
+    },
+    {
+      "source": "/keybase/:match*",
+      "destination": "https://v2022.badgen.net/keybase/:match*"
+    },
+    {
+      "source": "/lgtm/:match*",
+      "destination": "https://v2022.badgen.net/lgtm/:match*"
+    },
+    {
+      "source": "/liberapay/:match*",
+      "destination": "https://v2022.badgen.net/liberapay/:match*"
+    },
+    {
+      "source": "/mastodon/:match*",
+      "destination": "https://v2022.badgen.net/mastodon/:match*"
+    },
+    {
+      "source": "/matrix/:match*",
+      "destination": "https://v2022.badgen.net/matrix/:match*"
+    },
+    {
+      "source": "/maven/:match*",
+      "destination": "https://v2022.badgen.net/maven/:match*"
+    },
+    {
+      "source": "/melpa/:match*",
+      "destination": "https://v2022.badgen.net/melpa/:match*"
+    },
+    {
+      "source": "/memo/:match*",
+      "destination": "https://v2022.badgen.net/memo/:match*"
+    },
+    {
+      "source": "/npm/:match*",
+      "destination": "https://v2022.badgen.net/npm/:match*"
+    },
+    {
+      "source": "/nuget/:match*",
+      "destination": "https://v2022.badgen.net/nuget/:match*"
+    },
+    {
+      "source": "/opam/:match*",
+      "destination": "https://v2022.badgen.net/opam/:match*"
+    },
+    {
+      "source": "/open-vsx/:match*",
+      "destination": "https://v2022.badgen.net/open-vsx/:match*"
+    },
+    {
+      "source": "/opencollective/:match*",
+      "destination": "https://v2022.badgen.net/opencollective/:match*"
+    },
+    {
+      "source": "/packagephobia/:match*",
+      "destination": "https://v2022.badgen.net/packagephobia/:match*"
+    },
+    {
+      "source": "/packagist/:match*",
+      "destination": "https://v2022.badgen.net/packagist/:match*"
+    },
+    {
+      "source": "/peertube/:match*",
+      "destination": "https://v2022.badgen.net/peertube/:match*"
+    },
+    {
+      "source": "/pub/:match*",
+      "destination": "https://v2022.badgen.net/pub/:match*"
+    },
+    {
+      "source": "/pypi/:match*",
+      "destination": "https://v2022.badgen.net/pypi/:match*"
+    },
+    {
+      "source": "/reddit/:match*",
+      "destination": "https://v2022.badgen.net/reddit/:match*"
+    },
+    {
+      "source": "/rubygems/:match*",
+      "destination": "https://v2022.badgen.net/rubygems/:match*"
+    },
+    {
+      "source": "/runkit/:match*",
+      "destination": "https://v2022.badgen.net/runkit/:match*"
+    },
+    {
+      "source": "/scoop/:match*",
+      "destination": "https://v2022.badgen.net/scoop/:match*"
+    },
+    {
+      "source": "/shards/:match*",
+      "destination": "https://v2022.badgen.net/shards/:match*"
+    },
+    {
+      "source": "/snapcraft/:match*",
+      "destination": "https://v2022.badgen.net/snapcraft/:match*"
+    },
+    {
+      "source": "/snyk/:match*",
+      "destination": "https://v2022.badgen.net/snyk/:match*"
+    },
+    {
+      "source": "/tidelift/:match*",
+      "destination": "https://v2022.badgen.net/tidelift/:match*"
+    },
+    {
+      "source": "/travis/:match*",
+      "destination": "https://v2022.badgen.net/travis/:match*"
+    },
+    {
+      "source": "/twitter/:match*",
+      "destination": "https://v2022.badgen.net/twitter/:match*"
+    },
+    {
+      "source": "/uptime-robot/:match*",
+      "destination": "https://v2022.badgen.net/uptime-robot/:match*"
+    },
+    {
+      "source": "/vs-marketplace/:match*",
+      "destination": "https://v2022.badgen.net/vs-marketplace/:match*"
+    },
+    {
+      "source": "/wapm/:match*",
+      "destination": "https://v2022.badgen.net/wapm/:match*"
+    }
   ],
-  "routes": [
-    { "src": "/docs/(.*)", "status": 301, "headers": { "Location": "/$1" } },
-    { "src": "/builder", "dest": "/builder.html" },
-    { "src": "/(?<name>[^/]+).*", "dest": "/api/$name.ts" }
-  ],
+  "redirects": [{
+    "source": "/docs/:match*",
+    "destination": "/:match*"
+  }],
+  "functions": {
+    "pages/api/**/*": {
+      "memory": 256
+    }
+  },
   "env": {
     "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_DSN": "@badgen-sentry-dsn",
-    "TRACKING_GA": "@badgen-tracking-ga",
+    "GA_MEASUREMENT_ID": "@badgen-tracking-ga",
     "GITLAB_TOKENS": "@badgen-gl-tokens"
   }
 }
