@@ -1,6 +1,6 @@
-import got from '../libs/got'
-import { version as v, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { version as v, versionColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Hackage',
@@ -32,14 +32,23 @@ async function handler ({ topic, pkg }: PathArgs) {
         status: license,
         color: 'blue'
       }
+    default:
+      return {
+        subject: 'hackage',
+        status: 'unknown topic',
+        color: 'grey'
+      }
   }
 }
 
 // Naive implementation (only parse meta blocks)
 const parseCabalFile = raw => {
-  return raw.match(/[\w-]+:.+\S+$/gm).reduce((accu, line) => {
+  // this regex needs to support both v1 and v2 for cabalfile
+  const cabalMeta = raw.match(/[\w-]+:.+\S+$/gm).reduce((accu, line) => {
     const [key, value] = line.split(':')
-    accu[key] = value.trim()
+    accu[key.toLowerCase()] = value.trim()
     return accu
   }, {})
+
+  return cabalMeta
 }
