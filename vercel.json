@@ -211,10 +211,6 @@
       "destination": "https://v2022.badgen.net/rubygems/:match*"
     },
     {
-      "source": "/runkit/:match*",
-      "destination": "https://v2022.badgen.net/runkit/:match*"
-    },
-    {
       "source": "/scoop/:match*",
       "destination": "https://v2022.badgen.net/scoop/:match*"
     },
