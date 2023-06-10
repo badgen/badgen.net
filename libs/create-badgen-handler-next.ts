@@ -77,6 +77,10 @@ function onBadgeHandlerError (meta: any, err: Error | HTTPError, req: NextApiReq
     errorBadgeParams.status = err.response.statusCode.toString()
   }
 
+  if (err instanceof BadgenError) {
+    errorBadgeParams.status = err.status
+  }
+
   res.setHeader('Error-Message', err.message)
   return serveBadgeNext(req, res, {
     code: 200,
@@ -128,13 +132,15 @@ function simpleDecode (str: string): string {
 }
 
 export class BadgenError {
-  public status: string // error badge param: status (required)
-  public color: string  // error badge param: color
-  public code: number   // status code for response
+  public status: string   // error badge param: status (required)
+  public color: string    // error badge param: color
+  public code: number     // status code for response
+  public message: string
 
-  constructor ({ status, color = 'grey', code = 500 }) {
+  constructor ({ status, color = 'grey', code = 500, message = '' }) {
     this.status = status
     this.color = color
     this.code = code
+    this.message = message
   }
 }
