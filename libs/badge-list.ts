@@ -16,7 +16,6 @@ export const liveBadgeList = [
   'docker',
   'homebrew',
   'amo',
-  'pypi',
   'nuget',
   'packagist',
   'rubygems',

@@ -1,7 +1,7 @@
-import got from '../libs/got'
+import got from '../../libs/got'
 import { coerce, compare, SemVer } from 'semver'
-import { version, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { version, versionColor, millify } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Pypi',
@@ -10,9 +10,13 @@ export default createBadgenHandler({
     '/pypi/v/docutils': 'version',
     '/pypi/license/pip': 'license',
     '/pypi/python/black': 'python version',
+    '/pypi/dd/pip': 'daily downloads',
+    '/pypi/dw/pip': 'weekly downloads',
+    '/pypi/dm/pip': 'monthly downloads',
   },
   handlers: {
-    '/pypi/:topic<v|license|python>/:project': handler
+    '/pypi/:topic<v|license|python>/:project': handler,
+    '/pypi/:topic<dd|dw|dm>/:project': statsHandler
   }
 })
 
@@ -42,6 +46,44 @@ async function handler ({ topic, project }: PathArgs) {
         color: versions ? 'blue' : 'grey'
       }
     }
+    default:
+      return {
+        subject: 'pypi',
+        status: 'unknown topic',
+        color: 'grey'
+      }
+  }
+}
+
+async function statsHandler({ topic, project }: PathArgs) {
+  const endpoint = `https://pypistats.org/api/packages/${project}/recent`
+  const { data } = await got(endpoint).json<any>()
+
+  switch (topic) {
+    case 'dd':
+      return {
+        subject: 'downloads',
+        status: `${millify(data.last_day)}/day`,
+        color: 'green'
+      }
+    case 'dw':
+      return {
+        subject: 'downloads',
+        status: `${millify(data.last_week)}/week`,
+        color: 'green'
+      }
+    case 'dm':
+      return {
+        subject: 'downloads',
+        status: `${millify(data.last_month)}/month`,
+        color: 'green'
+      }
+    default:
+      return {
+        subject: 'pypi',
+        status: 'unknown topic',
+        color: 'grey'
+      }
   }
 }
 
