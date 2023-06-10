@@ -20,7 +20,6 @@ export const liveBadgeList = [
   'packagist',
   'rubygems',
   'apm',
-  'hackage',
   'vs-marketplace',
   'melpa',
   'maven',

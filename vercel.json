@@ -111,10 +111,6 @@
       "destination": "https://v2022.badgen.net/gitter/:match*"
     },
     {
-      "source": "/hackage/:match*",
-      "destination": "https://v2022.badgen.net/hackage/:match*"
-    },
-    {
       "source": "/haxelib/:match*",
       "destination": "https://v2022.badgen.net/haxelib/:match*"
     },
