@@ -1,5 +1,5 @@
 <p align="center">
-    <img height="60px" width="60px" src="https://badgen.net/static/badgen-logo.svg" />
+    <img height="60px" width="60px" src="https://badgen.net/statics/badgen-logo.svg" />
     <h1 align="center">Badgen Service</h1>
 </p>
 
