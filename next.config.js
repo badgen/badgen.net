@@ -46,6 +46,7 @@ const nextConfig = {
       '/npm',
       '/chrome-web-store',
       '/hackage',
+      '/ppm',
       '/pypi',
       '/runkit',
       '/winget',

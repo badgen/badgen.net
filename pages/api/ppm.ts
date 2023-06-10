@@ -9,7 +9,8 @@ export default createBadgenHandler({
     '/ppm/v/linter': 'version',
     '/ppm/stars/linter': 'stars',
     '/ppm/license/linter': 'license',
-    '/ppm/downloads/linter': 'downloads'
+    '/ppm/downloads/linter': 'downloads',
+    '/ppm/engine/linter': 'engine',
   },
   handlers: {
     '/ppm/:topic/:pkg': handler
@@ -21,7 +22,7 @@ async function handler ({ topic, pkg }: PathArgs) {
   const data = await got(endpoint).json<any>()
 
   switch (topic) {
-    case 'version': {
+    case 'v': {
       return {
         subject: `ppm`,
         status: version(data.releases.latest),
