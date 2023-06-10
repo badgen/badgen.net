@@ -27,10 +27,6 @@
       "destination": "https://v2022.badgen.net/bundlephobia/:match*"
     },
     {
-      "source": "/chrome-web-store/:match*",
-      "destination": "https://v2022.badgen.net/chrome-web-store/:match*"
-    },
-    {
       "source": "/circleci/:match*",
       "destination": "https://v2022.badgen.net/circleci/:match*"
     },
@@ -169,10 +165,6 @@
     {
       "source": "/memo/:match*",
       "destination": "https://v2022.badgen.net/memo/:match*"
-    },
-    {
-      "source": "/npm/:match*",
-      "destination": "https://v2022.badgen.net/npm/:match*"
     },
     {
       "source": "/nuget/:match*",
