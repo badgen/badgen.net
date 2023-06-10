@@ -199,10 +199,6 @@
       "destination": "https://v2022.badgen.net/pub/:match*"
     },
     {
-      "source": "/pypi/:match*",
-      "destination": "https://v2022.badgen.net/pypi/:match*"
-    },
-    {
       "source": "/reddit/:match*",
       "destination": "https://v2022.badgen.net/reddit/:match*"
     },
