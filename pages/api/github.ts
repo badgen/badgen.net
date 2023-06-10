@@ -171,6 +171,11 @@ async function contributors ({ owner, repo }: PathArgs) {
   }
 }
 
+async function meta ({ owner, repo }: PathArgs): Promise<any> {
+  const meta = await got(`https://api.github.com/repos/${owner}/${repo}`).json()
+  return meta
+}
+
 async function downloads ({ owner, repo, tag }: PathArgs) {
   const releaseSelection = tag ? `tags/${tag}` : 'latest'
   const release = await restGithub(`repos/${owner}/${repo}/releases/${releaseSelection}`)
@@ -318,6 +323,45 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
 }
 
 async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
+  switch (topic) {
+    case 'forks':
+      const { forks } = await meta({ owner, repo })
+      return {
+        subject: topic,
+        status: millify(forks),
+        color: 'blue'
+      }
+    case 'watchers':
+      const { watchers_count } = await meta({ owner, repo })
+      return {
+        subject: topic,
+        status: millify(watchers_count),
+        color: 'blue'
+      }
+    case 'open-issues':
+      const { open_issues_count } = await meta({ owner, repo })
+      return {
+        subject: topic,
+        status: millify(open_issues_count),
+        color: 'blue'
+      }
+    case 'stars':
+      const { stargazers_count } = await meta({ owner, repo })
+      return {
+        subject: topic,
+        status: millify(stargazers_count),
+        color: 'blue'
+      }
+    case 'license':
+      const { license } = await meta({ owner, repo })
+      return {
+        subject: topic,
+        status: license ? license.spdx_id : 'no license',
+        color: license ? 'blue' : 'grey'
+      }
+  }
+
+  // Use graphql when we cannot simply get info from public/free api
   const result = await makeRepoQuery(topic, owner, repo, restArgs)
 
   if (!result) {
@@ -329,8 +373,6 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
   }
 
   switch (topic) {
-    case 'watchers':
-    case 'forks':
     case 'issues':
     case 'releases':
       return {
@@ -345,18 +387,12 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         status: millify(result.refs.totalCount),
         color: 'blue'
       }
-    case 'stars':
-      return {
-        subject: topic,
-        status: millify(result.stargazers.totalCount),
-        color: 'blue'
-      }
-    case 'open-issues':
-      return {
-        subject: 'open issues',
-        status: millify(result.issues.totalCount),
-        color: result.issues.totalCount === 0 ? 'green' : 'orange'
-      }
+    // case 'open-issues':
+    //   return {
+    //     subject: 'open issues',
+    //     status: millify(result.issues.totalCount),
+    //     color: result.issues.totalCount === 0 ? 'green' : 'orange'
+    //   }
     case 'closed-issues':
       return {
         subject: 'closed issues',
@@ -407,13 +443,13 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         status: version(latestTag),
         color: 'blue'
       }
-    case 'license':
-      const li = result.licenseInfo
-      return {
-        subject: topic,
-        status: li ? li.spdxId : 'no license',
-        color: li ? 'blue' : 'grey'
-      }
+    // case 'license':
+    //   const li = result.licenseInfo
+    //   return {
+    //     subject: topic,
+    //     status: li ? li.spdxId : 'no license',
+    //     color: li ? 'blue' : 'grey'
+    //   }
     case 'last-commit':
       const commits = result.branch.target.history.nodes
       const lastDate = commits.length && new Date(commits[0].committedDate)
