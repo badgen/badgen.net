@@ -11,7 +11,6 @@ export const liveBadgeList = [
   // release registries
   'david',
   'packagephobia',
-  'bundlephobia',
   'crates',
   'docker',
   'homebrew',

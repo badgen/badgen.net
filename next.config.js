@@ -44,6 +44,7 @@ const nextConfig = {
       '/static',
       '/github',
       '/npm',
+      '/bundlephobia',
       '/chrome-web-store',
       '/hackage',
       '/ppm',

@@ -19,10 +19,6 @@
       "destination": "https://v2022.badgen.net/badgesize/:match*"
     },
     {
-      "source": "/bundlephobia/:match*",
-      "destination": "https://v2022.badgen.net/bundlephobia/:match*"
-    },
-    {
       "source": "/circleci/:match*",
       "destination": "https://v2022.badgen.net/circleci/:match*"
     },
