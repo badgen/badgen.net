@@ -53,6 +53,7 @@ const nextConfig = {
       '/xo',
       // discontinued
       '/apm',
+      '/lgtm',
     ]
 
     badgeApis.forEach(badge => {

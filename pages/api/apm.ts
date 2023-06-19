@@ -4,6 +4,8 @@ const help = `
 ## Discontinued
 
 Read all about GitHub [Sunsetting Atom](https://github.blog/2022-06-08-sunsetting-atom/).
+
+For alternative service, you may use <a href="/ppm">/ppm</a> instead.
 `
 
 export default createBadgenHandler({

@@ -48,7 +48,6 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 [![Contributors][contributors-src]][contributors-href]
 [![Dependencies][dependencies-src]][dependencies-href]
 [![Maintainability][maintainability-src]][maintainability-href]
-[![Code Quality][codequality-src]][codequality-href]
 [![Docker image][docker-src]][docker-href]
 
 **start dev server**
@@ -123,8 +122,6 @@ Support this project by donation, help Badgen continue and evolving!
 [dependencies-href]: https://david-dm.org/badgen/badgen.net
 [maintainability-src]: https://badgen.net/codeclimate/maintainability/badgen/badgen.net
 [maintainability-href]: https://codeclimate.com/github/badgen/badgen.net
-[codequality-src]: https://badgen.net/lgtm/grade/javascript/g/badgen/badgen.net
-[codequality-href]: https://lgtm.com/projects/g/badgen/badgen.net/context:javascript
 [contributors-src]: https://badgen.net/github/contributors/badgen/badgen.net
 [contributors-href]: https://github.com/badgen/badgen.net/graphs/contributors
 [docker-src]: https://badgen.net/badge/docker/amio%2Fbadgen?label&icon=docker
