@@ -1,6 +1,7 @@
 import staticBadge from '../pages/api/static'
 import github from '../pages/api/github'
 import npm from '../pages/api/npm'
+import bundlephobia from '../pages/api/bundlephobia'
 import chromeWebStore from '../pages/api/chrome-web-store'
 import hackage from '../pages/api/hackage'
 import pypi from '../pages/api/pypi'
@@ -12,6 +13,7 @@ export default {
   static: staticBadge.meta,
   github: github.meta,
   npm: npm.meta,
+  bundlephobia: bundlephobia.meta,
   chromeWebStore: chromeWebStore.meta,
   hackage: hackage.meta,
   pypi: pypi.meta,

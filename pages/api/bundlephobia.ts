@@ -1,7 +1,7 @@
-import got from '../libs/got'
-import { size } from '../libs/utils'
+import got from '../../libs/got'
+import { size } from '../../libs/utils'
 
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Bundlephobia',
