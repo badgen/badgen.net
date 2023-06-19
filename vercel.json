@@ -131,10 +131,6 @@
       "destination": "https://v2022.badgen.net/keybase/:match*"
     },
     {
-      "source": "/lgtm/:match*",
-      "destination": "https://v2022.badgen.net/lgtm/:match*"
-    },
-    {
       "source": "/liberapay/:match*",
       "destination": "https://v2022.badgen.net/liberapay/:match*"
     },

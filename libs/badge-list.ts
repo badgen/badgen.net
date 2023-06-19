@@ -48,7 +48,6 @@ export const liveBadgeList = [
   'azure-pipelines',
   // quality & metrics
   'snyk',
-  'lgtm',
   'deepscan',
   'uptime-robot',
   'badgesize',
