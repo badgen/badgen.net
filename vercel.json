@@ -59,10 +59,6 @@
       "destination": "https://v2022.badgen.net/ctan/:match*"
     },
     {
-      "source": "/david/:match*",
-      "destination": "https://v2022.badgen.net/david/:match*"
-    },
-    {
       "source": "/deepscan/:match*",
       "destination": "https://v2022.badgen.net/deepscan/:match*"
     },

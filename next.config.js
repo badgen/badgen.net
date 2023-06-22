@@ -55,6 +55,7 @@ const nextConfig = {
       // discontinued
       '/apm',
       '/lgtm',
+      '/david',
     ]
 
     badgeApis.forEach(badge => {
