@@ -1,12 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import icons from 'badgen-icons'
 import Image from 'next/image'
+import BadgeList from '../public/.meta/badge-list.json'
 
 // import { Open_Sans } from '@next/font/google'
 // const openSans = Open_Sans({ subsets: ['latin'], weight: ['400'] })
 
 export default function HomeIntro ({ isFlat = false }) {
   return (
-  <div className={`home-intro`}>
+  <div className={`help-info`}>
     <pre>{explainCode(isFlat)}</pre>
 
     <h3>Options</h3>
@@ -48,6 +50,20 @@ export default function HomeIntro ({ isFlat = false }) {
       </li>
     </ul>
 
+    <h3>Builtin Colors</h3>
+    { colorExamples() }
+
+    <h3>Builtin Icons</h3>
+    { iconExamples() }
+
+    <h3>Badge Generators</h3>
+    {
+      Object.keys(BadgeList).map(badge => {
+        const href = '/' + badge
+        return <a key={badge} href={href}><code>{href}</code></a>
+      })
+    }
+
     <h3>Advanced usage</h3>
     <ul>
       <li>
@@ -59,6 +75,7 @@ export default function HomeIntro ({ isFlat = false }) {
         turn an api endpoint into a svg live badge.
       </li>
     </ul>
+
     <style jsx>{`
       pre {
         font-size: 15px;
@@ -70,7 +87,7 @@ export default function HomeIntro ({ isFlat = false }) {
       code {
         margin-right: 6px;
       }
-      .home-intro h3 {
+      .help-info h3 {
         font-family: Merriweather, serif;
         margin: 2rem 0;
         font-weight: 400;
@@ -78,8 +95,9 @@ export default function HomeIntro ({ isFlat = false }) {
 
       ul { padding-left: 2em; font-family: "Open Sans", sans-serif }
       li { vertical-align: top; font-size: 14px; line-height: 24px; color: #777; margin: 5px 0 }
-      li code { padding: 0.3em 0.5em; display: pre; color: #333; background: #EEF2F8 }
-      li a { display: inline; margin-left: 0.3em; text-decoration: underline }
+      code { padding: 0.3em 0.5em; display: pre; color: #333; background: #EEF2F8 }
+      a { display: inline; margin-right: 0.3em }
+      a:hover { text-decoration: underline }
       a code { color: #06D }
     `}
     </style>
@@ -90,7 +108,7 @@ const colorExamples = () => {
   const colors = ['blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'pink', 'purple', 'grey', 'black']
   return colors.map(c => (
     <a href={`/badge/color/${c}/${c}`} key={c}>
-      <Image alt={c} src={`/badge/color/${c}/${c}`} width='30' height='20' />
+      <img alt={c} src={`/static/color/${c}/${c}`} />
       <style>{`
         a {
           margin-right: 4px;
@@ -106,7 +124,7 @@ const iconExamples = () => {
     const url = `/badge/icon/${icon}?icon=${icon}&label`
     return (
       <a href={url} key={icon}>
-        <Image alt={icon} src={url} width='30' height='20' />
+        <img alt={icon} src={url} />
         <style>{`
           a {
             margin-right: 4px;

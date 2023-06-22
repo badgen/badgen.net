@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 
 import { useState, useEffect } from 'react'
 import BadgenTitle from '../components/badgen-title'
-import Intro from '../components/home-intro'
+import HelpInfo from '../components/help-info'
 import Footer from '../components/footer'
 import examples from '../public/.meta/badges.json'
 
@@ -25,7 +25,7 @@ export default function Index () {
     </Head>
     <BadgenTitle host={host} />
     <div className='body-wrapper'>
-      <Intro />
+      <HelpInfo />
     </div>
     <Footer />
     <style jsx>{`
@@ -66,4 +66,8 @@ export default function Index () {
     `}
     </style>
   </> // eslint-disable-line
+}
+
+function ColorBadge ({color: string}) {
+  return <a href="/badge/color/blue/blue"><img src="/badge/color/blue/blue" alt="blue" /></a>
 }
