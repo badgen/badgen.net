@@ -14,7 +14,7 @@ export default {
   github: github.meta,
   npm: npm.meta,
   bundlephobia: bundlephobia.meta,
-  chromeWebStore: chromeWebStore.meta,
+  'chrome-web-store': chromeWebStore.meta,
   hackage: hackage.meta,
   pypi: pypi.meta,
   runkit: runkit.meta,
