@@ -43,10 +43,6 @@
       "destination": "https://v2022.badgen.net/cran/:match*"
     },
     {
-      "source": "/crates/:match*",
-      "destination": "https://v2022.badgen.net/crates/:match*"
-    },
-    {
       "source": "/ctan/:match*",
       "destination": "https://v2022.badgen.net/ctan/:match*"
     },
