@@ -41,7 +41,6 @@ export const liveBadgeList = [
   'codecov',
   'codacy',
   'coveralls',
-  'codeclimate',
   'azure-pipelines',
   // quality & metrics
   'snyk',
