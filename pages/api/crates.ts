@@ -1,6 +1,6 @@
-import got from '../libs/got'
-import { millify, version, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { millify, version, versionColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Rust Crates',
@@ -36,6 +36,12 @@ async function handler ({topic, pkg}: PathArgs) {
         subject: 'downloads',
         status: millify(crate.recent_downloads) + ' latest version',
         color: 'green'
+      }
+    default:
+      return {
+        subject: 'crates.io',
+        status: 'unknown topic',
+        color: 'grey'
       }
   }
 }

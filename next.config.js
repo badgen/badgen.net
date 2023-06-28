@@ -44,6 +44,7 @@ const nextConfig = {
       '/static',
       '/github',
       '/npm',
+      '/crates',
       '/bundlephobia',
       '/packagephobia',
       '/codeclimate',
