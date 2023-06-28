@@ -31,10 +31,6 @@
       "destination": "https://v2022.badgen.net/codacy/:match*"
     },
     {
-      "source": "/codecov/:match*",
-      "destination": "https://v2022.badgen.net/codecov/:match*"
-    },
-    {
       "source": "/coveralls/:match*",
       "destination": "https://v2022.badgen.net/coveralls/:match*"
     },

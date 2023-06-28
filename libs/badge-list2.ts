@@ -4,6 +4,7 @@ import npm from '../pages/api/npm'
 import bundlephobia from '../pages/api/bundlephobia'
 import packagephobia from '../pages/api/packagephobia'
 import codeclimate from '../pages/api/codeclimate'
+import codecov from '../pages/api/codecov'
 import chromeWebStore from '../pages/api/chrome-web-store'
 import hackage from '../pages/api/hackage'
 import pypi from '../pages/api/pypi'
@@ -18,6 +19,7 @@ export default {
   bundlephobia: bundlephobia.meta,
   packagephobia: packagephobia.meta,
   codeclimate: codeclimate.meta,
+  codecov: codecov.meta,
   'chrome-web-store': chromeWebStore.meta,
   hackage: hackage.meta,
   pypi: pypi.meta,
