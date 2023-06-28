@@ -1,6 +1,9 @@
-import got from '../libs/got'
-import { coverage as cov, scale } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { coverage as cov, scale } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
+import type { BadgenParams } from '../../libs/types'
+
+
 
 export default createBadgenHandler({
   title: 'Code Climate',
@@ -18,7 +21,7 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({ topic, owner, repo }: PathArgs) {
+async function handler ({ topic, owner, repo }: PathArgs): Promise<BadgenParams> {
   const api = `https://api.codeclimate.com/v1/repos?github_slug=${owner}/${repo}`
   const result = await got(api).json<any>()
   const meta = result.data[0]
@@ -104,6 +107,12 @@ const getReport = async (repoId, reportId, type, topic) => {
         subject: 'coverage',
         status: cov(attributes.rating.measure.value),
         color: scale('coverage')(attributes.rating.measure.value)
+      }
+    default:
+      return {
+        subject: 'codeclimate',
+        status: 'unknown topic',
+        color: 'gray'
       }
   }
 }

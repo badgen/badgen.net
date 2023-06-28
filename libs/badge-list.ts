@@ -9,7 +9,6 @@ export const liveBadgeList = [
   // 'github',
   'gitlab',
   // release registries
-  'packagephobia',
   'crates',
   'docker',
   'homebrew',
@@ -42,7 +41,6 @@ export const liveBadgeList = [
   'codecov',
   'codacy',
   'coveralls',
-  'codeclimate',
   'azure-pipelines',
   // quality & metrics
   'snyk',
