@@ -47,6 +47,7 @@ const nextConfig = {
       '/bundlephobia',
       '/packagephobia',
       '/codeclimate',
+      '/codecov',
       '/chrome-web-store',
       '/hackage',
       '/ppm',

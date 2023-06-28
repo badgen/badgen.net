@@ -1,6 +1,6 @@
-import got from '../libs/got'
-import { coverage, coverageColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { coverage, coverageColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'CodeCov',
