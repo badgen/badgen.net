@@ -163,10 +163,6 @@
       "destination": "https://v2022.badgen.net/opencollective/:match*"
     },
     {
-      "source": "/packagephobia/:match*",
-      "destination": "https://v2022.badgen.net/packagephobia/:match*"
-    },
-    {
       "source": "/packagist/:match*",
       "destination": "https://v2022.badgen.net/packagist/:match*"
     },
