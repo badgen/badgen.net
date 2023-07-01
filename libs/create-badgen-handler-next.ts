@@ -26,8 +26,6 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
   async function nextHandler (req: NextApiRequest, res: NextApiResponse) {
     let { pathname } = new URL(req.url || '/', `http://${req.headers.host}`)
 
-    measurementLogInvocation(req.headers?.host ?? 'badgen.net', pathname)
-
     if (pathname === '/favicon.ico') {
       return res.end()
     }
@@ -50,10 +48,9 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
 
     if (matchRoute('/:name', pathname)) {
       return serveDoc(badgenServerConfig)(req, res)
-      // return res.send('TODO: serve doc page')
     }
 
-    return res.status(404).end()
+    res.status(404).end()
   }
 
   nextHandler.meta = { title, examples, help, handlers }
@@ -86,40 +83,6 @@ function onBadgeHandlerError (meta: any, err: Error | HTTPError, req: NextApiReq
     code: 200,
     params: errorBadgeParams,
   })
-}
-
-
-type MeasurementProtocolEvent = {
-  name: string;
-  params: Record<string, any>;
-}
-
-function measure (clientId: string, events: MeasurementProtocolEvent[]) {
-  const { GA_MEASUREMENT_ID, GA_API_SECRET } = process.env
-
-  if (!GA_MEASUREMENT_ID || !GA_API_SECRET) return
-
-  const searchParams = `measurement_id=${GA_MEASUREMENT_ID}&api_secret=${GA_API_SECRET}`
-  fetch(`https://www.google-analytics.com/mp/collect?${searchParams}`, {
-    method: "POST",
-    body: JSON.stringify({
-      client_id: clientId,
-      events,
-    })
-  })
-}
-
-function measurementLogInvocation (host: string, pathname: string) {
-  const { VERCEL_REGION = '0000' } = process.env
-
-  measure(VERCEL_REGION, [{
-    name: 'invocation',
-    params: {
-      host,
-      pathname,
-      name: pathname.split('/')[1]
-    }
-  }])
 }
 
 function getBadgeStyle (req: http.IncomingMessage): string | undefined {
