@@ -191,10 +191,6 @@
       "destination": "https://v2022.badgen.net/tidelift/:match*"
     },
     {
-      "source": "/travis/:match*",
-      "destination": "https://v2022.badgen.net/travis/:match*"
-    },
-    {
       "source": "/twitter/:match*",
       "destination": "https://v2022.badgen.net/twitter/:match*"
     },
