@@ -34,7 +34,6 @@ export const liveBadgeList = [
   'open-vsx',
   'snapcraft',
   // CI
-  'travis',
   'circleci',
   'appveyor',
   'codacy',
