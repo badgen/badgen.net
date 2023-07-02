@@ -11,7 +11,6 @@ export const liveBadgeList = [
   // release registries
   'docker',
   'homebrew',
-  'amo',
   'nuget',
   'packagist',
   'rubygems',

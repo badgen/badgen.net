@@ -3,10 +3,6 @@
   "regions": ["all"],
   "rewrites": [
     {
-      "source": "/amo/:match*",
-      "destination": "https://v2022.badgen.net/amo/:match*"
-    },
-    {
       "source": "/appveyor/:match*",
       "destination": "https://v2022.badgen.net/appveyor/:match*"
     },
