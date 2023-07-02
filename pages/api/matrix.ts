@@ -1,8 +1,8 @@
 import { Got } from 'got'
-import got from '../libs/got'
-import { millify } from '../libs/utils'
-import { fetchMembersCount as fetchGitterMembersCount } from './gitter'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { millify } from '../../libs/utils'
+import { fetchMembersCount as fetchGitterMembersCount } from '../../api-/gitter'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const BRAND_COLOR = 'black'
 

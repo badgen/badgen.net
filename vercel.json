@@ -55,10 +55,6 @@
       "destination": "https://v2022.badgen.net/devrant/:match*"
     },
     {
-      "source": "/discord/:match*",
-      "destination": "https://v2022.badgen.net/discord/:match*"
-    },
-    {
       "source": "/docker/:match*",
       "destination": "https://v2022.badgen.net/docker/:match*"
     },
@@ -113,10 +109,6 @@
     {
       "source": "/mastodon/:match*",
       "destination": "https://v2022.badgen.net/mastodon/:match*"
-    },
-    {
-      "source": "/matrix/:match*",
-      "destination": "https://v2022.badgen.net/matrix/:match*"
     },
     {
       "source": "/maven/:match*",

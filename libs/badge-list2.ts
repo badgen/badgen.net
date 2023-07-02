@@ -12,6 +12,8 @@ import chromeWebStore from '../pages/api/chrome-web-store'
 import vsMarketplace from '../pages/api/vs-marketplace'
 import hackage from '../pages/api/hackage'
 import pypi from '../pages/api/pypi'
+import discord from '../pages/api/discord'
+import matrix from '../pages/api/matrix'
 import runkit from '../pages/api/runkit'
 import winget from '../pages/api/winget'
 import xo from '../pages/api/xo'
@@ -22,16 +24,18 @@ export default {
   amo: amo.meta,
   npm: npm.meta,
   crates: crates.meta,
+  'chrome-web-store': chromeWebStore.meta,
+  'vs-marketplace': vsMarketplace.meta,
+  hackage: hackage.meta,
+  pypi: pypi.meta,
+  winget: winget.meta,
   bundlephobia: bundlephobia.meta,
   packagephobia: packagephobia.meta,
   codeclimate: codeclimate.meta,
   codecov: codecov.meta,
   travis: travis.meta,
-  'chrome-web-store': chromeWebStore.meta,
-  'vs-marketplace': vsMarketplace.meta,
-  hackage: hackage.meta,
-  pypi: pypi.meta,
+  discord: discord.meta,
+  matrix: matrix.meta,
   runkit: runkit.meta,
-  winget: winget.meta,
   xo: xo.meta
 }
