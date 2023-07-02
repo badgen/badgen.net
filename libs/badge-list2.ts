@@ -9,6 +9,7 @@ import codeclimate from '../pages/api/codeclimate'
 import codecov from '../pages/api/codecov'
 import travis from '../pages/api/travis'
 import chromeWebStore from '../pages/api/chrome-web-store'
+import vsMarketplace from '../pages/api/vs-marketplace'
 import hackage from '../pages/api/hackage'
 import pypi from '../pages/api/pypi'
 import runkit from '../pages/api/runkit'
@@ -27,6 +28,7 @@ export default {
   codecov: codecov.meta,
   travis: travis.meta,
   'chrome-web-store': chromeWebStore.meta,
+  'vs-marketplace': vsMarketplace.meta,
   hackage: hackage.meta,
   pypi: pypi.meta,
   runkit: runkit.meta,

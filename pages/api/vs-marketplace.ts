@@ -1,7 +1,7 @@
 import millify from 'millify'
-import got from '../libs/got'
-import { version as v, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { version as v, versionColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Visual Studio Marketplace',
@@ -55,6 +55,12 @@ async function handler ({ topic, pkg }: PathArgs) {
         subject: 'rating',
         status: `${averagerating.toFixed(1)}/5 (${ratingcount})`,
         color: 'green'
+      }
+    default:
+      return {
+        subject: 'vs-marketplace',
+        status: 'unknown topic',
+        color: 'grey',
       }
   }
 }
