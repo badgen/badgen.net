@@ -195,10 +195,6 @@
       "destination": "https://v2022.badgen.net/uptime-robot/:match*"
     },
     {
-      "source": "/vs-marketplace/:match*",
-      "destination": "https://v2022.badgen.net/vs-marketplace/:match*"
-    },
-    {
       "source": "/wapm/:match*",
       "destination": "https://v2022.badgen.net/wapm/:match*"
     }

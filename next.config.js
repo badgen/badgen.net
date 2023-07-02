@@ -52,6 +52,7 @@ const nextConfig = {
       '/codecov',
       '/travis',
       '/chrome-web-store',
+      '/vs-marketplace',
       '/hackage',
       '/ppm',
       '/pypi',
