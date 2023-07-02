@@ -21,7 +21,7 @@ export function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, optio
   const iconMeta = resolveIcon(query.icon, query.iconWidth)
 
   const badgeParams = {
-    labelColor: resolveColor(query.labelColor, 'black'),
+    labelColor: resolveColor(query.labelColor, '555'),
     subject: formatSVGText(typeof query.label === 'string' ? query.label : subject),
     status: formatSVGText(transformStatus(status, { list })),
     color: resolveColor(query.color || color, 'blue'),

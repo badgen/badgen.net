@@ -1,6 +1,6 @@
 import millify from 'millify'
-import got from '../libs/got'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const BRAND_COLOR = '7289DA'
 const DISCORD_API_URL = 'https://discord.com/api/v8/'
@@ -39,6 +39,12 @@ async function handler ({ 'invite-code': inviteCode, topic }: PathArgs) {
         subject: guild?.name || 'discord',
         status: `${millify(approximate_presence_count)} online`,
         color: BRAND_COLOR
+      }
+    default:
+      return {
+        subject: 'discord',
+        status: 'unknown topic',
+        color: 'grey',
       }
   }
 }

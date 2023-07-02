@@ -48,9 +48,7 @@ export const liveBadgeList = [
   'peertube',
   'reddit',
   // chat
-  'discord',
   'gitter',
-  'matrix',
   // utilities
   'opencollective',
   'keybase',
