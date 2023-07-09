@@ -45,7 +45,6 @@ export const liveBadgeList = [
   'jsdelivr',
   // social
   'devrant',
-  'peertube',
   'reddit',
   // chat
   'gitter',

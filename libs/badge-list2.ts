@@ -12,6 +12,7 @@ import chromeWebStore from '../pages/api/chrome-web-store'
 import vsMarketplace from '../pages/api/vs-marketplace'
 import hackage from '../pages/api/hackage'
 import pypi from '../pages/api/pypi'
+import peertube from '../pages/api/peertube'
 import discord from '../pages/api/discord'
 import matrix from '../pages/api/matrix'
 import runkit from '../pages/api/runkit'
@@ -34,6 +35,7 @@ export default {
   codeclimate: codeclimate.meta,
   codecov: codecov.meta,
   travis: travis.meta,
+  peertube: peertube.meta,
   discord: discord.meta,
   matrix: matrix.meta,
   runkit: runkit.meta,

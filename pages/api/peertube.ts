@@ -1,6 +1,6 @@
-import got from '../libs/got'
-import { millify } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { millify } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const BRAND_COLOR = 'F1680D'
 
@@ -27,7 +27,7 @@ async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) 
 
   switch (topic) {
     case 'comments': {
-      const { total } = await client.get(`/videos/${videoUUID}/comment-threads`).json<any>()
+      const { total } = await client.get(`videos/${videoUUID}/comment-threads`).json<any>()
       return {
         subject: 'comments',
         status: millify(total),
@@ -35,19 +35,27 @@ async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) 
       }
     }
     case 'views': {
-      const { views } = await client.get(`/videos/${videoUUID}`).json<any>()
+      const { views } = await client.get(`videos/${videoUUID}`).json<any>()
       return {
         subject: 'views',
         status: millify(views),
         color: BRAND_COLOR
       }
     }
+    default:
+      return {
+        subject: 'peertube',
+        status: 'unknown topic',
+        color: 'grey'
+      }
   }
 }
 
 async function votesHandler ({ instance, 'video-uuid': videoUUID, format }: PathArgs) {
   const client = createClient(instance)
-  const { likes, dislikes } = await client.get(`/videos/${videoUUID}`).json<any>()
+  console.log(33)
+  const { likes, dislikes } = await client.get(`videos/${videoUUID}`).json<any>()
+  console.log(44)
 
   switch (format) {
     case 'likes': {
@@ -76,7 +84,7 @@ async function followersHandler ({ instance, account, channel }: PathArgs) {
   const client = createClient(instance)
 
   if (channel) {
-    const { followersCount } = await client.get(`/video-channels/${channel}`).json<any>()
+    const { followersCount } = await client.get(`video-channels/${channel}`).json<any>()
     return {
       subject: 'followers',
       status: millify(followersCount),
@@ -84,7 +92,7 @@ async function followersHandler ({ instance, account, channel }: PathArgs) {
     }
   }
 
-  const { followersCount } = await client.get(`/accounts/${account}`).json<any>()
+  const { followersCount } = await client.get(`accounts/${account}`).json<any>()
   return {
     subject: 'followers',
     status: millify(followersCount),

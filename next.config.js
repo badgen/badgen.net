@@ -64,6 +64,7 @@ const nextConfig = {
       '/discord',
       '/matrix',
       '/runkit',
+      '/peertube',
       // discontinued
       '/apm',
       '/lgtm',
