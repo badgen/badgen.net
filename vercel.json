@@ -194,7 +194,7 @@
   "functions": {
     "pages/api/**/*": {
       "memory": 128,
-      "maxDuration": 16
+      "maxDuration": 32
     }
   },
   "env": {
