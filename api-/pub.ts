@@ -102,7 +102,7 @@ async function webHandler({ topic, pkg }: PathArgs) {
 
   switch (topic) {
     case 'license': {
-      const license = html.match(/License<\/h3>\s*<p>([^(]+)\(/i)?.[1].trim()
+      const license = html.match(/License<\/h3>\s*<p>[^>]+>([^(]+)\(/i)?.[1].trim()
       return {
         subject: 'license',
         status: license || 'unknown',
