@@ -1,8 +1,8 @@
 import millify from 'millify'
 import distanceToNow from 'date-fns/formatDistanceToNow'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
-import { queryGitlab, restGitlab } from '../libs/gitlab'
-import { version } from '../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
+import { queryGitlab, restGitlab } from '../../libs/gitlab'
+import { version } from '../../libs/utils'
 
 const removeNoSignFromHexColor = (hexColor: string) => hexColor.replace('#', '')
 

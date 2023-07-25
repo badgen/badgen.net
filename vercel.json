@@ -71,10 +71,6 @@
       "destination": "https://v2022.badgen.net/f-droid/:match*"
     },
     {
-      "source": "/gitlab/:match*",
-      "destination": "https://v2022.badgen.net/gitlab/:match*"
-    },
-    {
       "source": "/gitter/:match*",
       "destination": "https://v2022.badgen.net/gitter/:match*"
     },

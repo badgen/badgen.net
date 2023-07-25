@@ -43,6 +43,7 @@ const nextConfig = {
     const badgeApis = [
       '/static',
       '/github',
+      '/gitlab',
       // registry
       '/amo',
       '/npm',
