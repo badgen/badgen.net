@@ -7,7 +7,7 @@ const rel = (...args) => path.resolve(__dirname, ...args)
 export const liveBadgeList = [
   // // source control
   // 'github',
-  'gitlab',
+  // 'gitlab',
   // release registries
   'docker',
   'homebrew',
