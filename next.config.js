@@ -44,6 +44,7 @@ const nextConfig = {
       '/static',
       '/github',
       '/gitlab',
+      '/https',
       // registry
       '/amo',
       '/npm',

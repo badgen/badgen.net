@@ -56,7 +56,6 @@ export const liveBadgeList = [
   'tidelift',
   'jenkins',
   'liberapay',
-  'https',
 ]
 
 export async function loadBadgeMeta () {

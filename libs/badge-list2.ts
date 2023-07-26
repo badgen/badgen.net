@@ -1,6 +1,7 @@
 import staticBadge from '../pages/api/static'
 import github from '../pages/api/github'
 import gitlab from '../pages/api/gitlab'
+import https from '../pages/api/https'
 import amo from '../pages/api/amo'
 import npm from '../pages/api/npm'
 import crates from '../pages/api/crates'
@@ -24,6 +25,7 @@ export default {
   static: staticBadge.meta,
   github: github.meta,
   gitlab: gitlab.meta,
+  https: https.meta,
   amo: amo.meta,
   npm: npm.meta,
   crates: crates.meta,

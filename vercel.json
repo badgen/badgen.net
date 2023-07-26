@@ -83,10 +83,6 @@
       "destination": "https://v2022.badgen.net/homebrew/:match*"
     },
     {
-      "source": "/https/:match*",
-      "destination": "https://v2022.badgen.net/https/:match*"
-    },
-    {
       "source": "/jenkins/:match*",
       "destination": "https://v2022.badgen.net/jenkins/:match*"
     },

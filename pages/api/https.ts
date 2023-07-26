@@ -1,5 +1,5 @@
-import got from '../libs/got'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler'
 
 const help = `
 ## Use Badgen with HTTPS Endpoint
