@@ -9,7 +9,6 @@ export const liveBadgeList = [
   // 'github',
   // 'gitlab',
   // release registries
-  'docker',
   'homebrew',
   'nuget',
   'packagist',
@@ -58,7 +57,7 @@ export const liveBadgeList = [
   'liberapay',
 ]
 
-export async function loadBadgeMeta () {
+export async function loadBadgeMeta() {
   const liveBadgeExamples = await Promise.all(liveBadgeList.map(async id => {
     const mod = await import(rel('../api-', id))
     const { title, examples, handlers } = mod.default.meta
