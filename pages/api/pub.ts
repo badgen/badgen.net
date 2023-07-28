@@ -1,6 +1,6 @@
-import got from '../libs/got'
-import { millify, version, versionColor } from '../libs/utils'
-import { createBadgenHandler, BadgenError, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { millify, version, versionColor } from '../../libs/utils'
+import { createBadgenHandler, BadgenError, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const PUB_API_URL = 'https://pub.dev/api/'
 const PUB_REPO_URL = 'https://pub.dev/'
@@ -22,7 +22,7 @@ export default createBadgenHandler({
   },
   handlers: {
     '/pub/:topic<v|version|sdk-version|likes|points|popularity|dart-platform|flutter-platform>/:pkg': apiHandler,
-    '/pub/:topic<license>/:pkg': webHandler
+    '/pub/:topic<license>/:pkg': licenseHandler
   }
 })
 
@@ -94,21 +94,23 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
         color: platforms ? 'blue' : 'grey'
       }
     }
+    default:
+      return {
+        subject: 'pub',
+        status: 'unknown topic',
+        color: 'grey'
+      }
   }
 }
 
-async function webHandler({ topic, pkg }: PathArgs) {
+async function licenseHandler({ pkg }: PathArgs) {
   const html = await fetchPage(pkg)
 
-  switch (topic) {
-    case 'license': {
-      const license = html.match(/License<\/h3>\s*<p>[^>]+>([^(]+)\(/i)?.[1].trim()
-      return {
-        subject: 'license',
-        status: license || 'unknown',
-        color: 'blue'
-      }
-    }
+  const license = html.match(/License<\/h3>\s*<p>[^>]+>([^(]+)\(/i)?.[1].trim()
+  return {
+    subject: 'license',
+    status: license || 'unknown',
+    color: 'blue'
   }
 }
 

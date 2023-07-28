@@ -2,6 +2,7 @@ import staticBadge from '../pages/api/static'
 import github from '../pages/api/github'
 import amo from '../pages/api/amo'
 import npm from '../pages/api/npm'
+import pub from '../pages/api/pub'
 import crates from '../pages/api/crates'
 import bundlephobia from '../pages/api/bundlephobia'
 import packagephobia from '../pages/api/packagephobia'
@@ -24,6 +25,7 @@ export default {
   github: github.meta,
   amo: amo.meta,
   npm: npm.meta,
+  pub: pub.meta,
   crates: crates.meta,
   'chrome-web-store': chromeWebStore.meta,
   'vs-marketplace': vsMarketplace.meta,

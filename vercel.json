@@ -143,10 +143,6 @@
       "destination": "https://v2022.badgen.net/packagist/:match*"
     },
     {
-      "source": "/pub/:match*",
-      "destination": "https://v2022.badgen.net/pub/:match*"
-    },
-    {
       "source": "/reddit/:match*",
       "destination": "https://v2022.badgen.net/reddit/:match*"
     },

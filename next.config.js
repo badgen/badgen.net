@@ -52,6 +52,7 @@ const nextConfig = {
       '/vs-marketplace',
       '/hackage',
       '/ppm',
+      '/pub',
       '/pypi',
       // analysis
       '/bundlephobia',
