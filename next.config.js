@@ -50,6 +50,7 @@ const nextConfig = {
       '/npm',
       '/crates',
       '/winget',
+      '/docker',
       '/chrome-web-store',
       '/vs-marketplace',
       '/hackage',

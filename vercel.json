@@ -1,6 +1,8 @@
 {
   "version": 2,
-  "regions": ["all"],
+  "regions": [
+    "all"
+  ],
   "rewrites": [
     {
       "source": "/appveyor/:match*",
@@ -53,10 +55,6 @@
     {
       "source": "/devrant/:match*",
       "destination": "https://v2022.badgen.net/devrant/:match*"
-    },
-    {
-      "source": "/docker/:match*",
-      "destination": "https://v2022.badgen.net/docker/:match*"
     },
     {
       "source": "/dub/:match*",
@@ -179,10 +177,12 @@
       "destination": "https://v2022.badgen.net/wapm/:match*"
     }
   ],
-  "redirects": [{
-    "source": "/docs/:match*",
-    "destination": "/:match*"
-  }],
+  "redirects": [
+    {
+      "source": "/docs/:match*",
+      "destination": "/:match*"
+    }
+  ],
   "functions": {
     "pages/api/**/*": {
       "memory": 128,
