@@ -4,6 +4,7 @@ import gitlab from '../pages/api/gitlab'
 import https from '../pages/api/https'
 import amo from '../pages/api/amo'
 import npm from '../pages/api/npm'
+import pub from '../pages/api/pub'
 import crates from '../pages/api/crates'
 import docker from '../pages/api/docker'
 import bundlephobia from '../pages/api/bundlephobia'
@@ -30,6 +31,7 @@ export default {
   https: https.meta,
   amo: amo.meta,
   npm: npm.meta,
+  pub: pub.meta,
   crates: crates.meta,
   docker: docker.meta,
   'open-vsx': openVsx.meta,

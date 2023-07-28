@@ -25,7 +25,6 @@ export const liveBadgeList = [
   'elm-package',
   'scoop',
   'f-droid',
-  'pub',
   'shards',
   'wapm',
   'snapcraft',
