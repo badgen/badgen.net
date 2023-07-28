@@ -28,7 +28,6 @@ export const liveBadgeList = [
   'pub',
   'shards',
   'wapm',
-  'open-vsx',
   'snapcraft',
   // CI
   'circleci',

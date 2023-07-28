@@ -121,10 +121,6 @@
       "destination": "https://v2022.badgen.net/opam/:match*"
     },
     {
-      "source": "/open-vsx/:match*",
-      "destination": "https://v2022.badgen.net/open-vsx/:match*"
-    },
-    {
       "source": "/opencollective/:match*",
       "destination": "https://v2022.badgen.net/opencollective/:match*"
     },

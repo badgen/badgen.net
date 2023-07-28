@@ -51,6 +51,7 @@ const nextConfig = {
       '/crates',
       '/winget',
       '/docker',
+      '/open-vsx',
       '/chrome-web-store',
       '/vs-marketplace',
       '/hackage',
