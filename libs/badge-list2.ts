@@ -5,6 +5,7 @@ import https from '../pages/api/https'
 import amo from '../pages/api/amo'
 import npm from '../pages/api/npm'
 import crates from '../pages/api/crates'
+import docker from '../pages/api/docker'
 import bundlephobia from '../pages/api/bundlephobia'
 import packagephobia from '../pages/api/packagephobia'
 import codeclimate from '../pages/api/codeclimate'
@@ -30,6 +31,7 @@ export default {
   amo: amo.meta,
   npm: npm.meta,
   crates: crates.meta,
+  docker: docker.meta,
   'open-vsx': openVsx.meta,
   'chrome-web-store': chromeWebStore.meta,
   'vs-marketplace': vsMarketplace.meta,

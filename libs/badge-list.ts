@@ -9,7 +9,6 @@ export const liveBadgeList = [
   // 'github',
   // 'gitlab',
   // release registries
-  'docker',
   'homebrew',
   'nuget',
   'packagist',

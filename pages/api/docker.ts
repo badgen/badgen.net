@@ -1,7 +1,7 @@
 import millify from 'millify'
-import got from '../libs/got'
-import { getDockerAuthToken, getManifestList, getImageManifest, getImageConfig } from '../libs/docker'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { getDockerAuthToken, getManifestList, getImageManifest, getImageConfig } from '../../libs/docker'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const help = `## Usage
 
@@ -68,6 +68,12 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
         subject: 'docker pulls',
         status: millify(pull_count),
         color: 'blue'
+      }
+    default:
+      return {
+        subject: 'docker',
+        status: 'unknown topic',
+        color: 'grey'
       }
   }
 }
