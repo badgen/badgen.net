@@ -12,6 +12,7 @@ import codecov from '../pages/api/codecov'
 import travis from '../pages/api/travis'
 import chromeWebStore from '../pages/api/chrome-web-store'
 import vsMarketplace from '../pages/api/vs-marketplace'
+import openVsx from '../pages/api/open-vsx'
 import hackage from '../pages/api/hackage'
 import pypi from '../pages/api/pypi'
 import peertube from '../pages/api/peertube'
@@ -29,6 +30,7 @@ export default {
   amo: amo.meta,
   npm: npm.meta,
   crates: crates.meta,
+  'open-vsx': openVsx.meta,
   'chrome-web-store': chromeWebStore.meta,
   'vs-marketplace': vsMarketplace.meta,
   hackage: hackage.meta,

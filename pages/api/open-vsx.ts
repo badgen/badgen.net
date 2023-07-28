@@ -1,7 +1,7 @@
 import millify from 'millify'
-import got from '../libs/got'
-import { version, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { version, versionColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Open VSX',
@@ -17,7 +17,7 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({ topic, pkg, namespace }: PathArgs) {
+async function handler({ topic, pkg, namespace }: PathArgs) {
   const endpoint = `https://open-vsx.org/api/${namespace}/${pkg}`
   const data = await got(endpoint).json<any>()
 
@@ -53,6 +53,12 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
         subject: 'reviews',
         status: millify(data.reviewCount),
         color: 'green'
+      }
+    default:
+      return {
+        subject: 'open-vsx',
+        status: 'unknown topic',
+        color: 'grey'
       }
   }
 }

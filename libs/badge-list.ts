@@ -29,7 +29,6 @@ export const liveBadgeList = [
   'pub',
   'shards',
   'wapm',
-  'open-vsx',
   'snapcraft',
   // CI
   'circleci',
@@ -58,7 +57,7 @@ export const liveBadgeList = [
   'liberapay',
 ]
 
-export async function loadBadgeMeta () {
+export async function loadBadgeMeta() {
   const liveBadgeExamples = await Promise.all(liveBadgeList.map(async id => {
     const mod = await import(rel('../api-', id))
     const { title, examples, handlers } = mod.default.meta
