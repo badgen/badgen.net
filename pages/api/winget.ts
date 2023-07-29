@@ -3,7 +3,7 @@ import { basename, extname } from 'path'
 import { version, versionColor } from '../../libs/utils'
 import { createBadgenHandler } from '../../libs/create-badgen-handler-next'
 
-import type { PathArgs, BadgenResult } from '../../libs/create-badgen-handler-next'
+import type { PathArgs, BadgenResponse } from '../../libs/create-badgen-handler-next'
 
 const WINGET_GITHUB_REPO = 'microsoft/winget-pkgs'
 
@@ -106,7 +106,7 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({ topic, appId }: PathArgs): BadgenResult {
+async function handler ({ topic, appId }: PathArgs): Promise<BadgenResponse> {
   switch (topic) {
     case 'v': {
       const versions = await fetchVersions(appId)

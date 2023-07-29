@@ -109,10 +109,6 @@
       "destination": "https://v2022.badgen.net/melpa/:match*"
     },
     {
-      "source": "/memo/:match*",
-      "destination": "https://v2022.badgen.net/memo/:match*"
-    },
-    {
       "source": "/nuget/:match*",
       "destination": "https://v2022.badgen.net/nuget/:match*"
     },
