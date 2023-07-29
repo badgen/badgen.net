@@ -24,27 +24,12 @@ const nextConfig = {
   },
 
   async rewrites() {
-    const liveBadgeRedirects = badgeList.live.map(badge => {
-      return {
-        source: `/${badge.id}/:path*`,
-        destination: `/api/${badge.id}/:path*`,
-      }
-    })
-    const staticBadgeRedirects = [{
-      source: `/badge/:path*`,
-      destination: `/api/badge/:path*`,
-    }]
-
-    const badgeRedirects = [
-      { source: '/badge/:path*', destination: '/api/static' },
-      { source: '/badge', destination: '/api/static' },
-    ]
-
     const badgeApis = [
       '/static',
       '/github',
       '/gitlab',
       '/https',
+      '/memo',
       // registry
       '/amo',
       '/npm',
@@ -76,12 +61,14 @@ const nextConfig = {
       '/david',
     ]
 
-    badgeApis.forEach(badge => {
-      badgeRedirects.push({ source: `${badge}/:path*`, destination: `/api${badge}` }) // badges
-      badgeRedirects.push({ source: badge, destination: `/api${badge}` }) // doc pages
-    })
+    let badgeRedirects = [
+      { source: '/badge/:path*', destination: '/api/static' },
+      { source: '/badge', destination: '/api/static' },
+    ]
 
-    // const badgeRedirects = liveBadgeRedirects.concat(staticBadgeRedirects)
+    badgeRedirects = badgeRedirects
+      .concat(badgeApis.map(badge => ({ source: `${badge}/:path*`, destination: `/api${badge}` }))) // badges
+      .concat(badgeApis.map(badge => ({ source: badge, destination: `/api${badge}` }))) // doc pages
 
     return badgeRedirects
   },

@@ -2,6 +2,7 @@ import staticBadge from '../pages/api/static'
 import github from '../pages/api/github'
 import gitlab from '../pages/api/gitlab'
 import https from '../pages/api/https'
+import memo from '../pages/api/memo'
 import amo from '../pages/api/amo'
 import npm from '../pages/api/npm'
 import pub from '../pages/api/pub'
@@ -29,6 +30,7 @@ export default {
   github: github.meta,
   gitlab: gitlab.meta,
   https: https.meta,
+  memo: memo.meta,
   amo: amo.meta,
   npm: npm.meta,
   pub: pub.meta,
