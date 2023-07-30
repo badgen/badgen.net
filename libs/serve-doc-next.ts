@@ -13,7 +13,7 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
     if (helpMarkdown) {
       res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400')
 
-      return serveMarked(helpMarkdown, {
+      serveMarked(helpMarkdown, {
         title: `${conf.title} badge | Badgen`,
         inlineCSS,
         beforeHeadEnd: `
@@ -29,6 +29,8 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
         `,
         beforeBodyEnd: helpFooter,
       })(req, res)
+
+      return
     }
 
     serve404(req, res)
@@ -73,7 +75,9 @@ function hashify (str: string) {
 const inlineCSS = `
   html, body { scroll-behavior: smooth }
   .markdown-body { max-width: 960px; min-height: calc(100vh - 348px) }
-  .markdown-body h1 { margin-bottom: 42px }
+  .markdown-body > h1 { margin-bottom: 42px }
+  .markdown-body > h2 { margin-top: 2em }
+  .markdown-body > h3 { margin: 20px 0 }
   li > img { vertical-align: middle; margin: 0.2em 0; font-size: 12px; float: right }
   li > img + a { font-family: monospace; font-size: 0.9em }
   li > img + a + i { color: #AAA }

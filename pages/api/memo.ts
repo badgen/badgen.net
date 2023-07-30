@@ -5,34 +5,26 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 const help = `
 A badge with memory.
 
-## Usage (public badge)
+## Usage
 
-For any <code>/memo/:key</code> badge, like:
+A <code>/memo</code> badge like:
 
-    https://badgen.net/memo/my-badge-with-memory
+    https://badgen.net/memo/a-badge-with-memory
+    
+can be created/updated using a <code>PUT</code> request with an <code>Authorization: Bearer XXXXXX</code> header:
 
-you may update it with a <code>PUT</code> request:
+    curl -LX PUT --header "Authorization: Bearer XXXXXX" https://badgen.net/memo/a-badge-with-memory/:label/:status/:color
 
-    curl -X PUT https://badgen.net/memo/my-badge-with-memory/:label/:status/:color
-
-WARNING: anyone can update this badge, so use it with caution.
-
-## Usage (protected badge)
-
-If you want a protected badge (only you can update it), you may add an <code>Authorization: Bearer XXXXXX</code> header while setting it:
-
-    curl -X PUT --header "Authorization: Bearer XXXXXX https://badgen.net/memo/my-badge-with-memory/:label/:status/:color
-
-Once created, a memo badge created with token can only be updated with the same token, until it's expired.
+Once created, this badge can only be updated with the same token, until it's expired.
 
 ## Expiration
 
-A memo badge will be expired after <b>32 days</b> since it's modified, unless it get updated again within the period.
+A memo badge will be expired after <b>32 days</b> since it's last modification, but you can update it again within the period to keep the badge.
 
-- When it's updated, it gets another 32 days lifespan.
-- When it's expired, it gets cleared like never exists.
+- When a badge is updated, it gets another 32 days lifespan,
+- When a badge is expired, it gets cleared like never exists.
 
-To keep a memo badge, it's recommended to update the badge at least on a monthly basis. Usually this should be done in CI or Cron jobs.
+To keep a memo badge, you need to update the badge at least on a monthly basis. Usually this should be done in CI or Cron jobs.
 `
 
 export default createBadgenHandler({
@@ -71,7 +63,7 @@ async function handler ({ key }: PathArgs, req: NextApiRequest, res: NextApiResp
     }
   } else {
     const ttl = await kv.ttl(key)
-    res.setHeader('cache-control', `max-age=${ttl}, s-maxage=300, stale-while-revalidate=86400`)
+    res.setHeader('cache-control', `public, max-age=86400, s-maxage=60, stale-while-revalidate=${ttl}`)
 
     const { label, status, color } = storedData.params
     return { subject: label, status, color }
@@ -86,10 +78,13 @@ async function putHandler (args: PathArgs, req: NextApiRequest, res: NextApiResp
     return 'Method Not Allowed'
   }
 
-  // If no token(authorization) is provided,
-  // we will use a default one, which means this badge is public writable.
-  const PUBLIC_TOKEN = 'Bearer PUBLIC_WRITABLE'
-  const token = req.headers['authorization'] || PUBLIC_TOKEN
+  // Ensure token(authorization) is provided
+  const token = req.headers['authorization']
+
+  if (!token?.startsWith('Bearer ')) {
+    res.status(401)
+    return 'Unauthorized'
+  }
 
   const { key, label, status, color } = args
 
