@@ -37,6 +37,7 @@ export default function BadgenTitle ({ host }) {
         .title.hidden {
           opacity: 0;
           transform: translateY(-20px);
+          pointer-events: none;
         }
         .title.show {
           transition-delay: 100ms;

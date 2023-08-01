@@ -8,7 +8,7 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
         <BadgenTitle host={host} />
       </div>
       <div className={'preview ' + (showPreview ? 'show' : 'none')}>
-        <PreviewBadge host={host} url={badgeURL} />
+        <PreviewBadge badgePath={badgeURL} />
       </div>
       <style jsx>{`
         .header-preview {
@@ -32,6 +32,7 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
         .title.hidden {
           opacity: 0;
           transform: translateY(-20px);
+          pointer-events: none;
         }
         .title.show {
           transition-delay: 100ms;
@@ -53,20 +54,20 @@ const BadgePreview = ({ host, badgeURL, focus }) => {
   )
 }
 
-const PreviewBadge = ({ host, url }) => {
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img alt={url} style={{ height: '30px' }} src={genBadgeSrc(host, url)} />
-}
+const PreviewBadge = ({ badgePath }) => {
+  let src: string // the final badge image src path
 
-const genBadgeSrc = (host: string, url: string) => {
-  if (!url) {
-    return host + 'static/%20/%20'
-  }
-  if (url.split('/').length > 2) {
-    return host + url
+  if (!badgePath) {
+    src = '/static/%20/%20'
+  } else if (badgePath.split('/').length > 2) {
+    // if it looks like a valid badge path
+    src = badgePath
   } else {
-    return host + 'static/%20/%20'
+    src = `/static/%20/%20`
   }
+
+  // eslint-disable-next-line @next/next/no-img-element
+  return <a href={src}><img alt={badgePath} style={{ height: '30px' }} src={src} /></a>
 }
 
 export default BadgePreview
