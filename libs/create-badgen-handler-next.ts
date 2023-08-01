@@ -4,6 +4,7 @@ import matchRoute from 'my-way'
 
 import { serveBadgeNext } from './serve-badge-next'
 import serveDoc from './serve-doc-next'
+import fetchIcon from './fetch-icon'
 import sentry from './sentry'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -19,7 +20,7 @@ export interface BadgenServeConfig {
     help?: string;
     examples: { [url: string]: string };
     handlers: { [pattern: string]: BadgenHandler };
-  }
+}
 
 export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
   const { handlers, title, help, examples } = badgenServerConfig
@@ -33,6 +34,12 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
 
     if (matchRoute('/:name', pathname)) {
       return serveDoc(badgenServerConfig)(req, res)
+    }
+
+    // Fetch external icon early, before invoking badgen handler
+    let externalIconPromise: Promise<string | undefined> = Promise.resolve(undefined)
+    if (req.query.icon?.toString().startsWith('https://')) {
+      externalIconPromise = fetchIcon(req.query.icon.toString())
     }
 
     // Find matched badgen handler
@@ -54,6 +61,14 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
     if (typeof badgenResponse === 'string') {
       res.end(badgenResponse)
       return
+    }
+
+    // Apply external icon if available
+    const externalIcon = await externalIconPromise
+    if (externalIcon) {
+      req.query.icon = externalIcon
+    } else if (req.query.icon === '') {
+      req.query.icon = badgenResponse.subject
     }
 
     serveBadgeNext(req, res, { params: badgenResponse })
