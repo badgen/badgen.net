@@ -1,6 +1,6 @@
-import got from '../libs/got'
-import { coverage as cov, coverageColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { coverage as cov, coverageColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const COVERALLS_BADGE_URL = 'https://coveralls.io/repos/'
 

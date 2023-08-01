@@ -12,6 +12,7 @@ import bundlephobia from '../pages/api/bundlephobia'
 import packagephobia from '../pages/api/packagephobia'
 import codeclimate from '../pages/api/codeclimate'
 import codecov from '../pages/api/codecov'
+import coveralls from '../pages/api/coveralls'
 import travis from '../pages/api/travis'
 import chromeWebStore from '../pages/api/chrome-web-store'
 import vsMarketplace from '../pages/api/vs-marketplace'
@@ -46,6 +47,7 @@ export default {
   packagephobia: packagephobia.meta,
   codeclimate: codeclimate.meta,
   codecov: codecov.meta,
+  coveralls: coveralls.meta,
   travis: travis.meta,
   peertube: peertube.meta,
   discord: discord.meta,

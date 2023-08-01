@@ -48,6 +48,7 @@ const nextConfig = {
       '/packagephobia',
       '/codeclimate',
       '/codecov',
+      '/coveralls',
       '/travis',
       '/xo',
       // social network

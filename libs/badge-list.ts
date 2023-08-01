@@ -32,7 +32,6 @@ export const liveBadgeList = [
   'circleci',
   'appveyor',
   'codacy',
-  'coveralls',
   'azure-pipelines',
   // quality & metrics
   'snyk',

@@ -29,10 +29,6 @@
       "destination": "https://v2022.badgen.net/codacy/:match*"
     },
     {
-      "source": "/coveralls/:match*",
-      "destination": "https://v2022.badgen.net/coveralls/:match*"
-    },
-    {
       "source": "/cpan/:match*",
       "destination": "https://v2022.badgen.net/cpan/:match*"
     },
