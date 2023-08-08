@@ -14,6 +14,7 @@ import codeclimate from '../pages/api/codeclimate'
 import codecov from '../pages/api/codecov'
 import coveralls from '../pages/api/coveralls'
 import travis from '../pages/api/travis'
+import circleci from '../pages/api/circleci'
 import chromeWebStore from '../pages/api/chrome-web-store'
 import vsMarketplace from '../pages/api/vs-marketplace'
 import openVsx from '../pages/api/open-vsx'
@@ -49,6 +50,7 @@ export default {
   codecov: codecov.meta,
   coveralls: coveralls.meta,
   travis: travis.meta,
+  circleci: circleci.meta,
   peertube: peertube.meta,
   discord: discord.meta,
   matrix: matrix.meta,

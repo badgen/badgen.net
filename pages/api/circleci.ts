@@ -1,5 +1,5 @@
-import got from '../libs/got'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const CIRCLECI_API_URL = 'https://circleci.com/api/v1.1/'
 
@@ -8,8 +8,8 @@ const client = got.extend({ prefixUrl: CIRCLECI_API_URL })
 export default createBadgenHandler({
   title: 'CircleCI',
   examples: {
-    '/circleci/github/nuxt/nuxt.js': 'build',
-    '/circleci/github/nuxt/nuxt.js/master': 'build (branch)',
+    '/circleci/github/circleci/circleci-docs': 'build',
+    '/circleci/github/circleci/circleci-docs/master': 'build (branch)',
   },
   handlers: {
     '/circleci/:vcs<github|gitlab>/:owner/:repo/:branch?': handler
@@ -22,6 +22,15 @@ async function handler ({ vcs, owner, repo, branch }: PathArgs) {
   const path = `project/${vcs}/${owner}/${repo}${branch}`
   const searchParams = { filter: 'completed', limit: 1, shallow: true }
   const [latest] = await client.get(path, { searchParams }).json<any>()
+
+
+  if (latest === undefined) {
+    return {
+      subject: 'circleci',
+      status: 'not found',
+      color: 'grey'
+    }
+  }
 
   const color = {
     failed: 'red',
