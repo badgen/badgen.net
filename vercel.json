@@ -17,10 +17,6 @@
       "destination": "https://v2022.badgen.net/badgesize/:match*"
     },
     {
-      "source": "/circleci/:match*",
-      "destination": "https://v2022.badgen.net/circleci/:match*"
-    },
-    {
       "source": "/cocoapods/:match*",
       "destination": "https://v2022.badgen.net/cocoapods/:match*"
     },

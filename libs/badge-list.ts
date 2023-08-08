@@ -29,7 +29,6 @@ export const liveBadgeList = [
   'wapm',
   'snapcraft',
   // CI
-  'circleci',
   'appveyor',
   'codacy',
   'azure-pipelines',

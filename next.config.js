@@ -50,6 +50,7 @@ const nextConfig = {
       '/codecov',
       '/coveralls',
       '/travis',
+      '/circleci',
       '/xo',
       // social network
       '/discord',
