@@ -116,9 +116,13 @@ function simpleDecode (str: string): string {
 }
 
 export class BadgenError {
-  public status: string   // error badge param: status (required)
-  public color: string    // error badge param: color
-  public code: number     // status code for response
+  /** The "status" param for error badge (required) */
+  public status: string
+  /** The "color" param for error badge, red by default */
+  public color: string
+  /** The status code for error badge response, 500 by default */
+  public code: number
+  /** The error message */
   public message: string
 
   constructor ({ status, color = 'grey', code = 500, message = '' }) {

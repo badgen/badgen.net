@@ -34,6 +34,7 @@
     "measurement-protocol": "^0.1.1",
     "millify": "^6.1.0",
     "my-way": "^2.0.0",
+    "node-html-parser": "^6.1.5",
     "original-url": "^1.2.3",
     "semver": "^7.3.5",
     "serve-handler": "^6.1.3",
