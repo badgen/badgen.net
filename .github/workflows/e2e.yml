@@ -1,0 +1,16 @@
+name: E2E Test
+
+on:
+  deployment_status:
+
+jobs:
+  run-e2es:
+   if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+   runs-on: ubuntu-latest
+   steps:
+   - uses: actions/checkout@v3
+   - name: Run e2e tests
+     run: node test/e2e.test.mjs
+     env:
+       BASE_URL: ${{ github.event.deployment_status.target_url }}
+       MEMO_BADGE_TOKEN: ${{ secrets.MEMO_BADGE_TOKEN }}
