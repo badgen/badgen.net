@@ -4,6 +4,7 @@ import got from 'libs/got'
 import { restGithub, queryGithub } from 'libs/github'
 import { createBadgenHandler, PathArgs, BadgenError } from 'libs/create-badgen-handler-next'
 import { coverageColor, millify, version } from 'libs/utils'
+import queryHTML from 'libs/query-html'
 
 type DependentsType = 'REPOSITORY' | 'PACKAGE'
 
@@ -297,7 +298,7 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
     case 'last-commit':
       queryBody = `
         ${
-          restArgs.ref ? 
+          restArgs.ref ?
             `branch: ref(qualifiedName: "${restArgs.ref}")` :
             'defaultBranchRef'
         } {
@@ -364,10 +365,20 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         color: 'blue'
       }
     case 'stars':
-      const { stargazers_count } = await meta({ owner, repo })
+      // const { stargazers_count } = await meta({ owner, repo })
+      const starsElem = await queryHTML(`https://github.com/${owner}/${repo}`, '#repo-stars-counter-star')
+      const stargazers_count = starsElem?.innerText
+
+      if (stargazers_count === undefined) {
+        throw new BadgenError({
+          status: 'not found',
+          message: `Could not find stargazers_count for ${owner}/${repo}`
+        })
+      }
+
       return {
         subject: topic,
-        status: millify(stargazers_count),
+        status: stargazers_count,
         color: 'blue'
       }
     case 'license':
@@ -451,7 +462,7 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
       return {
         subject: topic,
         status: millify(
-          result.branch ? 
+          result.branch ?
             result.branch.target.history.totalCount :
             result.defaultBranchRef.target.history.totalCount
         ),
