@@ -11,7 +11,7 @@ export default function BuilderHints ({ focus, badgeURL }) {
   return (
     <div className='hints' style={style}>
       <Hint left={0} width={50} height={3}>
-        <a href='/help#generators'>GENERATER (static or live badge)</a>
+        <a href='/help#generators'>GENERATOR (static or live badge)</a>
       </Hint>
       <Hint left={66} width={70} height={2}>TEXT</Hint>
       <Hint left={153} width={60} height={2}>TEXT</Hint>
