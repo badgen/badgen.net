@@ -1,7 +1,6 @@
 import { Got } from 'got'
 import got from '../../libs/got'
 import { millify } from '../../libs/utils'
-import { fetchMembersCount as fetchGitterMembersCount } from '../../api-/gitter'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const BRAND_COLOR = 'black'
@@ -12,7 +11,6 @@ export default createBadgenHandler({
     '/matrix/members/rust/matrix.org': 'members',
     '/matrix/members/thisweekinmatrix': 'members',
     '/matrix/members/archlinux/archlinux.org': 'members',
-    '/matrix/members/redom_redom/gitter.im': 'members'
   },
   handlers: {
     '/matrix/members/:room/:server?': handler
@@ -44,10 +42,6 @@ async function handler ({ room, server = 'matrix.org' }: PathArgs) {
 }
 
 async function fetchMembersCount(roomName: string, server: string) {
-  if (server === 'gitter.im') {
-    const [gitterOrg, gitterRoom] = roomName.split('_')
-    return fetchGitterMembersCount(gitterOrg, gitterRoom)
-  }
   const homeserver = await getHomeserver(server)
   const client = got.extend({ prefixUrl: `${homeserver}/_matrix/client/r0` })
   const roomAlias = `#${roomName}:${server}`
