@@ -20,7 +20,7 @@ async function handler ({ topic, slug }: PathArgs) {
   const endpoint = `https://opencollective.com/${slug}.json`
 
   const details = await got(endpoint).json<any>()
-  const localeOptions = {
+  const localeOptions: Intl.NumberFormatOptions = {
     style: 'currency',
     currency: details.currency
   }
