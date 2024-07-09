@@ -8,7 +8,7 @@ export default createBadgenHandler({
   examples: {
     '/chrome-web-store/v/ckkdlimhmcjmikdlpkmbgfkaikojcbjk': 'version',
     '/chrome-web-store/users/ckkdlimhmcjmikdlpkmbgfkaikojcbjk': 'users',
-    '/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk': 'price',
+    // '/chrome-web-store/price/ckkdlimhmcjmikdlpkmbgfkaikojcbjk': 'price', // deprecated
     '/chrome-web-store/stars/ckkdlimhmcjmikdlpkmbgfkaikojcbjk': 'stars',
     '/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk': 'rating',
     '/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk': 'rating count',
@@ -19,10 +19,18 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, id }: PathArgs) {
-  const chromeWebStore = await ChromeWebStore.load({ id, qs: { hl: 'en' } })
+  const result = await ChromeWebStore.load({ id, qs: { hl: 'en' } }).catch(console.error)
+
+  if (!result) {
+    return {
+      subject: 'chrome web store',
+      status: 'not found',
+      color: 'grey',
+    }
+  }
   switch (topic) {
     case 'v': {
-      const v = chromeWebStore.version()
+      const v = result.version()
       return {
         subject: 'chrome web store',
         status: version(v),
@@ -32,31 +40,32 @@ async function handler ({ topic, id }: PathArgs) {
     case 'users':
       return {
         subject: 'users',
-        status: millify(chromeWebStore.users()),
+        status: result.users(),
         color: 'green'
       }
     case 'price':
       return {
         subject: 'price',
-        status: `${chromeWebStore.price()} ${chromeWebStore.priceCurrency()}`,
-        color: 'green'
+        // status: `${result.price()} ${result.priceCurrency()}`,
+        status: 'deprecated',
+        color: 'gray'
       }
     case 'rating':
       return {
         subject: 'rating',
-        status: `${chromeWebStore.ratingValue().toFixed(2)}/5`,
+        status: `${Number(result.ratingValue())?.toFixed(1) || '-'}/5`,
         color: 'green'
       }
     case 'stars':
       return {
         subject: 'stars',
-        status: stars(chromeWebStore.ratingValue()),
+        status: stars(result.ratingValue()),
         color: 'green'
       }
     case 'rating-count':
       return {
         subject: 'rating count',
-        status: `${chromeWebStore.ratingCount()} total`,
+        status: `${result.ratingCount()} total`,
         color: 'green'
       }
     default:
