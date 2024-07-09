@@ -20,11 +20,11 @@ async function handler ({ topic, slug }: PathArgs) {
   const endpoint = `https://liberapay.com/${slug}/public.json`
 
   const details = await got(endpoint).json<any>()
-  const receivingLocaleOptions = {
+  const receivingLocaleOptions: Intl.NumberFormatOptions = {
     style: 'currency',
     currency: details.giving.currency
   }
-  const givingLocaleOptions = {
+  const givingLocaleOptions: Intl.NumberFormatOptions = {
     style: 'currency',
     currency: details.receiving.currency
   }
