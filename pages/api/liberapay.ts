@@ -1,5 +1,5 @@
-import got from '../libs/got'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Liberapay',
@@ -60,6 +60,12 @@ async function handler ({ topic, slug }: PathArgs) {
         subject: 'goal progress',
         status: goal,
         color: goal !== 'not set' ? 'yellow' : 'grey'
+      }
+    default:
+      return {
+        subject: 'liberapay',
+        status: 'unknown',
+        color: 'grey'
       }
   }
 }

@@ -26,6 +26,7 @@ import matrix from '../pages/api/matrix'
 import runkit from '../pages/api/runkit'
 import winget from '../pages/api/winget'
 import xo from '../pages/api/xo'
+import liberapay from 'pages/api/liberapay'
 
 export default {
   static: staticBadge.meta,
@@ -55,5 +56,6 @@ export default {
   discord: discord.meta,
   matrix: matrix.meta,
   runkit: runkit.meta,
-  xo: xo.meta
+  xo: xo.meta,
+  liberapay: liberapay.meta,
 }
