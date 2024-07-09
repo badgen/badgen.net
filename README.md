@@ -65,8 +65,8 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `api/[name-of-service].ts` and that's it. Take [/crates](https://badgen.net/crates) as an example:
 
-- [api/crates.ts](api/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
-- [libs/badge-list.ts](libs/badge-list.ts) - contains index of all live badges
+- [pages/api/crates.ts](pages/api/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
+- [libs/badge-list2.ts](libs/badge-list2.ts) - contains index of all live badges
 
 To ensure that your addition is working correctly, start the development server with `npm run dev`.
 
