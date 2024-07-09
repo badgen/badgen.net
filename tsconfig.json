@@ -29,7 +29,7 @@
     ]
   },
   "include": [
-    "api-",
+    "api-legacy",
     "libs",
     "index.ts",
     "components",
