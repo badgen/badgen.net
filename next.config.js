@@ -58,6 +58,8 @@ const nextConfig = {
       '/matrix',
       '/runkit',
       '/peertube',
+      // utilities
+      '/liberapay',
       // discontinued
       '/apm',
       '/lgtm',

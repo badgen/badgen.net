@@ -48,7 +48,6 @@ export const liveBadgeList = [
   'mastodon',
   'tidelift',
   'jenkins',
-  'liberapay',
 ]
 
 export async function loadBadgeMeta() {
