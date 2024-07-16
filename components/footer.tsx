@@ -32,7 +32,7 @@ export default function Footer () {
         </div>
         <div className='links'>
           <a title='badgen twitter link' href='https://twitter.com/badgen_net'>
-            <img alt='badgen twitter link' src='https://simpleicons.vercel.app/twitter/fff' width='30' height='30' />
+            <img alt='badgen twitter link' src='https://simpleicons.vercel.app/x/fff' width='30' height='30' />
           </a>
 
           <a href='https://github.com/badgen/badgen.net'>

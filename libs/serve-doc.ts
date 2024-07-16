@@ -106,7 +106,7 @@ const helpFooter = `
       </div>
       <div class='links'>
         <a href='https://twitter.com/badgen_net'>
-          <img src='https://simpleicons.now.sh/twitter/fff' />
+          <img src='https://simpleicons.now.sh/x/fff' />
         </a>
         <a href='https://github.com/badgen/badgen.net'>
           <img src='https://simpleicons.now.sh/github/fff' />
