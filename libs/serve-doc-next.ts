@@ -17,7 +17,7 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
         title: `${conf.title} badge | Badgen`,
         inlineCSS,
         beforeHeadEnd: `
-          <link rel="icon" href="/favicon.png" />
+          <link rel='icon' type='image/png' href='/statics/favicon.png' />
           <!-- Google tag (gtag.js) -->
           <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"></script>
           <script>
