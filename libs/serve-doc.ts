@@ -116,11 +116,10 @@ const helpFooter = `
   </div>
   <style>
     footer {
-      margin-top: 5rem;
       background-color: #222;
       padding: 2rem 2rem;
       color: #777;
-      font-size: 16px;
+      font: 16px -apple-system,BlinkMacSystemFont, Segoe UI, Noto Sans ,Helvetica,Arial,sans-serif, Apple Color Emoji, Segoe UI Emoji ;
     }
     footer a {
       text-decoration: none;
@@ -129,9 +128,10 @@ const helpFooter = `
       margin: 0 auto;
     }
     footer h3 {
-      font: 24px/32px Merriweather, serif;
+      font: 22px/32px Merriweather, Georgia, serif;
       letter-spacing: 0.5px;
       color: #DDD;
+      margin-top: 0;
     }
     footer h3 img {
       height: 21px;
@@ -142,11 +142,10 @@ const helpFooter = `
     }
     footer .sitemap {
       line-height: 26px;
-      padding-bottom: 2em;
     }
     footer .sitemap a {
       color: #999;
-      font-family: Merriweather;
+      font: 16px -apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans ,Helvetica,Arial,sans-serif, Apple Color Emoji, Segoe UI Emoji ;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
