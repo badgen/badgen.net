@@ -92,11 +92,11 @@ const helpFooter = `
         <em>/</em>
         <a href='https://flat.badgen.net'>Flat</a>
         <em>/</em>
-        <a href='/builder'>Builder</a>
-        <em>/</em>
         <a href='https://github.com/badgen/badgen.net'>GitHub</a>
         <em>/</em>
         <a href='https://twitter.com/badgen_net'>Twitter</a>
+        <em>/</em>
+        <a href='https://opencollective.com/badgen'>OpenCollective</a>
         <br />
       </div>
     </div>
