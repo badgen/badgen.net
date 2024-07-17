@@ -106,7 +106,7 @@ const helpFooter = `
     </div>
     <div class='bottom'>
       <div>
-        Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Powered by <a href='https://vercel.com'>Vercel</a>. License under <a href='https://github.com/badgen/badgen.net/blob/master/LICENSE.md'>ISC</a>.
+        Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Powered by <a href='https://vercel.com'>Vercel</a>.
       </div>
       <div class='links'>
         <a href='https://twitter.com/badgen_net'>
