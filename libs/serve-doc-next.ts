@@ -17,7 +17,7 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
         title: `${conf.title} badge | Badgen`,
         inlineCSS,
         beforeHeadEnd: `
-          <link rel="icon" href="/favicon.png" />
+          <link rel='icon' type='image/png' href='/statics/favicon.png' />
           <!-- Google tag (gtag.js) -->
           <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"></script>
           <script>
@@ -96,17 +96,17 @@ const helpFooter = `
         <em>/</em>
         <a href='https://flat.badgen.net'>Flat</a>
         <em>/</em>
-        <a href='/builder'>Builder</a>
-        <em>/</em>
         <a href='https://github.com/badgen/badgen.net'>GitHub</a>
         <em>/</em>
         <a href='https://twitter.com/badgen_net'>Twitter</a>
+        <em>/</em>
+        <a href='https://opencollective.com/badgen'>OpenCollective</a>
         <br />
       </div>
     </div>
     <div class='bottom'>
       <div>
-        Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Powered by <a href='https://vercel.com'>Vercel</a>. License under <a href='https://github.com/badgen/badgen.net/blob/master/LICENSE.md'>ISC</a>.
+        Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Powered by <a href='https://vercel.com'>Vercel</a>.
       </div>
       <div class='links'>
         <a href='https://twitter.com/badgen_net'>
@@ -120,11 +120,10 @@ const helpFooter = `
   </div>
   <style>
     footer {
-      margin-top: 5rem;
       background-color: #222;
       padding: 2rem 2rem;
       color: #777;
-      font-size: 16px;
+      font: 16px -apple-system,BlinkMacSystemFont, Segoe UI, Noto Sans ,Helvetica,Arial,sans-serif, Apple Color Emoji, Segoe UI Emoji ;
     }
     footer a {
       text-decoration: none;
@@ -133,9 +132,10 @@ const helpFooter = `
       margin: 0 auto;
     }
     footer h3 {
-      font: 24px/32px Merriweather, serif;
+      font: 22px/32px Merriweather, Georgia, serif;
       letter-spacing: 0.5px;
       color: #DDD;
+      margin-top: 0;
     }
     footer h3 img {
       height: 21px;
@@ -146,11 +146,10 @@ const helpFooter = `
     }
     footer .sitemap {
       line-height: 26px;
-      padding-bottom: 2em;
     }
     footer .sitemap a {
       color: #999;
-      font-family: Merriweather;
+      font: 16px -apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans ,Helvetica,Arial,sans-serif, Apple Color Emoji, Segoe UI Emoji ;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
