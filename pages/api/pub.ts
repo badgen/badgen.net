@@ -15,13 +15,14 @@ export default createBadgenHandler({
     '/pub/likes/firebase_core': 'likes',
     '/pub/points/rxdart': 'pub points',
     '/pub/popularity/mobx': 'popularity',
+    '/pub/dm/riverpod': 'monthly downloads',
     '/pub/sdk-version/uuid': 'sdk-version',
     '/pub/dart-platform/rxdart': 'dart-platform',
     '/pub/dart-platform/google_sign_in': 'dart-platform',
     '/pub/flutter-platform/xml': 'flutter-platform'
   },
   handlers: {
-    '/pub/:topic<v|version|sdk-version|likes|points|popularity|dart-platform|flutter-platform>/:pkg': apiHandler,
+    '/pub/:topic<v|version|sdk-version|likes|points|popularity|dm|dart-platform|flutter-platform>/:pkg': apiHandler,
     '/pub/:topic<license>/:pkg': licenseHandler
   }
 })
@@ -73,6 +74,14 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       return {
         subject: 'popularity',
         status: `${Math.round(percentage)}%`,
+        color: 'green'
+      }
+    }
+    case 'dm': {
+      const { downloadCount30Days } = await client.get(`packages/${pkg}/score`).json<any>()
+      return {
+        subject: 'downloads',
+        status: millify(downloadCount30Days) + '/month',
         color: 'green'
       }
     }
