@@ -30,11 +30,12 @@ export default function BuilderHints ({ focus, badgeURL }) {
           /* height: 200px; */
           transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
         }
-        .hint a {
+        .hints a {
           color: #333;
+          border-bottom: 1px dashed #333;
         }
         a:hover {
-          border-bottom: 1px dashed #333 !important;
+          border-bottom: 1px solid #333 !important;
           text-decoration: none;
         }
       `}

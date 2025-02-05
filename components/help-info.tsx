@@ -73,12 +73,16 @@ export default function HomeIntro ({ isFlat = false }) {
     <h3>Advanced usage</h3>
     <ul>
       <li>
-        <a href='/runkit'><code>/runkit</code></a>
-        create arbitrary live badge with RunKit's online IDE.
-      </li>
-      <li>
         <a href='/https'><code>/https</code></a>
         turn an api endpoint into a svg live badge.
+      </li>
+      <li>
+        <a href='/memo'><code>/memo</code></a>
+        a memo badge can be updated through a PUT request regularly.
+      </li>
+      <li>
+        <a href='/runkit'><code>/runkit</code></a>
+        create arbitrary live badge with RunKit's online IDE.
       </li>
     </ul>
 
