@@ -65,8 +65,8 @@
     "typescript": "^5.0.2"
   },
   "engines": {
-    "node": "^18",
-    "npm": ">=8.x"
+    "node": ">=18",
+    "npm": ">=8"
   },
   "volta": {
     "node": "18.17.0",
