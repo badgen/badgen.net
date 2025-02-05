@@ -1,7 +1,7 @@
 import millify from 'millify'
-import got from '../libs/got'
-import { versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { versionColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler'
 
 export default createBadgenHandler({
   title: 'jsDelivr',

@@ -51,6 +51,7 @@ const nextConfig = {
       '/coveralls',
       '/travis',
       '/circleci',
+      '/jsdelivr',
       '/xo',
       // social network
       '/discord',
