@@ -37,7 +37,6 @@ export const liveBadgeList = [
   'deepscan',
   'uptime-robot',
   'badgesize',
-  'jsdelivr',
   // social
   'devrant',
   'reddit',

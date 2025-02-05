@@ -8,6 +8,7 @@ import npm from '../pages/api/npm'
 import pub from '../pages/api/pub'
 import crates from '../pages/api/crates'
 import docker from '../pages/api/docker'
+import jsdelivr from '../pages/api/jsdelivr'
 import bundlephobia from '../pages/api/bundlephobia'
 import packagephobia from '../pages/api/packagephobia'
 import codeclimate from '../pages/api/codeclimate'
@@ -45,6 +46,7 @@ export default {
   hackage: hackage.meta,
   pypi: pypi.meta,
   winget: winget.meta,
+  jsdelivr: jsdelivr.meta,
   bundlephobia: bundlephobia.meta,
   packagephobia: packagephobia.meta,
   codeclimate: codeclimate.meta,
