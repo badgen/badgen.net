@@ -21,7 +21,7 @@
     "@sentry/nextjs": "^7.119.2",
     "@sentry/tracing": "^7.36.0",
     "@vercel/analytics": "^1.0.1",
-    "@vercel/kv": "^0.2.2",
+    "@vercel/kv": "^3.0.0",
     "badgen": "^3.2.2",
     "badgen-icons": "^0.23.0",
     "byte-size": "^8.1.0",
@@ -65,8 +65,8 @@
     "typescript": "^5.0.2"
   },
   "engines": {
-    "node": "^18",
-    "npm": ">=8.x"
+    "node": ">=18",
+    "npm": ">=8"
   },
   "volta": {
     "node": "18.17.0",
