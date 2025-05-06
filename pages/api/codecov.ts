@@ -13,26 +13,17 @@ export default createBadgenHandler({
     '/codecov/c/gitlab/gitlab-org/gitaly/master': 'coverage (gitlab, branch)'
   },
   handlers: {
-    '/codecov/c/:vcs<gh|github|bitbucket|gitlab>/:owner/:repo/:branch?': handler
+    '/codecov/c/:vcs<github|bitbucket|gitlab>/:owner/:repo/:branch?': handler, // legacy urls
+    '/codecov/:vcs<github|bitbucket|gitlab>/:owner/:repo/:branch?': handler
   }
 })
 
 async function handler ({ vcs, owner, repo, branch }: PathArgs) {
-  const vcsType = {
-    github: 'gh',
-    bitbucket: 'bb',
-    gitlab: 'gl'
-  }[vcs] || vcs
+  const endpoint = `https://codecov.io/api/v2/${vcs}/${owner}/repos/${repo}/report`
 
-  const args = [vcsType, owner, repo]
-  if (typeof branch === 'string') {
-    args.push('branch', branch)
-  }
-
-  const endpoint = `https://codecov.io/api/${args.join('/')}`
   const data = await got(endpoint).json<any>()
 
-  if (!data.commit) {
+  if (!data.totals) {
     return {
       subject: 'codecov',
       status: 'unknown',
@@ -40,7 +31,7 @@ async function handler ({ vcs, owner, repo, branch }: PathArgs) {
     }
   }
 
-  const cov = data.commit.totals ? data.commit.totals.c : 0
+  const cov = data.totals?.coverage || 0
   return {
     subject: 'coverage',
     status: coverage(cov),
