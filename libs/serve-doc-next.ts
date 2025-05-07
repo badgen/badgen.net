@@ -73,8 +73,8 @@ function hashify (str: string) {
 }
 
 const inlineCSS = `
-  html, body { scroll-behavior: smooth }
-  .markdown-body { max-width: 960px; min-height: calc(100vh - 348px) }
+  html, body { scroll-behavior: smooth; height: 100vh; display: flex; flex-direction: column; }
+  .markdown-body { max-width: 960px; flex: 1 }
   .markdown-body > h1 { margin-bottom: 42px }
   .markdown-body > h2 { margin-top: 2em }
   .markdown-body > h3 { margin: 20px 0 }
@@ -121,8 +121,9 @@ const helpFooter = `
   <style>
     footer {
       background-color: #222;
-      padding: 2rem 2rem;
+      padding: 30px 2rem;
       color: #777;
+      height: 160px;
       font: 16px -apple-system,BlinkMacSystemFont, Segoe UI, Noto Sans ,Helvetica,Arial,sans-serif, Apple Color Emoji, Segoe UI Emoji ;
     }
     footer a {
