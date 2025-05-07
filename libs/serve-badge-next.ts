@@ -34,10 +34,8 @@ export function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, optio
   const badgeSVGString = badgen(badgeParams)
 
   // Minimum s-maxage is set to 300s(5m)
-  if (res.getHeader('cache-control') === undefined) {
-    const cacheMaxAge = cache ? Math.max(parseInt(String(cache)), 300) : sMaxAge
-    res.setHeader('cache-control', `public, max-age=86400, s-maxage=${cacheMaxAge}, stale-while-revalidate=86400`)
-  }
+  const cacheMaxAge = cache ? Math.max(parseInt(String(cache)), 300) : sMaxAge
+  res.setHeader('cache-control', `public, max-age=86400, s-maxage=${cacheMaxAge}, stale-while-revalidate=86400`)
 
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
   res.statusCode = code
