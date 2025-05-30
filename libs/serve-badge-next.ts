@@ -40,6 +40,9 @@ export function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, optio
   }
 
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
   res.statusCode = code
   res.send(badgeSVGString)
 }
