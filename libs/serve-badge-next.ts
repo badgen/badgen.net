@@ -16,6 +16,12 @@ export function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, optio
   const { code = 200, sMaxAge = 3600, params } = options
   const { subject, status, color } = params
 
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    return res.status(204).end()
+  }
+
   const query = req.query
   const { list, scale, cache } = req.query
   const iconMeta = resolveIcon(query.icon, query.iconWidth)
@@ -40,6 +46,8 @@ export function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, optio
   }
 
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
   res.statusCode = code
   res.send(badgeSVGString)
 }
