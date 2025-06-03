@@ -5,7 +5,7 @@ import matchRoute from 'my-way'
 import { serveBadgeNext } from './serve-badge-next'
 import serveDoc from './serve-doc-next'
 import fetchIcon from './fetch-icon'
-import sentry from './sentry'
+// import sentry from './sentry'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { BadgenParams } from './types'
@@ -80,7 +80,7 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
 }
 
 function parseBadgenHandlerError (error: Error | HTTPError, req: NextApiRequest, res: NextApiResponse): BadgenResponse {
-  sentry.captureException(error)
+  // sentry.captureException(error)
 
   console.error('BADGE_HANDLER_ERROR', req.url, error.stack || error.message)
 

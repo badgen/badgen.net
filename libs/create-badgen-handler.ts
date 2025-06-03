@@ -7,7 +7,7 @@ import got from './got'
 import fetchIcon from './fetch-icon'
 import serveBadge from './serve-badge'
 import serveDoc from './serve-doc'
-import sentry from './sentry'
+// import sentry from './sentry'
 
 import { BadgenParams } from './types'
 
@@ -172,10 +172,10 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
         })
       }
 
-      const scope = sentry.getCurrentScope()
-      scope.setTag('path', url)
-      scope.setTag('service', defaultLabel)
-      sentry.captureException(error)
+      // const scope = sentry.getCurrentScope()
+      // scope.setTag('path', url)
+      // scope.setTag('service', defaultLabel)
+      // sentry.captureException(error)
 
       // uncatched error
       console.error(`UCE ${url}`, error.message, error)
