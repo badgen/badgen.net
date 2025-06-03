@@ -19,3 +19,5 @@ if (SENTRY_DSN) {
       release: `${NOW_GITHUB_COMMIT_REF || '-'}@${NOW_GITHUB_COMMIT_SHA || '-'}`
     })
 }
+
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart

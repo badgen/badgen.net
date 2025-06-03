@@ -18,13 +18,13 @@
     ]
   },
   "dependencies": {
-    "@sentry/nextjs": "^7.119.2",
+    "@sentry/nextjs": "^9.24.0",
     "@sentry/tracing": "^7.36.0",
     "@vercel/analytics": "^1.0.1",
     "@vercel/kv": "^3.0.0",
     "badgen": "^3.2.2",
     "badgen-icons": "^0.23.0",
-    "byte-size": "^8.1.0",
+    "byte-size": "^9.0.1",
     "date-fns": "^4.1.0",
     "eslint-config-next": "^14.1.0",
     "got": "^12.5.3",
@@ -37,7 +37,7 @@
     "original-url": "^1.2.3",
     "semver": "^7.3.5",
     "serve-handler": "^6.1.6",
-    "serve-marked": "^4.0.0",
+    "serve-marked": "^5.0.0",
     "url-parse": "^1.5.9",
     "webextension-store-meta": "^1.0.3",
     "yaml": "^2.1.0"
@@ -46,8 +46,8 @@
     "@types/fs-extra": "^11.0.1",
     "@types/lodash.debounce": "^4.0.6",
     "@types/node": "^22.15.29",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.10",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
     "@types/semver": "^7.3.4",
     "@types/supertest": "^6.0.2",
     "@types/url-parse": "^1.4.3",
@@ -57,18 +57,18 @@
     "eslint": "^8.30.0",
     "eslint-plugin-react": "^7.23.2",
     "fs-extra": "^11.1.0",
-    "next": "^14.2.22",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "next": "^15.3.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "tsx": "^4.7.1",
     "typescript": "^5.0.2"
   },
   "engines": {
-    "node": ">=18",
-    "npm": ">=8"
+    "node": ">=22",
+    "npm": ">=10"
   },
   "volta": {
-    "node": "18.17.0",
-    "npm": "9.6.7"
+    "node": "22.0.0",
+    "npm": "10.0.0"
   }
 }
