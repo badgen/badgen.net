@@ -172,10 +172,9 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
         })
       }
 
-      sentry.configureScope((scope) => {
-        scope.setTag('path', url)
-        scope.setTag('service', defaultLabel)
-      })
+      const scope = sentry.getCurrentScope()
+      scope.setTag('path', url)
+      scope.setTag('service', defaultLabel)
       sentry.captureException(error)
 
       // uncatched error
