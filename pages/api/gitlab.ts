@@ -1,5 +1,5 @@
 import millify from 'millify'
-import distanceToNow from 'date-fns/formatDistanceToNow'
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 import { queryGitlab, restGitlab } from '../../libs/gitlab'
 import { version } from '../../libs/utils'
@@ -79,7 +79,7 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
       }
     case 'last-commit':
       const lastDate = result.length && new Date(result[0].committed_date)
-      const fromNow = lastDate && distanceToNow(lastDate, { addSuffix: true })
+      const fromNow = lastDate && formatDistanceToNow(lastDate, { addSuffix: true })
       return {
         subject: 'last commit',
         status: fromNow || 'none',
