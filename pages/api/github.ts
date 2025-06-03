@@ -1,4 +1,4 @@
-import distanceToNow from 'date-fns/formatDistanceToNow'
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 
 import got from 'libs/got'
 import { restGithub, queryGithub } from 'libs/github'
@@ -476,7 +476,7 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
       const branch = result.branch || result.defaultBranchRef
       const commits = branch.target.history.nodes
       const lastDate = commits.length && new Date(commits[0].committedDate)
-      const fromNow = lastDate && distanceToNow(lastDate, { addSuffix: true })
+      const fromNow = lastDate && formatDistanceToNow(lastDate, { addSuffix: true })
       return {
         subject: 'last commit',
         status: fromNow || 'none',
