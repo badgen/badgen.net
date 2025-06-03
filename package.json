@@ -24,7 +24,7 @@
     "@vercel/kv": "^3.0.0",
     "badgen": "^3.2.2",
     "badgen-icons": "^0.23.0",
-    "byte-size": "^8.1.0",
+    "byte-size": "^9.0.1",
     "date-fns": "^4.1.0",
     "eslint-config-next": "^14.1.0",
     "got": "^12.5.3",
