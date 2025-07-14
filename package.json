@@ -39,7 +39,7 @@
     "serve-handler": "^6.1.6",
     "serve-marked": "^4.0.0",
     "url-parse": "^1.5.9",
-    "webextension-store-meta": "^1.0.3",
+    "webextension-store-meta": "^1.2.7",
     "yaml": "^2.1.0"
   },
   "devDependencies": {
