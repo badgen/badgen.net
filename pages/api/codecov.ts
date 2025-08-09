@@ -5,12 +5,12 @@ import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-
 export default createBadgenHandler({
   title: 'CodeCov',
   examples: {
-    '/codecov/c/github/babel/babel': 'coverage (github)',
-    '/codecov/c/github/babel/babel/6.x': 'coverage (github, branch)',
-    '/codecov/c/bitbucket/ignitionrobotics/ign-math': 'coverage (bitbucket)',
-    '/codecov/c/bitbucket/ignitionrobotics/ign-math/master': 'coverage (bitbucket, branch)',
-    '/codecov/c/gitlab/gitlab-org/gitaly': 'coverage (gitlab)',
-    '/codecov/c/gitlab/gitlab-org/gitaly/master': 'coverage (gitlab, branch)'
+    '/codecov/github/babel/babel': 'coverage (github)',
+    '/codecov/github/babel/babel/6.x': 'coverage (github, branch)',
+    '/codecov/bitbucket/ignitionrobotics/ign-math': 'coverage (bitbucket)',
+    '/codecov/bitbucket/ignitionrobotics/ign-math/master': 'coverage (bitbucket, branch)',
+    '/codecov/gitlab/gitlab-org/gitaly': 'coverage (gitlab)',
+    '/codecov/gitlab/gitlab-org/gitaly/master': 'coverage (gitlab, branch)'
   },
   handlers: {
     '/codecov/c/:vcs<github|bitbucket|gitlab>/:owner/:repo/:branch?': handler, // legacy urls
@@ -19,7 +19,7 @@ export default createBadgenHandler({
 })
 
 async function handler ({ vcs, owner, repo, branch }: PathArgs) {
-  const endpoint = `https://codecov.io/api/v2/${vcs}/${owner}/repos/${repo}/report`
+  const endpoint = `https://codecov.io/api/v2/${vcs}/${owner}/repos/${repo}?format=json`
 
   const data = await got(endpoint).json<any>()
 
