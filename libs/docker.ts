@@ -1,5 +1,5 @@
 import got from './got'
-import { BadgenError } from './create-badgen-handler'
+import { BadgenError } from './create-badgen-handler-next'
 
 // request image specific DockerHub pull token
 export function getDockerAuthToken<T = any>(scope: string, name: string) {
