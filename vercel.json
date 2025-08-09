@@ -85,10 +85,6 @@
       "destination": "https://v2022.badgen.net/keybase/:match*"
     },
     {
-      "source": "/liberapay/:match*",
-      "destination": "https://v2022.badgen.net/liberapay/:match*"
-    },
-    {
       "source": "/mastodon/:match*",
       "destination": "https://v2022.badgen.net/mastodon/:match*"
     },
