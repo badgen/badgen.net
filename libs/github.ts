@@ -1,5 +1,5 @@
 import got from './got'
-import { BadgenError } from './create-badgen-handler'
+import { BadgenError } from './create-badgen-handler-next'
 
 const rand = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
 
