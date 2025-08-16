@@ -77,16 +77,8 @@
       "destination": "https://v2022.badgen.net/jenkins/:match*"
     },
     {
-      "source": "/jsdelivr/:match*",
-      "destination": "https://v2022.badgen.net/jsdelivr/:match*"
-    },
-    {
       "source": "/keybase/:match*",
       "destination": "https://v2022.badgen.net/keybase/:match*"
-    },
-    {
-      "source": "/liberapay/:match*",
-      "destination": "https://v2022.badgen.net/liberapay/:match*"
     },
     {
       "source": "/mastodon/:match*",

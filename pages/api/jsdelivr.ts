@@ -1,7 +1,8 @@
 import millify from 'millify'
 import got from '../../libs/got'
 import { versionColor } from '../../libs/utils'
-import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
+import type { BadgenParams } from '../../libs/types'
 
 export default createBadgenHandler({
   title: 'jsDelivr',
@@ -17,7 +18,7 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({ topic, platform, pkg }: PathArgs) {
+async function handler ({ topic, platform, pkg }: PathArgs): Promise<BadgenParams> {
   switch (topic) {
     case 'hits':
       return stats('hits', platform, pkg)
@@ -25,10 +26,16 @@ async function handler ({ topic, platform, pkg }: PathArgs) {
       return stats('rank', platform, pkg)
     case 'v':
       return version(pkg)
+    default:
+      return {
+        subject: 'jsDelivr',
+        status: 'unknown topic',
+        color: 'gray'
+      }
   }
 }
 
-const stats = async (metric, type, name) => {
+const stats = async (metric, type, name): Promise<BadgenParams> => {
   const endpoint = `https://data.jsdelivr.com/v1/package/${type}/${name}/stats`
   const { total, rank } = await got(endpoint).json<any>()
 
@@ -44,6 +51,12 @@ const stats = async (metric, type, name) => {
         subject: 'jsDelivr rank',
         status: rank ? `#${rank}` : 'none',
         color: rank ? 'blue' : 'grey'
+      }
+    default:
+      return {
+        subject: 'jsDelivr',
+        status: 'unknown metric',
+        color: 'gray'
       }
   }
 }

@@ -90,12 +90,19 @@ Badgen do not collect any identifying information.
 
 Supported environment variables for managing a Badgen instance.
 
-- `GITHUB_TOKENS` - Comma delimited list of Github Tokens. Required for Github Badges
+- `GITHUB_TOKENS` - Comma delimited list of Github Tokens. Required for Github Badges.
 - `GITHUB_API` - Custom Github API endpoint. e.g., `https://github.mycompany.com/api/v3`
 - `GITHUB_API_GRAPHQL` - Custom Github GraphQL API endpoint. e.g., `https://github.mycompany.com/api/graphql`
-- `NPM_REGISTRY` - Custom NPM registry endpoint
-- `SENTRY_DSN` - Sentry Error Monitoring Data Source Name
-- `GA_MEASUREMENT_ID` - Google Analytics Measurement ID
+- `NPM_REGISTRY` - Custom NPM registry endpoint.  Default: `https://registry.npmjs.org`
+- `SENTRY_DSN` - Sentry Error Monitoring Data Source Name.
+- `GA_MEASUREMENT_ID` - Google Analytics Measurement ID.
+- `DOCKER_AUTHENTICATION_API` - Custom docker authentication endpoint. Default: `https://auth.docker.io/`
+- `DOCKER_REGISTRY_API` - Custom docker registry endpoint. Default: `https://registry.hub.docker.com/`
+- `GITLAB_TOKENS` - Comma delimited list of GitLab Tokens.
+- `GITLAB_API_GRAPHQL` - GitLab GraphQL API endpoint. Default: `https://gitlab.com/api/graphql`
+- `GITLAB_API` - GitLab REST API endpoint. Default: `https://gitlab.com/api/v4`
+- `WAPM_API_GRAPHQL` - WAPM GraphQL API endpoint. Default: `https://registry.wapm.io/graphql`
+- `BADGE_STYLE` - Use `flat` for the flat design.
 
 ## Contributors
 
