@@ -140,6 +140,8 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
 
 
 async function queryHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
+
+  console.log(`Querying GitLab for topic: ${topic}, owner: ${owner}, repo: ${repo}, args:`, restArgs)
   const result = await makeQueryCall({ topic, owner, repo, ...restArgs })
 
   if (!result) {

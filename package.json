@@ -30,6 +30,7 @@
     "got": "^12.5.3",
     "haxe-rpc-client": "^1.0.0",
     "humanize-duration": "^3.24.0",
+    "ky": "^1.8.2",
     "lodash.debounce": "^4.0.8",
     "measurement-protocol": "^0.1.1",
     "millify": "^6.1.0",
