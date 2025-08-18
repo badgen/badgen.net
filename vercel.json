@@ -164,7 +164,6 @@
   "env": {
     "GH_TOKENS": "@badgen-gh-tokens",
     "SENTRY_DSN": "@badgen-sentry-dsn",
-    "GA_MEASUREMENT_ID": "@badgen-tracking-ga",
-    "GITLAB_TOKENS": "@badgen-gl-tokens"
+    "GA_MEASUREMENT_ID": "@badgen-tracking-ga"
   }
 }

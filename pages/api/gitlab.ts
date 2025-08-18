@@ -46,35 +46,37 @@ export default createBadgenHandler({
 async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
   const result = await makeRestCall({ topic, owner, repo, ...restArgs })
 
+  const totalCount = millify(parseInt(result.headers.get('x-total')))
+
   switch (topic) {
     case 'mrs':
       return {
         subject: 'MRs',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'closed-mrs':
       return {
         subject: 'closed MRs',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'open-mrs':
       return {
         subject: 'open MRs',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'merged-mrs':
       return {
         subject: 'merged MRs',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'commits':
       return {
         subject: 'commits',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'last-commit':
@@ -88,13 +90,13 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
     case 'branches':
       return {
         subject: 'branches',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'releases':
       return {
         subject: 'releases',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'release':
@@ -114,13 +116,13 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
     case 'tags':
       return {
         subject: 'tags',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'contributors':
       return {
         subject: 'contributors',
-        status: millify(parseInt(result.headers['x-total'])),
+        status: totalCount,
         color: 'blue'
       }
     case 'license':
@@ -140,6 +142,8 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
 
 
 async function queryHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
+
+  console.log(`Querying GitLab for topic: ${topic}, owner: ${owner}, repo: ${repo}, args:`, restArgs)
   const result = await makeQueryCall({ topic, owner, repo, ...restArgs })
 
   if (!result) {
