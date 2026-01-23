@@ -19,12 +19,20 @@ export default createBadgenHandler({
 
 async function handler ({ topic, scope, name }: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
-  const endpoint = `https://deno.bundlejs.com/?q=${encodeURIComponent(pkg)}`
+  
+  // Determine compression type based on topic
+  let compressionType = 'gzip' // default
+  if (topic === 'brotli') {
+    compressionType = 'brotli'
+  }
+  
+  const config = JSON.stringify({ compression: compressionType })
+  const endpoint = `https://deno.bundlejs.com/?q=${encodeURIComponent(pkg)}&config=${encodeURIComponent(config)}`
   
   try {
     const resp = await got(endpoint).json<any>()
 
-    if (!resp) {
+    if (!resp || !resp.size) {
       return {
         subject: 'bundlejs',
         status: 'unknown',
@@ -33,36 +41,37 @@ async function handler ({ topic, scope, name }: PathArgs) {
     }
 
     // Extract size information from response
-    const bundleSize = resp.size
-    const gzipSize = resp.gzip
-    const brotliSize = resp.brotli
+    // The API returns: { size: { rawUncompressedSize, rawCompressedSize, type, ... } }
+    const sizeData = resp.size
+    const uncompressedSize = sizeData.rawUncompressedSize
+    const compressedSize = sizeData.rawCompressedSize
 
     switch (topic) {
       case 'min':
-        if (typeof bundleSize !== 'number' || !bundleSize) {
+        if (typeof uncompressedSize !== 'number') {
           return { subject: 'minified size', status: 'unknown', color: 'grey' }
         }
         return {
           subject: 'minified size',
-          status: size(bundleSize),
+          status: size(uncompressedSize),
           color: 'blue'
         }
       case 'minzip':
-        if (typeof gzipSize !== 'number' || !gzipSize) {
+        if (typeof compressedSize !== 'number') {
           return { subject: 'minzipped size', status: 'unknown', color: 'grey' }
         }
         return {
           subject: 'minzipped size',
-          status: size(gzipSize),
+          status: size(compressedSize),
           color: 'blue'
         }
       case 'brotli':
-        if (typeof brotliSize !== 'number' || !brotliSize) {
+        if (typeof compressedSize !== 'number') {
           return { subject: 'brotli size', status: 'unknown', color: 'grey' }
         }
         return {
           subject: 'brotli size',
-          status: size(brotliSize),
+          status: size(compressedSize),
           color: 'blue'
         }
       default:
