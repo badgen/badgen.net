@@ -94,7 +94,7 @@ const helpFooter = `
         <em>/</em>
         <a href='https://github.com/badgen/badgen.net'>GitHub</a>
         <em>/</em>
-        <a href='https://twitter.com/badgen_net'>Twitter</a>
+        <a href='https://x.com/badgen_net'>X</a>
         <em>/</em>
         <a href='https://opencollective.com/badgen'>OpenCollective</a>
         <br />
@@ -105,7 +105,7 @@ const helpFooter = `
         Built with ♥ by <a href='https://github.com/amio'>Amio</a> and awesome <a href='https://github.com/badgen/badgen.net/graphs/contributors'>contributors</a>. Powered by <a href='https://vercel.com'>Vercel</a>.
       </div>
       <div class='links'>
-        <a href='https://twitter.com/badgen_net'>
+        <a href='https://x.com/badgen_net'>
           <img src='https://simpleicons.now.sh/x/fff' />
         </a>
         <a href='https://github.com/badgen/badgen.net'>

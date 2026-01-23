@@ -18,7 +18,7 @@ export default function Footer () {
           <em>/</em>
           <Link href='https://github.com/badgen/badgen.net'>GitHub</Link>
           <em>/</em>
-          <Link href='https://twitter.com/badgen_net'>Twitter</Link>
+          <Link href='https://x.com/badgen_net'>X</Link>
           <em>/</em>
           <Link href='https://opencollective.com/badgen'>OpenCollective</Link>
           <br />
@@ -31,7 +31,7 @@ export default function Footer () {
           Powered by <a href='https://vercel.com'>Vercel</a>.
         </div>
         <div className='links'>
-          <a title='badgen twitter link' href='https://twitter.com/badgen_net'>
+          <a title='badgen twitter link' href='https://x.com/badgen_net'>
             <img alt='badgen twitter link' src='https://simpleicons.vercel.app/x/fff' width='30' height='30' />
           </a>
 
