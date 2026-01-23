@@ -9,7 +9,6 @@ export default createBadgenHandler({
     '/bundlejs/min/react': 'minified',
     '/bundlejs/minzip/react': 'minified + gzip',
     '/bundlejs/minzip/@noble/hashes': '(scoped pkg) minified + gzip',
-    '/bundlejs/brotli/react': 'minified + brotli',
   },
   handlers: {
     '/bundlejs/:topic/:scope<@.*>/:name': handler,
@@ -19,15 +18,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, scope, name }: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
-  
-  // Determine compression type based on topic
-  let compressionType = 'gzip' // default
-  if (topic === 'brotli') {
-    compressionType = 'brotli'
-  }
-  
-  const config = JSON.stringify({ compression: compressionType })
-  const endpoint = `https://deno.bundlejs.com/?q=${encodeURIComponent(pkg)}&config=${encodeURIComponent(config)}`
+  const endpoint = `https://deno.bundlejs.com/?q=${encodeURIComponent(pkg)}`
   
   try {
     const resp = await got(endpoint).json<any>()
@@ -62,15 +53,6 @@ async function handler ({ topic, scope, name }: PathArgs) {
         }
         return {
           subject: 'minzipped size',
-          status: size(compressedSize),
-          color: 'blue'
-        }
-      case 'brotli':
-        if (typeof compressedSize !== 'number') {
-          return { subject: 'brotli size', status: 'unknown', color: 'grey' }
-        }
-        return {
-          subject: 'brotli size',
           status: size(compressedSize),
           color: 'blue'
         }
