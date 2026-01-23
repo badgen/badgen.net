@@ -39,21 +39,30 @@ async function handler ({ topic, scope, name }: PathArgs) {
 
     switch (topic) {
       case 'min':
+        if (typeof bundleSize !== 'number' || !bundleSize) {
+          return { subject: 'minified size', status: 'unknown', color: 'grey' }
+        }
         return {
           subject: 'minified size',
-          status: typeof bundleSize === 'number' ? size(bundleSize) : bundleSize,
+          status: size(bundleSize),
           color: 'blue'
         }
       case 'minzip':
+        if (typeof gzipSize !== 'number' || !gzipSize) {
+          return { subject: 'minzipped size', status: 'unknown', color: 'grey' }
+        }
         return {
           subject: 'minzipped size',
-          status: typeof gzipSize === 'number' ? size(gzipSize) : gzipSize,
+          status: size(gzipSize),
           color: 'blue'
         }
       case 'brotli':
+        if (typeof brotliSize !== 'number' || !brotliSize) {
+          return { subject: 'brotli size', status: 'unknown', color: 'grey' }
+        }
         return {
           subject: 'brotli size',
-          status: typeof brotliSize === 'number' ? size(brotliSize) : brotliSize,
+          status: size(brotliSize),
           color: 'blue'
         }
       default:
