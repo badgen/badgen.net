@@ -28,6 +28,7 @@ import runkit from '../pages/api/runkit'
 import winget from '../pages/api/winget'
 import xo from '../pages/api/xo'
 import liberapay from 'pages/api/liberapay'
+import rubygems from '../pages/api/rubygems'
 
 export default {
   static: staticBadge.meta,
@@ -60,4 +61,5 @@ export default {
   runkit: runkit.meta,
   xo: xo.meta,
   liberapay: liberapay.meta,
+  rubygems: rubygems.meta,
 }

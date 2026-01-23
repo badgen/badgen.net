@@ -12,7 +12,6 @@ export const liveBadgeList = [
   'homebrew',
   'nuget',
   'packagist',
-  'rubygems',
   'melpa',
   'maven',
   'cocoapods',
