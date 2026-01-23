@@ -43,6 +43,7 @@ const nextConfig = {
       '/ppm',
       '/pub',
       '/pypi',
+      '/rubygems',
       // analysis
       '/bundlephobia',
       '/packagephobia',
