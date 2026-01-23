@@ -113,10 +113,6 @@
       "destination": "https://v2022.badgen.net/reddit/:match*"
     },
     {
-      "source": "/rubygems/:match*",
-      "destination": "https://v2022.badgen.net/rubygems/:match*"
-    },
-    {
       "source": "/scoop/:match*",
       "destination": "https://v2022.badgen.net/scoop/:match*"
     },
