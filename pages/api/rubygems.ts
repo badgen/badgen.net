@@ -24,12 +24,12 @@ const preConditions = ['.rc', '.beta', '-rc', '-beta']
 
 const pre = versions => versions.filter(v => {
   for (let condition of preConditions) {
-    if (!v.includes(condition)) {
-      return false
+    if (v.includes(condition)) {
+      return true
     }
   }
 
-  return true
+  return false
 })
 
 const stable = versions => versions.filter(v => {
