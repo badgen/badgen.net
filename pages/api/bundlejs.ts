@@ -34,6 +34,15 @@ async function handler ({ topic, scope, name }: PathArgs) {
     // Extract size information from response
     // The API returns: { size: { rawUncompressedSize, rawCompressedSize, type, ... } }
     const sizeData = resp.size
+    
+    if (!sizeData || typeof sizeData !== 'object') {
+      return {
+        subject: 'bundlejs',
+        status: 'unknown',
+        color: 'grey'
+      }
+    }
+    
     const uncompressedSize = sizeData.rawUncompressedSize
     const compressedSize = sizeData.rawCompressedSize
 
