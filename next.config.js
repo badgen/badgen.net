@@ -45,6 +45,7 @@ const nextConfig = {
       '/pypi',
       // analysis
       '/bundlephobia',
+      '/bundlejs',
       '/packagephobia',
       '/codeclimate',
       '/codecov',
