@@ -10,6 +10,7 @@ import crates from '../pages/api/crates'
 import docker from '../pages/api/docker'
 import jsdelivr from '../pages/api/jsdelivr'
 import bundlephobia from '../pages/api/bundlephobia'
+import bundlejs from '../pages/api/bundlejs'
 import packagephobia from '../pages/api/packagephobia'
 import codeclimate from '../pages/api/codeclimate'
 import codecov from '../pages/api/codecov'
@@ -48,6 +49,7 @@ export default {
   winget: winget.meta,
   jsdelivr: jsdelivr.meta,
   bundlephobia: bundlephobia.meta,
+  bundlejs: bundlejs.meta,
   packagephobia: packagephobia.meta,
   codeclimate: codeclimate.meta,
   codecov: codecov.meta,
