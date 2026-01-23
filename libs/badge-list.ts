@@ -42,7 +42,6 @@ export const liveBadgeList = [
   // utilities
   'opencollective',
   'keybase',
-  'twitter',
   'mastodon',
   'tidelift',
   'jenkins',
