@@ -67,6 +67,7 @@ const nextConfig = {
       '/apm',
       '/lgtm',
       '/david',
+      '/twitter',
     ]
 
     let badgeRedirects = [
