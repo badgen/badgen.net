@@ -46,7 +46,6 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 ## Developing
 
 [![Contributors][contributors-src]][contributors-href]
-[![Maintainability][maintainability-src]][maintainability-href]
 [![Docker image][docker-src]][docker-href]
 
 **start dev server**
@@ -124,8 +123,6 @@ Support this project by donation, help Badgen continue and evolving!
 <a href="https://vercel.com"><img src="https://badgen-sponsors.now.sh/vercel.svg" height="220px" /></a>
 <a href="https://sentry.io"><img src="https://badgen-sponsors.now.sh/sentry.svg" height="220px" /></a>
 
-[maintainability-src]: https://badgen.net/codeclimate/maintainability/badgen/badgen.net
-[maintainability-href]: https://codeclimate.com/github/badgen/badgen.net
 [contributors-src]: https://badgen.net/github/contributors/badgen/badgen.net
 [contributors-href]: https://github.com/badgen/badgen.net/graphs/contributors
 [docker-src]: https://badgen.net/badge/docker/amio%2Fbadgen?label&icon=docker
