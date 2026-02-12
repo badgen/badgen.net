@@ -69,6 +69,12 @@ async function handler ({ topic, pkg, namespace }: PathArgs) {
         color: supportedABIs ? 'blue' : 'grey'
       }
   }
+
+  return {
+    subject: 'wapm',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 function fetchMetadata(pkg, namespace = '_') {

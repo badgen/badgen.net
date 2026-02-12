@@ -41,6 +41,12 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
         color: 'green'
       }
   }
+
+  return {
+    subject: 'ctan',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 async function webHandler ({ topic, pkg }: PathArgs) {
@@ -62,5 +68,11 @@ async function webHandler ({ topic, pkg }: PathArgs) {
         status: stars(rating),
         color: 'green'
       }
+  }
+
+  return {
+    subject: 'rating',
+    status: 'unknown',
+    color: 'grey'
   }
 }

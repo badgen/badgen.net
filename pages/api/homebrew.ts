@@ -51,4 +51,10 @@ async function handler ({ type = 'formula', topic, pkg }: PathArgs) {
         color: 'green'
       }
   }
+
+  return {
+    subject: 'homebrew',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

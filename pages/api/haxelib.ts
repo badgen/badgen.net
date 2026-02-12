@@ -75,4 +75,10 @@ async function handler ({ topic, project }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'haxelib',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

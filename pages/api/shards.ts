@@ -56,4 +56,10 @@ async function handler({ topic, shard }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'shards',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

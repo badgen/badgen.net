@@ -79,4 +79,10 @@ async function handler ({ topic, teamId, projectId, branchId }: PathArgs) {
       return params
     }
   }
+
+  return {
+    subject: 'deepscan',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

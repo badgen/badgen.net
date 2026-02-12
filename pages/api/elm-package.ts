@@ -48,6 +48,12 @@ async function handler ({ topic, owner, name }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'elm package',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 function formatElmVersion (range: string) {

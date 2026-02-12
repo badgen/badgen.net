@@ -81,6 +81,12 @@ async function handler ({ topic, distribution }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'cpan',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 // https://metacpan.org/pod/version

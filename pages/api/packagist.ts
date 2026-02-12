@@ -162,4 +162,10 @@ async function handler ({ topic, vendor, pkg, channel = 'latest' }: PathArgs) {
         color: 'green'
       }
   }
+
+  return {
+    subject: 'packagist',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

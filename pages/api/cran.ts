@@ -64,6 +64,12 @@ async function cranHandler ({ topic, pkg }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'cran',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 async function cranlogsHandler ({ topic, pkg }: PathArgs) {
@@ -100,6 +106,12 @@ async function cranlogsHandler ({ topic, pkg }: PathArgs) {
         color: 'green'
       }
     }
+  }
+
+  return {
+    subject: 'downloads',
+    status: 'unknown',
+    color: 'grey'
   }
 }
 

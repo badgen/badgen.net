@@ -92,4 +92,10 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'dub',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

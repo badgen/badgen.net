@@ -80,6 +80,12 @@ async function handler ({ topic, snap, architecture, channel: name }: PathArgs) 
       }
     }
   }
+
+  return {
+    subject: 'snap',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 function createChannelMatcher(arch: string, name: string) {

@@ -41,4 +41,10 @@ async function handler ({ topic, appId }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'f-droid',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

@@ -30,6 +30,12 @@ async function handler ({ topic, username }: PathArgs) {
         color: 'blue'
       }
   }
+
+  return {
+    subject: 'keybase',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 const convertFingerprintTo64bit = fingerprint => {

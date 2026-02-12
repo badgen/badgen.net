@@ -39,4 +39,10 @@ async function handler ({ bucket = 'main', topic = 'v', app }: PathArgs) {
         color: 'blue'
       }
   }
+
+  return {
+    subject: 'scoop',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

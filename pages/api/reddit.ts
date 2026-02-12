@@ -46,6 +46,12 @@ async function karmaHandler ({ topic, user }: PathArgs) {
         color: BRAND_COLOR
       }
   }
+
+  return {
+    subject: 'reddit',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 async function subscribersHandler ({ subreddit }: PathArgs) {

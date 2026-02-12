@@ -51,4 +51,10 @@ async function handler ({ topic, slug }: PathArgs) {
         color: 'green'
       }
   }
+
+  return {
+    subject: 'opencollective',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

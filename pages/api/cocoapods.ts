@@ -31,4 +31,10 @@ async function handler ({topic, pod}: PathArgs) {
         color: 'grey'
       }
   }
+
+  return {
+    subject: 'cocoapods',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

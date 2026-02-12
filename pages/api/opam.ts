@@ -37,4 +37,10 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
   }
+
+  return {
+    subject: 'opam',
+    status: 'unknown',
+    color: 'grey'
+  }
 }

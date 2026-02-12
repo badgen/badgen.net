@@ -75,6 +75,12 @@ async function handler ({ topic, apikey }: PathArgs) {
         color: 'blue'
       }
   }
+
+  return {
+    subject: 'uptime-robot',
+    status: 'unknown',
+    color: 'grey'
+  }
 }
 
 const statuses = {
@@ -106,6 +112,12 @@ const uptime = (period, ratios) => {
         status: month + '%',
         color: ratioColor(month)
       }
+  }
+
+  return {
+    subject: 'uptime',
+    status: 'unknown',
+    color: 'grey'
   }
 }
 
