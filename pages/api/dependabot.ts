@@ -4,7 +4,7 @@ import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-
 const help = `
 ## Public repositories
 
-To enable dependabot on a public repo (for the badge to working), you need to either
+To enable dependabot on a public repo (for the badge to work), you need to either
 
 - login at https://app.dependabot.com/ then add it manually,
 - or add a [\`.dependabot/config.yml\`](https://dependabot.com/docs/config-file/) file to the repo.
