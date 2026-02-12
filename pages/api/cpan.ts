@@ -96,6 +96,9 @@ function normalizeVersion(version = ''): string {
     return version
   }
   const [major, rest] = version.split('.')
+  if (!rest) {
+    return version
+  }
   const minor = rest.slice(0, 3)
   const patch = rest.slice(3).padEnd(3, '0')
   return [major, minor, patch].map(Number).join('.')

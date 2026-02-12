@@ -35,8 +35,10 @@ const pre = versions => versions.filter(v => v.includes('-') && v.indexOf('dev')
 const stable = versions => versions.filter(v => !v.includes('-'))
 const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 const noDev = versions => versions.filter(v => v.indexOf('dev') === -1)
-// @ts-ignore
-const license = versions => Object.values(versions).find(v => v.license.length).license[0]
+const license = (versions: Record<string, { license?: string[] }>) => {
+  const withLicense = Object.values(versions).find(v => v.license?.length)
+  return withLicense?.license?.[0]
+}
 
 const getVersion = (packageMeta, channel) => {
   const versions = Object.keys(packageMeta.versions).sort(versionCompare)
