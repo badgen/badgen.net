@@ -39,5 +39,6 @@ async function handler ({ topic, username }: PathArgs) {
 }
 
 const convertFingerprintTo64bit = fingerprint => {
-  return fingerprint.slice(-16).toUpperCase().match(/.{4}/g).join(' ')
+  const segments = fingerprint.slice(-16).toUpperCase().match(/.{4}/g) || []
+  return segments.join(' ')
 }

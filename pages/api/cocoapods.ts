@@ -13,7 +13,7 @@ export default createBadgenHandler({
   }
 })
 
-async function handler ({topic, pod}: PathArgs) {
+async function handler ({ topic, pod }: PathArgs) {
   const endpoint = `https://trunk.cocoapods.org/api/v1/pods/${pod}/specs/latest`
   const { version, platforms } = await got(endpoint).json<any>()
 

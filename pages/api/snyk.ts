@@ -35,8 +35,8 @@ async function handler ({ owner, repo, branch, targetFile }: PathArgs) {
 function parseBadge(svg: string) {
   const [subject, status] = [...svg.matchAll(/fill-opacity=[^>]*?>([^<]+)<\//ig)]
     .map(match => match[1].trim())
-  const color = svg.match(/<path[^>]*?fill="([^"]+)"[^>]*?d="M[^0]/i)?.[1]
-    .trim().replace(/^#/, '')
+  const colorMatch = svg.match(/<path[^>]*?fill="([^"]+)"[^>]*?d="M[^0]/i)?.[1]
+  const color = colorMatch ? colorMatch.trim().replace(/^#/, '') : ''
   if (!status || !color) return
   return {
     subject: subject || 'vulnerabilities',

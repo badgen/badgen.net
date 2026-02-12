@@ -7,7 +7,7 @@ const DEVRANT_API_URL = 'https://devrant.com/api'
 
 const client = got.extend({ prefixUrl: DEVRANT_API_URL })
 
-const upperCaseFirst = (input: string) => input.charAt(0).toUpperCase() + input.substr(1)
+const upperCaseFirst = (input: string) => input.charAt(0).toUpperCase() + input.slice(1)
 
 export default createBadgenHandler({
   title: 'devRant',
