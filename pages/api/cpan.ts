@@ -90,7 +90,7 @@ async function handler ({ topic, distribution }: PathArgs) {
 }
 
 // https://metacpan.org/pod/version
-function normalizeVersion(version: string): string {
+function normalizeVersion(version = ''): string {
   version = version.replace(/_/g, '')
   if (!version || version.startsWith('v')) {
     return version

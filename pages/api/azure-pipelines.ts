@@ -3,7 +3,7 @@ import { isBadge, millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
-  title: 'Azure Piplines',
+  title: 'Azure Pipelines',
   examples: {
     '/azure-pipelines/dnceng/public/efcore-ci': 'pipeline status (definition name)',
     '/azure-pipelines/dnceng/public/51': 'pipeline status (definition id)',
@@ -88,9 +88,9 @@ async function getLatestDeployment ({ org, project, 'definition-id': definition,
     'api-version': '6.0',
     '$top': '1',
     definitionId: definition,
-    deploymentStatus: 'succedeed'
+    deploymentStatus: 'succeeded'
   })
-  if (environment) searchParams.set('definitionEnvironmentId', 'environment')
+  if (environment) searchParams.set('definitionEnvironmentId', environment)
   const deployments = await client.get('release/deployments', { searchParams }).json<any>()
   return deployments.value[0] || {}
 }

@@ -25,7 +25,7 @@ async function handler ({ topic, pkg }: PathArgs) {
 
 function parseBadge(svg: string, topic: string) {
   const title = svg.match(/<title>([^<]+)<\//i)?.[1].trim() ?? ''
-  const [_, ver] = title.split(':')
+  const [, ver] = title.split(':')
   if (!ver) return
 
   switch (topic) {

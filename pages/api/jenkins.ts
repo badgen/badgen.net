@@ -82,12 +82,12 @@ async function brokenBuildsHandler({ hostname, job }: PathArgs) {
 async function buildFixTimeHandler({ hostname, job }: PathArgs) {
   const response = await jenkinsBuilds({ hostname, job })
 
-  var lastSuccessTime = 0
-  var lastFailTime = 0
+  let lastSuccessTime = 0
+  let lastFailTime = 0
 
   for (let index = 0; index < response.builds.length; index++) {
     const element = response.builds[index]
-    if (element.result.toUpperCase() == "SUCCESS") {
+    if (element.result.toUpperCase() === "SUCCESS") {
       lastSuccessTime = element.timestamp
       lastFailTime = lastSuccessTime
     } else {
@@ -95,8 +95,8 @@ async function buildFixTimeHandler({ hostname, job }: PathArgs) {
       break
     }
   }
-  if (lastSuccessTime == 0) lastSuccessTime = new Date().getTime()
-  if (lastFailTime == 0) lastFailTime = lastSuccessTime
+  if (lastSuccessTime === 0) lastSuccessTime = new Date().getTime()
+  if (lastFailTime === 0) lastFailTime = lastSuccessTime
 
   return {
     subject: "Fix Time",
