@@ -41,7 +41,7 @@ async function handler ({ topic, distribution }: PathArgs) {
       return {
         subject: 'license',
         status: license || 'unknown',
-        color: 'green'
+        color: 'blue'
       }
     }
     case 'size': {
@@ -49,7 +49,7 @@ async function handler ({ topic, distribution }: PathArgs) {
       return {
         subject: 'distrib size',
         status: size(stat.size),
-        color: 'blue'
+        color: 'green'
       }
     }
     case 'perl': {
