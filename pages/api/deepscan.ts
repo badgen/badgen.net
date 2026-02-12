@@ -58,7 +58,7 @@ async function handler ({ topic, teamId, projectId, branchId }: PathArgs) {
       const params = {
         subject: 'issues',
         status: 'unknown',
-        color: 'gray'
+        color: 'grey'
       }
       if (isObject(result) && hasProp(result, 'outstandingDefectCount')) {
         params.status = millify(result.outstandingDefectCount)
@@ -70,7 +70,7 @@ async function handler ({ topic, teamId, projectId, branchId }: PathArgs) {
       const params = {
         subject: 'lines',
         status: 'unknown',
-        color: 'gray'
+        color: 'grey'
       }
       if (isObject(result) && hasProp(result, 'loc')) {
         params.status = millify(result.loc)

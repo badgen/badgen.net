@@ -172,7 +172,7 @@ async function deploymentVersion (args: PathArgs) {
 async function handler ({ org, project, definition, branch }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (branch) searchParams.set('branchName', branch)
-  const endpoint =`https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}`
+  const endpoint = `https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}`
   const resp = await got(endpoint, { searchParams })
   const params = isBadge(resp) && parseBadge(resp.body)
   return params || {

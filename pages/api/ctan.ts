@@ -38,7 +38,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       return {
         subject: 'license',
         status: license || 'unknown',
-        color: 'green'
+        color: 'blue'
       }
   }
 
