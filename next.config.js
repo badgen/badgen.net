@@ -9,8 +9,6 @@ const nextConfig = {
   optimizeFonts: false,
 
   experimental: {
-    appDir: false,
-    forceSwcTransforms: true,
   },
 
   sentry: {
