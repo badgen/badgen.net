@@ -49,7 +49,7 @@ export const liveBadgeList = [
 
 export async function loadBadgeMeta() {
   const liveBadgeExamples = await Promise.all(liveBadgeList.map(async id => {
-    const mod = await import(rel('../api-legacy', id))
+    const mod = await import(rel('../pages/api', id))
     const { title, examples, handlers } = mod.default.meta
 
     return {
