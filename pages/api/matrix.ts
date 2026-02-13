@@ -60,7 +60,7 @@ async function getHomeserver(server: string) {
 async function findPublicRoom(client: Got, roomAlias: string) {
   const roomId = await getRoomId(client, roomAlias)
   const searchParams = new URLSearchParams({ limit: '500' })
-  // eslint-disable-next-line no-constant-condition
+   
   while (true) {
     const { chunk, next_batch } = await client.get('publicRooms', { searchParams }).json<any>()
     const room = chunk.find(it => it.room_id === roomId)

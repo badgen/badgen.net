@@ -188,7 +188,7 @@ async function downloads ({ owner, repo, tag }: PathArgs) {
     }
   }
 
-  /* eslint-disable camelcase */
+   
   const downloadCount = release.assets.reduce((result, { download_count }) => {
     return result + download_count
   }, 0)

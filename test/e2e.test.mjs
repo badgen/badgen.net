@@ -12,7 +12,7 @@ test('/static: simple static badge', async (t) => {
 
     assert.strictEqual(response.status, 200)
     assert.strictEqual(response.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-});
+})
 
 
 test('/memo: update "depoyed" badge', async (t) => {
