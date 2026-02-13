@@ -7,7 +7,7 @@ import type { BadgenParams } from '../../libs/types'
 const help = `
 ## Discontinued
 
-CodeClimate has now been deprecated in favour of Qlty ([announcement](https://codeclimate.com/blog/code-climate-quality-is-now-qlty-software)).
+CodeClimate has been deprecated in favour of Qlty ([announcement](https://codeclimate.com/blog/code-climate-quality-is-now-qlty-software)).
 
 Qlty now has an official badge service documented [here](https://docs.qlty.sh/coverage/status-badges).
 `
