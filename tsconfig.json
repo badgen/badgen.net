@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "target": "es2018",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "sourceMap": true,
     "outDir": "dist",
