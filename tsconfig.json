@@ -29,7 +29,6 @@
     ]
   },
   "include": [
-    "api-legacy",
     "libs",
     "index.ts",
     "components",
