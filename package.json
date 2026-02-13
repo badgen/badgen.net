@@ -26,7 +26,7 @@
     "badgen-icons": "^0.23.0",
     "byte-size": "^8.1.0",
     "date-fns": "^4.1.0",
-    "eslint-config-next": "^14.1.0",
+    "eslint-config-next": "^16.1.6",
     "got": "^12.5.3",
     "haxe-rpc-client": "^1.0.0",
     "humanize-duration": "^3.24.0",
