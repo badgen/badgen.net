@@ -51,7 +51,7 @@ async function handler ({ topic, apikey }: PathArgs) {
     }
   }).json<any>()
 
-  /* eslint-disable camelcase */
+   
   const { status, custom_uptime_ratio, average_response_time } = monitors[0]
 
   switch (topic) {

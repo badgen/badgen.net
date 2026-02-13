@@ -52,7 +52,7 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
     }
   }
 
-  /* eslint-disable camelcase */
+   
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}`
   const { pull_count, star_count } = await got(endpoint).json<any>()
 
@@ -82,7 +82,7 @@ async function sizeHandler ({ scope, name, tag, architecture, variant }: PathArg
   tag = tag ? tag : 'latest'
   architecture = architecture ? architecture : 'amd64'
   variant = variant ? variant : ''
-  /* eslint-disable camelcase */
+   
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
   let body = await got(endpoint).json<any>()
 

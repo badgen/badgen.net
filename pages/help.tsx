@@ -65,7 +65,7 @@ export default function Index () {
       }
     `}
     </style>
-  </> // eslint-disable-line
+  </>  
 }
 
 function ColorBadge ({color: string}) {
