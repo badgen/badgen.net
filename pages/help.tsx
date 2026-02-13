@@ -13,7 +13,7 @@ export default function Index () {
 
   useEffect(() => {
     const forceHost = new URL(window.location.href).searchParams.get('host')
-    setHost((forceHost || window.location.origin) + '/')
+    setHost((forceHost || window.location.origin) + '/') /* eslint-disable-line react-hooks/set-state-in-effect */
   })
 
   return <>
@@ -65,7 +65,7 @@ export default function Index () {
       }
     `}
     </style>
-  </>  
+  </>
 }
 
 function ColorBadge ({color: string}) {
