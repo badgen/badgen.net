@@ -4,7 +4,7 @@
     "noImplicitAny": false,
     "allowJs": true,
     "skipLibCheck": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "target": "es2018",
     "module": "esnext",
     "moduleResolution": "node",
