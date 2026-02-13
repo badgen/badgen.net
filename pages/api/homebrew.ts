@@ -13,10 +13,10 @@ export default createBadgenHandler({
     '/homebrew/v/cake': 'version',
     '/homebrew/dm/fish': 'monthly downloads',
     '/homebrew/dy/fish': 'yearly downloads',
-    '/homebrew/cask/v/atom': 'version',
     '/homebrew/cask/v/whichspace': 'version',
-    '/homebrew/cask/dm/atom': 'monthly downloads',
-    '/homebrew/cask/dy/atom': 'yearly downloads'
+    '/homebrew/cask/v/raycast': 'version',
+    '/homebrew/cask/dm/raycast': 'monthly downloads',
+    '/homebrew/cask/dy/raycast': 'yearly downloads'
   },
   handlers: {
     '/homebrew/:topic<v|dm|dy>/:pkg': handler,
