@@ -1,0 +1,53 @@
+# Badgen
+
+> Badgen is a fast, reliable, and globally distributed badge generating service. It generates SVG badges on-the-fly for your projects.
+
+## Static Badges
+
+Static badges are defined entirely by the URL. They are useful for manual status indicators or when you want to display fixed information. Or you may proxy to these badges from your own service with custom logic.
+
+**Format**: `https://badgen.net/badge/:subject/:status/:color?icon=:icon&label=:label`
+
+**Parameters**:
+- `:subject`: Text on the left side (default).
+- `:status`: Text on the right side.
+- `:color`: Background color of the right side (color name or hex code).
+- `?icon`: (Optional) Built-in icon name (e.g., `github`, `npm`) or external SVG URL.
+- `?label`: (Optional) Override the left-side text.
+- `?labelColor`: (Optional) Override the left-side background color.
+- `?scale`: (Optional) Scale factor for the badge (default: 1).
+
+**Examples**:
+- `/badge/swift/4.2/orange`: Swift version 4.2
+- `/badge/license/MIT/blue`: MIT License
+- `/badge/stars/★★★★☆/green`: Star rating
+- `/badge/docker/v1.2.3/blue?icon=docker`: Docker icon with version
+
+## Memo Badges
+
+Memo badges are stateful badges that can be updated via API. This is ideal for CI/CD pipelines or custom monitoring scripts where you want to push status updates rather than have Badgen pull them.
+
+**Usage**:
+To create or update a memo badge, send a `PUT` request with a Bearer token.
+
+```bash
+curl -X PUT https://badgen.net/memo/:key/:label/:status/:color \
+     -H "Authorization: Bearer <YOUR_TOKEN>"
+```
+
+- `:key`: Unique identifier for your badge.
+- `<YOUR_TOKEN>`: Any secret string you choose. Once created, the badge is locked to this token.
+
+**Viewing**:
+The badge is publicly accessible at: `https://badgen.net/memo/:key`
+
+**Expiration**:
+Memo badges expire after **32 days** of inactivity. Update them regularly (e.g., in a monthly cron job) to keep them alive.
+
+## Live Badges
+
+Badgen supports live badges for many services including GitHub, npm, Docker, PyPI, and more.
+
+## Documentation
+
+- [Badge Generators Reference](https://badgen.net/badges.md): A comprehensive list of all supported live badge generators with usage examples.
