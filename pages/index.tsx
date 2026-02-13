@@ -47,12 +47,44 @@ export default class BuilderPage extends React.Component {
           />
           <Hints focus={focus} badgeURL={badgeURL} />
           {badgeURL && <Helper host={host} badgeURL={badgeURL} onSelect={this.handleSelect} />}
+          <div className="screen-bottom">
+            <i>new</i>
+            <a href="/llms.txt" target="_blank">/llms.txt</a>
+          </div>
         </div>
         <Footer />
         <style jsx>{`
           .hero {
             min-height: 100vh;
             position: relative;
+          }
+          .screen-bottom {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+          }
+          .screen-bottom a {
+            text-decoration: none;
+            color: #666;
+            font-family: Menlo, monospace;
+          }
+          .screen-bottom a:hover {
+            text-decoration: underline;
+          }
+          .screen-bottom i {
+            position: relative;
+            display: inline-block;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background-color: #333;
+            color: white;
+            padding: 3px 4px;
+            border-radius: 3px;
+            transform: translate(-5px, -2px);
           }
         `}
         </style>
