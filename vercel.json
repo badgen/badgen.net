@@ -5,40 +5,8 @@
   ],
   "rewrites": [
     {
-      "source": "/appveyor/:match*",
-      "destination": "https://v2022.badgen.net/appveyor/:match*"
-    },
-    {
-      "source": "/azure-pipelines/:match*",
-      "destination": "https://v2022.badgen.net/azure-pipelines/:match*"
-    },
-    {
       "source": "/badgesize/:match*",
       "destination": "https://v2022.badgen.net/badgesize/:match*"
-    },
-    {
-      "source": "/cocoapods/:match*",
-      "destination": "https://v2022.badgen.net/cocoapods/:match*"
-    },
-    {
-      "source": "/codacy/:match*",
-      "destination": "https://v2022.badgen.net/codacy/:match*"
-    },
-    {
-      "source": "/cpan/:match*",
-      "destination": "https://v2022.badgen.net/cpan/:match*"
-    },
-    {
-      "source": "/cran/:match*",
-      "destination": "https://v2022.badgen.net/cran/:match*"
-    },
-    {
-      "source": "/ctan/:match*",
-      "destination": "https://v2022.badgen.net/ctan/:match*"
-    },
-    {
-      "source": "/deepscan/:match*",
-      "destination": "https://v2022.badgen.net/deepscan/:match*"
     },
     {
       "source": "/dependabot/:match*",
@@ -49,26 +17,6 @@
       "destination": "https://v2022.badgen.net/devrant/:match*"
     },
     {
-      "source": "/dub/:match*",
-      "destination": "https://v2022.badgen.net/dub/:match*"
-    },
-    {
-      "source": "/elm-package/:match*",
-      "destination": "https://v2022.badgen.net/elm-package/:match*"
-    },
-    {
-      "source": "/f-droid/:match*",
-      "destination": "https://v2022.badgen.net/f-droid/:match*"
-    },
-    {
-      "source": "/gitter/:match*",
-      "destination": "https://v2022.badgen.net/gitter/:match*"
-    },
-    {
-      "source": "/haxelib/:match*",
-      "destination": "https://v2022.badgen.net/haxelib/:match*"
-    },
-    {
       "source": "/homebrew/:match*",
       "destination": "https://v2022.badgen.net/homebrew/:match*"
     },
@@ -77,60 +25,8 @@
       "destination": "https://v2022.badgen.net/jenkins/:match*"
     },
     {
-      "source": "/keybase/:match*",
-      "destination": "https://v2022.badgen.net/keybase/:match*"
-    },
-    {
-      "source": "/mastodon/:match*",
-      "destination": "https://v2022.badgen.net/mastodon/:match*"
-    },
-    {
-      "source": "/maven/:match*",
-      "destination": "https://v2022.badgen.net/maven/:match*"
-    },
-    {
-      "source": "/melpa/:match*",
-      "destination": "https://v2022.badgen.net/melpa/:match*"
-    },
-    {
-      "source": "/nuget/:match*",
-      "destination": "https://v2022.badgen.net/nuget/:match*"
-    },
-    {
-      "source": "/opam/:match*",
-      "destination": "https://v2022.badgen.net/opam/:match*"
-    },
-    {
-      "source": "/opencollective/:match*",
-      "destination": "https://v2022.badgen.net/opencollective/:match*"
-    },
-    {
-      "source": "/packagist/:match*",
-      "destination": "https://v2022.badgen.net/packagist/:match*"
-    },
-    {
       "source": "/reddit/:match*",
       "destination": "https://v2022.badgen.net/reddit/:match*"
-    },
-    {
-      "source": "/scoop/:match*",
-      "destination": "https://v2022.badgen.net/scoop/:match*"
-    },
-    {
-      "source": "/shards/:match*",
-      "destination": "https://v2022.badgen.net/shards/:match*"
-    },
-    {
-      "source": "/snapcraft/:match*",
-      "destination": "https://v2022.badgen.net/snapcraft/:match*"
-    },
-    {
-      "source": "/snyk/:match*",
-      "destination": "https://v2022.badgen.net/snyk/:match*"
-    },
-    {
-      "source": "/tidelift/:match*",
-      "destination": "https://v2022.badgen.net/tidelift/:match*"
     },
     {
       "source": "/uptime-robot/:match*",
