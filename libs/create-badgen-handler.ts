@@ -172,11 +172,11 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
         })
       }
 
-      sentry.configureScope((scope) => {
+      sentry.withScope((scope) => {
         scope.setTag('path', url)
         scope.setTag('service', defaultLabel)
+        sentry.captureException(error)
       })
-      sentry.captureException(error)
 
       // uncatched error
       console.error(`UCE ${url}`, error.message, error)
