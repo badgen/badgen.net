@@ -1,7 +1,7 @@
 import millify from 'millify'
-import got from '../libs/got'
-import { version as v, versionColor } from '../libs/utils'
-import { createBadgenHandler, PathArgs } from '../libs/create-badgen-handler'
+import got from '../../libs/got'
+import { version as v, versionColor } from '../../libs/utils'
+import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
   title: 'Ruby Gems',
@@ -24,12 +24,12 @@ const preConditions = ['.rc', '.beta', '-rc', '-beta']
 
 const pre = versions => versions.filter(v => {
   for (let condition of preConditions) {
-    if (!v.includes(condition)) {
-      return false
+    if (v.includes(condition)) {
+      return true
     }
   }
 
-  return true
+  return false
 })
 
 const stable = versions => versions.filter(v => {

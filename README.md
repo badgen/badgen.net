@@ -6,8 +6,8 @@
 <p align="center">
     <a href="https://status.badgen.net/"><img src="https://badgen.net/uptime-robot/week/m780862024-50db2c44c703e5c68d6b1ebb?label=past%20week%20uptime" /></a>
     <a href="https://stats.uptimerobot.com/z6nqBfYGB/780862024"><img src="https://badgen.net/uptime-robot/response/m780862024-50db2c44c703e5c68d6b1ebb" /></a>
-    <a href="LICENSE.md"><img src="https://badgen.net/github/license/amio/badgen-service" /></a>
-    <a href="https://twitter.com/badgen_net"><img src="https://badgen.net/badge/twitter/@badgen_net/1DA1F2?icon&label" /></a>
+    <a href="LICENSE.md"><img src="https://badgen.net/github/license/badgen/badgen.net" /></a>
+    <a href="https://x.com/badgen_net"><img src="https://badgen.net/badge/twitter/@badgen_net/1DA1F2?icon&label" /></a>
     <a href="https://opencollective.com/badgen"><img src="https://badgen.net/badge/support/badgen/3988FB"/></a>
 </p>
 
@@ -15,24 +15,24 @@
 
 ## The Badgen Story
 
-> That's a service, that's a library, hooorey!  - [@tunnckoCore](https://github.com/amio/badgen-service/pull/17)
+> That's a service, that's a library, hooorey!  - [@tunnckoCore](https://github.com/badgen/badgen.net/pull/17)
 
-> Finally something to replace http://shields.io - [@EGOIST](https://twitter.com/_egoistlily/status/1024202206185119744)
+> Finally something to replace http://shields.io - [@EGOIST](https://x.com/localhost_5173/status/1024202206185119744)
 
-> Epic work on Badgen! Porting the @dependabot badges over to it now. ⚡️ - [@greybaker](https://twitter.com/greybaker/status/1023253585021333504)
+> Epic work on Badgen! Porting the @dependabot badges over to it now. ⚡️ - [@greybaker](https://x.com/greybaker/status/1023253585021333504)
 
-The [badgen](https://github.com/amio/badgen) library was born as an exploration of "is it possible to generate badge SVG markup directly (without using pdfkit/canvas/puppeteer to measure text width)?". The result is better than I expected, Width of Verdana (the de-facto font for badges) text can be calculated precisely with a prebuilt [char-width-table](https://github.com/badgen/badgen/blob/master/src/widths-verdana-110.json), even no need to worry about kerning 🤯
+The [badgen](https://github.com/badgen/badgen) library was born as an exploration of "is it possible to generate badge SVG markup directly (without using pdfkit/canvas/puppeteer to measure text width)?". The result is better than I expected, Width of Verdana (the de-facto font for badges) text can be calculated precisely with a prebuilt [char-width-table](https://github.com/badgen/badgen/blob/master/src/widths-verdana-110.json), even no need to worry about kerning 🤯
 
 Then, logically, [Badgen Service](https://badgen.net) was born. I had a good time with [shields.io](https://shields.io), but as time goes by Shields gets slower, leaves more and more broken badges in READMEs. Badgen is trying to be a fast alternative with simplicity and flexibility. Its codebase is simple (<b title="cloc . --exclude-dir node_modules --match-f '.js$'">2K LoCs</b> vs Shields' 22K LoCs), well structured and fun to develop - it is pretty easy to add badge(s) for new service(s).
 
 In the beginning, I was considering both [Vercel](https://vercel.com/) and [Google Cloud Functions](https://cloud.google.com/functions/). Then Vercel announced [Edge Network](https://vercel.com/edge-network) on the same day as badgen.now.sh (the PoC of Badgen Service)'s reveal, what a fate! Cloudflare powered Vercel Edge Network is a perfect choice for such service, caching and scalability in simplicity. Badgen is the fastest possible badge generating service out there. It's fast, it's reliable, it's globally distributed and cached, thanks to Vercel.
 
-At the time of badgen.now.sh's reveal, it had only four live badges as demonstrations. Since then, thanks to [awesome people](https://github.com/amio/badgen-service/graphs/contributors)'s help, Badgen keeps getting better at a fast pace. Welcome to join us, let's build the best badge service in the universe 🔥
+At the time of badgen.now.sh's reveal, it had only four live badges as demonstrations. Since then, thanks to [awesome people](https://github.com/badgen/badgen.net/graphs/contributors)'s help, Badgen keeps getting better at a fast pace. Welcome to join us, let's build the best badge service in the universe 🔥
 
 ## Anatomy
 
 - Written in TypeScript
-- Using [badgen](https://github.com/amio/badgen) library to generate svg on the fly
+- Using [badgen](https://github.com/badgen/badgen) library to generate svg on the fly
 - Two visual styles
     - https://badgen.net - classic style badges
     - https://flat.badgen.net - flat & square style badges
@@ -46,7 +46,6 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 ## Developing
 
 [![Contributors][contributors-src]][contributors-href]
-[![Maintainability][maintainability-src]][maintainability-href]
 [![Docker image][docker-src]][docker-href]
 
 **start dev server**
@@ -124,8 +123,6 @@ Support this project by donation, help Badgen continue and evolving!
 <a href="https://vercel.com"><img src="https://badgen-sponsors.now.sh/vercel.svg" height="220px" /></a>
 <a href="https://sentry.io"><img src="https://badgen-sponsors.now.sh/sentry.svg" height="220px" /></a>
 
-[maintainability-src]: https://badgen.net/codeclimate/maintainability/badgen/badgen.net
-[maintainability-href]: https://codeclimate.com/github/badgen/badgen.net
 [contributors-src]: https://badgen.net/github/contributors/badgen/badgen.net
 [contributors-href]: https://github.com/badgen/badgen.net/graphs/contributors
 [docker-src]: https://badgen.net/badge/docker/amio%2Fbadgen?label&icon=docker

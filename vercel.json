@@ -113,10 +113,6 @@
       "destination": "https://v2022.badgen.net/reddit/:match*"
     },
     {
-      "source": "/rubygems/:match*",
-      "destination": "https://v2022.badgen.net/rubygems/:match*"
-    },
-    {
       "source": "/scoop/:match*",
       "destination": "https://v2022.badgen.net/scoop/:match*"
     },
@@ -135,10 +131,6 @@
     {
       "source": "/tidelift/:match*",
       "destination": "https://v2022.badgen.net/tidelift/:match*"
-    },
-    {
-      "source": "/twitter/:match*",
-      "destination": "https://v2022.badgen.net/twitter/:match*"
     },
     {
       "source": "/uptime-robot/:match*",
