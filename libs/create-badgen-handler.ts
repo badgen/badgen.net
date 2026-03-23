@@ -114,13 +114,13 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
         query.style = getBadgeStyle(req)
       }
 
-      return serveBadge(req, res, { params, query: query as any })
+      return await serveBadge(req, res, { params, query: query as any })
     } catch (error: any) {
       measurementLogError('error', error.code || error?.response?.statusCode , req.url || '/')
 
       if (error instanceof BadgenError) {
         console.error(`BGE${error.code} "${error.status}" ${req.url}`)
-        return serveBadge(req, res, {
+        return await serveBadge(req, res, {
           code: error.code,
           sMaxAge: 5,
           params: {
@@ -134,7 +134,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
       // Handle timeout for `got` requests
       if (error.code === 'ETIMEDOUT') {
         console.error(`APIE504 ${req.url}`)
-        return serveBadge(req, res, {
+        return await serveBadge(req, res, {
           code: 504,
           sMaxAge: 5,
           params: {
@@ -146,7 +146,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
       }
 
       if (error.name === 'HTTPError') {
-        return serveBadge(req, res, {
+        return await serveBadge(req, res, {
           code: 500,
           sMaxAge: 5,
           params: {
@@ -161,7 +161,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
       if (error.statusCode) {
         const errorInfo = `${error.url} ${error.statusMessage}`
         console.error(`APIE${error.statusCode} ${url} ${errorInfo}`)
-        return serveBadge(req, res, {
+        return await serveBadge(req, res, {
           code: 502,
           sMaxAge: 5,
           params: {
@@ -180,7 +180,7 @@ export function createBadgenHandler (conf: BadgenServeConfig): BadgenHandler {
 
       // uncatched error
       console.error(`UCE ${url}`, error.message, error)
-      return serveBadge(req, res, {
+      return await serveBadge(req, res, {
         code: 500,
         sMaxAge: 5,
         params: {
@@ -216,7 +216,7 @@ function simpleDecode (str: string): string {
   return String(str).replace(/%2F/g, '/')
 }
 
-function serve404 (req: http.IncomingMessage, res: http.ServerResponse) {
+async function serve404 (req: http.IncomingMessage, res: http.ServerResponse) {
   const params = {
     subject: 'Badgen',
     status: '404',
@@ -229,5 +229,5 @@ function serve404 (req: http.IncomingMessage, res: http.ServerResponse) {
     query.style = getBadgeStyle(req)
   }
 
-  serveBadge(req, res, { code: 404, params, query })
+  return await serveBadge(req, res, { code: 404, params, query })
 }

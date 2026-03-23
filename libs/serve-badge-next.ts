@@ -12,7 +12,7 @@ type ServeBadgeOptions = {
   params: BadgenParams
 }
 
-export function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, options: ServeBadgeOptions) {
+export async function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = 3600, params } = options
   const { subject, status, color } = params
 
@@ -24,7 +24,7 @@ export function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, optio
 
   const query = req.query
   const { list, scale, cache } = req.query
-  const iconMeta = resolveIcon(query.icon, query.iconWidth)
+  const iconMeta = await resolveIcon(query.icon, query.iconWidth)
 
   const badgeParams = {
     labelColor: resolveColor(query.labelColor, '555'),
@@ -98,16 +98,30 @@ type ResolvedIcon = {
   width?: number
 }
 
-function resolveIcon (icon?: string | string[], width?: string | string[]): ResolvedIcon {
-  const iconArg = String(icon) || ''
-  const widthNum = parseInt(String(width)) || 10
+async function resolveIcon (icon?: string | string[], width?: string | string[]): Promise<ResolvedIcon> {
+  if (typeof icon !== 'string' || !icon) {
+    return {}
+  }
 
-  const builtinIcon = icons[icon]
+  const iconArg = icon
 
+  const widthNum = parseInt(String(width)) || 13
+
+  const builtinIcon = icons[iconArg]
   if (builtinIcon) {
     return {
       src: builtinIcon.base64,
       width: widthNum || builtinIcon.width
+    }
+  }
+
+  const { getSiIcon } = await import('./simple-icons')
+  const siIcon = await getSiIcon(iconArg)
+  if (siIcon) {
+    const svg = siIcon.svg.replace('<svg', '<svg fill="white"')
+    return {
+      src: `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`,
+      width: widthNum || 13
     }
   }
 
