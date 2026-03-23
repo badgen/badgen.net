@@ -71,7 +71,7 @@ export function createBadgenHandler (badgenServerConfig: BadgenServeConfig) {
       req.query.icon = badgenResponse.subject
     }
 
-    serveBadgeNext(req, res, { params: badgenResponse })
+    await serveBadgeNext(req, res, { params: badgenResponse })
   }
 
   nextHandler.meta = { title, examples, help, handlers }

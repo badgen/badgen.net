@@ -68,6 +68,10 @@ export default function HomeIntro ({ isFlat = false }) {
 
     <h3 id={'icons'}>Builtin Icons</h3>
     <p>The icons you can use with query param: <code>?icon=[iconname]</code></p>
+    <p>
+      In addition to the builtin icons below, you can also use any icon from <a href="https://simpleicons.org/" target="_blank" rel="noreferrer">Simple Icons</a> by its name/slug.
+      &nbsp;<a href='/badge/Node.js/v20/blue?icon=Node.js'>e.g.</a>
+    </p>
     { iconExamples() }
 
     <h3>Advanced usage</h3>

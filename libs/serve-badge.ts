@@ -12,12 +12,12 @@ type ServeBadgeOptions = {
   params: BadgenParams
 }
 
-export default function (req: IncomingMessage, res: ServerResponse, options: ServeBadgeOptions) {
+export default async function (req: IncomingMessage, res: ServerResponse, options: ServeBadgeOptions) {
   const { code = 200, sMaxAge = 21600, query = {}, params } = options
 
   const { subject, status, color } = params
   const { label, labelColor, icon, iconWidth, list, scale, cache } = query
-  const _icon = resolveIcon(icon, iconWidth)
+  const _icon = await resolveIcon(icon, iconWidth)
 
   // TODO: review usage of list
   list && console.log(`FEAT-LIST ${req.url}`)
@@ -64,7 +64,11 @@ type ResolvedIcon = {
   width?: string
 }
 
-function resolveIcon (icon: string | undefined, width?: string): ResolvedIcon {
+async function resolveIcon (icon: string | undefined, width?: string): Promise<ResolvedIcon> {
+  if (!icon) {
+    return {}
+  }
+
   const builtinIcon = icons[icon]
   if (builtinIcon) {
     return {
@@ -73,7 +77,17 @@ function resolveIcon (icon: string | undefined, width?: string): ResolvedIcon {
     }
   }
 
-  if (String(icon).startsWith('data:image/')) {
+  const { getSiIcon } = await import('./simple-icons')
+  const siIcon = await getSiIcon(icon)
+  if (siIcon) {
+    const svg = siIcon.svg.replace('<svg', '<svg fill="white"')
+    return {
+      src: `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`,
+      width: width || '13'
+    }
+  }
+
+  if (icon.startsWith('data:image/')) {
     return { src: icon, width }
   }
 
