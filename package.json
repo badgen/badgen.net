@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.ts,.jsx .",
     "build": "npm run postinstall && next build",
     "dev": "next dev",
-    "start": "node dist/index.js"
+    "start": "next start"
   },
   "standard": {
     "parser": "@typescript-eslint/parser",

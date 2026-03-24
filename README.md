@@ -39,7 +39,8 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
     - static badge - URL defined badge (label, status, color)
     - live badge - Show live status from 3rd party services
 - Builtin Icons & External Icon Support
-    - see [badgen-icons](https://github.com/badgen/badgen-icons)
+    - Builtin icons: [badgen-icons](https://github.com/badgen/badgen-icons)
+    - Brand icons: [simple-icons](https://simpleicons.org)
 - Docker image [amio/badgen](https://hub.docker.com/r/amio/badgen)
 
 ## Developing
@@ -61,7 +62,7 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
 ### Add Live Badge
 
-If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `api/[name-of-service].ts` and that's it. Take [/crates](https://badgen.net/crates) as an example:
+If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `pages/api/[name-of-service].ts` and that's it. Take [/crates](https://badgen.net/crates) as an example:
 
 - [pages/api/crates.ts](pages/api/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
 - [libs/badge-list2.ts](libs/badge-list2.ts) - contains index of all live badges
