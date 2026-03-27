@@ -41,7 +41,7 @@
     "simple-icons": "^16.13.0",
     "url-parse": "^1.5.9",
     "webextension-store-meta": "^1.2.7",
-    "yaml": "^2.1.0"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^16.1.6",
