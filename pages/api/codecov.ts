@@ -6,7 +6,7 @@ export default createBadgenHandler({
   title: 'CodeCov',
   examples: {
     '/codecov/github/babel/babel': 'coverage (github)',
-    '/codecov/github/babel/babel/6.x': 'coverage (github, branch)',
+    '/codecov/github/babel/babel/7.x': 'coverage (github, branch)',
     '/codecov/bitbucket/ignitionrobotics/ign-math': 'coverage (bitbucket)',
     '/codecov/bitbucket/ignitionrobotics/ign-math/master': 'coverage (bitbucket, branch)',
     '/codecov/gitlab/gitlab-org/gitaly': 'coverage (gitlab)',
@@ -19,11 +19,12 @@ export default createBadgenHandler({
 })
 
 async function handler ({ vcs, owner, repo, branch }: PathArgs) {
-  const endpoint = `https://codecov.io/api/v2/${vcs}/${owner}/repos/${repo}?format=json`
-
+  const endpoint = `https://api.codecov.io/api/v2/${vcs}/${owner}/repos/${repo}${branch ? `/branches/${branch}` : ``}?format=json`
   const data = await got(endpoint).json<any>()
 
-  if (!data.totals) {
+  const totals = branch ? data.head_commit?.totals : data.totals
+
+  if (!totals) {
     return {
       subject: 'codecov',
       status: 'unknown',
@@ -31,7 +32,7 @@ async function handler ({ vcs, owner, repo, branch }: PathArgs) {
     }
   }
 
-  const cov = data.totals?.coverage || 0
+  const cov = totals?.coverage || 0
   return {
     subject: 'coverage',
     status: coverage(cov),
