@@ -19,9 +19,11 @@ export default createBadgenHandler({
 })
 
 async function handler ({ vcs, owner, repo, branch }: PathArgs) {
-  const endpoint = `https://codecov.io/api/v2/${vcs}/${owner}/repos/${repo}?format=json`
+  const endpoint = `https://api.codecov.io/api/v2/${vcs}/${owner}/repos/${repo}${branch ? `/branches/${branch}` : ``}?format=json`
 
   const data = await got(endpoint).json<any>()
+
+  const totals = branch ? data.head_commit?.totals : data.totals
 
   if (!data.totals) {
     return {
