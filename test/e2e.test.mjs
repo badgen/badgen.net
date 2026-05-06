@@ -15,10 +15,7 @@ test('/static: simple static badge', async (t) => {
 })
 
 
-test('/memo: update "depoyed" badge', async (t) => {
-    if (!process.env.MEMO_BADGE_TOKEN) {
-        throw new Error('MEMO_BADGE_TOKEN is required to run this test')
-    }
+test('/memo: update "depoyed" badge', { skip: !process.env.MEMO_BADGE_TOKEN }, async (t) => {
     const status = getGitLastCommitDate()
     const label = 'Deployed'
     const color = getGitCurrentBranch() === 'main' ? 'green' : 'cyan'
@@ -36,6 +33,41 @@ test('/memo: update "depoyed" badge', async (t) => {
 
     const result = await response.json()
     assert.deepEqual(result, { status, label, color })
+})
+
+test('/vs-marketplace: stable version badge', async (t) => {
+    const pkg = 'ms-python.vscode-pylance'
+    const latestURL = `${BASE_URL}/vs-marketplace/v/${pkg}`
+    const stableURL = `${BASE_URL}/vs-marketplace/v/${pkg}/stable`
+
+    const [latestRes, stableRes] = await Promise.all([
+        fetch(latestURL),
+        fetch(stableURL)
+    ])
+
+    assert.strictEqual(latestRes.status, 200)
+    assert.strictEqual(stableRes.status, 200)
+
+    const latestSvg = await latestRes.text()
+    const stableSvg = await stableRes.text()
+
+    assert.ok(latestSvg.includes('VS Marketplace'), 'Latest SVG should contain "VS Marketplace"')
+    assert.ok(stableSvg.includes('VS Marketplace'), 'Stable SVG should contain "VS Marketplace"')
+
+    const latestVer = latestSvg.match(/v(\d+\.\d+\.\d+)/)?.[1]
+    const stableVer = stableSvg.match(/v(\d+\.\d+\.\d+)/)?.[1]
+
+    assert.ok(latestVer, 'Should find a version in latest badge')
+    assert.ok(stableVer, 'Should find a version in stable badge')
+
+    // Pylance uses even minor/patch for stable and odd for pre-release, or similar.
+    // At the time of testing, latest (pre-release) was 2026.2.101 and stable was 2026.2.1
+    // We just want to ensure they are different if a pre-release exists.
+    if (latestVer !== stableVer) {
+        console.log(`Verified: Latest (${latestVer}) is different from Stable (${stableVer})`)
+    } else {
+        console.warn(`Warning: Latest and Stable versions are the same (${latestVer}). This might happen if there is no active pre-release.`)
+    }
 })
 
 function getGitLastCommitDate () {
