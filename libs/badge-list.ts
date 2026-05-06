@@ -8,6 +8,7 @@ export const liveBadgeList = [
   // // source control
   // 'github',
   // 'gitlab',
+  'codeberg',
   // release registries
   'homebrew',
   'nuget',
