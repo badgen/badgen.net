@@ -19,8 +19,8 @@ export function restGitlab<T = any>(path: string, fullResponse = false) {
   const headers = {
     authorization: token ? `Bearer ${token}` : undefined,
   }
-  const prefixUrl = process.env.GITLAB_API || 'https://gitlab.com/api/v4'
-  return fullResponse ? ky.get(path, { prefixUrl, headers }) : ky.get(path, { prefixUrl, headers }).json<T>()
+  const prefix = process.env.GITLAB_API || 'https://gitlab.com/api/v4'
+  return fullResponse ? ky.get(path, { prefix, headers }) : ky.get(path, { prefix, headers }).json<T>()
 }
 
 function pickGitlabToken() {

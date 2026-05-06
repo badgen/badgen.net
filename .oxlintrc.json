@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "nextjs"],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "__DEV__": "readonly",
+    "Generator": "readonly",
+    "XMLHttpRequest": "readonly"
+  },
+  "ignorePatterns": [
+    ".next/**",
+    "out/**",
+    "build/**",
+    "dist/**",
+    "next-env.d.ts"
+  ],
+  "rules": {
+    "no-case-declarations": "off",
+    "no-unused-vars": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["jsx"] }],
+    "react/react-in-jsx-scope": "off"
+  }
+}
