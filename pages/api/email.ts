@@ -3,18 +3,18 @@ import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-
 export default createBadgenHandler({
   title: 'Email',
   examples: {
-    '/email/com/consulting/tunnckocore': 'email',
-    '/email/co.uk/foobar/mydomain': 'email',
+    '/email/consulting/tunnckocore.com': 'email',
+    '/email/foobar/mydomain.co.uk': 'email',
   },
   handlers: {
-    '/email/:tld/:name/:domain': handler
+    '/email/:name/:domain': handler
   }
 })
 
-async function handler ({ tld, name, domain }: PathArgs) {
+async function handler ({ name, domain }: PathArgs) {
   return {
     subject: 'email',
-    status: `${name}@${domain}.${tld}`,
+    status: `${name}@${domain}`,
     color: 'blue'
   }
 }
