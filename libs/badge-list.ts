@@ -3,12 +3,12 @@ import staticBadges from '../pages/api/static'
 
 const rel = (...args) => path.resolve(__dirname, ...args)
 
+/** @deprecated use badge-list2.ts instead */
 // sort live badge manually
 export const liveBadgeList = [
   // // source control
   // 'github',
   // 'gitlab',
-  'codeberg',
   // release registries
   'homebrew',
   'nuget',
