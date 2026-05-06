@@ -7,6 +7,7 @@
   "scripts": {
     "postinstall": "tsx tools/gen-examples.ts",
     "lint": "eslint --ext .js,.ts,.jsx .",
+    "test": "node --import tsx --test test/badge-cache-control.test.ts",
     "build": "npm run postinstall && next build",
     "dev": "next dev",
     "start": "next start"

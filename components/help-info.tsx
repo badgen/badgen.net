@@ -56,7 +56,7 @@ export default function HomeIntro ({ isFlat = false }) {
       </li>
       <li>
         <code>cache</code>
-        Live badge are cached in cdn for 24hrs (86400), you may limit it to a minimum of 5min (300).
+        Control how long live badges may be cached by downstream clients and the CDN. Minimum value is 5min (300).
         &nbsp;<a href='/npm/dm/express?cache=600'>e.g.</a>
       </li>
     </ul>
