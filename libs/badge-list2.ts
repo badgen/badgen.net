@@ -63,6 +63,7 @@ import opencollective from '../pages/api/opencollective'
 import keybase from '../pages/api/keybase'
 import mastodon from '../pages/api/mastodon'
 import tidelift from '../pages/api/tidelift'
+import email from '../pages/api/email'
 
 export default {
   static: staticBadge.meta,
@@ -130,4 +131,5 @@ export default {
   keybase: keybase.meta,
   mastodon: mastodon.meta,
   tidelift: tidelift.meta,
+  email: email.meta,
 }
