@@ -95,6 +95,7 @@ const nextConfig = {
       '/liberapay',
       '/opencollective',
       '/tidelift',
+      '/email',
       // discontinued
       '/apm',
       '/lgtm',
