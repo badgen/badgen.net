@@ -7,7 +7,7 @@ export default createBadgenHandler({
   title: 'Visual Studio Marketplace',
   examples: {
     '/vs-marketplace/v/vscodevim.vim': 'version',
-    '/vs-marketplace/v/ms-python.vscode-pylance/stable': 'version (stable)',
+    '/vs-marketplace/v/ms-python.vscode-pylance/latest': 'version (including pre-release)',
     '/vs-marketplace/i/vscodevim.vim': 'installs',
     '/vs-marketplace/d/vscodevim.vim': 'downloads',
     '/vs-marketplace/rating/vscodevim.vim': 'rating',
@@ -18,8 +18,8 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, pkg, tag }: PathArgs) {
-  const isStable = tag === 'stable'
-  const { results } = await queryVSM(pkg, isStable ? 467 : 915)
+  const showLatest = tag === 'latest'
+  const { results } = await queryVSM(pkg, showLatest ? 979 : 467)
   const extension = results[0].extensions[0]
 
   if (!extension) {
@@ -33,7 +33,7 @@ async function handler ({ topic, pkg, tag }: PathArgs) {
   switch (topic) {
     case 'v':
       let extensionVersion = extension.versions[0]
-      if (isStable) {
+      if (!showLatest) {
         extensionVersion = extension.versions.find(ver => {
           const isPreRelease = ver.properties?.some(prop =>
             prop.key === 'Microsoft.VisualStudio.Code.PreRelease' && prop.value === 'true'
@@ -76,7 +76,7 @@ async function handler ({ topic, pkg, tag }: PathArgs) {
   }
 }
 
-const queryVSM = async (pkgName, flags = 914) => {
+const queryVSM = async (pkgName, flags = 467) => {
   const endpoint = 'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery'
   return got.post(endpoint, {
     searchParams: { 'api-version': '3.0-preview.1' },
