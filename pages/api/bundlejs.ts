@@ -9,10 +9,11 @@ export default createBadgenHandler({
     '/bundlejs/min/react': 'minified',
     '/bundlejs/minzip/react': 'minified + gzip',
     '/bundlejs/minzip/@noble/hashes': '(scoped pkg) minified + gzip',
+    '/bundlejs/minzip/@noble/hashes/sha3.js': '(scoped pkg) minified + gzip (sub-path)',
   },
   handlers: {
-    '/bundlejs/:topic/:scope<@.*>/:name': handler,
-    '/bundlejs/:topic/:name': handler,
+    '/bundlejs/:topic/:scope<@.*>/:name+': handler,
+    '/bundlejs/:topic/:name+': handler,
   }
 })
 
