@@ -1,6 +1,7 @@
 import staticBadge from '../pages/api/static'
 import github from '../pages/api/github'
 import gitlab from '../pages/api/gitlab'
+import codeberg from '../pages/api/codeberg'
 import https from '../pages/api/https'
 import memo from '../pages/api/memo'
 import amo from '../pages/api/amo'
@@ -68,6 +69,7 @@ export default {
   static: staticBadge.meta,
   github: github.meta,
   gitlab: gitlab.meta,
+  codeberg: codeberg.meta,
   https: https.meta,
   memo: memo.meta,
   amo: amo.meta,
