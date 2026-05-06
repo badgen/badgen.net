@@ -4,6 +4,7 @@ import originalUrl from 'original-url'
 
 import { IncomingMessage, ServerResponse } from 'http'
 import { BadgenParams } from './types'
+import { createBadgeCacheControlHeader, resolveBadgeCacheMaxAge } from './badge-cache-control'
 
 type ServeBadgeOptions = {
   code?: number
@@ -33,8 +34,8 @@ export default async function (req: IncomingMessage, res: ServerResponse, option
     scale: parseFloat(scale || '1'),
   })
 
-  const cacheMaxAge = cache ? Math.max(parseInt(cache as string) || 0, 300) : sMaxAge
-  res.setHeader('Cache-Control', `public, max-age=120, s-maxage=${cacheMaxAge}, stale-while-revalidate=86400`)
+  const cacheMaxAge = resolveBadgeCacheMaxAge(cache, sMaxAge)
+  res.setHeader('Cache-Control', createBadgeCacheControlHeader(cacheMaxAge))
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
   res.statusCode = code
   res.end(badge)

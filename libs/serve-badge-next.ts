@@ -3,6 +3,7 @@ import icons from 'badgen-icons'
 import originalUrl from 'original-url'
 
 import { BadgenParams } from './types'
+import { createBadgeCacheControlHeader, resolveBadgeCacheMaxAge } from './badge-cache-control'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -41,8 +42,8 @@ export async function serveBadgeNext (req: NextApiRequest, res: NextApiResponse,
 
   // Minimum s-maxage is set to 300s(5m)
   if (res.getHeader('cache-control') === undefined) {
-    const cacheMaxAge = cache ? Math.max(parseInt(String(cache)), 300) : sMaxAge
-    res.setHeader('cache-control', `public, max-age=86400, s-maxage=${cacheMaxAge}, stale-while-revalidate=86400`)
+    const cacheMaxAge = resolveBadgeCacheMaxAge(cache, sMaxAge)
+    res.setHeader('cache-control', createBadgeCacheControlHeader(cacheMaxAge))
   }
 
   res.setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
