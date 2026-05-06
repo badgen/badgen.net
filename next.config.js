@@ -26,6 +26,7 @@ const nextConfig = {
       '/static',
       '/github',
       '/gitlab',
+      '/codeberg',
       '/https',
       '/memo',
       // registry
