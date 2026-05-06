@@ -26,6 +26,7 @@ const nextConfig = {
       '/static',
       '/github',
       '/gitlab',
+      '/codeberg',
       '/https',
       '/memo',
       // registry
@@ -94,6 +95,7 @@ const nextConfig = {
       '/liberapay',
       '/opencollective',
       '/tidelift',
+      '/email',
       // discontinued
       '/apm',
       '/lgtm',

@@ -1,6 +1,7 @@
 import staticBadge from '../pages/api/static'
 import github from '../pages/api/github'
 import gitlab from '../pages/api/gitlab'
+import codeberg from '../pages/api/codeberg'
 import https from '../pages/api/https'
 import memo from '../pages/api/memo'
 import amo from '../pages/api/amo'
@@ -63,11 +64,13 @@ import opencollective from '../pages/api/opencollective'
 import keybase from '../pages/api/keybase'
 import mastodon from '../pages/api/mastodon'
 import tidelift from '../pages/api/tidelift'
+import email from '../pages/api/email'
 
 export default {
   static: staticBadge.meta,
   github: github.meta,
   gitlab: gitlab.meta,
+  codeberg: codeberg.meta,
   https: https.meta,
   memo: memo.meta,
   amo: amo.meta,
@@ -130,4 +133,5 @@ export default {
   keybase: keybase.meta,
   mastodon: mastodon.meta,
   tidelift: tidelift.meta,
+  email: email.meta,
 }
