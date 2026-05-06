@@ -15,10 +15,7 @@ test('/static: simple static badge', async (t) => {
 })
 
 
-test('/memo: update "depoyed" badge', async (t) => {
-    if (!process.env.MEMO_BADGE_TOKEN) {
-        throw new Error('MEMO_BADGE_TOKEN is required to run this test')
-    }
+test('/memo: update "depoyed" badge', { skip: !process.env.MEMO_BADGE_TOKEN }, async (t) => {
     const status = getGitLastCommitDate()
     const label = 'Deployed'
     const color = getGitCurrentBranch() === 'main' ? 'green' : 'cyan'
@@ -36,6 +33,37 @@ test('/memo: update "depoyed" badge', async (t) => {
 
     const result = await response.json()
     assert.deepEqual(result, { status, label, color })
+})
+
+test('/vs-marketplace: stable version badge', async (t) => {
+    const pkg = 'ms-python.vscode-pylance'
+    const defaultURL = `${BASE_URL}/vs-marketplace/v/${pkg}`
+    const latestURL = `${BASE_URL}/vs-marketplace/v/${pkg}/latest`
+
+    const [defaultRes, latestRes] = await Promise.all([
+        fetch(defaultURL),
+        fetch(latestURL)
+    ])
+
+    assert.strictEqual(defaultRes.status, 200)
+    assert.strictEqual(latestRes.status, 200)
+
+    const defaultSvg = await defaultRes.text()
+    const latestSvg = await latestRes.text()
+
+    assert.ok(defaultSvg.includes('VS Marketplace'), 'Default SVG should contain "VS Marketplace"')
+    assert.ok(latestSvg.includes('VS Marketplace'), 'Latest SVG should contain "VS Marketplace"')
+
+    const defaultVer = defaultSvg.match(/v(\d+\.\d+\.\d+)/)?.[1]
+    const latestVer = latestSvg.match(/v(\d+\.\d+\.\d+)/)?.[1]
+
+    assert.ok(defaultVer, 'Should find a version in default badge')
+    assert.ok(latestVer, 'Should find a version in latest badge')
+
+    // At the time of testing, latest (pre-release) was 2026.2.101 and default (stable) was 2026.2.1
+    // Assert that they are different to ensure filtering is working correctly
+    assert.notStrictEqual(defaultVer, latestVer, `Default version (${defaultVer}) should be different from Latest version (${latestVer}) for ${pkg}`)
+    console.log(`Verified: Default (Stable: ${defaultVer}) is different from Latest (including Pre-release: ${latestVer})`)
 })
 
 
