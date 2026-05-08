@@ -155,7 +155,7 @@ Once created, this badge can only be updated with the same token, until it's exp
 
 ## Expiration
 
-A memo badge will be expired after <b>32 days</b> since it's last modification, but you can update it again within the period to keep the badge.
+A memo badge will be expired after <b>32 days</b> since its last modification, but you can update it again within the period to keep the badge.
 
 - When a badge is updated, it gets another 32 days lifespan,
 - When a badge is expired, it gets cleared like never exists.
