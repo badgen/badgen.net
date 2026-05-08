@@ -120,8 +120,8 @@ Support this project by donation, help Badgen continue and evolving!
 
 ## Sponsors
 
-<a href="https://vercel.com"><img src="https://badgen-sponsors.now.sh/vercel.svg" height="220px" /></a>
-<a href="https://sentry.io"><img src="https://badgen-sponsors.now.sh/sentry.svg" height="220px" /></a>
+<a href="https://vercel.com"><img src="https://badgen-sponsors.now.sh/vercel.svg" height="200px" /></a>
+<a href="https://sentry.io"><img src="https://badgen-sponsors.now.sh/sentry.svg" height="200px" /></a>
 
 [contributors-src]: https://badgen.net/github/contributors/badgen/badgen.net
 [contributors-href]: https://github.com/badgen/badgen.net/graphs/contributors
