@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react'
 import BadgenTitle from '../components/badgen-title'
 import HelpInfo from '../components/help-info'
 import Footer from '../components/footer'
-import examples from '../public/.meta/badges.json'
 
 export default function Index () {
   const [host, setHost] = useState('')

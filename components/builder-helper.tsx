@@ -1,9 +1,4 @@
 import badgeList from '../public/.meta/badge-list.json'
-import badgeListLegacy from '../public/.meta/badges.json'
-
-// const examples = [...badgeList.live, ...badgeList.static].reduce((accu, curr) => {
-//   return (accu as any).concat(Object.entries(curr.examples))
-// }, [] as [string, string][])
 
 type BadgeExamples = {
   [pathname: string]: string
@@ -11,23 +6,17 @@ type BadgeExamples = {
 type BadgeList = {
   [id: string]: {
     title: string;
-    examples: BadgeExamples;
+    examples?: BadgeExamples;
   }
 }
-
 
 const examples = extractExampleList(badgeList)
 
 function extractExampleList (badgeList: BadgeList): BadgeExamples {
-  let examples = {}
+  let examples: BadgeExamples = {}
 
-  Object.entries(badgeList).forEach((x) => {
-    examples = { ...examples, ...x[1].examples }
-  })
-
-  // Also apply legacy examples
-  badgeListLegacy.live.forEach((x) => {
-    examples = { ...examples, ...x.examples }
+  Object.values(badgeList).forEach((meta) => {
+    examples = { ...examples, ...(meta.examples || {}) }
   })
 
   return examples

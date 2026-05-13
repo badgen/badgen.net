@@ -2,8 +2,6 @@
 
 const { withSentryConfig } = require('@sentry/nextjs')
 
-const badgeList = require('./public/.meta/badges.json')
-
 const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: false,
