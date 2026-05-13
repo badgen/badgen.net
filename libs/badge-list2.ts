@@ -6,6 +6,7 @@ import https from '../pages/api/https'
 import memo from '../pages/api/memo'
 import amo from '../pages/api/amo'
 import npm from '../pages/api/npm'
+import ppm from '../pages/api/ppm'
 import pub from '../pages/api/pub'
 import crates from '../pages/api/crates'
 import docker from '../pages/api/docker'
@@ -75,6 +76,7 @@ export default {
   memo: memo.meta,
   amo: amo.meta,
   npm: npm.meta,
+  ppm: ppm.meta,
   pub: pub.meta,
   crates: crates.meta,
   docker: docker.meta,
