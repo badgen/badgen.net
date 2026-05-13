@@ -81,7 +81,6 @@ const nextConfig = {
       '/xo',
       // social network
       '/discord',
-      '/gitter',
       '/matrix',
       '/runkit',
       '/peertube',
