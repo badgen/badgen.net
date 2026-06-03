@@ -32,7 +32,7 @@ export default createBadgenHandler({
     '/github/open-issues/micromatch/micromatch': 'open issues',
     '/github/closed-issues/micromatch/micromatch': 'closed issues',
     '/github/label-issues/nodejs/node/ES%20Modules': 'issues by label',
-    '/github/label-issues/atom/atom/help-wanted/open': 'open issues by label',
+    '/github/label-issues/nodejs/node/help%20wanted/open': 'open issues by label',
     '/github/label-issues/rust-lang/rust/B-RFC-approved/closed': 'closed issues by label',
     '/github/prs/micromatch/micromatch': 'PRs',
     '/github/open-prs/micromatch/micromatch': 'open PRs',

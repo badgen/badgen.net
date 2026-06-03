@@ -39,7 +39,7 @@
 - [open issues](https://badgen.net/github/open-issues/micromatch/micromatch)
 - [closed issues](https://badgen.net/github/closed-issues/micromatch/micromatch)
 - [issues by label](https://badgen.net/github/label-issues/nodejs/node/ES%20Modules)
-- [open issues by label](https://badgen.net/github/label-issues/atom/atom/help-wanted/open)
+- [open issues by label](https://badgen.net/github/label-issues/nodejs/node/help%20wanted/open)
 - [closed issues by label](https://badgen.net/github/label-issues/rust-lang/rust/B-RFC-approved/closed)
 - [PRs](https://badgen.net/github/prs/micromatch/micromatch)
 - [open PRs](https://badgen.net/github/open-prs/micromatch/micromatch)
@@ -521,10 +521,10 @@ https://runkit.io/amio/cal-badge/branches/master/Asia/Shanghai
 - [version](https://badgen.net/homebrew/v/cake)
 - [monthly downloads](https://badgen.net/homebrew/dm/fish)
 - [yearly downloads](https://badgen.net/homebrew/dy/fish)
-- [version](https://badgen.net/homebrew/cask/v/atom)
+- [version](https://badgen.net/homebrew/cask/v/visual-studio-code)
 - [version](https://badgen.net/homebrew/cask/v/whichspace)
-- [monthly downloads](https://badgen.net/homebrew/cask/dm/atom)
-- [yearly downloads](https://badgen.net/homebrew/cask/dy/atom)
+- [monthly downloads](https://badgen.net/homebrew/cask/dm/visual-studio-code)
+- [yearly downloads](https://badgen.net/homebrew/cask/dy/visual-studio-code)
 
 ## NuGet
 
