@@ -9,8 +9,8 @@ Please refer to [https://github.com/alanshaw/david](https://github.com/alanshaw/
 export default createBadgenHandler({
   title: 'David DM',
   examples: {
-    '/david/dep/zeit/pkg': 'dependencies',
-    '/david/dev/zeit/pkg': 'dev dependencies',
+    '/david/dep/babel/babel': 'dependencies',
+    '/david/dev/babel/babel': 'dev dependencies',
     '/david/peer/epoberezkin/ajv-keywords': 'peer dependencies',
     '/david/optional/epoberezkin/ajv-keywords': 'optional dependencies',
     '/david/dep/babel/babel/packages/babel-cli': 'dependencies (sub path)',
