@@ -35,6 +35,7 @@ const nextConfig = {
       '/docker',
       '/open-vsx',
       '/chrome-web-store',
+      '/edge-addons',
       '/vs-marketplace',
       '/hackage',
       '/ppm',

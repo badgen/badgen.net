@@ -20,6 +20,7 @@ import coveralls from '../pages/api/coveralls'
 import travis from '../pages/api/travis'
 import circleci from '../pages/api/circleci'
 import chromeWebStore from '../pages/api/chrome-web-store'
+import edgeAddons from '../pages/api/edge-addons'
 import vsMarketplace from '../pages/api/vs-marketplace'
 import openVsx from '../pages/api/open-vsx'
 import hackage from '../pages/api/hackage'
@@ -82,6 +83,7 @@ export default {
   docker: docker.meta,
   'open-vsx': openVsx.meta,
   'chrome-web-store': chromeWebStore.meta,
+  'edge-addons': edgeAddons.meta,
   'vs-marketplace': vsMarketplace.meta,
   hackage: hackage.meta,
   pypi: pypi.meta,
