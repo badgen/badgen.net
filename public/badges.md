@@ -272,6 +272,16 @@ Metadata associated with an image in the [label-schema](http://label-schema.org/
 - [rating](https://badgen.net/chrome-web-store/rating/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 - [rating count](https://badgen.net/chrome-web-store/rating-count/ckkdlimhmcjmikdlpkmbgfkaikojcbjk)
 
+## Edge Add-ons
+
+### Examples
+
+- [version](https://badgen.net/edge-addons/v/cnlefmmeadmemmdciolhbnfeacpdfbkd)
+- [users](https://badgen.net/edge-addons/users/cnlefmmeadmemmdciolhbnfeacpdfbkd)
+- [stars](https://badgen.net/edge-addons/stars/cnlefmmeadmemmdciolhbnfeacpdfbkd)
+- [rating](https://badgen.net/edge-addons/rating/cnlefmmeadmemmdciolhbnfeacpdfbkd)
+- [rating count](https://badgen.net/edge-addons/rating-count/cnlefmmeadmemmdciolhbnfeacpdfbkd)
+
 ## Visual Studio Marketplace
 
 ### Examples
