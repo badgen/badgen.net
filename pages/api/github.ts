@@ -171,6 +171,11 @@ async function contributors ({ owner, repo }: PathArgs) {
   }
 }
 
+async function search ({resource, owner, repo, state}: PathArgs): Promise<any> {
+  const meta = await got(`https://api.github.com/search/${resource}?q=repo:${owner}/${repo}${state ? `+state:${state}` : ``}`).json()
+  return meta
+}
+
 async function meta ({ owner, repo }: PathArgs): Promise<any> {
   const meta = await got(`https://api.github.com/repos/${owner}/${repo}`).json()
   return meta
@@ -188,7 +193,7 @@ async function downloads ({ owner, repo, tag }: PathArgs) {
     }
   }
 
-   
+
   const downloadCount = release.assets.reduce((result, { download_count }) => {
     return result + download_count
   }, 0)
@@ -297,7 +302,7 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
     case 'last-commit':
       queryBody = `
         ${
-          restArgs.ref ? 
+          restArgs.ref ?
             `branch: ref(qualifiedName: "${restArgs.ref}")` :
             'defaultBranchRef'
         } {
@@ -358,10 +363,13 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
       }
     case 'open-issues':
       const { open_issues_count } = await meta({ owner, repo })
+      const { total_count: total_issues_count } = await search({ resource: 'issues', owner, repo })
+      const percentOfIssuesOpen = open_issues_count / total_issues_count
+
       return {
-        subject: topic,
+        subject: 'open issues/pulls',
         status: millify(open_issues_count),
-        color: 'blue'
+        color: percentOfIssuesOpen <= 0.1 ? 'green' : percentOfIssuesOpen <= 0.25 ? 'yellow' : percentOfIssuesOpen <= 0.5 ? 'orange' : 'red'
       }
     case 'stars':
       const { stargazers_count } = await meta({ owner, repo })
@@ -405,12 +413,6 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         status: millify(result.refs.totalCount),
         color: 'blue'
       }
-    // case 'open-issues':
-    //   return {
-    //     subject: 'open issues',
-    //     status: millify(result.issues.totalCount),
-    //     color: result.issues.totalCount === 0 ? 'green' : 'orange'
-    //   }
     case 'closed-issues':
       return {
         subject: 'closed issues',
@@ -451,7 +453,7 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
       return {
         subject: topic,
         status: millify(
-          result.branch ? 
+          result.branch ?
             result.branch.target.history.totalCount :
             result.defaultBranchRef.target.history.totalCount
         ),
