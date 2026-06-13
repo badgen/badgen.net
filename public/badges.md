@@ -166,7 +166,7 @@ To keep a memo badge, you need to update the badge at least on a monthly basis. 
 
 - [memoized badge for deploy status](https://badgen.net/memo/deployed)
 
-## Mozilla Add-on
+## Firefox Add-ons
 
 ### Examples
 

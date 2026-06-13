@@ -3,7 +3,7 @@ import { millify, stars, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
-  title: 'Mozilla Add-on',
+  title: 'Firefox Add-ons',
   examples: {
     '/amo/v/markdown-viewer-chrome': 'version',
     '/amo/users/markdown-viewer-chrome': 'users',
@@ -23,7 +23,7 @@ async function handler ({ topic, name }: PathArgs) {
   switch (topic) {
     case 'v':
       return {
-        subject: 'mozilla add-on',
+        subject: 'firefox add-ons',
         status: version(addon.current_version.version),
         color: versionColor(addon.current_version.version)
       }
@@ -53,7 +53,7 @@ async function handler ({ topic, name }: PathArgs) {
       }
     default:
       return {
-        subject: 'mozilla add-on',
+        subject: 'firefox add-ons',
         status: 'unknown',
         color: 'grey'
       }
