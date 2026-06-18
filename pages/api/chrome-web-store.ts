@@ -40,7 +40,7 @@ async function handler ({ topic, id }: PathArgs) {
     case 'users':
       return {
         subject: 'users',
-        status: result.users(),
+        status: millify(parseInt(result.users()?.replace(/,/g, '') || '0')),
         color: 'green'
       }
     case 'price':
