@@ -146,6 +146,21 @@ async function release ({ owner, repo, channel }: PathArgs) {
   const stable = releases.find(release => !release.prerelease)
 
   switch (channel) {
+    case 'latest':
+      try {
+        const latestRelease = await restGithub(`repos/${owner}/${repo}/releases/latest`)
+        return {
+          subject: 'release',
+          status: version(latestRelease.name || latestRelease.tag_name),
+          color: 'blue'
+        }
+      } catch {
+        return {
+          subject: 'release',
+          status: 'none',
+          color: 'yellow'
+        }
+      }
     case 'stable':
       return {
         subject: 'release',
