@@ -13,7 +13,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@sentry/nextjs": "^10.51.0",
+    "@sentry/nextjs": "^10.65.0",
     "@sentry/tracing": "^7.120.4",
     "@vercel/analytics": "^2.0.1",
     "@vercel/kv": "^3.0.0",
