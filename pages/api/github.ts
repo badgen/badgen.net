@@ -48,6 +48,7 @@ export default createBadgenHandler({
     '/github/last-commit/micromatch/micromatch/4.0.1': 'last commit (tag ref)',
     '/github/assets-dl/electron/electron': 'assets downloads for latest release',
     '/github/assets-dl/electron/electron/v7.0.0': 'assets downloads for a tag',
+    '/github/assets-dl/electron/electron/total': 'total assets downloads for all releases',
     '/github/dependents-repo/micromatch/micromatch': 'repository dependents',
     '/github/dependents-pkg/micromatch/micromatch': 'package dependents',
     '/github/dependabot/ubuntu/yaru': 'dependabot status',
@@ -193,6 +194,51 @@ async function meta ({ owner, repo }: PathArgs): Promise<any> {
 }
 
 async function downloads ({ owner, repo, tag }: PathArgs) {
+  if (tag === 'total' || tag === 'all') {
+    const MAX_PAGES = 5
+    let page = 1
+    let totalDownloads = 0
+    let hasReleases = false
+
+    while (page <= MAX_PAGES) {
+      const releases: any = await restGithub(`repos/${owner}/${repo}/releases`, {
+        per_page: '100',
+        page: String(page)
+      })
+
+      if (!releases || !Array.isArray(releases) || !releases.length) {
+        break
+      }
+
+      hasReleases = true
+
+      for (const release of releases) {
+        if (release.assets && Array.isArray(release.assets)) {
+          for (const asset of release.assets) {
+            totalDownloads += asset.download_count || 0
+          }
+        }
+      }
+
+      if (releases.length < 100) break
+      page++
+    }
+
+    if (!hasReleases) {
+      return {
+        subject: 'downloads',
+        status: 'no releases',
+        color: 'grey'
+      }
+    }
+
+    return {
+      subject: 'downloads',
+      status: millify(totalDownloads),
+      color: 'green'
+    }
+  }
+
   const releaseSelection = tag ? `tags/${tag}` : 'latest'
   const release = await restGithub(`repos/${owner}/${repo}/releases/${releaseSelection}`)
 
@@ -204,8 +250,7 @@ async function downloads ({ owner, repo, tag }: PathArgs) {
     }
   }
 
-   
-  const downloadCount = release.assets.reduce((result, { download_count }) => {
+  const downloadCount = release.assets.reduce((result: number, { download_count }: any) => {
     return result + download_count
   }, 0)
 

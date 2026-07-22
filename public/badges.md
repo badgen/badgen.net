@@ -55,6 +55,7 @@
 - [last commit (tag ref)](https://badgen.net/github/last-commit/micromatch/micromatch/4.0.1)
 - [assets downloads for latest release](https://badgen.net/github/assets-dl/electron/electron)
 - [assets downloads for a tag](https://badgen.net/github/assets-dl/electron/electron/v7.0.0)
+- [total assets downloads for all releases](https://badgen.net/github/assets-dl/electron/electron/total)
 - [repository dependents](https://badgen.net/github/dependents-repo/micromatch/micromatch)
 - [package dependents](https://badgen.net/github/dependents-pkg/micromatch/micromatch)
 - [dependabot status](https://badgen.net/github/dependabot/ubuntu/yaru)
