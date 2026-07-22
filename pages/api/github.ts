@@ -48,7 +48,7 @@ export default createBadgenHandler({
     '/github/last-commit/micromatch/micromatch/4.0.1': 'last commit (tag ref)',
     '/github/assets-dl/electron/electron': 'assets downloads for latest release',
     '/github/assets-dl/electron/electron/v7.0.0': 'assets downloads for a tag',
-    '/github/assets-dl/electron/electron/total': 'total assets downloads for all releases',
+    '/github/assets-dl/electron/electron/total': 'total assets downloads (recent releases)',
     '/github/dependents-repo/micromatch/micromatch': 'repository dependents',
     '/github/dependents-pkg/micromatch/micromatch': 'package dependents',
     '/github/dependabot/ubuntu/yaru': 'dependabot status',
@@ -195,42 +195,22 @@ async function meta ({ owner, repo }: PathArgs): Promise<any> {
 
 async function downloads ({ owner, repo, tag }: PathArgs) {
   if (tag === 'total' || tag === 'all') {
-    const MAX_PAGES = 5
-    let page = 1
-    let totalDownloads = 0
-    let hasReleases = false
+    const releases = await restGithub(`repos/${owner}/${repo}/releases`, {
+      per_page: '30'
+    })
 
-    while (page <= MAX_PAGES) {
-      const releases: any = await restGithub(`repos/${owner}/${repo}/releases`, {
-        per_page: '100',
-        page: String(page)
-      })
-
-      if (!releases || !Array.isArray(releases) || !releases.length) {
-        break
-      }
-
-      hasReleases = true
-
-      for (const release of releases) {
-        if (release.assets && Array.isArray(release.assets)) {
-          for (const asset of release.assets) {
-            totalDownloads += asset.download_count || 0
-          }
-        }
-      }
-
-      if (releases.length < 100) break
-      page++
-    }
-
-    if (!hasReleases) {
+    if (!releases || !Array.isArray(releases) || !releases.length) {
       return {
         subject: 'downloads',
         status: 'no releases',
         color: 'grey'
       }
     }
+
+    const totalDownloads = releases.reduce((acc, release) => {
+      if (!release.assets || !release.assets.length) return acc
+      return acc + release.assets.reduce((sum: number, asset: any) => sum + (asset.download_count || 0), 0)
+    }, 0)
 
     return {
       subject: 'downloads',
