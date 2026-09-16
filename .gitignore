@@ -6,6 +6,8 @@ node_modules
 .next
 .meta
 .env
+.env*.local
+.env.*
 
 # Sentry
 .sentryclirc
