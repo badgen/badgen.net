@@ -11,7 +11,9 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": ".",
+    "paths": {
+      "*": ["./*"]
+    },
     "lib": [
       "dom",
       "dom.iterable",
