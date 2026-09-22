@@ -10,21 +10,15 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 type ServeBadgeOptions = {
   code?: number
   sMaxAge?: number,
+  query?: NextApiRequest['query'],
   params: BadgenParams
 }
 
 export async function serveBadgeNext (req: NextApiRequest, res: NextApiResponse, options: ServeBadgeOptions) {
-  const { code = 200, sMaxAge = 3600, params } = options
+  const { code = 200, sMaxAge = 3600, query = req.query, params } = options
   const { subject, status, color } = params
 
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    return res.status(204).end()
-  }
-
-  const query = req.query
-  const { list, scale, cache } = req.query
+  const { list, scale, cache } = query
   const iconMeta = await resolveIcon(query.icon, query.iconWidth)
 
   const badgeParams = {
@@ -32,7 +26,7 @@ export async function serveBadgeNext (req: NextApiRequest, res: NextApiResponse,
     subject: formatSVGText(typeof query.label === 'string' ? query.label : subject),
     status: formatSVGText(transformStatus(status, { list })),
     color: resolveColor(query.color || color, 'blue'),
-    style: resolveBadgeStyle(req),
+    style: resolveBadgeStyle(req, query.style),
     icon: iconMeta.src,
     iconWidth: iconMeta.width,
     scale: parseFloat(String(scale)) || 1,
@@ -40,7 +34,7 @@ export async function serveBadgeNext (req: NextApiRequest, res: NextApiResponse,
 
   const badgeSVGString = badgen(badgeParams)
 
-  // Minimum s-maxage is set to 300s(5m)
+  // Explicit service cache headers take precedence over successful query defaults.
   if (res.getHeader('cache-control') === undefined) {
     const cacheMaxAge = resolveBadgeCacheMaxAge(cache, sMaxAge)
     res.setHeader('cache-control', createBadgeCacheControlHeader(cacheMaxAge))
@@ -62,15 +56,16 @@ function resolveBadgeStyle (req: NextApiRequest, style?: string | string[]): 'fl
     return 'flat'
   }
 
-  if (originalUrl(req).hostname.includes('flat')) {
-    return 'flat'
+  try {
+    return originalUrl(req).hostname?.includes('flat') ? 'flat' : 'classic'
+  } catch {
+    // Invalid proxy metadata must not prevent an error badge from rendering.
+    return 'classic'
   }
-
-  return 'classic'
 }
 
-function formatSVGText (text: string): string {
-  return text
+function formatSVGText (text: string | number): string {
+  return String(text)
     .replace(/%2F/g, '/') // simple decode
 }
 
@@ -106,13 +101,13 @@ async function resolveIcon (icon?: string | string[], width?: string | string[])
 
   const iconArg = icon
 
-  const widthNum = parseInt(String(width)) || 13
+  const widthNum = parseInt(String(width))
 
   const builtinIcon = icons[iconArg]
   if (builtinIcon) {
     return {
       src: builtinIcon.base64,
-      width: widthNum || builtinIcon.width
+      width: widthNum || parseInt(builtinIcon.width)
     }
   }
 
@@ -127,7 +122,7 @@ async function resolveIcon (icon?: string | string[], width?: string | string[])
   }
 
   if (iconArg.startsWith('data:image/')) {
-    return { src: iconArg, width: widthNum }
+    return { src: iconArg, width: widthNum || 13 }
   }
 
   return {}
