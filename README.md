@@ -88,7 +88,7 @@ If a service you wish to have is still missing here, we welcome new contribution
 3. Add the public route to `badgeApis` in [next.config.js](next.config.js).
 4. Add regression tests for the service's behavior, run `npm test`, and check the public badge and help URLs with `npm run dev`.
 
-`npm run dev` and `npm run build` run `npm run generate` first. It generates `public/.meta/badge-list.json` and the public service reference at `/badges.md` from the registered handlers. These outputs are ignored by Git; update handler metadata instead of editing generated files.
+`npm run dev` and `npm run build` run `npm run generate` first. It generates `public/.meta/badge-list.json` and the public service reference at `/badges.md` from the registered handlers. The JSON metadata is ignored by Git; [public/badges.md](public/badges.md) is tracked as public documentation. After updating handler metadata, run `npm run generate` and commit the refreshed `public/badges.md` along with the source changes instead of editing generated files directly.
 
 __NOTES__
 

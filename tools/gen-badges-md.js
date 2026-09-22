@@ -29,5 +29,5 @@ for (const key in data) {
   }
 }
 
-fs.writeFileSync(destPath, md)
+fs.writeFileSync(destPath, md.replace(/^[\t ]+$/gm, '').replace(/\n+$/, '\n'))
 console.log(`Generated ${destPath}`)
