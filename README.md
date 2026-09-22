@@ -71,7 +71,7 @@ Run lint and the local regression suite without external services:
     npm run lint
     npm test
 
-Install `redis-server` and `redis-cli` to include the real Redis ownership and expiry tests. The suite starts and cleans up its own temporary Redis instance; no running Redis service or production KV credentials are needed. These tests are skipped when either tool is unavailable locally. PR CI installs both tools and runs lint, tests, and a production build.
+PR CI runs lint, tests, and a production build.
 
 For E2E smoke tests, start the server and specify its URL:
 

@@ -11,12 +11,6 @@ jobs:
     - uses: actions/setup-node@v6
       with:
         node-version: '24'
-    - name: Install Redis test tools
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y redis-server redis-tools
-        redis-server --version
-        redis-cli --version
     - name: Install, lint, test, and build
       run: |
         npm ci
