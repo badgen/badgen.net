@@ -88,6 +88,26 @@
 - [last commit (branch ref)](https://badgen.net/gitlab/last-commit/gitlab-org/gitlab-development-kit/updating-chromedriver-install-v2)
 - [last commit (tag ref)](https://badgen.net/gitlab/last-commit/gitlab-org/gitlab-development-kit/v0.2.5)
 
+## Codeberg
+
+### Examples
+
+- [stars](https://badgen.net/codeberg/stars/forgejo/forgejo)
+- [forks](https://badgen.net/codeberg/forks/forgejo/forgejo)
+- [issues](https://badgen.net/codeberg/issues/forgejo/forgejo)
+- [open issues](https://badgen.net/codeberg/open-issues/forgejo/forgejo)
+- [closed issues](https://badgen.net/codeberg/closed-issues/forgejo/forgejo)
+- [PRs](https://badgen.net/codeberg/prs/forgejo/forgejo)
+- [open PRs](https://badgen.net/codeberg/open-prs/forgejo/forgejo)
+- [closed PRs](https://badgen.net/codeberg/closed-prs/forgejo/forgejo)
+- [releases](https://badgen.net/codeberg/releases/forgejo/forgejo)
+- [latest release](https://badgen.net/codeberg/release/forgejo/forgejo)
+- [tags](https://badgen.net/codeberg/tags/forgejo/forgejo)
+- [commits count](https://badgen.net/codeberg/commits/forgejo/forgejo)
+- [commits count (branch ref)](https://badgen.net/codeberg/commits/forgejo/forgejo/forgejo)
+- [last commit](https://badgen.net/codeberg/last-commit/forgejo/forgejo)
+- [last commit (branch ref)](https://badgen.net/codeberg/last-commit/forgejo/forgejo/forgejo)
+
 ## With HTTPS Endpoint
 
 ## Use Badgen with HTTPS Endpoint
@@ -147,7 +167,7 @@ A badge with memory.
 A <code>/memo</code> badge like:
 
     https://badgen.net/memo/a-badge-with-memory
-    
+
 can be created/updated using a <code>PUT</code> request with an <code>Authorization: Bearer XXXXXX</code> header:
 
     curl -LX PUT --header "Authorization: Bearer XXXXXX" https://badgen.net/memo/a-badge-with-memory/:label/:status/:color
@@ -156,7 +176,7 @@ Once created, this badge can only be updated with the same token, until it's exp
 
 ## Expiration
 
-A memo badge will be expired after <b>32 days</b> since its last modification, but you can update it again within the period to keep the badge.
+A memo badge will be expired after <b>32 days</b> since it's last modification, but you can update it again within the period to keep the badge.
 
 - When a badge is updated, it gets another 32 days lifespan,
 - When a badge is expired, it gets cleared like never exists.
@@ -197,6 +217,16 @@ To keep a memo badge, you need to update the badge at least on a monthly basis. 
 - [types](https://badgen.net/npm/types/tslib)
 - [types](https://badgen.net/npm/types/react)
 - [types](https://badgen.net/npm/types/queri)
+
+## Pulsar Package
+
+### Examples
+
+- [version](https://badgen.net/ppm/v/linter)
+- [stars](https://badgen.net/ppm/stars/linter)
+- [license](https://badgen.net/ppm/license/linter)
+- [downloads](https://badgen.net/ppm/downloads/linter)
+- [engine](https://badgen.net/ppm/engine/linter)
 
 ## Dart pub
 
@@ -288,6 +318,7 @@ Metadata associated with an image in the [label-schema](http://label-schema.org/
 ### Examples
 
 - [version](https://badgen.net/vs-marketplace/v/vscodevim.vim)
+- [version (including pre-release)](https://badgen.net/vs-marketplace/v/ms-python.vscode-pylance/latest)
 - [installs](https://badgen.net/vs-marketplace/i/vscodevim.vim)
 - [downloads](https://badgen.net/vs-marketplace/d/vscodevim.vim)
 - [rating](https://badgen.net/vs-marketplace/rating/vscodevim.vim)
@@ -345,6 +376,7 @@ Metadata associated with an image in the [label-schema](http://label-schema.org/
 - [minified](https://badgen.net/bundlejs/min/react)
 - [minified + gzip](https://badgen.net/bundlejs/minzip/react)
 - [(scoped pkg) minified + gzip](https://badgen.net/bundlejs/minzip/@noble/hashes)
+- [(scoped pkg) minified + gzip (sub-path)](https://badgen.net/bundlejs/minzip/@noble/hashes/sha3.js)
 
 ## Packagephobia
 
@@ -355,6 +387,12 @@ Metadata associated with an image in the [label-schema](http://label-schema.org/
 - [(scoped pkg) publish size](https://badgen.net/packagephobia/publish/@tusbar/cache-control)
 
 ## Code Climate
+
+## Discontinued
+
+CodeClimate has been deprecated in favour of Qlty ([announcement](https://codeclimate.com/blog/code-climate-quality-is-now-qlty-software)).
+
+Qlty now has an official badge service documented [here](https://docs.qlty.sh/coverage/status-badges).
 
 ### Examples
 
@@ -371,7 +409,7 @@ Metadata associated with an image in the [label-schema](http://label-schema.org/
 ### Examples
 
 - [coverage (github)](https://badgen.net/codecov/github/babel/babel)
-- [coverage (github, branch)](https://badgen.net/codecov/github/babel/babel/6.x)
+- [coverage (github, branch)](https://badgen.net/codecov/github/babel/babel/7.x)
 - [coverage (bitbucket)](https://badgen.net/codecov/bitbucket/ignitionrobotics/ign-math)
 - [coverage (bitbucket, branch)](https://badgen.net/codecov/bitbucket/ignitionrobotics/ign-math/master)
 - [coverage (gitlab)](https://badgen.net/codecov/gitlab/gitlab-org/gitaly)
@@ -532,10 +570,10 @@ https://runkit.io/amio/cal-badge/branches/master/Asia/Shanghai
 - [version](https://badgen.net/homebrew/v/cake)
 - [monthly downloads](https://badgen.net/homebrew/dm/fish)
 - [yearly downloads](https://badgen.net/homebrew/dy/fish)
-- [version](https://badgen.net/homebrew/cask/v/visual-studio-code)
 - [version](https://badgen.net/homebrew/cask/v/whichspace)
-- [monthly downloads](https://badgen.net/homebrew/cask/dm/visual-studio-code)
-- [yearly downloads](https://badgen.net/homebrew/cask/dy/visual-studio-code)
+- [version](https://badgen.net/homebrew/cask/v/raycast)
+- [monthly downloads](https://badgen.net/homebrew/cask/dm/raycast)
+- [yearly downloads](https://badgen.net/homebrew/cask/dy/raycast)
 
 ## NuGet
 
@@ -907,3 +945,9 @@ From your UptimeRobot dashboard, go to
 - [subscription](https://badgen.net/tidelift/npm/minimist)
 - [subscription](https://badgen.net/tidelift/npm/got)
 
+## Email
+
+### Examples
+
+- [email](https://badgen.net/email/consulting/tunnckocore.com)
+- [email](https://badgen.net/email/foobar/mydomain.co.uk)

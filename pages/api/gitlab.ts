@@ -44,63 +44,39 @@ export default createBadgenHandler({
 
 
 async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
-  const result = await makeRestCall({ topic, owner, repo, ...restArgs })
+  const { body, headers } = await makeRestCall({ topic, owner, repo, ...restArgs })
 
-  const totalCount = millify(parseInt(result.headers.get('x-total')))
+  const countSubjects = {
+    'mrs': 'MRs',
+    'closed-mrs': 'closed MRs',
+    'open-mrs': 'open MRs',
+    'merged-mrs': 'merged MRs',
+    'commits': 'commits',
+    'branches': 'branches',
+    'releases': 'releases',
+    'tags': 'tags',
+    'contributors': 'contributors',
+  }
+
+  if (Object.hasOwn(countSubjects, topic)) {
+    return {
+      subject: countSubjects[topic],
+      status: millify(parseInt(headers['x-total'] as string, 10)),
+      color: 'blue'
+    }
+  }
 
   switch (topic) {
-    case 'mrs':
-      return {
-        subject: 'MRs',
-        status: totalCount,
-        color: 'blue'
-      }
-    case 'closed-mrs':
-      return {
-        subject: 'closed MRs',
-        status: totalCount,
-        color: 'blue'
-      }
-    case 'open-mrs':
-      return {
-        subject: 'open MRs',
-        status: totalCount,
-        color: 'blue'
-      }
-    case 'merged-mrs':
-      return {
-        subject: 'merged MRs',
-        status: totalCount,
-        color: 'blue'
-      }
-    case 'commits':
-      return {
-        subject: 'commits',
-        status: totalCount,
-        color: 'blue'
-      }
     case 'last-commit':
-      const lastDate = result.length && new Date(result[0].committed_date)
+      const lastDate = body.length && new Date(body[0].committed_date)
       const fromNow = lastDate && formatDistanceToNow(lastDate, { addSuffix: true })
       return {
         subject: 'last commit',
         status: fromNow || 'none',
         color: 'green'
       }
-    case 'branches':
-      return {
-        subject: 'branches',
-        status: totalCount,
-        color: 'blue'
-      }
-    case 'releases':
-      return {
-        subject: 'releases',
-        status: totalCount,
-        color: 'blue'
-      }
     case 'release':
-      const [latest] = result
+      const [latest] = body
       if (!latest) {
         return {
           subject: 'release',
@@ -113,23 +89,11 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
         status: version(latest.name || latest.tag_name),
         color: 'blue'
       }
-    case 'tags':
-      return {
-        subject: 'tags',
-        status: totalCount,
-        color: 'blue'
-      }
-    case 'contributors':
-      return {
-        subject: 'contributors',
-        status: totalCount,
-        color: 'blue'
-      }
     case 'license':
       return {
         subject: 'license',
-        status: result.license?.name || "no license",
-        color: result.license ? 'blue' : 'grey'
+        status: body.license?.name || "no license",
+        color: body.license ? 'blue' : 'grey'
       }
     default:
       return {
@@ -239,8 +203,8 @@ const makeRestCall = async ({ topic, owner, repo, ...restArgs }) => {
     'open-mrs': `projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=opened`,
     'closed-mrs': `projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=closed`,
     'merged-mrs': `projects/${encodeURIComponent(`${owner}/${repo}`)}/merge_requests?state=merged`,
-    'commits': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + restArgs.ref : ''}`,
-    'last-commit': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + restArgs.ref : ''}`,
+    'commits': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + encodeURIComponent(restArgs.ref) : ''}`,
+    'last-commit': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/commits?${restArgs.ref ? "ref_name=" + encodeURIComponent(restArgs.ref) : ''}`,
     'branches': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/branches`,
     'tags': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/tags`,
     'contributors': `projects/${encodeURIComponent(`${owner}/${repo}`)}/repository/contributors`,
@@ -249,20 +213,5 @@ const makeRestCall = async ({ topic, owner, repo, ...restArgs }) => {
     'license': `projects/${encodeURIComponent(`${owner}/${repo}`)}?license=true`,
   }
 
-  let restPath = restPaths[topic]
-
-  return restGitlab(restPath, fullResponsePaths.includes(topic))
+  return restGitlab(restPaths[topic])
 }
-
-const fullResponsePaths =
-  [
-    'mrs',
-    'open-mrs',
-    'closed-mrs',
-    'merged-mrs',
-    'commits',
-    'branches',
-    'releases',
-    'tags',
-    'contributors'
-  ]

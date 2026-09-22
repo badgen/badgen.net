@@ -1,13 +1,14 @@
-import path from 'path'
-import fse from 'fs-extra'
+import { mkdir, writeFile } from 'node:fs/promises'
+import path from 'node:path'
 import BadgeList2 from '../libs/badge-list2'
 
-const rel = (...args) => path.resolve(__dirname, ...args)
+async function main () {
+  const directory = path.resolve(__dirname, '../public/.meta')
+  await mkdir(directory, { recursive: true })
+  await writeFile(path.join(directory, 'badge-list.json'), JSON.stringify(BadgeList2, null, 2) + '\n')
+}
 
-;(async function main () {
-  await fse.outputJson(rel('../public/.meta/badge-list.json'), BadgeList2, {
-    spaces: 2
-  })
-})()
-
-process.on('unhandledRejection', console.error)
+main().catch(error => {
+  console.error(error)
+  process.exitCode = 1
+})

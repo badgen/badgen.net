@@ -48,6 +48,10 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 [![Contributors][contributors-src]][contributors-href]
 [![Docker image][docker-src]][docker-href]
 
+Use Node.js 24 (see `.nvmrc`) and npm 11 or newer. Install dependencies first:
+
+    npm ci
+
 **start dev server**
 
     npm run dev
@@ -60,14 +64,31 @@ At the time of badgen.now.sh's reveal, it had only four live badges as demonstra
 
     docker run -p 3000:3000 amio/badgen
 
+### Validation
+
+Run lint and the local regression suite without external services:
+
+    npm run lint
+    npm test
+
+PR CI runs lint, tests, and a production build.
+
+For E2E smoke tests, start the server and specify its URL:
+
+    BASE_URL=http://localhost:3000 npm run test:e2e
+
+These tests include email badges and contact upstream services for live badges. Set `BASE_URL` to a deployment URL to check that deployment. The memo write test is skipped unless `MEMO_BADGE_TOKEN` is set; providing it updates the target's `deployed` badge. Deployment CI supplies its existing token for that check.
+
 ### Add Live Badge
 
-If a service you wish to have is still missing here, we welcome new contributions. Basically, you need to add a file in `pages/api/[name-of-service].ts` and that's it. Take [/crates](https://badgen.net/crates) as an example:
+If a service you wish to have is still missing here, we welcome new contributions. Take [/crates](https://badgen.net/crates) as an example:
 
-- [pages/api/crates.ts](pages/api/crates.ts) - main function for [crates](https://badgen.net/docs/crates) badges
-- [libs/badge-list2.ts](libs/badge-list2.ts) - contains index of all live badges
+1. Add a handler in `pages/api/[name-of-service].ts`, including its title, help, and examples. See [pages/api/crates.ts](pages/api/crates.ts).
+2. Register the handler in [libs/badge-list2.ts](libs/badge-list2.ts), the index of live badges.
+3. Add the public route to `badgeApis` in [next.config.js](next.config.js).
+4. Add regression tests for the service's behavior, run `npm test`, and check the public badge and help URLs with `npm run dev`.
 
-To ensure that your addition is working correctly, start the development server with `npm run dev`.
+`npm run dev` and `npm run build` run `npm run generate` first. It generates `public/.meta/badge-list.json` and the public service reference at `/badges.md` from the registered handlers. The JSON metadata is ignored by Git; [public/badges.md](public/badges.md) is tracked as public documentation. After updating handler metadata, run `npm run generate` and commit the refreshed `public/badges.md` along with the source changes instead of editing generated files directly.
 
 __NOTES__
 

@@ -1,4 +1,5 @@
 import millify from 'millify'
+import { HTTPError } from 'got'
 import got from '../../libs/got'
 import { getDockerAuthToken, getManifestList, getImageManifest, getImageConfig } from '../../libs/docker'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
@@ -83,16 +84,11 @@ async function sizeHandler ({ scope, name, tag, architecture, variant }: PathArg
   architecture = architecture ? architecture : 'amd64'
   variant = variant ? variant : ''
    
-  const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}/tags`
-  let body = await got(endpoint).json<any>()
-
-  let results = [...body.results]
-  while (body.next) {
-    body = await got(body.next).json<any>()
-    results = [...results, ...body.results]
-  }
-
-  const tagData = results.find(tagData => tagData.name === tag)
+  const endpoint = `https://hub.docker.com/v2/namespaces/${encodeURIComponent(scope)}/repositories/${encodeURIComponent(name)}/tags/${encodeURIComponent(tag)}`
+  const tagData = await got.get(endpoint).json<any>().catch(error => {
+    if (error instanceof HTTPError && error.response.statusCode === 404) return undefined
+    throw error
+  })
 
   if (!tagData) {
     return {

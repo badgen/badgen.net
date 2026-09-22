@@ -41,6 +41,17 @@ export default createBadgenHandler({
 
 const MEMOIZED_TTL_SECONDS = 2764800 // 32 days
 
+// Token ownership and expiry renewal must be checked in the same Redis operation.
+// Use the existing JSON schema so old badges and code rollbacks remain compatible.
+const UPDATE_MEMO_SCRIPT = `
+local stored = redis.call('GET', KEYS[1])
+if stored and cjson.decode(stored).token ~= ARGV[1] then
+  return 0
+end
+redis.call('SET', KEYS[1], ARGV[2], 'EX', ARGV[3])
+return 1
+`
+
 type MemoizedBadgeItem = {
   token: string;
   params: {
@@ -90,14 +101,13 @@ async function putHandler (args: PathArgs, req: NextApiRequest, res: NextApiResp
 
   const newData: MemoizedBadgeItem = { token, params: { label, status, color }}
 
-  const storedData = await kv.get<MemoizedBadgeItem>(key)
+  const accepted = await kv.eval(UPDATE_MEMO_SCRIPT, [key], [
+    token, JSON.stringify(newData), MEMOIZED_TTL_SECONDS
+  ])
 
-  if (storedData === null || storedData.token === token) {
-    // If the key is not found, or found and token is validate, ser/update data and ttl
-    await kv.set(key, newData, { ex: MEMOIZED_TTL_SECONDS })
+  if (accepted === 1) {
     return JSON.stringify(newData.params)
   } else {
-    // The key is found but token is invalid, refuse to update the data
     res.status(401)
     return 'Unauthorized'
   }

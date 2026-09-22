@@ -1,8 +1,5 @@
 import * as Sentry from "@sentry/nextjs"
 
-// Importing @sentry/tracing patches the global hub for tracing to work.
-import "@sentry/tracing"
-
 if (process.env.SENTRY_DSN) {
 
   const { NOW_GITHUB_COMMIT_REF, NOW_GITHUB_COMMIT_SHA } = process.env

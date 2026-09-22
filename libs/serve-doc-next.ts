@@ -1,7 +1,6 @@
 import http from 'http'
 import matchRoute from 'my-way'
 import { serveMarked } from 'serve-marked'
-import serve404 from './serve-404'
 import { BadgenServeConfig } from './create-badgen-handler-next'
 
 const { GA_MEASUREMENT_ID = 'G-PD7EFJDYFV' } = process.env
@@ -10,13 +9,12 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
   return (req, res) => {
     const helpMarkdown = generateHelpMarkdown(conf)
 
-    if (helpMarkdown) {
-      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400')
+    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400')
 
-      serveMarked(helpMarkdown, {
-        title: `${conf.title} badge | Badgen`,
-        inlineCSS,
-        beforeHeadEnd: `
+    return serveMarked(helpMarkdown, {
+      title: `${conf.title} badge | Badgen`,
+      inlineCSS,
+      beforeHeadEnd: `
           <link rel='icon' type='image/png' href='/statics/favicon.png' />
           <!-- Google tag (gtag.js) -->
           <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"></script>
@@ -27,13 +25,8 @@ export default function serveDoc (conf: BadgenServeConfig): http.RequestListener
             gtag('config', '${GA_MEASUREMENT_ID}');
           </script>
         `,
-        beforeBodyEnd: helpFooter,
-      })(req, res)
-
-      return
-    }
-
-    serve404(req, res)
+      beforeBodyEnd: helpFooter,
+    })(req, res)
   }
 }
 
