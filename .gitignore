@@ -5,6 +5,7 @@ node_modules
 .firebase
 .next
 .meta
+/public/badges.md
 .env
 
 # Sentry

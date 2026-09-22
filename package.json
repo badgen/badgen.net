@@ -5,9 +5,10 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "generate": "node --import tsx tools/gen-examples.ts",
+    "generate": "node --import tsx tools/gen-examples.ts && node tools/gen-badges-md.js",
     "lint": "oxlint .",
     "test": "node --import tsx --test test/*.test.ts",
+    "test:e2e": "node --test test/*.test.mjs",
     "prebuild": "npm run generate",
     "build": "next build",
     "predev": "npm run generate",
