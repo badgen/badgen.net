@@ -4,6 +4,7 @@ const { withSentryConfig } = require('@sentry/nextjs/config')
 
 const nextConfig = {
   reactStrictMode: true,
+  output: process.env.BUILD_STANDALONE === '1' ? 'standalone' : undefined,
 
   async rewrites() {
     const badgeApis = [

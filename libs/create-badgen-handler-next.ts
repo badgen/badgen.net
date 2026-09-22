@@ -1,4 +1,3 @@
-import http from 'http'
 // import { measure } from 'measurement-protocol'
 import matchRoute from 'my-way'
 
@@ -104,15 +103,6 @@ function parseBadgenHandlerError (error: Error | HTTPError, req: NextApiRequest,
   res.setHeader('Error-Message', error.message)
 
   return errorBadgeParams
-}
-
-function getBadgeStyle (req: http.IncomingMessage): string | undefined {
-  const host = req.headers['x-forwarded-host']?.toString() ?? req.headers.host ?? ''
-  return host.startsWith('flat') ? 'flat' : undefined
-}
-
-function simpleDecode (str: string): string {
-  return String(str).replace(/%2F/g, '/')
 }
 
 export class BadgenError {

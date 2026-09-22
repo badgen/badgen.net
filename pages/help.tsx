@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 
 import { useState, useEffect } from 'react'
 import BadgenTitle from '../components/badgen-title'
@@ -65,8 +63,4 @@ export default function Index () {
     `}
     </style>
   </>
-}
-
-function ColorBadge ({color: string}) {
-  return <a href="/badge/color/blue/blue"><img src="/badge/color/blue/blue" alt="blue" /></a>
 }
