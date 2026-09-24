@@ -1,92 +1,14 @@
 /** @type {import('next').NextConfig} */
 
 const { withSentryConfig } = require('@sentry/nextjs/config')
+const { listed, unlisted } = require('./libs/service-registry.json')
 
 const nextConfig = {
   reactStrictMode: true,
   output: process.env.BUILD_STANDALONE === '1' ? 'standalone' : undefined,
 
   async rewrites() {
-    const badgeApis = [
-      '/static',
-      '/github',
-      '/gitlab',
-      '/codeberg',
-      '/https',
-      '/memo',
-      // registry
-      '/amo',
-      '/npm',
-      '/crates',
-      '/winget',
-      '/docker',
-      '/open-vsx',
-      '/chrome-web-store',
-      '/edge-addons',
-      '/vs-marketplace',
-      '/hackage',
-      '/ppm',
-      '/pub',
-      '/pypi',
-      '/rubygems',
-      '/homebrew',
-      '/nuget',
-      '/packagist',
-      '/melpa',
-      '/maven',
-      '/cocoapods',
-      '/haxelib',
-      '/opam',
-      '/cpan',
-      '/cran',
-      '/ctan',
-      '/dub',
-      '/elm-package',
-      '/scoop',
-      '/f-droid',
-      '/shards',
-      '/wapm',
-      '/snapcraft',
-      // analysis
-      '/bundlephobia',
-      '/bundlejs',
-      '/packagephobia',
-      '/codeclimate',
-      '/codecov',
-      '/coveralls',
-      '/codacy',
-      '/deepscan',
-      '/snyk',
-      '/badgesize',
-      '/uptime-robot',
-      '/travis',
-      '/circleci',
-      '/appveyor',
-      '/azure-pipelines',
-      '/jenkins',
-      '/dependabot',
-      '/jsdelivr',
-      '/xo',
-      // social network
-      '/discord',
-      '/matrix',
-      '/runkit',
-      '/peertube',
-      '/devrant',
-      '/reddit',
-      '/mastodon',
-      '/keybase',
-      // utilities
-      '/liberapay',
-      '/opencollective',
-      '/tidelift',
-      '/email',
-      // discontinued
-      '/apm',
-      '/lgtm',
-      '/david',
-      '/twitter',
-    ]
+    const badgeApis = [...listed, ...unlisted].map(service => `/${service}`)
 
     let badgeRedirects = [
       { source: '/badge/:path*', destination: '/api/static' },

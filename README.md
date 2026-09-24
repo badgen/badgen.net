@@ -84,9 +84,8 @@ These tests include email badges and contact upstream services for live badges. 
 If a service you wish to have is still missing here, we welcome new contributions. Take [/crates](https://badgen.net/crates) as an example:
 
 1. Add a handler in `pages/api/[name-of-service].ts`, including its title, help, and examples. See [pages/api/crates.ts](pages/api/crates.ts).
-2. Register the handler in [libs/badge-list2.ts](libs/badge-list2.ts), the index of live badges.
-3. Add the public route to `badgeApis` in [next.config.js](next.config.js).
-4. Add regression tests for the service's behavior, run `npm test`, and check the public badge and help URLs with `npm run dev`.
+2. Add the service name to `listed` in [libs/service-registry.json](libs/service-registry.json). This single registry supplies public routes and the ordered documentation catalog. `unlisted` preserves routes for services omitted from the catalog.
+3. Add regression tests for the service's behavior, run `npm test`, and check the public badge and help URLs with `npm run dev`.
 
 `npm run dev` and `npm run build` run `npm run generate` first. It generates `public/.meta/badge-list.json` and the public service reference at `/badges.md` from the registered handlers. The JSON metadata is ignored by Git; [public/badges.md](public/badges.md) is tracked as public documentation. After updating handler metadata, run `npm run generate` and commit the refreshed `public/badges.md` along with the source changes instead of editing generated files directly.
 
