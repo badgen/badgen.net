@@ -1,9 +1,9 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const CIRCLECI_API_URL = 'https://circleci.com/api/v1.1/'
 
-const client = got.extend({ prefixUrl: CIRCLECI_API_URL })
+const requestOptions = { baseUrl: CIRCLECI_API_URL }
 
 export default createBadgenHandler({
   title: 'CircleCI',
@@ -21,7 +21,7 @@ async function handler ({ vcs, owner, repo, branch }: PathArgs) {
   branch = branch ? `/tree/${encodeURIComponent(branch)}` : ''
   const path = `project/${vcs}/${owner}/${repo}${branch}`
   const searchParams = { filter: 'completed', limit: 1, shallow: true }
-  const [latest] = await client.get(path, { searchParams }).json<any>()
+  const [latest] = await requestJson<any>(path, { ...requestOptions, searchParams })
 
 
   if (latest === undefined) {

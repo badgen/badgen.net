@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { request } from '../../libs/http'
 import { isBadge, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -14,8 +14,9 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pkg }: PathArgs) {
   const badgeUrl = `https://melpa.org/packages/${pkg}-badge.svg`
-  const resp = await got(badgeUrl)
-  const params = isBadge(resp) && parseBadge(resp.body, topic)
+  const resp = await request(badgeUrl)
+  const body = await resp.text()
+  const params = isBadge(resp) && parseBadge(body, topic)
   return params || {
     subject: 'melpa',
     status: 'unknown',

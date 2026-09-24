@@ -1,4 +1,4 @@
-import got from './got'
+import { requestJson } from './http'
 import { BadgenError } from './create-badgen-handler-next'
 
 // Own registry traversal so badge handlers only interpret the selected image config.
@@ -11,14 +11,14 @@ export async function loadDockerImageConfig(scope: string, name: string, tag?: s
 
 // request image specific DockerHub pull token
 function getDockerAuthToken<T = any>(scope: string, name: string) {
-  const prefixUrl = process.env.DOCKER_AUTHENTICATION_API || 'https://auth.docker.io/'
+  const baseUrl = process.env.DOCKER_AUTHENTICATION_API || 'https://auth.docker.io/'
   const service = 'registry.docker.io'
   const searchParams = {
     service: service,
     scope: `repository:${scope}/${name}:pull`
   }
 
-  const resp = got.get("token", { prefixUrl, searchParams }).json<T>()
+  const resp = requestJson<T>("token", { baseUrl, searchParams })
 
   if (! resp) {
     throw new BadgenError({ status: 'unknown image' })
@@ -29,8 +29,8 @@ function getDockerAuthToken<T = any>(scope: string, name: string) {
 
 // query the docker registry api
 function queryDockerRegistry<T = any>(path: string, headers) {
-  const prefixUrl = process.env.DOCKER_REGISTRY_API || 'https://registry.hub.docker.com/'
-  return got.get(path, { prefixUrl, headers }).json<T>()
+  const baseUrl = process.env.DOCKER_REGISTRY_API || 'https://registry.hub.docker.com/'
+  return requestJson<T>(path, { baseUrl, headers })
 }
 
 // get fat manifest list and return

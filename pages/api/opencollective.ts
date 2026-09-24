@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
@@ -19,7 +19,7 @@ export default createBadgenHandler({
 async function handler ({ topic, slug }: PathArgs) {
   const endpoint = `https://opencollective.com/${slug}.json`
 
-  const details = await got(endpoint).json<any>()
+  const details = await requestJson<any>(endpoint)
   const localeOptions: Intl.NumberFormatOptions = {
     style: 'currency',
     currency: details.currency

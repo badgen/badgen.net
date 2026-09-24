@@ -10,7 +10,7 @@ import type { BadgenHandler } from '../libs/create-badgen-handler-next'
 delete process.env.SENTRY_DSN
 const require = createRequire(import.meta.url)
 const { createBadgenHandler, BadgenError } = require('../libs/create-badgen-handler-next')
-const got = require('../libs/got').default
+const { requestJson } = require('../libs/http')
 const fetchIcon = require('../libs/fetch-icon').default
 const httpsHandler = require('../pages/api/https').default
 const success = { subject: 'build', status: 'passing', color: 'green' }
@@ -53,7 +53,7 @@ function assertError (res: ReturnType<typeof response>, code: number, status: st
 }
 
 test('OPTIONS skips handlers, icons and malformed URI decoding; unknown routes skip icons', async t => {
-  const network = t.mock.method(got, 'get', () => { throw new Error('unexpected network request') })
+  const network = t.mock.method(globalThis, 'fetch', () => { throw new Error('unexpected network request') })
   let calls = 0
   const handler = handlerFor(async () => { calls++; return success })
   const res = response()
@@ -100,6 +100,11 @@ test('real upstream HTTP failures, timeout, bad JSON and unexpected errors follo
   const errorLog = t.mock.method(console, 'error', () => {})
   const upstream = createServer((req, res) => {
     if (req.url === '/timeout') return
+    if (req.url === '/timeout-body') {
+      res.writeHead(200, { 'Content-Type': 'application/json' })
+      res.write('{')
+      return
+    }
     res.statusCode = req.url === '/http' ? 403 : 200
     res.end('not JSON')
   })
@@ -110,19 +115,20 @@ test('real upstream HTTP failures, timeout, bad JSON and unexpected errors follo
   const base = `http://127.0.0.1:${address.port}`
   const handler = handlerFor(async ({ value }) => {
     if (value === 'unexpected') throw new Error('unexpected')
-    return got.get(`${base}/${value}`, {
-      timeout: { request: value === 'timeout' ? 50 : 1000 },
+    return requestJson(`${base}/${value}`, {
+      timeout: value.startsWith('timeout') ? 100 : 1000,
       headers: { authorization: 'Bearer regression-test-secret' }
-    }).json()
+    })
   })
   for (const [path, code, status] of [
-    ['http', 502, '403'], ['timeout', 504, 'timeout'], ['json', 500, '500'], ['unexpected', 500, '500']
+    ['http', 502, '403'], ['timeout', 504, 'timeout'], ['timeout-body', 504, 'timeout'],
+    ['json', 500, '500'], ['unexpected', 500, '500']
   ] as const) {
     const res = response()
     await handler(request(`/test/${path}`, { cache: '86400' }), res)
     assertError(res, code, status)
   }
-  assert.equal(errorLog.mock.callCount(), 4)
+  assert.equal(errorLog.mock.callCount(), 5)
   for (const call of errorLog.mock.calls) {
     for (const argument of call.arguments) {
       assert.equal(typeof argument, 'string')
@@ -247,9 +253,9 @@ test('built-in icon width uses metadata, accepts overrides and leaves request qu
 test('external icon starts alongside service work, preserves bytes and is optional on failure', async t => {
   const bytes = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0xff, 0x00, 0x80])
   let requested = false
-  t.mock.method(got, 'get', async () => {
+  t.mock.method(globalThis, 'fetch', async () => {
     requested = true
-    return { headers: { 'content-type': 'image/png' }, rawBody: bytes }
+    return new Response(bytes, { headers: { 'content-type': 'image/png' } })
   })
   const handler = handlerFor(async () => { assert.equal(requested, true); return success })
   const req = request('/test/value', { icon: 'https://example.invalid/icon.png' })
@@ -258,7 +264,7 @@ test('external icon starts alongside service work, preserves bytes and is option
   assert.ok(res.body.includes(`data:image/png;base64,${bytes.toString('base64')}`))
   assert.equal(req.query.icon, 'https://example.invalid/icon.png')
   t.mock.restoreAll()
-  t.mock.method(got, 'get', async () => { throw new Error('optional icon failed') })
+  t.mock.method(globalThis, 'fetch', async () => { throw new Error('optional icon failed') })
   const withoutIcon = response()
   await handler(req, withoutIcon)
   assert.equal(withoutIcon.statusCode, 200)

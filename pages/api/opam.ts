@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestText } from '../../libs/http'
 import { version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -17,7 +17,7 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, pkg }: PathArgs) {
-  const html = await got(pkg, { prefixUrl: OPAM_REPO_URL }).text()
+  const html = await requestText(pkg, { baseUrl: OPAM_REPO_URL })
 
   switch (topic) {
     case 'v': {

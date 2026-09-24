@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { request, requestJson } from '../../libs/http'
 import { isBadge, millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -45,16 +45,16 @@ const statuses = {
   failed: 'failed'
 }
 
-function createClient(org: string, project: string, { release = false } = {}) {
+function getRequestOptions(org: string, project: string, { release = false } = {}) {
   const prefix = release ? 'vsrm.' : ''
-  const prefixUrl = `https://${prefix}dev.azure.com/${org}/${project}/_apis/`
-  return got.extend({ prefixUrl })
+  const baseUrl = `https://${prefix}dev.azure.com/${org}/${project}/_apis/`
+  return { baseUrl }
 }
 
 // https://docs.microsoft.com/en-us/rest/api/azure/devops/build/builds/list
 // https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Build/BuildClient.ts#L436-L516
 async function getLatestBuild ({ org, project, 'definition-id': definition, branch }: PathArgs) {
-  const client = createClient(org, project)
+  const requestOptions = getRequestOptions(org, project)
   const searchParams = new URLSearchParams({
     'api-version': '6.0',
     '$top': '1',
@@ -62,28 +62,28 @@ async function getLatestBuild ({ org, project, 'definition-id': definition, bran
     statusFilter: 'completed'
   })
   if (branch) searchParams.set('branchName', `refs/heads/${branch}`)
-  const builds = await client.get('build/builds', { searchParams }).json<any>()
+  const builds = await requestJson<any>('build/builds', { ...requestOptions, searchParams })
   return builds.value[0] || {}
 }
 
 // https://docs.microsoft.com/en-us/rest/api/azure/devops/release/releases/list
 // https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Release/ReleaseClient.ts#L1511-L1594
 async function getLatestRelease ({ org, project, 'definition-id': definition, 'environment-id': environment }: PathArgs) {
-  const client = createClient(org, project, { release: true })
+  const requestOptions = getRequestOptions(org, project, { release: true })
   const searchParams = new URLSearchParams({
     'api-version': '6.0',
     '$top': '1',
     definitionId: definition
   })
   if (environment) searchParams.set('definitionEnvironmentId', environment)
-  const releases = await client.get('release/releases', { searchParams }).json<any>()
+  const releases = await requestJson<any>('release/releases', { ...requestOptions, searchParams })
   return releases.value[0] || {}
 }
 
 // https://docs.microsoft.com/en-us/rest/api/azure/devops/release/deployments/list
 // https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Release/ReleaseClient.ts#L666-L729
 async function getLatestDeployment ({ org, project, 'definition-id': definition, 'environment-id': environment }: PathArgs) {
-  const client = createClient(org, project, { release: true })
+  const requestOptions = getRequestOptions(org, project, { release: true })
   const searchParams = new URLSearchParams({
     'api-version': '6.0',
     '$top': '1',
@@ -91,18 +91,18 @@ async function getLatestDeployment ({ org, project, 'definition-id': definition,
     deploymentStatus: 'succeeded'
   })
   if (environment) searchParams.set('definitionEnvironmentId', environment)
-  const deployments = await client.get('release/deployments', { searchParams }).json<any>()
+  const deployments = await requestJson<any>('release/deployments', { ...requestOptions, searchParams })
   return deployments.value[0] || {}
 }
 
 // https://github.com/microsoft/azure-devops-extension-api/blob/v1.157.0/src/Test/TestClient.ts#L1360-L1390
 async function getTestResultByBuild ({ org, project, build }: PathArgs) {
-  const client = createClient(org, project)
+  const requestOptions = getRequestOptions(org, project)
   const searchParams = {
     'api-version': '6.0-preview',
     buildId: build
   }
-  const result = await client.get('test/ResultSummaryByBuild', { searchParams }).json<any>()
+  const result = await requestJson<any>('test/ResultSummaryByBuild', { ...requestOptions, searchParams })
   return result.aggregatedResultsAnalysis || {}
 }
 
@@ -173,8 +173,9 @@ async function handler ({ org, project, definition, branch }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (branch) searchParams.set('branchName', branch)
   const endpoint = `https://dev.azure.com/${org}/${project}/_apis/build/status/${definition}`
-  const resp = await got(endpoint, { searchParams })
-  const params = isBadge(resp) && parseBadge(resp.body)
+  const resp = await request(endpoint, { searchParams })
+  const body = await resp.text()
+  const params = isBadge(resp) && parseBadge(body)
   return params || {
     subject: 'Azure Pipelines',
     status: 'unknown',

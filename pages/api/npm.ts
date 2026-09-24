@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { request, requestJson, requestText } from '../../libs/http'
 import { millify, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs, BadgenError } from '../../libs/create-badgen-handler-next'
 
@@ -69,26 +69,26 @@ async function handler ({ topic, scope, pkg, tag }: PathArgs) {
 async function npmMetadata (pkg: string, ver = 'latest'): Promise<any> {
   const host = process.env.NPM_REGISTRY || 'https://registry.npmjs.org'
   if (pkg.startsWith('@') || ver !== 'latest') {
-    const meta = await got(`${host}/${pkg}`, {
+    const meta = await requestJson<any>(`${host}/${pkg}`, {
       // support querying abbreviated metadata https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md
       headers: {
         accept: 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*'
       }
-    }).json<any>()
+    })
     if (meta["dist-tags"][ver]) {
       return meta.versions[meta["dist-tags"][ver]]
     }
     throw new BadgenError({ status: '404', color: 'grey', code: 404 })
   }
   const endpoint = `${host}/${pkg}/${ver}`
-  return got(endpoint).json<any>()
+  return requestJson<any>(endpoint)
 
 }
 
 async function pkgJson (pkg: string, tag = 'latest'): Promise<any> {
   // const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}@${tag}/package.json`
   const endpoint = `https://unpkg.com/${pkg}@${tag}/package.json`
-  return got(endpoint).json<any>()
+  return requestJson<any>(endpoint)
 }
 
 async function info (topic: string, pkg: string, tag = 'latest') {
@@ -145,7 +145,7 @@ const download = async (period: string, npmName: string, tag = 'latest') => {
   endpoint.push(npmName)
   // endpoint.push(tag)
 
-  const { downloads } = await got(endpoint.join('/')).json<any>()
+  const { downloads } = await requestJson<any>(endpoint.join('/'))
 
   const count = typeof downloads === 'number'
     ? downloads
@@ -163,7 +163,7 @@ const download = async (period: string, npmName: string, tag = 'latest') => {
 }
 
 async function dependents (name: string) {
-  const html = await got(`https://www.npmjs.com/package/${name}`,).text()
+  const html = await requestText(`https://www.npmjs.com/package/${name}`)
   const count = Number(html.match(/"dependentsCount"\s*:\s*(\d+)/)?.[1])
 
   if (Number.isNaN(count)) {
@@ -210,9 +210,8 @@ async function typesDefinition(pkg: string, tag = 'latest') {
     }
   }
 
-  const hasIndexDTSFile = await got
-    .head(`https://unpkg.com/${pkg}/index.d.ts`)
-    .then((res) => res.statusCode === 200)
+  const hasIndexDTSFile = await request(`https://unpkg.com/${pkg}/index.d.ts`, { method: 'HEAD' })
+    .then((res) => res.status === 200)
     .catch((e) => false)
 
   if (hasIndexDTSFile) {

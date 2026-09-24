@@ -5,7 +5,6 @@ import test from 'node:test'
 delete process.env.SENTRY_DSN
 const require = createRequire(import.meta.url)
 const marketplace = require('../pages/api/vs-marketplace').default
-const got = require('../libs/got').default
 const versionBadge = marketplace.meta.handlers['/vs-marketplace/:topic<v|i|d|rating>/:pkg/:tag?']
 
 const preRelease = [{ key: 'Microsoft.VisualStudio.Code.PreRelease', value: 'true' }]
@@ -45,11 +44,10 @@ test('VS Marketplace selects versions independently of current upstream releases
   for (const fixture of fixtures) {
     await t.test(fixture.name, async t => {
       const flags: number[] = []
-      t.mock.method(got, 'post', (_url, options) => {
-        flags.push(options.json.flags)
-        return {
-          json: async () => ({ results: [{ extensions: [{ versions: fixture.versions }] }] })
-        }
+      t.mock.method(globalThis, 'fetch', async (_url, options) => {
+        assert.equal(options.method, 'POST')
+        flags.push(JSON.parse(options.body).flags)
+        return Response.json({ results: [{ extensions: [{ versions: fixture.versions }] }] })
       })
 
       for (const [tag, expected] of [[undefined, fixture.stable], ['latest', fixture.latest]]) {

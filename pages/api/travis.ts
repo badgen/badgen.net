@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestText } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
@@ -17,7 +17,7 @@ async function handler ({ owner, repo, branch }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (branch) searchParams.set('branch', branch)
 
-  const svg = await got(`https://api.travis-ci.com/${badgePath}`, { searchParams }).text()
+  const svg = await requestText(`https://api.travis-ci.com/${badgePath}`, { searchParams })
 
   const result = statuses.find(([status]) => {
     return svg.includes(status)

@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { coerce, compare, SemVer } from 'semver'
 import { version, versionColor, millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
@@ -22,7 +22,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, project }: PathArgs) {
   const endpoint = `https://pypi.org/pypi/${project}/json`
-  const { info } = await got(endpoint).json<any>()
+  const { info } = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'v':
@@ -57,7 +57,7 @@ async function handler ({ topic, project }: PathArgs) {
 
 async function statsHandler({ topic, project }: PathArgs) {
   const endpoint = `https://pypistats.org/api/packages/${project}/recent`
-  const { data } = await got(endpoint).json<any>()
+  const { data } = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'dd':

@@ -44,7 +44,9 @@ export default createBadgenHandler({
 
 
 async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
-  const { body, headers } = await makeRestCall({ topic, owner, repo, ...restArgs })
+  const response = await makeRestCall({ topic, owner, repo, ...restArgs })
+  const body = await response.json()
+  const { headers } = response
 
   const countSubjects = {
     'mrs': 'MRs',
@@ -61,7 +63,7 @@ async function restHandler({ topic, owner, repo, ...restArgs }: PathArgs) {
   if (Object.hasOwn(countSubjects, topic)) {
     return {
       subject: countSubjects[topic],
-      status: millify(parseInt(headers['x-total'] as string, 10)),
+      status: millify(parseInt(headers.get('x-total') || '', 10)),
       color: 'blue'
     }
   }

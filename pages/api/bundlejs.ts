@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { size } from '../../libs/utils'
 
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
@@ -22,7 +22,7 @@ async function handler ({ topic, scope, name }: PathArgs) {
   const endpoint = `https://deno.bundlejs.com/?q=${encodeURIComponent(pkg)}`
   
   try {
-    const resp = await got(endpoint).json<any>()
+    const resp = await requestJson<any>(endpoint)
 
     if (!resp || !resp.size) {
       return {

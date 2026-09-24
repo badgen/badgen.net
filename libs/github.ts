@@ -1,4 +1,4 @@
-import got from './got'
+import { requestJson } from './http'
 import { BadgenError } from './create-badgen-handler-next'
 
 const rand = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
@@ -10,8 +10,8 @@ export function restGithub<T = any>(path: string, searchParams?: Record<string, 
     accept: `application/vnd.github+json`,
     'X-GitHub-Api-Version': '2022-11-28',
   }
-  const prefixUrl = process.env.GITHUB_API || 'https://api.github.com/'
-  return got.get(path, { prefixUrl, headers, searchParams }).json<T>()
+  const baseUrl = process.env.GITHUB_API || 'https://api.github.com/'
+  return requestJson<T>(path, { baseUrl, headers, searchParams })
 }
 
 // request github api (graphql)
@@ -23,7 +23,7 @@ export function queryGithub<T = any>(query) {
   const json = { query }
   const endpoint =
     process.env.GITHUB_API_GRAPHQL || 'https://api.github.com/graphql'
-  return got.post(endpoint, { json, headers }).json<T>()
+  return requestJson<T>(endpoint, { method: 'POST', json, headers })
 }
 
 function pickGithubToken() {

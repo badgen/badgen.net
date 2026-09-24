@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { size, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -87,5 +87,5 @@ function queryWapm<T = any>(query, operationName, variables) {
   const json = { query, operationName, variables }
   const endpoint =
     process.env.WAPM_API_GRAPHQL || 'https://registry.wapm.io/graphql'
-  return got.post(endpoint, { json }).json<T>()
+  return requestJson<T>(endpoint, { method: 'POST', json })
 }

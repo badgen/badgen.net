@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -16,7 +16,7 @@ export default createBadgenHandler({
 
 async function handler ({topic, pkg}: PathArgs) {
   const endpoint = `https://crates.io/api/v1/crates/${pkg}`
-  const { crate } = await got(endpoint).json<any>()
+  const { crate } = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'v':

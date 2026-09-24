@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { requestJson, requestText } from '../../libs/http'
 import { stars, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const CTAN_API_URL = 'https://ctan.org/json/2.0/'
 
-const client = got.extend({ prefixUrl: CTAN_API_URL, timeout: { request: 3500 } })
+const requestOptions = { baseUrl: CTAN_API_URL, timeout: 3500 }
 
 export default createBadgenHandler({
   title: 'CTAN',
@@ -24,7 +24,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
   const {
     license,
     version: versionInfo,
-  } = await client.get(`pkg/${pkg}`).json<any>()
+  } = await requestJson<any>(`pkg/${pkg}`, requestOptions)
   const { number: ver } = versionInfo
 
   switch (topic) {
@@ -52,7 +52,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
 async function webHandler ({ topic, pkg }: PathArgs) {
   const url = 'https://ctan.org/vote/ajaxSummary'
   const searchParams = { pkg }
-  const html = await got.get(url, { searchParams }).text()
+  const html = await requestText(url, { searchParams })
   const rating = Number(html.match(/<span>[^<]*?([\d.]+)\s/i)?.[1])
 
   switch (topic) {

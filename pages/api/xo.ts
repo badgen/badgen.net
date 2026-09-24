@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler } from '../../libs/create-badgen-handler-next'
 
 import type { PathArgs, BadgenResponse } from '../../libs/create-badgen-handler-next'
@@ -27,7 +27,7 @@ const getIndent = space => {
 async function handler ({ topic, scope, name }: PathArgs): Promise<BadgenResponse> {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://cdn.jsdelivr.net/npm/${pkg}/package.json`
-  const data = await got(endpoint).json<any>()
+  const data = await requestJson<any>(endpoint)
 
   if (!data.devDependencies || !('xo' in data.devDependencies)) {
     return {

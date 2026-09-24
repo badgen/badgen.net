@@ -1,5 +1,4 @@
-import type { Response } from 'got'
-import got from './got'
+import { request, requestJson } from './http'
 
 const rand = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
 
@@ -12,16 +11,17 @@ export function queryGitlab<T = any>(query: string): Promise<T> {
   const json = { query }
   const endpoint =
     process.env.GITLAB_API_GRAPHQL || 'https://gitlab.com/api/graphql'
-  return got.post(endpoint, { json, headers }).json()
+  return requestJson(endpoint, { method: 'POST', json, headers })
 }
 
-export function restGitlab<T = any>(path: string): Promise<Response<T>> {
+export function restGitlab(path: string): Promise<Response> {
   const token = pickGitlabToken()
   const headers = {
+    accept: 'application/json',
     authorization: token ? `Bearer ${token}` : undefined,
   }
-  const prefixUrl = process.env.GITLAB_API || 'https://gitlab.com/api/v4'
-  return got.get(path, { prefixUrl, headers, responseType: 'json' })
+  const baseUrl = process.env.GITLAB_API || 'https://gitlab.com/api/v4'
+  return request(path, { baseUrl, headers })
 }
 
 function pickGitlabToken() {

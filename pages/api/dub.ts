@@ -1,11 +1,11 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify, stars, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 // https://github.com/dlang/dub-registry/blob/v2.4.0/source/dubregistry/api.d#L77-L99
 const DUB_REGISTRY_API = 'https://code.dlang.org/api/packages/'
 
-const client = got.extend({ prefixUrl: DUB_REGISTRY_API })
+const requestOptions = { baseUrl: DUB_REGISTRY_API }
 
 export default createBadgenHandler({
   title: 'DUB',
@@ -28,7 +28,7 @@ async function handler ({ topic, pkg }: PathArgs) {
   switch (topic) {
     case 'v':
     case 'version': {
-      const ver = await client.get(`${pkg}/latest`).json<any>()
+      const ver = await requestJson<any>(`${pkg}/latest`, requestOptions)
       return {
         subject: 'dub',
         status: version(ver),
@@ -36,7 +36,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'license': {
-      const { info } = await client.get(`${pkg}/latest/info`).json<any>()
+      const { info } = await requestJson<any>(`${pkg}/latest/info`, requestOptions)
       return {
         subject: 'license',
         status: info.license || 'unknown',
@@ -44,7 +44,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dt': {
-      const { downloads } = await client.get(`${pkg}/stats`).json<any>()
+      const { downloads } = await requestJson<any>(`${pkg}/stats`, requestOptions)
       return {
         subject: 'downloads',
         status: millify(downloads.total),
@@ -52,7 +52,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dd': {
-      const { downloads } = await client.get(`${pkg}/stats`).json<any>()
+      const { downloads } = await requestJson<any>(`${pkg}/stats`, requestOptions)
       return {
         subject: 'downloads',
         status: `${millify(downloads.daily)}/day`,
@@ -60,7 +60,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dw': {
-      const { downloads } = await client.get(`${pkg}/stats`).json<any>()
+      const { downloads } = await requestJson<any>(`${pkg}/stats`, requestOptions)
       return {
         subject: 'downloads',
         status: `${millify(downloads.weekly)}/week`,
@@ -68,7 +68,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dm': {
-      const { downloads } = await client.get(`${pkg}/stats`).json<any>()
+      const { downloads } = await requestJson<any>(`${pkg}/stats`, requestOptions)
       return {
         subject: 'downloads',
         status: `${millify(downloads.monthly)}/month`,
@@ -76,7 +76,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'rating': {
-      const { score } = await client.get(`${pkg}/stats`).json<any>()
+      const { score } = await requestJson<any>(`${pkg}/stats`, requestOptions)
       return {
         subject: 'rating',
         status: `${score.toFixed(2)}/5`,
@@ -84,7 +84,7 @@ async function handler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'stars': {
-      const { score } = await client.get(`${pkg}/stats`).json<any>()
+      const { score } = await requestJson<any>(`${pkg}/stats`, requestOptions)
       return {
         subject: 'stars',
         status: stars(score),

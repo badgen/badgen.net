@@ -1,11 +1,11 @@
-import got from '../../libs/got'
+import { requestText } from '../../libs/http'
 import { parseDocument } from 'yaml'
 import { version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const F_DROID_METADATA_REPO_URL = 'https://gitlab.com/fdroid/fdroiddata/raw/master/metadata/'
 
-const client = got.extend({ prefixUrl: F_DROID_METADATA_REPO_URL })
+const requestOptions = { baseUrl: F_DROID_METADATA_REPO_URL }
 
 export default createBadgenHandler({
   title: 'F-Droid',
@@ -20,7 +20,7 @@ export default createBadgenHandler({
 })
 
 async function handler ({ topic, appId }: PathArgs) {
-  const yaml = await client.get(`${appId}.yml`).text()
+  const yaml = await requestText(`${appId}.yml`, requestOptions)
   const metadata = parseDocument(yaml)
 
   switch (topic) {

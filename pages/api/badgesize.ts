@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
@@ -32,7 +32,7 @@ async function badgesize ({ path, topic }) {
   const endpoint = `https://img.badgesize.io/${path}.json`
   const searchParams = new URLSearchParams()
   if (topic !== 'normal') searchParams.set('compression', topic)
-  const { prettySize, color } = await got(endpoint, { searchParams }).json<any>()
+  const { prettySize, color } = await requestJson<any>(endpoint, { searchParams })
 
   return {
     subject: topic === 'normal' ? 'size' : `${topic} size`,

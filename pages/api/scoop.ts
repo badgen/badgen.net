@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -22,8 +22,8 @@ export default createBadgenHandler({
 })
 
 async function handler ({ bucket = 'main', topic = 'v', app }: PathArgs) {
-  const prefixUrl = bucket === 'extras' ? SCOOP_EXTRAS_BUCKET_URL : SCOOP_MAIN_BUCKET_URL
-  const { license, version:ver } = await got(`${app}.json`, { prefixUrl }).json<any>()
+  const baseUrl = bucket === 'extras' ? SCOOP_EXTRAS_BUCKET_URL : SCOOP_MAIN_BUCKET_URL
+  const { license, version:ver } = await requestJson<any>(`${app}.json`, { baseUrl })
 
   switch (topic) {
     case 'v':

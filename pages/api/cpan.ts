@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify, version, versionColor, size } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const METACPAN_API_URL = 'https://fastapi.metacpan.org/v1/'
 
-const client = got.extend({ prefixUrl: METACPAN_API_URL })
+const requestOptions = { baseUrl: METACPAN_API_URL }
 
 export default createBadgenHandler({
   title: 'CPAN',
@@ -27,7 +27,7 @@ async function handler ({ topic, distribution }: PathArgs) {
   switch (topic) {
     case 'v':
     case 'version': {
-      const release = await client.get(`release/${distribution}`).json<any>()
+      const release = await requestJson<any>(`release/${distribution}`, requestOptions)
       const ver = normalizeVersion(release.version)
       return {
         subject: 'cpan',
@@ -36,7 +36,7 @@ async function handler ({ topic, distribution }: PathArgs) {
       }
     }
     case 'license': {
-      const release = await client.get(`release/${distribution}`).json<any>()
+      const release = await requestJson<any>(`release/${distribution}`, requestOptions)
       const license = release.license?.join(' or ')
       return {
         subject: 'license',
@@ -45,7 +45,7 @@ async function handler ({ topic, distribution }: PathArgs) {
       }
     }
     case 'size': {
-      const { stat } = await client.get(`release/${distribution}`).json<any>()
+      const { stat } = await requestJson<any>(`release/${distribution}`, requestOptions)
       return {
         subject: 'distrib size',
         status: size(stat.size),
@@ -53,7 +53,7 @@ async function handler ({ topic, distribution }: PathArgs) {
       }
     }
     case 'perl': {
-      const { metadata } = await client.get(`release/${distribution}`).json<any>()
+      const { metadata } = await requestJson<any>(`release/${distribution}`, requestOptions)
       const perlVersion = normalizeVersion(metadata.prereqs?.runtime?.requires?.perl)
       return {
         subject: 'perl',
@@ -63,7 +63,7 @@ async function handler ({ topic, distribution }: PathArgs) {
     }
     case 'dependents': {
       const searchParams = { page_size: 1 }
-      const data = await client.get(`reverse_dependencies/dist/${distribution}`, { searchParams }).json<any>()
+      const data = await requestJson<any>(`reverse_dependencies/dist/${distribution}`, { ...requestOptions, searchParams })
       return {
         subject: 'dependents',
         status: millify(data.total),
@@ -72,7 +72,7 @@ async function handler ({ topic, distribution }: PathArgs) {
     }
     case 'likes': {
       const searchParams = { distribution }
-      const { favorites } = await client.get('favorite/agg_by_distributions', { searchParams }).json<any>()
+      const { favorites } = await requestJson<any>('favorite/agg_by_distributions', { ...requestOptions, searchParams })
       const likes = favorites[distribution]
       return {
         subject: 'likes',

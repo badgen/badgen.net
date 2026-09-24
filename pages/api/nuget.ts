@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -22,7 +22,7 @@ const latest = versions => versions.length > 0 && versions.slice(-1)[0]
 
 async function handler ({ project, channel }: PathArgs) {
   const endpoint = `https://api.nuget.org/v3-flatcontainer/${project.toLowerCase()}/index.json`
-  const { versions } = await got(endpoint).json<any>()
+  const { versions } = await requestJson<any>(endpoint)
 
   let ver = ''
 
@@ -55,7 +55,7 @@ async function downloads ({ project }: PathArgs) {
     prerelease: true,
     semVerLevel: 2
   }
-  const { data } = await got.get(endpoint, { searchParams }).json<any>()
+  const { data } = await requestJson<any>(endpoint, { searchParams })
 
   return {
     subject: 'downloads',

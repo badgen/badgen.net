@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestText } from '../../libs/http'
 import { version as v, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -16,7 +16,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pkg }: PathArgs) {
   const endpoint = `https://hackage.haskell.org/package/${pkg}/${pkg}.cabal`
-  const cabal = await got(endpoint).text()
+  const cabal = await requestText(endpoint)
   const { version, license } = parseCabalFile(cabal)
 
   switch (topic) {

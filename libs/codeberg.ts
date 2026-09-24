@@ -1,15 +1,22 @@
-import got from './got'
+import { request } from './http'
 
 const rand = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)]
 
-export function restCodeberg<T = any>(path: string, fullResponse = false) {
+export function restCodeberg(path: string, fullResponse: true): Promise<Response>
+export function restCodeberg<T = any>(path: string, fullResponse?: false): Promise<T>
+export async function restCodeberg(path: string, fullResponse = false) {
   const token = pickCodebergToken()
-  const headers = token ? {
-    authorization: `token ${token}`,
-  } : {}
-  const prefixUrl = 'https://codeberg.org/api/v1'
-  const response = got.get(path, { prefixUrl, headers })
-  return fullResponse ? response : response.json<T>()
+  const headers = {
+    accept: 'application/json',
+    authorization: token ? `token ${token}` : undefined,
+  }
+  const baseUrl = 'https://codeberg.org/api/v1'
+  const response = await request(path, { baseUrl, headers })
+  if (fullResponse) {
+    await response.body?.cancel()
+    return response
+  }
+  return response.json()
 }
 
 function pickCodebergToken() {
