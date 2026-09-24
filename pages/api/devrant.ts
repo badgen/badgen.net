@@ -1,11 +1,11 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const BRAND_COLOR = 'F99A66'
 const DEVRANT_API_URL = 'https://devrant.com/api'
 
-const client = got.extend({ prefixUrl: DEVRANT_API_URL })
+const requestOptions = { baseUrl: DEVRANT_API_URL }
 
 const upperCaseFirst = (input: string) => input.charAt(0).toUpperCase() + input.slice(1)
 
@@ -23,13 +23,13 @@ export default createBadgenHandler({
 
 async function usernameHandler ({ username }: PathArgs) {
   const searchParams = { username, app: 3 }
-  const { user_id } = await client.get('get-user-id', { searchParams }).json<any>()
+  const { user_id } = await requestJson<any>('get-user-id', { ...requestOptions, searchParams })
   return userIdHandler({ 'user-id': user_id })
 }
 
 async function userIdHandler ({ 'user-id': userId }: PathArgs) {
   const searchParams = { app: 3 }
-  const { profile } = await client.get(`users/${userId}`, { searchParams }).json<any>()
+  const { profile } = await requestJson<any>(`users/${userId}`, { ...requestOptions, searchParams })
   return {
     subject: upperCaseFirst(profile.username),
     status: millify(profile.score),

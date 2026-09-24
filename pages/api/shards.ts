@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { requestText } from '../../libs/http'
 import { millify, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const SHARDS_REPO_URL = 'https://shardbox.org/'
 
-const client = got.extend({ prefixUrl: SHARDS_REPO_URL })
+const requestOptions = { baseUrl: SHARDS_REPO_URL }
 
 export default createBadgenHandler({
   title: 'Crystal shards',
@@ -20,7 +20,7 @@ export default createBadgenHandler({
 })
 
 async function handler({ topic, shard }: PathArgs) {
-  const html = await client.get(`shards/${shard}`).text()
+  const html = await requestText(`shards/${shard}`, requestOptions)
 
   switch (topic) {
     case 'v':

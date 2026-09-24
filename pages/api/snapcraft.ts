@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { version, versionColor, size } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -6,10 +6,10 @@ const SNAPCRAFT_API_URL = 'https://api.snapcraft.io/'
 
 const uniq = <T = any>(arr: T[]) => [...new Set(arr)]
 
-const client = got.extend({
-  prefixUrl: SNAPCRAFT_API_URL,
+const requestOptions = {
+  baseUrl: SNAPCRAFT_API_URL,
   headers: { 'Snap-Device-Series': '16' }
-})
+}
 
 export default createBadgenHandler({
   title: 'Snapcraft',
@@ -35,7 +35,7 @@ async function handler ({ topic, snap, architecture, channel: name }: PathArgs) 
     case 'version': {
       // https://api.snapcraft.io/docs/info.html#snap_info
       const searchParams = { fields: 'version' }
-      const info = await client.get(`v2/snaps/info/${snap}`, { searchParams }).json<any>()
+      const info = await requestJson<any>(`v2/snaps/info/${snap}`, { ...requestOptions, searchParams })
       const matchChannel = createChannelMatcher(architecture, name)
       const ver = info['channel-map'].find(matchChannel)?.version
       return {
@@ -48,7 +48,7 @@ async function handler ({ topic, snap, architecture, channel: name }: PathArgs) 
     case 'license': {
       // https://api.snapcraft.io/docs/info.html#snap_info
       const searchParams = { fields: 'license' }
-      const info = await client.get(`v2/snaps/info/${snap}`, { searchParams }).json<any>()
+      const info = await requestJson<any>(`v2/snaps/info/${snap}`, { ...requestOptions, searchParams })
       const license = info?.snap?.license
       return {
         subject: 'license',
@@ -59,7 +59,7 @@ async function handler ({ topic, snap, architecture, channel: name }: PathArgs) 
     case 'size': {
       // https://api.snapcraft.io/docs/info.html#snap_info
       const searchParams = { fields: 'download' }
-      const info = await client.get(`v2/snaps/info/${snap}`, { searchParams }).json<any>()
+      const info = await requestJson<any>(`v2/snaps/info/${snap}`, { ...requestOptions, searchParams })
       const matchChannel = createChannelMatcher(architecture, name)
       const download = info['channel-map'].find(matchChannel)?.download
       return {
@@ -71,7 +71,7 @@ async function handler ({ topic, snap, architecture, channel: name }: PathArgs) 
     case 'arch':
     case 'architecture': {
       // https://api.snapcraft.io/docs/info.html#snap_info
-      const info = await client.get(`v2/snaps/info/${snap}`).json<any>()
+      const info = await requestJson<any>(`v2/snaps/info/${snap}`, requestOptions)
       const architectures = uniq(info['channel-map'].map(it => it.channel.architecture)).join(' | ')
       return {
         subject: 'architecture',

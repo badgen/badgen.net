@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const ELM_PACKAGES_REPO_URL = 'https://package.elm-lang.org/'
 
-const client = got.extend({ prefixUrl: ELM_PACKAGES_REPO_URL })
+const requestOptions = { baseUrl: ELM_PACKAGES_REPO_URL }
 
 export default createBadgenHandler({
   title: 'Elm Package',
@@ -23,7 +23,7 @@ async function handler ({ topic, owner, name }: PathArgs) {
     'elm-version': elmVersion,
     license,
     version: ver
-  } = await client.get(`packages/${owner}/${name}/latest/elm.json`).json<any>()
+  } = await requestJson<any>(`packages/${owner}/${name}/latest/elm.json`, requestOptions)
 
   switch (topic) {
     case 'v':

@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { request } from '../../libs/http'
 import { coverage as cov, coverageColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const COVERALLS_BADGE_URL = 'https://coveralls.io/repos/'
 
-const client = got.extend({ prefixUrl: COVERALLS_BADGE_URL })
+const requestOptions = { baseUrl: COVERALLS_BADGE_URL }
 
 export default createBadgenHandler({
   title: 'Coveralls',
@@ -26,10 +26,12 @@ async function handler ({ vcs, owner, repo, branch }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (branch) searchParams.set('branch', branch)
 
-  const badgeURL = await client.head(endpoint, {
+  const badgeURL = await request(endpoint, {
+    ...requestOptions,
+    method: 'HEAD',
     searchParams,
-    followRedirect: false // Expecting 302 redirection to "coveralls_xxx.svg"
-  }).then(res => res.headers.location) || ''
+    redirect: 'manual' // Expecting 302 redirection to "coveralls_xxx.svg"
+  }).then(res => res.headers.get('location')) || ''
 
   const percentage = Number(badgeURL.match(/_(\d+)\.svg/)?.[1])
 

@@ -1,11 +1,11 @@
 import millify from 'millify'
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const BRAND_COLOR = '7289DA'
 const DISCORD_API_URL = 'https://discord.com/api/v8/'
 
-const client = got.extend({ prefixUrl: DISCORD_API_URL })
+const requestOptions = { baseUrl: DISCORD_API_URL }
 
 export default createBadgenHandler({
   title: 'Discord',
@@ -25,7 +25,7 @@ async function handler ({ 'invite-code': inviteCode, topic }: PathArgs) {
     guild,
     approximate_member_count,
     approximate_presence_count
-  } = await client.get(`invites/${inviteCode}`, { searchParams }).json<any>()
+  } = await requestJson<any>(`invites/${inviteCode}`, { ...requestOptions, searchParams })
 
   switch (topic) {
     case 'members':

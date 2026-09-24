@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { request, requestJson } from '../../libs/http'
 import { millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -18,7 +18,7 @@ export default createBadgenHandler({
 })
 
 async function userIdHandler({ 'user-id': userId, instance = 'mastodon.social' }: PathArgs) {
-  const info = await got(`https://${instance}/api/v1/accounts/${userId}`).json<any>()
+  const info = await requestJson<any>(`https://${instance}/api/v1/accounts/${userId}`)
   const account = `${info.username}@${instance}`
   return {
     subject: `follow @${account}`,
@@ -29,11 +29,12 @@ async function userIdHandler({ 'user-id': userId, instance = 'mastodon.social' }
 
 async function accountHandler({ account }: PathArgs) {
   const [username, instance] = account.split('@')
-  const { version } = await got(`https://${instance}/api/v1/instance`).json<any>()
+  const { version } = await requestJson<any>(`https://${instance}/api/v1/instance`)
   const isPleroma = /\bPleroma\b/i.test(version)
   if (isPleroma) return userIdHandler({ 'user-id': username, instance })
-  const resp = await got(`https://${instance}/@${username}.rss`)
-  const params = isFeed(resp) && parseFeed(resp.body, instance)
+  const resp = await request(`https://${instance}/@${username}.rss`)
+  const body = await resp.text()
+  const params = isFeed(resp) && parseFeed(body, instance)
   return params || {
     subject: 'mastodon',
     status: 'unknown',
@@ -41,8 +42,8 @@ async function accountHandler({ account }: PathArgs) {
   }
 }
 
-function isFeed(response: import('got').Response) {
-  const contentType = response.headers['content-type'] || ''
+function isFeed(response: Response) {
+  const contentType = response.headers.get('content-type') || ''
   return contentType.includes('application/rss+xml')
 }
 

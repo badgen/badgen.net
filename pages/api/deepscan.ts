@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -8,7 +8,7 @@ const hasProp = (input: any, prop: string): boolean => Object.prototype.hasOwnPr
 
 const DEEPSCAN_API_URL = 'https://deepscan.io/api/'
 
-const client = got.extend({ prefixUrl: DEEPSCAN_API_URL })
+const requestOptions = { baseUrl: DEEPSCAN_API_URL }
 
 const gradeColors = {
   'none': 'cecece',
@@ -42,7 +42,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, teamId, projectId, branchId }: PathArgs) {
   const endpoint = `teams/${teamId}/projects/${projectId}/branches/${branchId}/analyses`
-  const resp = await client.get(endpoint).json<any>()
+  const resp = await requestJson<any>(endpoint, requestOptions)
   const result = last(resp.data)
 
   switch (topic) {

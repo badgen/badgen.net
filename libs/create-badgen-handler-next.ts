@@ -1,5 +1,5 @@
 import matchRoute from 'my-way'
-import { HTTPError, TimeoutError } from 'got'
+import { HTTPError } from './http'
 
 import { serveBadgeNext } from './serve-badge-next'
 import serveDoc from './serve-doc-next'
@@ -99,11 +99,13 @@ function describeError (error: unknown): { code: number, status: string, color: 
   if (error instanceof BadgenError) {
     return { code: error.code, status: String(error.status), color: error.color }
   }
-  if (error instanceof TimeoutError || (error instanceof Error && 'code' in error && error.code === 'ETIMEDOUT')) {
+  // Our upstream requests only abort on their deadline. Depending on the Node
+  // version, body consumption reports the timeout as TimeoutError or AbortError.
+  if (error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError' || ('code' in error && error.code === 'ETIMEDOUT'))) {
     return { code: 504, status: 'timeout', color: 'grey' }
   }
   if (error instanceof HTTPError) {
-    return { code: 502, status: String(error.response.statusCode), color: 'grey' }
+    return { code: 502, status: String(error.status), color: 'grey' }
   }
   if (error instanceof URIError) {
     return { code: 400, status: 'invalid URI', color: 'grey' }

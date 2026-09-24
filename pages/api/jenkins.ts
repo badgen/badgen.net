@@ -1,4 +1,4 @@
-import got from "../../libs/got"
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from "../../libs/create-badgen-handler-next"
 import humanizeDuration from "humanize-duration"
 
@@ -50,12 +50,12 @@ const buildFixTimeToColor = (hours: number) => {
 
 async function jenkinsLastBuild({ hostname, job }: PathArgs) {
   const endpoint = `https://${hostname}/${job}/lastBuild/api/json?tree=result,timestamp,estimatedDuration`
-  return await got(endpoint).json<any>()
+  return await requestJson<any>(endpoint)
 }
 
 async function jenkinsBuilds({ hostname, job }: PathArgs) {
   const endpoint = `https://${hostname}/${job}/api/json?tree=builds[number,status,timestamp,id,result]`
-  return await got(endpoint).json<any>()
+  return await requestJson<any>(endpoint)
 }
 
 async function lastJobStatusHandler({ hostname, job }: PathArgs) {

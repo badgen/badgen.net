@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { version as versionName, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -15,7 +15,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pod }: PathArgs) {
   const endpoint = `https://trunk.cocoapods.org/api/v1/pods/${pod}/specs/latest`
-  const { version, platforms } = await got(endpoint).json<any>()
+  const { version, platforms } = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'v':

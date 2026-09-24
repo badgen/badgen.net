@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify, stars, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -18,7 +18,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, name }: PathArgs) {
   const endpoint = `https://addons.mozilla.org/api/v3/addons/addon/${name}/`
-  const addon = await got(endpoint).json<any>()
+  const addon = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'v':

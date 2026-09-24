@@ -8,7 +8,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 delete process.env.SENTRY_DSN
 const require = createRequire(import.meta.url)
 const docker = require('../pages/api/docker').default
-const got = require('../libs/got').default
 
 function response () {
   const headers = new Map<string, string>()
@@ -40,10 +39,10 @@ test('Docker size reads only its target tag and preserves image selection and up
   t.after(() => { upstream.closeAllConnections(); upstream.close() })
   const address = upstream.address() as { port: number }
   const requests: string[] = []
-  const get = got.get
-  t.mock.method(got, 'get', (url: string) => {
-    requests.push(url)
-    return get(`http://127.0.0.1:${address.port}${new URL(url).pathname}`)
+  const originalFetch = globalThis.fetch
+  t.mock.method(globalThis, 'fetch', (url: URL, options: RequestInit) => {
+    requests.push(String(url))
+    return originalFetch(`http://127.0.0.1:${address.port}${url.pathname}`, options)
   })
   t.mock.method(console, 'error', () => {})
 

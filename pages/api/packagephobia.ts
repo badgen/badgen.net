@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
@@ -17,7 +17,7 @@ export default createBadgenHandler({
 async function handler ({ topic, scope, name}: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://packagephobia.com/v2/api.json?p=${pkg}`
-  const { install, publish } = await got(endpoint).json<any>()
+  const { install, publish } = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'publish':

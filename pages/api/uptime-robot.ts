@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { scale } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -42,14 +42,15 @@ export default createBadgenHandler({
  */
 async function handler ({ topic, apikey }: PathArgs) {
   const endpoint = `https://api.uptimerobot.com/v2/getMonitors`
-  const { monitors } = await got.post(endpoint, {
+  const { monitors } = await requestJson<any>(endpoint, {
+    method: 'POST',
     json: {
       api_key: apikey,
       custom_uptime_ratios: '1-7-30',
       response_times: 1,
       response_times_limit: 12
     }
-  }).json<any>()
+  })
 
    
   const { status, custom_uptime_ratio, average_response_time } = monitors[0]

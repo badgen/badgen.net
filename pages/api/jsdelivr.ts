@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 import type { BadgenParams } from '../../libs/types'
@@ -37,7 +37,7 @@ async function handler ({ topic, platform, pkg }: PathArgs): Promise<BadgenParam
 
 const stats = async (metric, type, name): Promise<BadgenParams> => {
   const endpoint = `https://data.jsdelivr.com/v1/package/${type}/${name}/stats`
-  const { total, rank } = await got(endpoint).json<any>()
+  const { total, rank } = await requestJson<any>(endpoint)
 
   switch (metric) {
     case 'hits':
@@ -63,7 +63,7 @@ const stats = async (metric, type, name): Promise<BadgenParams> => {
 
 const version = async (name) => {
   const endpoint = `https://cdn.jsdelivr.net/npm/${name}/package.json`
-  const { version } = await got(endpoint).json<any>()
+  const { version } = await requestJson<any>(endpoint)
   return {
     subject: 'jsDelivr',
     status: `v${version}`,

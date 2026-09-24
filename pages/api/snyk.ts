@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { request } from '../../libs/http'
 import { isBadge } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -22,8 +22,9 @@ async function handler ({ owner, repo, branch, targetFile }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (targetFile) searchParams.set('targetFile', targetFile)
 
-  const resp = await got(badgeUrl, { searchParams })
-  const params = isBadge(resp) && parseBadge(resp.body)
+  const resp = await request(badgeUrl, { searchParams })
+  const body = await resp.text()
+  const params = isBadge(resp) && parseBadge(body)
 
   return params || {
     subject: 'snyk',

@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { request } from '../../libs/http'
 import { basename, extname } from 'path'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const TIDELIFT_BADGE_URL = 'https://tidelift.com/badges/package/'
 
-const client = got.extend({ prefixUrl: TIDELIFT_BADGE_URL })
+const requestOptions = { baseUrl: TIDELIFT_BADGE_URL }
 
 export default createBadgenHandler({
   title: 'Tidelift',
@@ -18,8 +18,9 @@ export default createBadgenHandler({
 })
 
 async function handler ({ platform, name }: PathArgs) {
-  const resp = await client.get(`${platform}/${name}`, { followRedirect: false })
-  const params = parseRedirectUrl(resp.headers.location)
+  const resp = await request(`${platform}/${name}`, { ...requestOptions, redirect: 'manual' })
+  await resp.body?.cancel()
+  const params = parseRedirectUrl(resp.headers.get('location') || undefined)
   return params || {
     subject: 'tidelift',
     status: 'unknown',

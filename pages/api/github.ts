@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
 
-import got from 'libs/got'
+import { requestJson, requestText } from 'libs/http'
 import { restGithub, queryGithub } from 'libs/github'
 import { createBadgenHandler, PathArgs, BadgenError } from 'libs/create-badgen-handler-next'
 import { coverageColor, millify, version } from 'libs/utils'
@@ -188,7 +188,7 @@ async function contributors ({ owner, repo }: PathArgs) {
 }
 
 async function meta ({ owner, repo }: PathArgs): Promise<any> {
-  const meta = await got(`https://api.github.com/repos/${owner}/${repo}`).json()
+  const meta = await requestJson(`https://api.github.com/repos/${owner}/${repo}`)
   return meta
 }
 
@@ -512,7 +512,7 @@ function dependents (type: DependentsType) {
     const subject = type === 'PACKAGE' ? 'pkg dependents' : 'repo dependents'
     const keyword = type === 'PACKAGE' ? 'Packages' : 'Repositories'
 
-    const html = await got(`https://github.com/${owner}/${repo}/network/dependents`).text()
+    const html = await requestText(`https://github.com/${owner}/${repo}/network/dependents`)
     const reDependents = new RegExp(`svg>\\s*[\\d,]+\\s*${keyword}`, 'g')
     const countText = html.match(reDependents)?.[0].replace(/[^\d]/g, '')
     const count = Number(countText)

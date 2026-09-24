@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { version as v, versionColor, versionCompare } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -65,7 +65,7 @@ const getVersion = (packageMeta, channel) => {
 
 async function handler ({ topic, vendor, pkg, channel = 'latest' }: PathArgs) {
   const endpoint = `https://packagist.org/packages/${vendor}/${pkg}.json`
-  const { package: packageMeta } = await got(endpoint).json<any>()
+  const { package: packageMeta } = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'v':

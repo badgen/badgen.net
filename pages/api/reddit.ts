@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const BRAND_COLOR = 'FF4500'
 
-const client = got.extend({ prefixUrl: 'https://www.reddit.com' })
+const requestOptions = { baseUrl: 'https://www.reddit.com' }
 
 export default createBadgenHandler({
   title: 'Reddit',
@@ -24,7 +24,7 @@ export default createBadgenHandler({
 
 async function karmaHandler ({ topic, user }: PathArgs) {
   // https://www.reddit.com/dev/api/#GET_user_{username}_about
-  const { data } = await client.get(`user/${user}/about.json`).json<any>()
+  const { data } = await requestJson<any>(`user/${user}/about.json`, requestOptions)
 
   switch (topic) {
     case 'karma':
@@ -57,7 +57,7 @@ async function karmaHandler ({ topic, user }: PathArgs) {
 async function subscribersHandler ({ subreddit }: PathArgs) {
   subreddit = `r/${subreddit}`
   // https://www.reddit.com/dev/api/#GET_r_{subreddit}_about
-  const { data } = await client.get(`${subreddit}/about.json`).json<any>()
+  const { data } = await requestJson<any>(`${subreddit}/about.json`, requestOptions)
   return {
     subject: subreddit,
     status: `${millify(data.subscribers)} subscribers`,

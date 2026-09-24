@@ -1,6 +1,5 @@
 import millify from 'millify'
-import { HTTPError } from 'got'
-import got from '../../libs/got'
+import { HTTPError, requestJson } from '../../libs/http'
 import { getDockerAuthToken, getManifestList, getImageManifest, getImageConfig } from '../../libs/docker'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -55,7 +54,7 @@ async function starPullHandler ({ topic, scope, name }: PathArgs) {
 
    
   const endpoint = `https://hub.docker.com/v2/repositories/${scope}/${name}`
-  const { pull_count, star_count } = await got(endpoint).json<any>()
+  const { pull_count, star_count } = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'stars':
@@ -85,8 +84,8 @@ async function sizeHandler ({ scope, name, tag, architecture, variant }: PathArg
   variant = variant ? variant : ''
    
   const endpoint = `https://hub.docker.com/v2/namespaces/${encodeURIComponent(scope)}/repositories/${encodeURIComponent(name)}/tags/${encodeURIComponent(tag)}`
-  const tagData = await got.get(endpoint).json<any>().catch(error => {
-    if (error instanceof HTTPError && error.response.statusCode === 404) return undefined
+  const tagData = await requestJson<any>(endpoint).catch(error => {
+    if (error instanceof HTTPError && error.status === 404) return undefined
     throw error
   })
 

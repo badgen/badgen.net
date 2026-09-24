@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
@@ -13,12 +13,12 @@ export default createBadgenHandler({
 
 async function handler ({ topic, username }: PathArgs) {
   const endpoint = `https://keybase.io/_/api/1.0/user/lookup.json`
-  const body = await got(endpoint, {
+  const body = await requestJson<any>(endpoint, {
     searchParams: {
       usernames: username,
       fields: 'public_keys'
     }
-  }).json<any>()
+  })
 
   const fingerprint = body.them[0].public_keys.primary.key_fingerprint
 
