@@ -73,11 +73,17 @@ Run lint and the local regression suite without external services:
 
 PR CI runs lint, tests, and a production build.
 
-For E2E smoke tests, start the server and specify its URL:
+For core E2E tests, start the server with its KV connection configured and specify its URL:
 
     BASE_URL=http://localhost:3000 npm run test:e2e
 
-These tests include email badges and contact upstream services for live badges. Set `BASE_URL` to a deployment URL to check that deployment. The memo write test is skipped unless `MEMO_BADGE_TOKEN` is set; providing it updates the target's `deployed` badge. Deployment CI supplies its existing token for that check.
+These tests verify static and email badges plus a memo PUT → GET round trip, without contacting third-party badge APIs. The server needs `KV_REST_API_URL` and `KV_REST_API_TOKEN`; the test client generates its own memo token. Each run creates one unique `e2e-` key that expires after 32 days and verifies its contents on the first read to avoid stale cached data. Missing KV configuration fails the test rather than skipping it. The tests do not update the `deployed` badge.
+
+Deployment CI runs this core suite. Set `BASE_URL` to a deployment URL to check that deployment. To check live VS Marketplace and Codeberg integrations separately, run:
+
+    BASE_URL=http://localhost:3000 npm run test:smoke
+
+The external smoke suite is opt-in because upstream outages and rate limits can cause failures independently of application changes. Both suites have a 15-second timeout per HTTP request.
 
 ### Add Live Badge
 
