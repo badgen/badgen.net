@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const HOMEBREW_API_URL = 'https://formulae.brew.sh/api/'
 
-const client = got.extend({ prefixUrl: HOMEBREW_API_URL })
+const requestOptions = { baseUrl: HOMEBREW_API_URL }
 
 export default createBadgenHandler({
   title: 'Homebrew',
@@ -29,7 +29,7 @@ async function handler ({ type = 'formula', topic, pkg }: PathArgs) {
     analytics,
     versions,
     version:ver = versions.stable
-  } = await client.get(`${type}/${pkg}.json`).json<any>()
+  } = await requestJson<any>(`${type}/${pkg}.json`, requestOptions)
 
   switch (topic) {
     case 'v':

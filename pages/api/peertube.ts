@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -23,11 +23,11 @@ export default createBadgenHandler({
 })
 
 async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) {
-  const client = createClient(instance)
+  const requestOptions = getRequestOptions(instance)
 
   switch (topic) {
     case 'comments': {
-      const { total } = await client.get(`videos/${videoUUID}/comment-threads`).json<any>()
+      const { total } = await requestJson<any>(`videos/${videoUUID}/comment-threads`, requestOptions)
       return {
         subject: 'comments',
         status: millify(total),
@@ -35,7 +35,7 @@ async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) 
       }
     }
     case 'views': {
-      const { views } = await client.get(`videos/${videoUUID}`).json<any>()
+      const { views } = await requestJson<any>(`videos/${videoUUID}`, requestOptions)
       return {
         subject: 'views',
         status: millify(views),
@@ -52,9 +52,9 @@ async function handler ({ instance, topic, 'video-uuid': videoUUID }: PathArgs) 
 }
 
 async function votesHandler ({ instance, 'video-uuid': videoUUID, format }: PathArgs) {
-  const client = createClient(instance)
+  const requestOptions = getRequestOptions(instance)
   console.log(33)
-  const { likes, dislikes } = await client.get(`videos/${videoUUID}`).json<any>()
+  const { likes, dislikes } = await requestJson<any>(`videos/${videoUUID}`, requestOptions)
   console.log(44)
 
   switch (format) {
@@ -81,10 +81,10 @@ async function votesHandler ({ instance, 'video-uuid': videoUUID, format }: Path
 }
 
 async function followersHandler ({ instance, account, channel }: PathArgs) {
-  const client = createClient(instance)
+  const requestOptions = getRequestOptions(instance)
 
   if (channel) {
-    const { followersCount } = await client.get(`video-channels/${channel}`).json<any>()
+    const { followersCount } = await requestJson<any>(`video-channels/${channel}`, requestOptions)
     return {
       subject: 'followers',
       status: millify(followersCount),
@@ -92,7 +92,7 @@ async function followersHandler ({ instance, account, channel }: PathArgs) {
     }
   }
 
-  const { followersCount } = await client.get(`accounts/${account}`).json<any>()
+  const { followersCount } = await requestJson<any>(`accounts/${account}`, requestOptions)
   return {
     subject: 'followers',
     status: millify(followersCount),
@@ -101,7 +101,7 @@ async function followersHandler ({ instance, account, channel }: PathArgs) {
 }
 
 
-function createClient (instance: string) {
-  const prefixUrl = `https://${instance}/api/v1`
-  return got.extend({ prefixUrl })
+function getRequestOptions (instance: string) {
+  const baseUrl = `https://${instance}/api/v1`
+  return { baseUrl }
 }

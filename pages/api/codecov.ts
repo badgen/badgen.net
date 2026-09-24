@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { coverage, coverageColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -20,7 +20,7 @@ export default createBadgenHandler({
 
 async function handler ({ vcs, owner, repo, branch }: PathArgs) {
   const endpoint = `https://api.codecov.io/api/v2/${vcs}/${owner}/repos/${repo}${branch ? `/branches/${branch}` : ``}?format=json`
-  const data = await got(endpoint).json<any>()
+  const data = await requestJson<any>(endpoint)
 
   const totals = branch ? data.head_commit?.totals : data.totals
 

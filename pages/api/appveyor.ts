@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 export default createBadgenHandler({
@@ -15,7 +15,7 @@ export default createBadgenHandler({
 async function handler ({ account, project, branch }: PathArgs) {
   branch = branch ? `/branch/${branch}` : ''
   const endpoint = `https://ci.appveyor.com/api/projects/${account}/${project}${branch}`
-  const { build } = await got(endpoint).json<any>()
+  const { build } = await requestJson<any>(endpoint)
 
   return {
     subject: 'appveyor',

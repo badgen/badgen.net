@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestText } from '../../libs/http'
 import { version as versionName, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -29,7 +29,7 @@ async function mavenRepoHandler ({ repo, group, artifact }: PathArgs) {
     jcenter: JCENTER_REPO_URL
   }[repo] || MAVEN_CENTRAL_REPO_URL
 
-  const xml = await got(endpoint, { prefixUrl: repoUrl }).text()
+  const xml = await requestText(endpoint, { baseUrl: repoUrl })
   const version = xml.match(/<latest>([^<]+)<\//i)?.[1].trim() ?? 'unknown'
   return {
     subject: repo,
@@ -40,7 +40,7 @@ async function mavenRepoHandler ({ repo, group, artifact }: PathArgs) {
 
 async function mavenUrlHandler ({ protocol = 'https:', hostname, pathname }: PathArgs) {
   const url = protocol.replace(/:?$/, `://${hostname}/${pathname}`)
-  const xml = await got(url).text()
+  const xml = await requestText(url)
   const version = xml.match(/<latest>([^<]+)<\//i)?.[1].trim() ?? 'unknown'
   return {
     subject: 'maven',

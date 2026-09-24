@@ -1,5 +1,5 @@
 import millify from 'millify'
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -19,7 +19,7 @@ export default createBadgenHandler({
 
 async function handler ({ topic, pkg }: PathArgs) {
   const endpoint = `https://api.pulsar-edit.dev/api/packages/${pkg}`
-  const data = await got(endpoint).json<any>()
+  const data = await requestJson<any>(endpoint)
 
   switch (topic) {
     case 'v': {

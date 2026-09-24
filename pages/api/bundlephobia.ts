@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { size } from '../../libs/utils'
 
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
@@ -23,7 +23,7 @@ export default createBadgenHandler({
 async function handler ({ topic, scope, name }: PathArgs) {
   const pkg = scope ? `${scope}/${name}` : name
   const endpoint = `https://bundlephobia.com/api/size?package=${pkg}`
-  const resp = await got(endpoint).json<any>()
+  const resp = await requestJson<any>(endpoint)
 
   if (!resp) {
     return {

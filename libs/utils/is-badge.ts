@@ -1,4 +1,4 @@
-export default (resp: import('got').Response) => {
-  const contentType = resp.headers['content-type'] || ''
+export default (resp: Response) => {
+  const contentType = resp.headers.get('content-type') || ''
   return contentType.includes('image/svg+xml')
 }

@@ -1,5 +1,5 @@
-import { Got } from 'got'
-import got from '../../libs/got'
+import type { RequestOptions } from '../../libs/http'
+import { requestJson } from '../../libs/http'
 import { millify } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -43,26 +43,26 @@ async function handler ({ room, server = 'matrix.org' }: PathArgs) {
 
 async function fetchMembersCount(roomName: string, server: string) {
   const homeserver = await getHomeserver(server)
-  const client = got.extend({ prefixUrl: `${homeserver}/_matrix/client/r0` })
+  const requestOptions = { baseUrl: `${homeserver}/_matrix/client/r0` }
   const roomAlias = `#${roomName}:${server}`
-  const room = await findPublicRoom(client, roomAlias)
+  const room = await findPublicRoom(requestOptions, roomAlias)
   return room?.num_joined_members
 }
 
 // https://matrix.org/docs/spec/client_server/latest#get-well-known-matrix-client
 async function getHomeserver(server: string) {
   const endpoint = `https://${server}/.well-known/matrix/client`
-  const { 'm.homeserver': homeserver } = await got(endpoint).json<any>()
+  const { 'm.homeserver': homeserver } = await requestJson<any>(endpoint)
   return homeserver?.base_url
 }
 
 // https://matrix.org/docs/spec/client_server/latest#get-matrix-client-r0-publicrooms
-async function findPublicRoom(client: Got, roomAlias: string) {
-  const roomId = await getRoomId(client, roomAlias)
+async function findPublicRoom(requestOptions: RequestOptions, roomAlias: string) {
+  const roomId = await getRoomId(requestOptions, roomAlias)
   const searchParams = new URLSearchParams({ limit: '500' })
    
   while (true) {
-    const { chunk, next_batch } = await client.get('publicRooms', { searchParams }).json<any>()
+    const { chunk, next_batch } = await requestJson<any>('publicRooms', { ...requestOptions, searchParams })
     const room = chunk.find(it => it.room_id === roomId)
     if (room) return room
     if (!next_batch) return
@@ -71,8 +71,8 @@ async function findPublicRoom(client: Got, roomAlias: string) {
 }
 
 // https://matrix.org/docs/spec/client_server/latest#get-matrix-client-r0-directory-room-roomalias
-async function getRoomId(client: Got, roomAlias: string) {
+async function getRoomId(requestOptions: RequestOptions, roomAlias: string) {
   const endpoint = `directory/room/${encodeURIComponent(roomAlias)}`
-  const { room_id } = await client.get(endpoint).json<any>()
+  const { room_id } = await requestJson<any>(endpoint, requestOptions)
   return room_id
 }

@@ -23,7 +23,6 @@
     "badgen-icons": "^0.23.0",
     "byte-size": "^9.0.1",
     "date-fns": "^4.4.0",
-    "got": "^16.0.0",
     "haxe-rpc-client": "^1.0.0",
     "humanize-duration": "^3.34.1",
     "millify": "^6.1.0",

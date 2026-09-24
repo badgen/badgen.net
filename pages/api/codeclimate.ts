@@ -1,4 +1,3 @@
-import got from '../../libs/got'
 import { coverage as cov, scale } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 import type { BadgenParams } from '../../libs/types'

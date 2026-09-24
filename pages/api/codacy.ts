@@ -1,10 +1,10 @@
-import got from '../../libs/got'
+import { request } from '../../libs/http'
 import { isBadge, coverage as cov, coverageColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const CODACY_API_URL = 'https://api.codacy.com/'
 
-const client = got.extend({ prefixUrl: CODACY_API_URL })
+const requestOptions = { baseUrl: CODACY_API_URL }
 
 export default createBadgenHandler({
   title: 'Codacy',
@@ -38,8 +38,9 @@ async function handler ({ type, projectId, branch }: PathArgs) {
   const searchParams = new URLSearchParams()
   if (branch) searchParams.set('branch', branch)
   const endpoint = `project/badge/${type}/${projectId}`
-  const resp = await client.get(endpoint, { searchParams })
-  const params = isBadge(resp) && parseBadge(resp.body, type)
+  const resp = await request(endpoint, { ...requestOptions, searchParams })
+  const body = await resp.text()
+  const params = isBadge(resp) && parseBadge(body, type)
   return params || {
     subject: 'codacy',
     status: 'unknown',

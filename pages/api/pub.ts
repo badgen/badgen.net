@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { request, requestJson } from '../../libs/http'
 import { millify, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, BadgenError, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -29,12 +29,12 @@ export default createBadgenHandler({
 
 async function apiHandler ({ topic, pkg }: PathArgs) {
   const headers = { accept: 'application/vnd.pub.v2+json' }
-  const client = got.extend({ prefixUrl:  PUB_API_URL, headers })
+  const requestOptions = { baseUrl:  PUB_API_URL, headers }
 
   switch (topic) {
     case 'v':
     case 'version': {
-      const { latest: info } = await client.get(`packages/${pkg}`).json<any>()
+      const { latest: info } = await requestJson<any>(`packages/${pkg}`, requestOptions)
       return {
         subject: 'pub',
         status: version(info.version),
@@ -42,7 +42,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'sdk-version':
-      const { latest: info } = await client.get(`packages/${pkg}`).json<any>()
+      const { latest: info } = await requestJson<any>(`packages/${pkg}`, requestOptions)
       const sdkVersion = info.pubspec?.environment?.sdk || 'unknown'
       return {
         subject: 'dart sdk',
@@ -50,7 +50,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
         color: versionColor(sdkVersion)
       }
     case 'likes': {
-      const { likeCount } = await client.get(`packages/${pkg}/score`).json<any>()
+      const { likeCount } = await requestJson<any>(`packages/${pkg}/score`, requestOptions)
       return {
         subject: 'likes',
         status: millify(likeCount),
@@ -61,7 +61,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       const {
         grantedPoints,
         maxPoints
-      } = await client.get(`packages/${pkg}/score`).json<any>()
+      } = await requestJson<any>(`packages/${pkg}/score`, requestOptions)
       return {
         subject: 'points',
         status: `${grantedPoints}/${maxPoints}`,
@@ -69,7 +69,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'popularity': {
-      const { popularityScore } = await client.get(`packages/${pkg}/score`).json<any>()
+      const { popularityScore } = await requestJson<any>(`packages/${pkg}/score`, requestOptions)
       const percentage = popularityScore * 100
       return {
         subject: 'popularity',
@@ -78,7 +78,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dm': {
-      const { downloadCount30Days } = await client.get(`packages/${pkg}/score`).json<any>()
+      const { downloadCount30Days } = await requestJson<any>(`packages/${pkg}/score`, requestOptions)
       return {
         subject: 'downloads',
         status: millify(downloadCount30Days) + '/month',
@@ -86,7 +86,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dart-platform': {
-      const { scorecard: pubScores } = await client.get(`packages/${pkg}/metrics`).json<any>()
+      const { scorecard: pubScores } = await requestJson<any>(`packages/${pkg}/metrics`, requestOptions)
       const sdk = parseTags(pubScores.panaReport.derivedTags, 'sdk').join(' | ')
       return {
         subject: 'dart',
@@ -95,7 +95,7 @@ async function apiHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'flutter-platform': {
-      const { scorecard: pubScores } = await client.get(`packages/${pkg}/metrics`).json<any>()
+      const { scorecard: pubScores } = await requestJson<any>(`packages/${pkg}/metrics`, requestOptions)
       const platforms = parseTags(pubScores.panaReport.derivedTags, 'platform').join(' | ')
       return {
         subject: 'flutter',
@@ -134,9 +134,10 @@ function parseTags(tags, group)  {
 }
 
 async function fetchPage(pkg: string) {
-  const resp = await got(`packages/${pkg}`, { followRedirect: false, prefixUrl: PUB_REPO_URL })
-  if (resp.headers.location) {
+  const resp = await request(`packages/${pkg}`, { redirect: 'manual', baseUrl: PUB_REPO_URL })
+  if (resp.headers.get('location')) {
+    await resp.body?.cancel()
     throw new BadgenError({ status: 404 })
   }
-  return resp.body
+  return resp.text()
 }

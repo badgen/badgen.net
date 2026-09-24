@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const help = `
@@ -80,5 +80,5 @@ async function handler ({ 'endpoint-id': id, owner, notebook, path = '' }: PathA
   const endpoint = id
     ? `https://${id}.runkit.sh/${path}`
     : `https://runkit.io/${owner}/${notebook}/branches/master/${path}`
-  return await got(endpoint).json<any>()
+  return await requestJson<any>(endpoint)
 }

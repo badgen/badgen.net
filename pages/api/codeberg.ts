@@ -58,7 +58,7 @@ async function handler({ topic, owner, repo, ref }: PathArgs) {
       const res = await restCodeberg(`repos/${owner}/${repo}/issues?state=closed&type=issues&limit=1`, true)
       return {
         subject: 'closed issues',
-        status: millify(parseInt(res.headers['x-total-count'] || '0')),
+        status: millify(parseInt(res.headers.get('x-total-count') || '0')),
         color: 'blue'
       }
     }
@@ -66,7 +66,7 @@ async function handler({ topic, owner, repo, ref }: PathArgs) {
       const res = await restCodeberg(`repos/${owner}/${repo}/pulls?state=all&limit=1`, true)
       return {
         subject: 'PRs',
-        status: millify(parseInt(res.headers['x-total-count'] || '0')),
+        status: millify(parseInt(res.headers.get('x-total-count') || '0')),
         color: 'blue'
       }
     }
@@ -74,7 +74,7 @@ async function handler({ topic, owner, repo, ref }: PathArgs) {
       const res = await restCodeberg(`repos/${owner}/${repo}/pulls?state=open&limit=1`, true)
       return {
         subject: 'open PRs',
-        status: millify(parseInt(res.headers['x-total-count'] || '0')),
+        status: millify(parseInt(res.headers.get('x-total-count') || '0')),
         color: 'blue'
       }
     }
@@ -82,7 +82,7 @@ async function handler({ topic, owner, repo, ref }: PathArgs) {
       const res = await restCodeberg(`repos/${owner}/${repo}/pulls?state=closed&limit=1`, true)
       return {
         subject: 'closed PRs',
-        status: millify(parseInt(res.headers['x-total-count'] || '0')),
+        status: millify(parseInt(res.headers.get('x-total-count') || '0')),
         color: 'blue'
       }
     }
@@ -90,7 +90,7 @@ async function handler({ topic, owner, repo, ref }: PathArgs) {
       const res = await restCodeberg(`repos/${owner}/${repo}/releases?limit=1`, true)
       return {
         subject: 'releases',
-        status: millify(parseInt(res.headers['x-total-count'] || '0')),
+        status: millify(parseInt(res.headers.get('x-total-count') || '0')),
         color: 'blue'
       }
     }
@@ -107,7 +107,7 @@ async function handler({ topic, owner, repo, ref }: PathArgs) {
       const res = await restCodeberg(`repos/${owner}/${repo}/tags?limit=1`, true)
       return {
         subject: 'tags',
-        status: millify(parseInt(res.headers['x-total-count'] || '0')),
+        status: millify(parseInt(res.headers.get('x-total-count') || '0')),
         color: 'blue'
       }
     }
@@ -115,7 +115,7 @@ async function handler({ topic, owner, repo, ref }: PathArgs) {
       const res = await restCodeberg(`repos/${owner}/${repo}/commits?limit=1${ref ? `&sha=${ref}` : ''}`, true)
       return {
         subject: 'commits',
-        status: millify(parseInt(res.headers['x-total-count'] || '0')),
+        status: millify(parseInt(res.headers.get('x-total-count') || '0')),
         color: 'blue'
       }
     }

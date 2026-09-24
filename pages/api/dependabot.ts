@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const help = `
@@ -60,7 +60,7 @@ async function handler ({ owner, repo, identifier }: PathArgs) {
   if (identifier) {
     endpoint += `&identifier=${identifier}`
   }
-  const { status, colour } = await got(endpoint).json<any>()
+  const { status, colour } = await requestJson<any>(endpoint)
 
   return {
     subject: 'Dependabot',

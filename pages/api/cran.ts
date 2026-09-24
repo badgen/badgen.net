@@ -1,4 +1,4 @@
-import got from '../../libs/got'
+import { requestJson } from '../../libs/http'
 import { millify, version, versionColor } from '../../libs/utils'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
@@ -24,12 +24,12 @@ export default createBadgenHandler({
 })
 
 async function cranHandler ({ topic, pkg }: PathArgs) {
-  const client = got.extend({ prefixUrl: CRAN_API_URL })
+  const requestOptions = { baseUrl: CRAN_API_URL }
 
   switch (topic) {
     case 'v':
     case 'version': {
-      const data = await client.get(pkg).json<any>()
+      const data = await requestJson<any>(pkg, requestOptions)
       return {
         subject: 'cran',
         status: version(data.Version),
@@ -37,7 +37,7 @@ async function cranHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'license': {
-      const data = await client.get(pkg).json<any>()
+      const data = await requestJson<any>(pkg, requestOptions)
       const license = data.License?.replace(/\s*\S\s+file\s+LICEN[CS]E$/i, '')
       return {
         subject: 'license',
@@ -46,7 +46,7 @@ async function cranHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'r': {
-      const data = await client.get(pkg).json<any>()
+      const data = await requestJson<any>(pkg, requestOptions)
       const rVersion = data.Depends?.R?.replace(/([<>=]+)\s+/g, '$1') || '*'
       return {
         subject: 'R',
@@ -55,7 +55,7 @@ async function cranHandler ({ topic, pkg }: PathArgs) {
       }
     }
     case 'dependents': {
-      const data = await client.get(`/-/revdeps/${pkg}`).json<any>()
+      const data = await requestJson<any>(`/-/revdeps/${pkg}`, requestOptions)
       const dependents = Object.keys(data[pkg].Depends).length
       return {
         subject: 'dependents',
@@ -116,12 +116,12 @@ async function cranlogsHandler ({ topic, pkg }: PathArgs) {
 }
 
 async function fetchDownloads (pkg: string, period: string) {
-  const client = got.extend({ prefixUrl: CRANLOGS_API_URL })
+  const requestOptions = { baseUrl: CRANLOGS_API_URL }
   if (period === 'total') {
     const [start] = new Date(0).toISOString().split('T')
     const end = 'last-day'
     period = [start, end].join(':')
   }
-  const [stats] = await client.get(`downloads/total/${period}/${pkg}`).json() as any
+  const [stats] = await requestJson(`downloads/total/${period}/${pkg}`, requestOptions) as any
   return stats.downloads
 }

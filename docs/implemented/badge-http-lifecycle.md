@@ -54,8 +54,8 @@ owns failure status and cache policy; a failure render uses safe rendering
 inputs so invalid query customization cannot break the fallback a second time.
 Rendering should not require mutating the incoming request query.
 
-`fetch-icon.ts` uses `libs/got.ts` with a binary response and checks the media
-type before constructing a data URL. No independent HTTP defaults are kept.
+`fetch-icon.ts` uses `libs/http.ts` and reads the native response as an
+ArrayBuffer after checking the media type. No independent HTTP defaults are kept.
 
 `serve-doc-next.ts` remains the single document renderer. Its unreachable
 fallback must not keep a second renderer alive. `/https` adopts the shared
