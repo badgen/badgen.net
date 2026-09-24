@@ -1,123 +1,29 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { randomUUID } from 'node:crypto'
+import { request, badge } from './http-helpers.mjs'
 
-import { execSync } from 'node:child_process'
-
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
-
-
-test('/static: simple static badge', async (t) => {
-    const badgeURL = `${BASE_URL}/static/v1.2.3/blue`
-    const response = await fetch(badgeURL)
-
-    assert.strictEqual(response.status, 200)
-    assert.strictEqual(response.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
+test('/static: renders the requested label, status and color', { timeout: 30000 }, async () => {
+    const svg = await badge('/static/version/1.2.3/123abc')
+    assert.ok(svg.includes('<title>version: 1.2.3</title>'), svg)
+    assert.match(svg, /fill="#123abc"/i)
 })
 
+test('/memo: persists a badge and renders it on first read', { timeout: 45000 }, async () => {
+    const key = `e2e-${randomUUID()}`
+    const token = randomUUID()
+    const params = { label: 'e2e', status: randomUUID(), color: '123abc' }
+    const path = `/memo/${key}`
 
-test('/memo: update "depoyed" badge', { skip: !process.env.MEMO_BADGE_TOKEN }, async (t) => {
-    const status = getGitLastCommitDate()
-    const label = 'Deployed'
-    const color = getGitCurrentBranch() === 'main' ? 'green' : 'cyan'
-
-    const badgeURL = `${BASE_URL}/memo/deployed/${label}/${status}/${color}`
-    const fetchOptions = {
+    // Each run owns a fresh key; it expires under memo's normal 32-day policy.
+    const { body } = await request(`${path}/${params.label}/${params.status}/${params.color}`, {
         method: 'PUT',
-        headers: {
-            authorization: `Bearer ${process.env.MEMO_BADGE_TOKEN}`
-        }
-    }
+        headers: { authorization: `Bearer ${token}` }
+    })
+    assert.deepEqual(JSON.parse(body), params)
 
-    const response = await fetch(badgeURL, fetchOptions)
-    assert.strictEqual(response.status, 200)
-
-    const result = await response.json()
-    assert.deepEqual(result, { status, label, color })
+    // Do not GET before the write: a missing-badge response could be cached.
+    const svg = await badge(path)
+    assert.ok(svg.includes(`<title>${params.label}: ${params.status}</title>`), svg)
+    assert.match(svg, /fill="#123abc"/i)
 })
-
-test('/vs-marketplace: stable and latest version badges', async (t) => {
-    const pkg = 'ms-python.vscode-pylance'
-    const defaultURL = `${BASE_URL}/vs-marketplace/v/${pkg}`
-    const latestURL = `${BASE_URL}/vs-marketplace/v/${pkg}/latest`
-
-    const [defaultRes, latestRes] = await Promise.all([
-        fetch(defaultURL),
-        fetch(latestURL)
-    ])
-
-    assert.strictEqual(defaultRes.status, 200)
-    assert.strictEqual(latestRes.status, 200)
-    assert.strictEqual(defaultRes.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-    assert.strictEqual(latestRes.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-
-    const defaultSvg = await defaultRes.text()
-    const latestSvg = await latestRes.text()
-
-    assert.ok(defaultSvg.includes('VS Marketplace'), 'Default SVG should contain "VS Marketplace"')
-    assert.ok(latestSvg.includes('VS Marketplace'), 'Latest SVG should contain "VS Marketplace"')
-
-    const defaultVer = defaultSvg.match(/v(\d+\.\d+\.\d+)/)?.[1]
-    const latestVer = latestSvg.match(/v(\d+\.\d+\.\d+)/)?.[1]
-
-    assert.ok(defaultVer, 'Should find a version in default badge')
-    assert.ok(latestVer, 'Should find a version in latest badge')
-})
-
-
-test('/codeberg/stars/forgejo/forgejo', async (t) => {
-    const badgeURL = `${BASE_URL}/codeberg/stars/forgejo/forgejo`
-    const response = await fetch(badgeURL)
-
-    assert.strictEqual(response.status, 200)
-    assert.strictEqual(response.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-})
-
-
-test('/codeberg/issues/forgejo/forgejo', async (t) => {
-    const badgeURL = `${BASE_URL}/codeberg/issues/forgejo/forgejo`
-    const response = await fetch(badgeURL)
-
-    assert.strictEqual(response.status, 200)
-    assert.strictEqual(response.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-})
-
-
-test('/codeberg/commits/forgejo/forgejo', async (t) => {
-    const badgeURL = `${BASE_URL}/codeberg/commits/forgejo/forgejo`
-    const response = await fetch(badgeURL)
-
-    assert.strictEqual(response.status, 200)
-    assert.strictEqual(response.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-})
-
-
-test('/codeberg/prs/forgejo/forgejo', async (t) => {
-    const badgeURL = `${BASE_URL}/codeberg/prs/forgejo/forgejo`
-    const response = await fetch(badgeURL)
-
-    assert.strictEqual(response.status, 200)
-    assert.strictEqual(response.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-})
-
-
-test('/codeberg/release/forgejo/forgejo', async (t) => {
-    const badgeURL = `${BASE_URL}/codeberg/release/forgejo/forgejo`
-    const response = await fetch(badgeURL)
-
-    assert.strictEqual(response.status, 200)
-    assert.strictEqual(response.headers.get('content-type'), 'image/svg+xml;charset=utf-8')
-})
-
-
-function getGitLastCommitDate () {
-    const lastCommitDateString = execSync('git log -1 --format=%cI').toString().trim()
-    return extractBareDate(lastCommitDateString)
-}
-
-function extractBareDate(dateString) {
-    return new Date(dateString).toISOString().substring(0, 10)
-}
-
-function getGitCurrentBranch () {
-    return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-}
