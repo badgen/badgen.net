@@ -87,3 +87,97 @@ test('Docker size reads only its target tag and preserves image selection and up
     }
   })
 })
+
+test('Docker layers and metadata share registry traversal without changing selection or errors', async t => {
+  const requests: Array<{ path: string, authorization?: string, accept?: string }> = []
+  let failure = ''
+  let missingHistory = false
+  const upstream = createServer((req, res) => {
+    const url = new URL(req.url!, 'http://localhost')
+    requests.push({ path: url.pathname, authorization: req.headers.authorization, accept: req.headers.accept })
+    res.setHeader('Content-Type', 'application/json')
+    if (failure === url.pathname) {
+      res.statusCode = 503
+      res.end('{}')
+      return
+    }
+    const bodies = {
+      '/token': { token: 'image-token' },
+      '/v2/library/node/manifests/latest': { manifests: [
+        { platform: { architecture: 'amd64' }, digest: 'amd' },
+        { platform: { architecture: 'arm', variant: 'v6' }, digest: 'arm6' },
+        { platform: { architecture: 'arm', variant: 'v7' }, digest: 'arm7' }
+      ] },
+      '/v2/library/node/manifests/amd': { config: { digest: 'config' } },
+      '/v2/library/node/manifests/arm7': { config: { digest: 'config' } },
+      '/v2/library/node/blobs/config': {
+        history: missingHistory ? undefined : [{}, {}, {}],
+        container_config: { Labels: {
+          'org.label-schema.version': 'legacy',
+          'org.opencontainers.image.version': 'modern',
+          'org.opencontainers.image.title': 'Node'
+        } }
+      }
+    }
+    if (url.pathname === '/token') {
+      assert.equal(url.searchParams.get('service'), 'registry.docker.io')
+      assert.equal(url.searchParams.get('scope'), 'repository:library/node:pull')
+    }
+    res.end(JSON.stringify(bodies[url.pathname] || {}))
+  })
+  upstream.listen(0, '127.0.0.1')
+  await once(upstream, 'listening')
+  const endpoint = `http://127.0.0.1:${(upstream.address() as { port: number }).port}/`
+  const previous = [process.env.DOCKER_AUTHENTICATION_API, process.env.DOCKER_REGISTRY_API]
+  process.env.DOCKER_AUTHENTICATION_API = endpoint
+  process.env.DOCKER_REGISTRY_API = endpoint
+  t.after(() => {
+    for (const [i, key] of ['DOCKER_AUTHENTICATION_API', 'DOCKER_REGISTRY_API'].entries()) {
+      if (previous[i] === undefined) delete process.env[key]
+      else process.env[key] = previous[i]
+    }
+    upstream.closeAllConnections()
+    upstream.close()
+  })
+  t.mock.method(console, 'error', () => {})
+
+  async function badge(path: string, label: string, code = 200) {
+    requests.length = 0
+    const res = response()
+    await docker({ url: `/docker/${path}`, query: {}, method: 'GET', headers: { host: 'badgen.net' } } as NextApiRequest, res)
+    assert.equal(res.statusCode, code, res.body)
+    assert.ok(res.body.includes(`aria-label="${label}"`), res.body)
+    return res
+  }
+
+  await badge('layers/library/node', 'docker layers: 3')
+  assert.deepEqual(requests.map(r => r.path), [
+    '/token', '/v2/library/node/manifests/latest', '/v2/library/node/manifests/amd', '/v2/library/node/blobs/config'
+  ])
+  assert.ok(requests.slice(1).every(r => r.authorization === 'Bearer image-token'))
+  assert.equal(requests[1].accept, 'application/vnd.docker.distribution.manifest.list.v2+json')
+  assert.equal(requests[2].accept, requests[1].accept)
+  assert.equal(requests[3].accept, 'application/vnd.docker.image.config+json')
+
+  await badge('metadata/version/library/node/latest/arm/v7', 'version: legacy')
+  assert.equal(requests[2].path, '/v2/library/node/manifests/arm7')
+  await badge('metadata/title/library/node', 'title: Node')
+  await badge('metadata/missing/library/node', 'docker metadata: error getting missing')
+  missingHistory = true
+  await badge('layers/library/node', 'docker layers: error getting layers')
+  missingHistory = false
+
+  for (const [suffix, status] of [
+    ['missing', 'unknown tag'], ['latest/other', 'unknown architecture'], ['latest/arm/v8', 'unknown variant']
+  ]) {
+    await badge(`layers/library/node/${suffix}`, `docker: ${status}`, 500)
+    assert.equal(requests.length, 2)
+  }
+  const stages = ['/token', '/v2/library/node/manifests/latest', '/v2/library/node/manifests/amd', '/v2/library/node/blobs/config']
+  for (const [index, stage] of stages.entries()) {
+    failure = stage
+    const res = await badge('layers/library/node', 'docker: 503', 502)
+    assert.equal(requests.length, index + 1)
+    assert.equal(res.getHeader('Cache-Control'), 'public, max-age=5, s-maxage=5')
+  }
+})

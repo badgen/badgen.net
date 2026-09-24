@@ -1,6 +1,6 @@
 import millify from 'millify'
 import { HTTPError, requestJson } from '../../libs/http'
-import { getDockerAuthToken, getManifestList, getImageManifest, getImageConfig } from '../../libs/docker'
+import { loadDockerImageConfig } from '../../libs/docker'
 import { createBadgenHandler, PathArgs } from '../../libs/create-badgen-handler-next'
 
 const help = `## Usage
@@ -129,17 +129,7 @@ async function sizeHandler ({ scope, name, tag, architecture, variant }: PathArg
 }
 
 async function layersHandler ({ scope, name, tag, architecture, variant }: PathArgs) {
-  tag = tag ? tag : 'latest'
-  architecture = architecture ? architecture : 'amd64'
-  variant = variant ? variant : ''
-
-  const token = (await getDockerAuthToken(scope, name)).token
-
-  const manifest_list = await getManifestList(scope, name, tag, architecture, variant, token)
-
-  const image_manifest = await getImageManifest(scope, name, manifest_list.digest, token)
-
-  const image_config = await getImageConfig(scope, name, image_manifest.config.digest, token)
+  const image_config = await loadDockerImageConfig(scope, name, tag, architecture, variant)
 
   const layers = image_config.history
   if (! layers) {
@@ -158,17 +148,7 @@ async function layersHandler ({ scope, name, tag, architecture, variant }: PathA
 }
 
 async function metadataHandler ({ type, scope, name, tag, architecture, variant }: PathArgs) {
-  tag = tag ? tag : 'latest'
-  architecture = architecture ? architecture : 'amd64'
-  variant = variant ? variant : ''
-
-  const token = (await getDockerAuthToken(scope, name)).token
-
-  const manifest_list = await getManifestList(scope, name, tag, architecture, variant, token)
-
-  const image_manifest = await getImageManifest(scope, name, manifest_list.digest, token)
-
-  const image_config = await getImageConfig(scope, name, image_manifest.config.digest, token)
+  const image_config = await loadDockerImageConfig(scope, name, tag, architecture, variant)
 
   const metadata = image_config.container_config.Labels[`org.label-schema.${type}`] || image_config.container_config.Labels[`org.opencontainers.image.${type}`]
   if (! metadata) {
