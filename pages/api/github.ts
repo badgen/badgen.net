@@ -293,7 +293,7 @@ const makeRepoQuery = (topic, owner, repo, restArgs) => {
     'stars': 'stargazers { totalCount }',
     'forks': 'forks { totalCount }',
     'issues': 'issues { totalCount }',
-    'open-issues': 'issues(states:[OPEN]) { totalCount }',
+    'open-issues': 'issues(first: 1, states:[OPEN]) { totalCount }',
     'closed-issues': 'issues(states:[CLOSED]) { totalCount }',
     'prs': 'pullRequests { totalCount }',
     'open-prs': 'pullRequests(states:[OPEN]) { totalCount }',
@@ -397,13 +397,6 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         status: millify(watchers_count),
         color: 'blue'
       }
-    case 'open-issues':
-      const { open_issues_count } = await meta({ owner, repo })
-      return {
-        subject: topic,
-        status: millify(open_issues_count),
-        color: 'blue'
-      }
     case 'stars':
       const { stargazers_count } = await meta({ owner, repo })
       return {
@@ -446,12 +439,12 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         status: millify(result.refs.totalCount),
         color: 'blue'
       }
-    // case 'open-issues':
-    //   return {
-    //     subject: 'open issues',
-    //     status: millify(result.issues.totalCount),
-    //     color: result.issues.totalCount === 0 ? 'green' : 'orange'
-    //   }
+    case 'open-issues':
+      return {
+        subject: 'open issues',
+        status: millify(result.issues.totalCount),
+        color: 'blue'
+      }
     case 'closed-issues':
       return {
         subject: 'closed issues',
