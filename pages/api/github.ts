@@ -391,10 +391,10 @@ async function repoStats ({topic, owner, repo, ...restArgs}: PathArgs) {
         color: 'blue'
       }
     case 'watchers':
-      const { watchers_count } = await meta({ owner, repo })
+      const { subscribers_count } = await meta({ owner, repo })
       return {
         subject: topic,
-        status: millify(watchers_count),
+        status: millify(subscribers_count),
         color: 'blue'
       }
     case 'stars':
